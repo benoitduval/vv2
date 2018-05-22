@@ -1,0 +1,146 @@
+        <div class="calendar-container">
+          <div id="calendar"></div>
+
+          <!--AddEvent Dialog -->
+          <div class="modal fade" id="addNewEvent" aria-hidden="true" aria-labelledby="addNewEvent"
+            role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-simple">
+              <form class="modal-content form-horizontal" action="#" method="post" role="form">
+                <div class="modal-header">
+                  <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+                  <h4 class="modal-title">New Event</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group row">
+                    <label class="col-md-2 form-control-label" for="ename">Name:</label>
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" id="ename" name="ename">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 form-control-label" for="starts">Starts:</label>
+                    <div class="col-md-10">
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="starts" data-container="#addNewEvent"
+                          data-plugin="datepicker">
+                        <div class="input-group-append">
+                          <span class="input-group-text">
+                            <i class="icon wb-calendar" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-md-2 form-control-label" for="ends">Ends:</label>
+                    <div class="col-md-10">
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="ends" data-container="#addNewEvent"
+                          data-plugin="datepicker">
+                        <div class="input-group-append">
+                          <span class="input-group-text">
+                            <i class="icon wb-calendar" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div class="form-actions">
+                    <button class="btn btn-primary" data-dismiss="modal" type="button">Add this event</button>
+                    <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- End AddEvent Dialog -->
+
+          <!-- Edit Dialog -->
+          <div class="modal fade" id="editNewEvent" aria-hidden="true" aria-labelledby="editNewEvent"
+            role="dialog" tabindex="-1" data-show="false">
+            <div class="modal-dialog modal-simple">
+              <form class="modal-content form-horizontal" action="#" method="post" role="form">
+                <div class="modal-header">
+                  <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+                  <h4 class="modal-title">Edit Event</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group row">
+                    <label class="col-md-2 form-control-label" for="editEname">Name:</label>
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" id="editEname" name="editEname">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 form-control-label" for="editStarts">Starts:</label>
+                    <div class="col-md-10">
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="editStarts" name="editStarts" data-container="#editNewEvent"
+                          data-plugin="datepicker">
+                        <div class="input-group-append">
+                          <span class="input-group-text">
+                            <i class="icon wb-calendar" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-md-2 form-control-label" for="editEnds">Ends:</label>
+                    <div class="col-md-10">
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="editEnds" data-container="#editNewEvent"
+                          data-plugin="datepicker">
+                        <div class="input-group-append">
+                          <span class="input-group-text">
+                            <i class="icon wb-calendar" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div class="form-actions">
+                    <button class="btn btn-primary" data-dismiss="modal" type="button">Save</button>
+                    <button class="btn btn-danger" data-dismiss="modal" type="button">Delete</button>
+                    <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- End EditEvent Dialog -->
+
+          <!--AddCalendar Dialog -->
+          <div class="modal fade" id="addNewCalendar" aria-hidden="true" aria-labelledby="addNewCalendar"
+            role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-simple">
+              <form class="modal-content form-horizontal" action="#" method="post" role="form">
+                <div class="modal-header">
+                  <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+                  <h4 class="modal-title">New Calendar</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group row">
+                    <label class="col-md-2 form-control-label" for="ename">Name:</label>
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" id="ename" name="ename">
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div class="form-actions">
+                    <button class="btn btn-primary" data-dismiss="modal" type="button">Create</button>
+                    <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- End AddCalendar Dialog -->
+        </div>

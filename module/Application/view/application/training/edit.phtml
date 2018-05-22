@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="card">
+            <?= $this->form()->openTag($form); ?>
+                <div class="card-header text-center">
+                    <h4 class="card-title"><?= $group->name ?></h4>
+                    <p class="category">Créer un entrainement</p>
+                </div>
+                <div class="card-content">
+                    <div class="tab-content">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Nom de l'entrainement<star>*</star>
+                                    </label>
+                                    <?= $this->formElement($form->get('name')); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="form-group">
+                                    <label class="control-label">Nom du gymnase<star>*</star></label>
+                                    <?= $this->formElement($form->get('place')); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="form-group">
+                                    <label class="control-label">Adresse du gymnase<star>*</star></label>
+                                    <?= $this->formElement($form->get('address')); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 col-md-offset-1">
+                                <div class="form-group">
+                                    <label class="control-label">Code Postal<star>*</star></label>
+                                    <?= $this->formElement($form->get('zipCode')); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="control-label">Ville<star>*</star></label>
+                                    <?= $this->formElement($form->get('city')); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 col-md-offset-1">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Jour de l'entrainement<star>*</star>
+                                    </label>
+                                    <?= $this->formElement($form->get('eventDay')); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Heure de l'entrainement<star>*</star>
+                                    </label>
+                                    <?= $this->formElement($form->get('time')); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Jour de l'envoi des invitations<star>*</star>
+                                    </label>
+                                    <?= $this->formElement($form->get('emailDay')); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <?= $this->formElement($form->get('submit')); ?>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

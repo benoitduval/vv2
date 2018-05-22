@@ -1,0 +1,224 @@
+<div class="header header-filter" style="background-image: url('/img/bg-recep-ori.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="brand">
+                    <h1>Volley-ball.eu</h1>
+                    <h3>Gestion de groupes, entrainements, matchs.</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<?php if (isset($form)): ?>
+    <div class="main main-raised">
+        <div class="section section-basic">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <h2>Votre débriefing</h2>
+                        <h4>Donner le score du match ainsi que le débriefing.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" style="background-image: url('/img/cover_4_blur.jpg'); background-size: cover; background-position: top center; min-height: 300px;">
+            <!--   Big container   -->
+            <div id="wizard" class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+
+                        <!--      Wizard container        -->
+                        <div class="wizard-container">
+                            <div class="card wizard-card" data-color="azure" id="wizard">
+                                <?php echo $this->form()->openTag($form); ?>
+
+                                    <div class="wizard-header">
+                                        <h3 class="wizard-title">Score / débriefing</h3>
+                                        <!-- <p class="category">Book from thousands of unique work and meeting spaces.</p> -->
+                                    </div>
+
+                                    <div class="wizard-navigation">
+                                        <div class="progress-with-circle">
+                                             <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%;"></div>
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                <a href="#details" data-toggle="tab">
+                                                    <div class="icon-circle">
+                                                        <i class="ti-clipboard"></i>
+                                                    </div>
+                                                    Score
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#captain" data-toggle="tab">
+                                                    <div class="icon-circle">
+                                                        <i class="ti-comment-alt"></i>
+                                                    </div>
+                                                    Débrief
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane" id="details">
+                                            <div class="row">
+                                                <div class="col-sm-10 col-sm-offset-1">
+                                                    <h5 class="col-xs-6 text-center">Vous</h5>
+                                                    <h5 class="col-xs-6 text-center">Adversaire</h5>
+                                                    <div class="form-group label-floating is-empty col-xs-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="material-icons">local_post_office</i>
+                                                            </span>
+                                                            <label class="control-label" for="set1Team1">
+                                                                Set 1
+                                                            </label>
+                                                            <?php echo $this->formElement($form->get('set1Team1')); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group label-floating is-empty col-xs-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="material-icons">local_post_office</i>
+                                                            </span>
+                                                            <label class="control-label" for="set1Team2">
+                                                                Set 1
+                                                            </label>
+                                                            <?php echo $this->formElement($form->get('set1Team2')); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group label-floating is-empty col-xs-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="material-icons">local_post_office</i>
+                                                            </span>
+                                                            <label class="control-label" for="set2Team1">
+                                                                Set 2
+                                                            </label>
+                                                            <?php echo $this->formElement($form->get('set2Team1')); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group label-floating is-empty col-xs-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="material-icons">local_post_office</i>
+                                                            </span>
+                                                            <label class="control-label" for="set2Team2">
+                                                                Set 2
+                                                            </label>
+                                                            <?php echo $this->formElement($form->get('set2Team2')); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group label-floating is-empty col-xs-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="material-icons">local_post_office</i>
+                                                            </span>
+                                                            <label class="control-label" for="set3Team1">
+                                                                Set 3
+                                                            </label>
+                                                            <?php echo $this->formElement($form->get('set3Team1')); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group label-floating is-empty col-xs-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="material-icons">local_post_office</i>
+                                                            </span>
+                                                            <label class="control-label" for="set3Team2">
+                                                                Set 3
+                                                            </label>
+                                                            <?php echo $this->formElement($form->get('set3Team2')); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group label-floating is-empty col-xs-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="material-icons">local_post_office</i>
+                                                            </span>
+                                                            <label class="control-label" for="set4Team1">
+                                                                Set 4
+                                                            </label>
+                                                            <?php echo $this->formElement($form->get('set4Team1')); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group label-floating is-empty col-xs-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="material-icons">local_post_office</i>
+                                                            </span>
+                                                            <label class="control-label" for="set4Team2">
+                                                                Set 4
+                                                            </label>
+                                                            <?php echo $this->formElement($form->get('set4Team2')); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group label-floating is-empty col-xs-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="material-icons">local_post_office</i>
+                                                            </span>
+                                                            <label class="control-label" for="set5Team1">
+                                                                set 5
+                                                            </label>
+                                                            <?php echo $this->formElement($form->get('set5Team1')); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group label-floating is-empty col-xs-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="material-icons">local_post_office</i>
+                                                            </span>
+                                                            <label class="control-label" for="set5Team2">
+                                                                set 5
+                                                            </label>
+                                                            <?php echo $this->formElement($form->get('set5Team2')); ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="captain">
+                                                <div class="row">
+                                                    <h5 class="text-center">Débriefing de match</h5>
+                                                    <div class="col-sm-10 col-sm-offset-1">
+                                                        <div class="form-group label-floating is-empty">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="material-icons">comment</i>
+                                                                </span>
+                                                                <label class="control-label" for="debrief">
+                                                                    Débriefing
+                                                                </label>
+                                                                <?php echo $this->formElement($form->get('debrief')); ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="wizard-footer">
+                                        <div class="pull-right">
+                                            <input type='button' class='btn btn-next btn-fill btn-primary' name='next' value='Suivant' />
+                                            <?php echo $this->formElement($form->get('submit')); ?>
+                                        </div>
+
+                                        <div class="pull-left">
+                                            <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Précédent' />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                <?php echo $this->form()->closeTag($form); ?>
+                            </div>
+                        </div> <!-- wizard container -->
+                    </div>
+                </div> <!-- row -->
+            </div> <!--  big container -->
+        </div>
+    </div>
+<?php endif ?>

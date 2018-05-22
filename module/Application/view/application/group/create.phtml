@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="card card-wizard" id="wizardCard">
+                        <form id="wizardForm" method="POST">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Créez votre groupe</h4>
+                            </div>
+                            <div class="card-content">
+                                <ul class="nav">
+                                    <li><a href="#tab1" data-toggle="tab"><i class="fa fa-trophy"></i></a></li>
+                                    <li><a href="#tab2" data-toggle="tab"><i class="fas fa-th-large"></i></a></li>
+                                    <li><a href="#tab3" data-toggle="tab"><i class="fas fa-bullseye"></i></a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="tab1">
+                                        <h5 class="text-center">Quel est le nom de votre groupe ?</h5>
+                                        <div class="row">
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <label class="control-label">
+                                                        Nom du groupe<star>*</star>
+                                                    </label>
+                                                    <?= $this->formElement($form->get('name')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <div class="tab-pane" id="tab2">
+                                        <h5 class="text-center">Définir des entrainements</h5>
+                                        <div class="row">
+                                            <div class="text-center col-xs-10 col-md-offset-1">
+                                                <span class="category">(Optionnel) Définissez vos entrainements, ils seront créés automatiquement la semaine précédente.</span>
+                                            </div>
+                                        </div>
+                                        <div id="toClone" class="clonedInput">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">
+                                                            Nom du Gymnase<star>*</star>
+                                                        </label>
+                                                        <?= $this->formElement($form->get('place[]')); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">
+                                                            Adresse<star>*</star>
+                                                        </label>
+                                                        <?= $this->formElement($form->get('address[]')); ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">
+                                                            Code Postal<star>*</star>
+                                                        </label>
+                                                        <?= $this->formElement($form->get('zipCode[]')); ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">
+                                                            Ville<star>*</star>
+                                                        </label>
+                                                        <?= $this->formElement($form->get('city[]')); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">
+                                                            Jour<star>*</star>
+                                                        </label>
+                                                        <?= $this->formElement($form->get('eventDay[]')); ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">
+                                                            Heure<star>*</star>
+                                                        </label>
+                                                        <?= $this->formElement($form->get('time[]')); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                        <div id="cloneTarget"></div>
+                                        <div class="row text-center">
+                                            <a href="#" class="clone">Ajouter un autre entrainement</a>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab3">
+                                        <h5 class="text-center">Invitez des joueurs</h5>
+                                        <div class="row">
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <label class="control-label">
+                                                        Invitez des joueurs
+                                                    </label>
+                                                    <?= $this->formElement($form->get('emails')); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-default btn-fill btn-back pull-left"><i class="fa fa-arrow-left"></i></button>
+                                <button type="button" class="btn btn-default btn-fill btn-next pull-right disabled"><i class="fa fa-arrow-right"></i></button>
+                                <?= $this->formElement($form->get('submit')); ?>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="visible-xs">
+</div>

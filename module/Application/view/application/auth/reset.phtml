@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+        <?= $this->form()->openTag($form); ?>
+            <div class="card" data-background="color" data-color="blue">
+                <div class="card-header">
+                    <h3 class="card-title">Changement de MdP</h3>
+                </div>
+                <div class="card-content">
+                    <div class="form-group">
+                        <label>Nouveau Mot de passe<star>*</star></label>
+                        <?= $this->formElement($this->form->get('password')); ?>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmation<star>*</star></label>
+                        <?= $this->formElement($this->form->get('repassword')); ?>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button type="submit" class="btn btn-fill btn-wd ">Let's go</button>
+                </div>
+            </div>
+        <?= $this->form()->closeTag(); ?>
+    </div>
+</div>

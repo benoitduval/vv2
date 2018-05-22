@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="card">
+            <?= $this->form()->openTag($form); ?>
+                <div class="card-header text-center">
+                    <h4 class="card-title">Résultat</h4>
+                    <p class="category">Résultat des sets et débrief</p>
+                </div>
+                <div class="card-content">
+                    <div class="col-xs-6 col-md-5 col-md-offset-1 text-center">
+                        <h5>Vous</h5>
+                    </div>
+                    <div class="col-xs-6 col-md-5 text-center">
+                        <h5>Eux</h5>
+                    </div>
+                    <?php for ($i = 1; $i <= 5; $i++) : ?>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-5 col-md-offset-1">
+                                <div class="form-group">
+                                    <?= $this->formElement($form->get('set' . $i . 'Team1')); ?>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-5">
+                                <div class="form-group">
+                                    <?= $this->formElement($form->get('set' . $i . 'Team2')); ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endfor; ?>
+                    <div class="tab-pane" id="tab6">
+                        <h5 class="card-title text-center">Débriefing du match</h5>
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="form-group">
+                                    <?= $this->formElement($form->get('debrief')); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <?= $this->formElement($form->get('submit')); ?>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

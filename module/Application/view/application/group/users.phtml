@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="card-header">
+                <h4 class="card-title">Membres</h4>
+                <p class="category">Informations des membres</p>
+            </div>
+            <div class="card-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Email</th>
+                                        <th>Téléphone</th>
+                                        <th>Licence</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($users as $user): ?>
+                                        <tr>
+                                            <td><?= $user->getFullName() ?></td>
+                                            <td><?= $user->email ?></td>
+                                            <td><?= $user->phone ?></td>
+                                            <td><?= $user->licence ?></td>
+                                            <td>
+                                                <div class="table-icons">
+                                                    <div class="col-md-4">
+                                                        <input type="checkbox" name="admin" data-groupId="<?= $group->id ?>" data-id="<?= $user->id ?>" class="switch"
+                                                            <?php if (in_array($user->id, $adminIds)): ?>
+                                                                checked=""
+                                                                value="0"
+                                                            <?php else: ?>
+                                                                value="1"
+                                                            <?php endif ?>
+                                                        >
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="/group/delete-user/<?= $group->id ?>/<?= $user->id ?>" class="text-danger" onclick="return confirm('Êtes vous sûr ?')">
+                                                    <i class="ti-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

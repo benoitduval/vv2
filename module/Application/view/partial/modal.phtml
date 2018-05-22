@@ -1,0 +1,45 @@
+<?php if ($this->flashMessenger()->getCurrentMessages()): ?>
+    <div id="notify" class="modal fade" id="modale-signin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="card card-signup">
+                        <div class="header header-primary text-center">
+                            <h4>Hey !</h4>
+                        </div>
+                        <div class="content">
+                            <?php
+                                $messages = $this->flashMessenger()->getCurrentMessages();
+                                foreach($messages as $message) {
+                                    echo '<p>' . $message . '<p>';
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php elseif ($this->flashMessenger()->hasErrorMessages()): ?>
+    <div id="notify" class="modal fade" id="modale-signin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="card card-signup">
+                        <div class="header header-danger text-center">
+                            <h4>Whoops</h4>
+                        </div>
+                        <div class="content">
+                            <?php
+                                $messages = $this->flashMessenger()->getErrorMessages();
+                                foreach($messages as $message) {
+                                    echo '<p>' . $message . '<p>';
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif ?>

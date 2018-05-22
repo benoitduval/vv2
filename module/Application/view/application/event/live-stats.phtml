@@ -1,0 +1,186 @@
+<?php $scoreUs   =  isset($setsLastScore[$set][0]) ? $setsLastScore[$set][0] : 0; ?>
+<?php $scoreThem =  isset($setsLastScore[$set][1]) ? $setsLastScore[$set][1] : 0; ?>
+<div class="row">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-wizard" id="wizardCard">
+                        <form id="wizardForm" method="POST">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Statistiques Set <?= $set ?></h4>
+                            </div>
+                            <div class="card-content">
+                                <ul class="nav">
+                                    <li><a href="#tab1" data-toggle="tab"><i class="fa fa-trophy"></i></a></li>
+                                    <li><a href="#tab2" data-toggle="tab"><i class="fas fa-th-large"></i></a></li>
+                                    <li><a href="#tab3" data-toggle="tab"><i class="fas fa-bullseye"></i></a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="tab1">
+                                        <h5 class="text-center">Le point est pour</h5>
+                                        <div class="row">
+                                            <input type="hidden" name="score-us" value="<?= $scoreUs ?>">
+                                            <input type="hidden" name="score-them" value="<?= $scoreThem ?>">
+
+                                            <div class="col-md-12" data-toggle="buttons">
+                                              <label class="btn btn-success btn-next col-xs-5 text-center"  id="point-us">
+                                                <input type="radio" name="point-for" value="<?= \Application\Model\Stats::POINT_US ?>">
+                                                <div class="numbers-center">
+                                                    <p>Nous</p>
+                                                    <?= $scoreUs ?>
+                                                </div>
+                                              </label>
+                                              <label id="point-them" class="btn btn-danger btn-next pull-right col-xs-5 col-xs-offset-1">
+                                                <input type="radio" name="point-for" value="<?= \Application\Model\Stats::POINT_THEM ?>">
+                                                <div class="numbers-center">
+                                                    <p>Eux</p>
+                                                    <?= $scoreThem ?>
+                                                </div>
+                                              </label>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12" data-toggle="buttons">
+                                              <p class="category text-center" style="margin-bottom: 5px">Durant le point</p>
+                                              <div class="btn btn-default col-xs-5 text-center btn-counter">
+                                                <input type="hidden" name="block-us" value="0">
+                                                <div class="numbers-center">
+                                                    <p>Block +1</p>
+                                                    <span class="counter">0</span>
+                                                </div>
+                                              </div>
+                                              <div class="btn btn-default pull-right col-xs-5 col-xs-offset-1 btn-counter">
+                                                <input type="hidden" name="block-them" value="0">
+                                                <div class="numbers-center">
+                                                    <p>Block +1</p>
+                                                    <span class="counter">0</span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-xs-12" style="height: 10px"></div>
+                                            <div class="col-md-12" data-toggle="buttons">
+                                              <div class="btn btn-default col-xs-5 text-center btn-counter">
+                                                <input type="hidden" name="defence-us" value="0">
+                                                <div class="numbers-center">
+                                                    <p>Défense +1</p>
+                                                    <span class="counter">0</span>
+                                                </div>
+                                              </div>
+                                              <div class="btn btn-default pull-right col-xs-5 col-xs-offset-1 btn-counter">
+                                                <input type="hidden" name="defence-them" value="0">
+                                                <div class="numbers-center">
+                                                    <p>Défense +1</p>
+                                                    <span class="counter">0</span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab2">
+                                        <div class="row">
+                                            <div class='col-xs-6 text-center'>
+                                                <h5 class="text-center">Point</h5>
+                                                <button type="button" id="attack-us" class="btn btn-success btn-xlg btn-next col-xs-12">Attaque</button>
+                                                <button  id="attack-them" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success col-xs-12 btn-xlg hidden">Attaque</button>
+                                                <div class="col-xs-12" style="height: 10px;"></div>
+                                                <button value="<?= \Application\Model\Stats::POINT_SERVE ?>" name="reason" class="btn btn-success col-xs-12 btn-xlg">Service</button>
+                                                <div class="col-xs-12" style="height: 10px;"></div>
+                                                <button value="<?= \Application\Model\Stats::POINT_BLOCK ?>" name="reason" class="btn btn-success col-xs-12 btn-xlg">Block</button>
+                                            </div>
+                                            <div class='col-xs-6 text-center'>
+                                                <h5>Faute</h5>
+                                                <button id="attack-fault-them" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger col-xs-12 btn-xlg" data-toggle="modal" data-target="#attaque">Attaque</button>
+                                                <button id="attack-fault-us" type="button" id="attack-us" class="btn btn-danger btn-xlg btn-next col-xs-12 hidden">Attaque</button>
+                                                <div class="col-xs-12" style="height: 10px;"></div>
+                                                <button value="<?= \Application\Model\Stats::FAULT_SERVE ?>" name="reason" class="btn btn-danger col-xs-12 btn-xlg">Service</button>
+                                                <div class="col-xs-12" style="height: 10px;"></div>
+                                                <button value="<?= \Application\Model\Stats::FAULT_DEFENCE ?>" name="reason" class="btn btn-danger col-xs-12 btn-xlg">Défensive</button>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <div class="tab-pane" id="tab3">
+                                        <div class="row">
+                                            <div id="attack-fault-detail" class='col-xs-12 text-center hidden'>
+                                                <h5>Faute au Poste</h5>
+                                                <button value="<?= \Application\Model\Stats::FAULT_ATTACK . \Application\Model\Stats::POST_4 ?>" name="reason" class="btn btn-danger col-xs-5 btn-xlg">4</button>
+                                                <button value="<?= \Application\Model\Stats::FAULT_ATTACK . \Application\Model\Stats::POST_2 ?>" name="reason" class="btn btn-danger col-xs-5 col-xs-offset-2 btn-xlg">2</button>
+                                                <div class="col-xs-12" style="height: 10px;"></div>
+                                                <button value="<?= \Application\Model\Stats::FAULT_ATTACK . \Application\Model\Stats::POST_FIX ?>" name="reason" class="btn btn-danger col-xs-5 btn-xlg">Centre</button>
+                                                <button value="<?= \Application\Model\Stats::FAULT_ATTACK . \Application\Model\Stats::POST_3M ?>" name="reason" class="btn btn-danger col-xs-5 col-xs-offset-2 btn-xlg">3m</button>
+                                                <div class="col-xs-12" style="height: 10px;"></div>
+                                                <button value="<?= \Application\Model\Stats::FAULT_ATTACK . \Application\Model\Stats::POST_SETTER ?>" name="reason" class="btn btn-danger col-xs-6 col-xs-offset-3 btn-xlg">Passeur</button>
+                                            </div>
+                                            <div id="attack-point-detail" class='col-xs-12 text-center'>
+                                                <h5>Ailliers</h5>
+                                                <div class="row">
+                                                    <div class="col-xs-5 text-center">Ligne</div>
+                                                    <div class="col-xs-2 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_4 . \Application\Model\Stats::LINE ?>" name="reason">4</button></div>
+                                                    <div class="col-xs-2 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_2 . \Application\Model\Stats::LINE ?>" name="reason">2</button></div>
+                                                    <div class="col-xs-3 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_3M . \Application\Model\Stats::LINE ?>" name="reason">3m</button></div>
+                                                </div>
+                                                <div class="col-xs-12" style="height: 10px;"></div>
+                                                <div class="row">
+                                                    <div class="col-xs-5 text-center">Grande Diag.</div>
+                                                    <div class="col-xs-2 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_4 . \Application\Model\Stats::LARGE_DIAG ?>" name="reason">4</button></div>
+                                                    <div class="col-xs-2 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_2 . \Application\Model\Stats::LARGE_DIAG ?>" name="reason">2</button></div>
+                                                    <div class="col-xs-3 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_3M . \Application\Model\Stats::LARGE_DIAG ?>" name="reason">3m</button></div>
+                                                </div>
+                                                <div class="col-xs-12" style="height: 10px;"></div>
+                                                <div class="row">
+                                                    <div class="col-xs-5 text-center">Petite Diag.</div>
+                                                    <div class="col-xs-2 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_4 . \Application\Model\Stats::SMALL_DIAG ?>" name="reason">4</button></div>
+                                                    <div class="col-xs-2 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_2 . \Application\Model\Stats::SMALL_DIAG ?>" name="reason">2</button></div>
+                                                    <div class="col-xs-3 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_3M . \Application\Model\Stats::SMALL_DIAG ?>" name="reason">3m</button></div>
+                                                </div>
+                                                <div class="col-xs-12" style="height: 10px;"></div>
+                                                <div class="row">
+                                                    <div class="col-xs-5 text-center">Block Out</div>
+                                                    <div class="col-xs-2 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_4 . \Application\Model\Stats::BLOCK_OUT ?>" name="reason">4</button></div>
+                                                    <div class="col-xs-2 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_2 . \Application\Model\Stats::BLOCK_OUT ?>" name="reason">2</button></div>
+                                                    <div class="col-xs-3 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_3M . \Application\Model\Stats::BLOCK_OUT ?>" name="reason">3m</button></div>
+                                                </div>
+                                                <div class="col-xs-12" style="height: 10px;"></div>
+                                                <div class="row">
+                                                    <div class="col-xs-5 text-center">Bidouille</div>
+                                                    <div class="col-xs-2 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_4 . \Application\Model\Stats::BIDOUILLE ?>" name="reason">4</button></div>
+                                                    <div class="col-xs-2 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_2 . \Application\Model\Stats::BIDOUILLE ?>" name="reason">2</button></div>
+                                                    <div class="col-xs-3 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_3M . \Application\Model\Stats::BIDOUILLE ?>" name="reason">3m</button></div>
+                                                </div>
+                                                <h5>Centre</h5>
+                                                <div class="row">
+                                                    <div class="col-xs-4 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_FIX . \Application\Model\Stats::FIX ?>" name="reason">Fixe</button></div>
+                                                    <div class="col-xs-4 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_FIX . \Application\Model\Stats::DECA ?>" name="reason">Déca</button></div>
+                                                    <div class="col-xs-4 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_FIX . \Application\Model\Stats::BEHIND ?>" name="reason">Arrière</button></div>
+                                                </div>
+                                                <h5>Passeur</h5>
+                                                <div class="row">
+                                                    <div class="col-xs-6 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_SETTER . \Application\Model\Stats::BIDOUILLE ?>" name="reason">Bidouille</button></div>
+                                                    <div class="col-xs-6 text-center"><button class="btn btn-primary col-xs-12" value="<?= \Application\Model\Stats::POINT_ATTACK . \Application\Model\Stats::POST_SETTER . \Application\Model\Stats::SET_ATTACK ?>" name="reason">Attaque</button></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-default btn-fill btn-back pull-left"><i class="fa fa-arrow-left"></i></button>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row text-center">
+                        <?php if ($deleteLink): ?>
+                            <button class="btn btn-danger btn-fill col-xs-6 col-xs-offset-3" type="button" onclick="demo.showSwal('warning-message-and-confirmation', '<?= $deleteLink ?>')"><i class="fa fa-undo"></i> Correction</button>
+                        <?php endif ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="visible-xs">
+</div>
+<?= $this->partial('partial/stats.phtml') ?>

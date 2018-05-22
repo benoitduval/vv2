@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="card">
+            <?= $this->form()->openTag($form); ?>
+                <div class="card-header text-center">
+                    <h4 class="card-title">Editer votre période</h4>
+                </div>
+                <div class="card-content">
+                    <div class="tab-content">
+                        <div>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label class="control-label text-center">
+                                            Date de début<star>*</star>
+                                        </label>
+                                        <?= $this->formElement($form->get('from')); ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label class="control-label text-center">
+                                            Date de fin (incluse)<star>*</star>
+                                        </label>
+                                        <?= $this->formElement($form->get('to')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <?= $this->formElement($form->get('submit')); ?>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

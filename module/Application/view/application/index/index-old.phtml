@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-calendar">
+            <div class="card-content">
+                <div id="fullCalendar">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="fullCalModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                <h4 id="modal-title" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-3">
+                    <a href="#" class="event-url">
+                        <div class="tab-pane active" id="date">
+                            <div class="date-icon">
+                                <em id="modal-month"></em>
+                                <strong id="modal-day"></strong>
+                                <span id="modal-date"></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <h5 id="modal-place"></h5>
+                    <a href="#" id='event-place-url' target="_blank">
+                        <span id="modal-address"></span><br>
+                        <span id="modal-zipcode"></span> <span id="modal-city"></span>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <h2 class="text-center text-event-green"><span id="modal-count"></span> <i class="ti ti-check text-event-green"></i></h2>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="col-sm-12" data-buttons="4">
+                    <a id="event-url-ok" href="#" class="col-xs-3 text-center">
+                        <i class="ti ti-check text-event-green" style="font-size: 30px;"></i>
+                    </a>
+                    <a id="event-url-no" href="#" class="col-xs-3 text-center">
+                        <i class="ti ti-close text-event-red" style="font-size: 30px;"></i>
+                    </a>
+                    <a id="event-url-incertain" href="#" class="col-xs-3 text-center">
+                        <i class="ti ti-help text-event-azure" style="font-size: 30px;"></i>
+                    </a>
+                    <a class="event-url col-xs-3 text-center" id="event-url" href="#">
+                        <i class="ti ti-search text-event-default" style="font-size: 30px;"></i>
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

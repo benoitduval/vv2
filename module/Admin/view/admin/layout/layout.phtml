@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <!-- <link rel="apple-touch-icon" sizes="76x76" href="/vendor/theme/assets/img/apple-icon.png"> -->
+        <link rel="icon" type="image/png" href="/img/favicon.png">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+        <title>Volley-ball.eu</title>
+
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+        <meta name="viewport" content="width=device-width" />
+
+
+        <!-- Bootstrap core CSS     -->
+        <link href="/vendor/theme/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+        <link href="/vendor/cards/assets/css/hipster_cards.css" rel="stylesheet"/>
+
+        <!--  Paper Dashboard core CSS    -->
+        <link href="/vendor/theme/assets/css/paper-dashboard.css?v=<?= $this->vCss ?>" rel="stylesheet"/>
+
+        <link href="/css/style.css?v=<?= $this->vCss ?>" rel="stylesheet"/>
+
+        <!--  Fonts and icons     -->
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+        <link href="/vendor/theme/assets/css/themify-icons.css" rel="stylesheet">
+    </head>
+
+    <body class="sidebar-mini">
+        <div class="wrapper">
+            <div class="sidebar" data-background-color="brown" data-active-color="info">
+                <div class="logo">
+                    <a href="/admin" class="simple-text logo-mini">
+                        VB
+                    </a>
+                    <a href="/admin" class="simple-text logo-normal">
+                        ADMIN
+                    </a>
+                </div>
+                <div class="sidebar-wrapper">
+                    <ul class="nav">
+                        <li>
+                            <a href="/admin/user">
+                                <i>Us</i>
+                                <p>Users</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/group">
+                                <i>Gr</i>
+                                <p>Groups</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/event">
+                                <i>Ev</i>
+                                <p>Events</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/training">
+                                <i>Tr</i>
+                                <p>Trainings</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/holiday">
+                                <i>Ho</i>
+                                <p>Holidays</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="main-panel">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-minimize">
+                            <button id="minimizeSidebar" class="btn btn-fill btn-icon"><i class="ti-more-alt"></i></button>
+                        </div>
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar bar1"></span>
+                                <span class="icon-bar bar2"></span>
+                                <span class="icon-bar bar3"></span>
+                            </button>
+
+                            <a class="navbar-brand" href="/">
+                                <i class='fa fa-home'></i> Volley-ball.eu
+                            </a>
+                        </div>
+                        <div class="collapse navbar-collapse">
+                            <!-- <form class="navbar-form navbar-left navbar-search-form" role="search">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" value="" class="form-control" placeholder="Search...">
+                                </div>
+                            </form> -->
+
+                            <!-- <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle btn-rotate" data-toggle="dropdown">
+                                        <i class="ti-bell"></i>
+                                        <span class="notification">5</span>
+                                        <p class="hidden-md hidden-lg">
+                                            Notifications
+                                            <b class="caret"></b>
+                                        </p>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#not1">Notification 1</a></li>
+                                        <li><a href="#not2">Notification 2</a></li>
+                                        <li><a href="#not3">Notification 3</a></li>
+                                        <li><a href="#not4">Notification 4</a></li>
+                                        <li><a href="#another">Another notification</a></li>
+                                    </ul>
+                                </li>
+                            </ul> -->
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="content">
+                    <div class="container-fluid">
+                        <?= $this->content ?>
+                    </div>
+                </div>
+                <footer class="footer hidden-xs">
+                        <div class="copyright pull-right">
+                            &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by YuCkY
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <?php if ($success = $this->flashMessenger()->getMessages('success')) :  ?>
+            <div id='notification' data-type='success' data-message="<?= current($success) ?>"></div>
+        <?php elseif ($error = $this->flashMessenger()->getMessages('error')): ?>
+            <div id='notification' data-type='danger' data-message="<?= current($error) ?>"></div>
+        <?php endif; ?>
+    </body>
+
+    <!--   Core JS Files. Extra: TouchPunch for touch library inside jquery-ui.min.js   -->
+    <script src="/vendor/theme/assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="/vendor/theme/assets/js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="/vendor/theme/assets/js/perfect-scrollbar.min.js" type="text/javascript"></script>
+    <script src="/vendor/theme/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <!--  Forms Validations Plugin -->
+    <script src="/vendor/theme/assets/js/jquery.validate.min.js"></script>
+
+    <!-- Promise Library for SweetAlert2 working on IE -->
+    <script src="/vendor/theme/assets/js/es6-promise-auto.min.js"></script>
+
+    <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+    <script src="/vendor/theme/assets/js/moment.min.js"></script>
+    <script src="/vendor/theme/assets/js/locale/fr.js"></script>
+
+    <!--  Date Time Picker Plugin is included in this js file -->
+    <script src="/vendor/theme/assets/js/bootstrap-datetimepicker.js"></script>
+
+    <!--  Select Picker Plugin -->
+    <script src="/vendor/theme/assets/js/bootstrap-selectpicker.js"></script>
+
+    <!--  Switch and Tags Input Plugins -->
+    <script src="/vendor/theme/assets/js/bootstrap-switch-tags.js"></script>
+
+    <!-- Circle Percentage-chart -->
+    <script src="/vendor/theme/assets/js/jquery.easypiechart.min.js"></script>
+
+    <!--  Charts Plugin -->
+    <script src="/vendor/theme/assets/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="/vendor/theme/assets/js/bootstrap-notify.js"></script>
+
+    <!-- Sweet Alert 2 plugin -->
+    <script src="/vendor/theme/assets/js/sweetalert2.js"></script>
+
+    <!-- Vector Map plugin -->
+    <script src="/vendor/theme/assets/js/jquery-jvectormap.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9Ni7o-yS1BMooPWV-wz4uB50hTkHsQSI"></script>
+
+    <!-- Wizard Plugin    -->
+    <script src="/vendor/theme/assets/js/jquery.bootstrap.wizard.min.js"></script>
+
+    <!--  Bootstrap Table Plugin    -->
+    <script src="/vendor/theme/assets/js/bootstrap-table.js"></script>
+
+    <!--  Plugin for DataTables.net  -->
+    <script src="/vendor/theme/assets/js/jquery.datatables.js"></script>
+
+    <!--  Full Calendar Plugin    -->
+    <script src="/vendor/theme/assets/js/fullcalendar.min.js"></script>
+
+    <!-- Locales -->
+    <script src="/vendor/theme/assets/js/locale-all.js"></script>
+
+    <!-- Paper Dashboard PRO Core javascript and methods for Demo purpose -->
+    <script src="/vendor/theme/assets/js/paper-dashboard.js"></script>
+
+    <!-- Paper Dashboard PRO DEMO methods, don't include it in your project! -->
+    <script src="/js/script.js?v=<?= $this->vJs ?>"></script>
+
+    <script src="/vendor/clipboard/clipboard.min.js"/></script>
+
+    <script src="/vendor/cards/assets/js/hipster-cards.js"/></script>
+
+    <script src="/vendor/Highcharts-6.0.2/code/highcharts.js"/></script>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+            demo.initStatsDashboard();
+            demo.initCirclePercentage();
+            demo.initChartDisponibilities();
+            demo.initFullCalendar();
+            demo.initFormExtendedDatetimepickers();
+            demo.initSwitchers();
+            demo.showNotification();
+            demo.initClipboard();
+            demo.initHighcharts();
+            // demo.initSubmitButton();
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#datatables').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                responsive: true,
+                language: {
+                search: "_INPUT_",
+                    searchPlaceholder: "Search records",
+                }
+            });
+
+
+            var table = $('#datatables').DataTable();
+             // Edit record
+             table.on( 'click', '.edit', function () {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
+             } );
+
+             // Delete a record
+             table.on( 'click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+             } );
+
+            //Like record
+            table.on( 'click', '.like', function () {
+                alert('You clicked on Like button');
+             });
+
+        });
+    </script>
+
+</html>

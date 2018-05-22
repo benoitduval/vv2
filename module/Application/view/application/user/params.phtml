@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="card">
+            <?= $this->form()->openTag($form); ?>
+                <div class="card-header text-center">
+                    <h4 class="card-title">Votre Profil</h4>
+                </div>
+                <div class="card-content">
+                    <div class="tab-content">
+                        <div>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                            Prénom<star>*</star>
+                                        </label>
+                                        <?= $this->formElement($form->get('firstname')); ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                            Nom<star>*</star>
+                                        </label>
+                                        <?= $this->formElement($form->get('lastname')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label class="control-label">Email<star>*</star></label>
+                                        <?= $this->formElement($form->get('email')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label class="control-label">Téléphone</label>
+                                        <?= $this->formElement($form->get('phone')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label class="control-label">N° Licence</label>
+                                        <?= $this->formElement($form->get('licence')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <?= $this->formElement($form->get('submit')); ?>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- TODO  -->
+<div class="col-md-6" style="display: none">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Notification d'Email</h4>
+            <p class="category">Vous recevrez un email pour</p>
+        </div>
+        <div class="card-content">
+            <div class="table table-tasks">
+                <table class="table">
+                    <tbody>
+                        <?php foreach ($notifications as $notification): ?>
+                        <tr>
+                            <td>
+                                <?= $notification->getLabel() ?>
+                            </td>
+                            <td class="text-right">
+                                <span class="togglebutton">
+                                    <label>
+                                        <input type="checkbox" name="notification" class="switch" data-id="<?= $notification->id ?>" 
+                                        <?php if ($notification->status == \Application\Model\Notification::ACTIVE): ?>
+                                            checked=""
+                                            value="2"
+                                        <?php else: ?>
+                                            value="1"
+                                        <?php endif ?>
+                                        >
+                                    </label>
+                                </span>
+                            </td>
+                        </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

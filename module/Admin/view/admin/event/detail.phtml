@@ -1,0 +1,302 @@
+<?php $eventDate   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date); ?>
+<?php if ($eventDate->format('U') > time()): ?>
+    <div class="row">
+        <div class="col-xs-4">
+            <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_OK ?>">
+                <div class="card <?= ($myDisponibility->response == Application\Model\Disponibility::RESP_OK) ? 'card-success' : ''; ?>">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="icon-big icon-success text-center">
+                                    <i class="ti-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-4">
+            <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_NO ?>">
+                <div class="card <?= ($myDisponibility->response == Application\Model\Disponibility::RESP_NO) ? 'card-danger' : ''; ?>">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="icon-big icon-danger text-center">
+                                    <i class="ti-close"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-4">
+            <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_INCERTAIN ?>">
+                <div class="card <?= ($myDisponibility->response == Application\Model\Disponibility::RESP_INCERTAIN) ? 'card-info' : ''; ?>">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="icon-big icon-info text-center">
+                                    <i class="ti-help"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+<?php endif ?>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="tab-pane active" id="date">
+                            <div class="date-icon">
+                                <em><?= \Application\Service\Date::toFr($eventDate->format('F')) ?></em>
+                                <strong><?= \Application\Service\Date::toFr($eventDate->format('D')) ?></strong>
+                                <span ><?= \Application\Service\Date::toFr($eventDate->format('d')) ?></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h4 class="card-title"><?= $event->name ?></h4>
+                        <h4  class="card-title"><?= \Application\Service\Date::toFr($eventDate->format('H:i')) ?></h4>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h4 class="card-title"><?= $event->place ?></h4>
+                        <p class="category"><?= $event->address ?></p>
+                        <p class="category"><?= $event->zipCode ?>, <?= $event->city ?></p>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="text-center">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <a href="/event/live-stats/<?= $event->id ?>"><h5><i class="ti-bar-chart"></i><br /><small><span class="hidden-xs">Live</span> Stats</small></h5></a>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href="/event/result/<?= $event->id ?>"><h5><i class="ti-cup"></i><br /><small>Résultat <span class="hidden-xs">& Débrief</span></small></h5></a>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href="/event/edit/<?= $event->id ?>"><h5><i class="ti-pencil"></i><br /><small>Éditer</small></h5></a>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href="/event/delete/<?= $event->id ?>" onclick="return confirm('Êtes vous sûr ?')"><h5><i class="ti-trash"></i><br /><small>Suppr<span class="hidden-xs">imer</span></small></h5></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php if ($overallStats): ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <h4 class="card-title">Statistiques du match</h4>
+                    <div class="overall-stats-chart" style="width:100%" data-stats-us="<?= $overallStats['us'] ?>" data-stats-them="<?= $overallStats['them'] ?>"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif ?>
+
+<?= $this->partial('partial/stats.phtml') ?>
+
+<?php if ($event->victory !== null && !$setsHistory): ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="card-title"><?= ($event->victory) ? 'Victoire' : 'Défaite' ?> : <?= $event->score ?></h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        <?php foreach ($event->sets as $key => $scores): ?>
+                                            <tr>
+                                                <td>
+                                                    Set <?= $key + 1 ?>
+                                                </td>
+                                                <td class="text-right">
+                                                    <?= $scores ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif ?>
+
+<?php if ($event->debrief): ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="card-title">Débrief</h4>
+                            <div class="table-responsive">
+                                <p class="category">
+                                    <?= nl2br($event->debrief) ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif ?>
+
+<div class="row">
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-circle-chart" data-background-color="green">
+            <div class="card-content">
+                <div id="chartOrders" class="chart-circle" data-percent="<?= ($counters[Application\Model\Disponibility::RESP_OK] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_OK] ?>
+                    <i class="ti-check"></i></div>
+            </div>
+            <?php if ($users[Application\Model\Disponibility::RESP_OK]): ?>
+                <div class="card-footer">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <?php foreach ($users[Application\Model\Disponibility::RESP_OK] as $user) : ?>
+                                    <tr>
+                                        <td><?= $user->firstname ?></td>
+                                        <td><?= $user->lastname ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <?php endif ?>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-circle-chart" data-background-color="orange">
+            <div class="card-content">
+                <div id="chartOrders" class="chart-circle" data-percent="<?= ($counters[Application\Model\Disponibility::RESP_NO] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_NO] ?>
+                    <i class="ti-close"></i></div>
+            </div>
+            <?php if ($users[Application\Model\Disponibility::RESP_NO]): ?>
+                <div class="card-footer">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <?php foreach ($users[Application\Model\Disponibility::RESP_NO] as $user) : ?>
+                                    <tr>
+                                        <td><?= $user->firstname ?></td>
+                                        <td><?= $user->lastname ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <?php endif ?>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-circle-chart" data-background-color="blue">
+            <div class="card-content">
+                <div id="chartOrders" class="chart-circle" data-percent="<?= ($counters[Application\Model\Disponibility::RESP_INCERTAIN] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_INCERTAIN] ?>
+                    <i class="ti-help"></i></div>
+            </div>
+            <?php if ($users[Application\Model\Disponibility::RESP_INCERTAIN]): ?>
+                <div class="card-footer">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <?php foreach ($users[Application\Model\Disponibility::RESP_INCERTAIN] as $user) : ?>
+                                    <tr>
+                                        <td><?= $user->firstname ?></td>
+                                        <td><?= $user->lastname ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <?php endif ?>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <div class="card card-circle-chart" data-background-color="brown">
+            <div class="card-content">
+                <div id="chartOrders" class="chart-circle" data-percent="<?= ($counters[Application\Model\Disponibility::RESP_NO_ANSWER] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_NO_ANSWER] ?>
+                    <i class="ti-na"></i></div>
+            </div>
+            <?php if ($users[Application\Model\Disponibility::RESP_NO_ANSWER]): ?>
+                <div class="card-footer">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <?php foreach ($users[Application\Model\Disponibility::RESP_NO_ANSWER] as $user) : ?>
+                                    <tr>
+                                        <td><?= $user->firstname ?></td>
+                                        <td><?= $user->lastname ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <?php endif ?>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!--  end col-md-6  -->
+
+    <div class="col-md-12">
+        <div class="card card-timeline card-plain">
+            <div class="card-content">
+                <ul class="timeline timeline-simple">
+                    <?php if (!$comments): ?>
+                        <li class="timeline-inverted">
+                            <div class="timeline-panel">
+                                <div class="timeline-body">
+                                    <p>Il n'y a actuellement aucun commentaire pour cet évènement.</p>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endif ?>
+                    <?php foreach ($comments as $comment): ?>
+                        <li class="timeline-inverted">
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <span class="label label-success"><?= isset($comment['author']) ? $comment['author']->getFullName() : 'Utilisateur supprimé'; ?></span>
+                                </div>
+                                <div class="timeline-body">
+                                    <p><?= nl2br($comment['comment']); ?></p>
+                                </div>
+                                <h6>
+                                    <i class="ti-time"></i>
+                                    <?= \Application\Service\Date::toFr($comment['date']); ?>
+                                </h6>
+                            </div>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="card">
+            <?= $this->form()->openTag($form); ?>
+                <div class="card-header text-center">
+                    <h4 class="card-title"><?= $group->name ?></h4>
+                    <p class="category">Créer un évènement pour ce groupe.</p>
+                </div>
+                <div class="card-content">
+                    <div class="tab-content">
+                        <div>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                            Nom de l'évènement<star>*</star>
+                                        </label>
+                                        <?= $this->formElement($form->get('name')); ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label class="control-label">
+                                            Date<star>*</star>
+                                        </label>
+                                        <?= $this->formElement($form->get('date')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label class="control-label">Nom du gymnase<star>*</star></label>
+                                        <?= $this->formElement($form->get('place')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label class="control-label">Adresse de l'évènement<star>*</star></label>
+                                        <?= $this->formElement($form->get('address')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label class="control-label">Code Postal<star>*</star></label>
+                                        <?= $this->formElement($form->get('zipCode')); ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">Ville<star>*</star></label>
+                                        <?= $this->formElement($form->get('city')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <hr class="col-md-10 col-md-offset-1">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="form-group checkbox">
+                                        <?= $this->formElement($form->get('reminder')); ?>
+                                        <?= $this->formLabel($form->get('reminder')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <?= $this->formElement($form->get('submit')); ?>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

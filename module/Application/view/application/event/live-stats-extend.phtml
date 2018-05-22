@@ -1,0 +1,67 @@
+<div class="col-md-6 text-center">
+    <div id="video-placeholder"></div>
+</div>
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Statistiques Vidéo</h4>
+        </div>
+        <div class="card-content text-center">
+            <div class="form-group">
+                <input type="text" name="time" id="current-time" value="" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>
+
+  <script>
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('video-placeholder', {
+            width: 600,
+            height: 400,
+            videoId: 'UKD3JW8ir-Y',
+            playerVars: {
+                color: 'white',
+            },
+            events: {
+                onReady: initialize
+            }
+        });
+    }
+
+    function initialize() {
+        var timeUpdateInterval;
+        updateTimerDisplay();
+
+        // Clear any old interval.
+        clearInterval(timeUpdateInterval);
+
+        // Start interval to update elapsed time display and
+        // the elapsed part of the progress bar every second.
+        timeUpdateInterval = setInterval(function () {
+            updateTimerDisplay();
+        }, 1000)
+    }
+
+    function updateTimerDisplay() {
+        $('#current-time').val(formatTime(player.getCurrentTime()));
+    }
+
+    function formatTime(time){
+        time = Math.round(time);
+        // var minutes = Math.floor(time / 60),
+        // seconds = time - minutes * 60;
+        // seconds = seconds < 10 ? '0' + seconds : seconds;
+        return time;
+        // return minutes + ":" + seconds;
+    }
+
+  </script>

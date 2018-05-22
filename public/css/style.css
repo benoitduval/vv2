@@ -1,0 +1,468 @@
+@media (min-width: 992px){
+    .typo-line{
+        padding-left: 140px;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+    .typo-line .category{
+        transform: translateY(-50%);
+        top: 50%;
+        left: 0px;
+        position: absolute;
+    }
+}
+
+.icon-section {
+	margin: 0 0 3em;
+	clear: both;
+	overflow: hidden;
+}
+.icon-container {
+	width: 240px;
+	padding: .7em 0;
+	float: left;
+	position: relative;
+	text-align: left;
+}
+.icon-container [class^="ti-"],
+.icon-container [class*=" ti-"] {
+	color: #000;
+	position: absolute;
+	margin-top: 3px;
+	transition: .3s;
+}
+.icon-container:hover [class^="ti-"],
+.icon-container:hover [class*=" ti-"] {
+	font-size: 2.2em;
+	margin-top: -5px;
+}
+.icon-container:hover .icon-name {
+	color: #000;
+}
+.icon-name {
+	color: #aaa;
+	margin-left: 35px;
+	font-size: .8em;
+	transition: .3s;
+}
+.icon-container:hover .icon-name {
+	margin-left: 45px;
+}
+
+.places-buttons .btn{
+    margin-bottom: 30px
+}
+.sidebar .nav > li.active-pro{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+}
+.sidebar .nav > li.active-pro a{
+    background: rgba(255, 255, 255, 0.14);
+    opacity: 1;
+    color: #FFFFFF;
+}
+
+.table-upgrade td:nth-child(2),
+.table-upgrade td:nth-child(3){
+    text-align: center;
+}
+body.nude{
+    background-color: #f4f3ef;
+}
+
+.date-icon
+{
+  font-size: 1em; /* change icon size */
+  display: block;
+  position: relative;
+  width: 7em;
+  height: 7em;
+  background-color: #fff;
+  margin: auto;
+  border-radius: 0.6em;
+  box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff, 0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: rotate(0deg) skewY(0deg);
+  -webkit-transform-origin: 50% 10%;
+  transform-origin: 50% 10%;
+}
+
+.date-icon *
+{
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+}
+
+.date-icon strong
+{
+  position: absolute;
+  top: 0;
+  padding: 0.4em 0;
+  color: #fff;
+  background-color: #fd9f1b;
+  border-bottom: 1px dashed #f37302;
+  box-shadow: 0 2px 0 #fd9f1b;
+}
+
+.date-icon em
+{
+  position: absolute;
+  bottom: 0.3em;
+  color: #fd9f1b;
+}
+
+.date-icon span
+{
+  width: 100%;
+  font-size: 2.8em;
+  letter-spacing: -0.05em;
+  padding-top: 0.8em;
+  color: #2f2f2f;
+}
+
+.left-vertical-tabs {
+	width:90px;
+}
+
+.right-text-tabs {
+	width:calc(100% - 90px);
+}
+
+.card {
+	max-width: 100%;
+}
+
+.card h4 {
+	margin-top:5px;
+}
+
+.card-circle-chart[data-background-color="green"] td {
+    border-color:#e0ecba;
+    color:#60773d;
+}
+
+.card-circle-chart[data-background-color="orange"] td {
+    border-color:#ffab86;
+    color:#772510;
+}
+
+.card-circle-chart[data-background-color="brown"] td {
+    border-color:#e0d1c0;
+    color:#75442e;
+}
+
+.card-circle-chart[data-background-color="blue"] td {
+    border-color:#cae2e2;
+    color:#506568;
+}
+
+.ct-series-a .ct-slice-donut {
+    stroke: #7AC29A;
+}
+
+.pie-color-serie-a {
+    color:#7AC29A;
+}
+
+.ct-series-b .ct-slice-donut {
+    stroke:#EB5E28;
+}
+
+.pie-color-serie-b {
+    color:#EB5E28;
+}
+
+.ct-series-c .ct-slice-donut {
+    stroke: #68B3C8;
+}
+
+.pie-color-serie-c {
+    color:#68B3C8;
+}
+
+.ct-series-d .ct-slice-donut {
+    stroke: #F3BB45;
+}
+
+.pie-color-serie-d {
+    color:#F3BB45;
+}
+
+.card .map {
+  height: 410px;
+  border-radius: 4px;
+}
+.icon-medium {
+  font-size:1.6em;
+}
+
+.card-success {
+  background-color: #d5e5a3;
+}
+
+.card-danger {
+  background-color: #ff8f5e;
+}
+
+.card-danger .icon-danger,
+.card-success .icon-success,
+.card-info .icon-info {
+  color:#FFF;
+}
+
+.card-info {
+  background-color: #b8d8d8;
+}
+
+#full-calendar-loading {
+  height:400px;
+  padding-top:120px;
+}
+
+.ct-series-a .ct-bar {
+    stroke: #1ad21a;
+}
+
+.dot-serie-a {
+    color: #1ad21a;
+}
+
+.ct-series-b .ct-bar {
+    stroke: #6dc554;
+}
+
+.dot-serie-b {
+    color: #6dc554;
+}
+
+.ct-series-c .ct-bar {
+    stroke: #bbefa5;
+}
+
+.dot-serie-c {
+    color: #bbefa5;
+}
+
+.ct-series-d .ct-bar {
+    stroke: #ff9494;
+}
+
+.dot-serie-d {
+    color: #ff9494;
+}
+
+.ct-series-e .ct-bar {
+    stroke: #ff4500;
+}
+
+.dot-serie-e {
+    color: #ff4500;
+}
+
+.ct-series-f .ct-bar {
+    stroke: #F00;
+}
+
+.dot-serie-f {
+    color:#F00;
+}
+
+.ct-series-e .ct-line,
+.ct-series-e .ct-point {
+  stroke:#d95ce8;
+}
+
+.dot-stats-e {
+    color:#d95ce8;
+}
+
+.fc-event.event-absent {
+  background-color: #e6eaff;
+}
+
+
+.full-page {
+  color:#FFF;
+}
+
+.fc-center .card h2 {
+  margin:0;
+}
+
+.card h2 {
+  margin:10px 0 10px;
+}
+
+.text-event-green {
+  color:#d5e5a3;
+}
+
+.text-event-red {
+  color:#ff8f5e;
+}
+
+.text-event-azure {
+  color:#b8d8d8;
+}
+
+.text-event-default {
+  color:#66615b;
+}
+
+.funkyradio div {
+  clear: both;
+  overflow: hidden;
+}
+
+.funkyradio label {
+  width: 95%;
+  border-radius: 3px;
+  border: 1px solid #D1D3D4;
+  font-weight: normal;
+}
+
+.funkyradio input[type="radio"]:empty,
+.funkyradio input[type="checkbox"]:empty {
+  display: none;
+}
+
+.funkyradio input[type="radio"]:empty ~ label,
+.funkyradio input[type="checkbox"]:empty ~ label {
+  position: relative;
+  line-height: 2.5em;
+  text-indent: 3.25em;
+  margin-top: 0.5em;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.funkyradio input[type="radio"]:empty ~ label:before,
+.funkyradio input[type="checkbox"]:empty ~ label:before {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 2.5em;
+  background: #D1D3D4;
+  border-radius: 3px 0 0 3px;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+  color: #888;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #C2C2C2;
+}
+
+.funkyradio input[type="radio"]:checked ~ label,
+.funkyradio input[type="checkbox"]:checked ~ label {
+  color: #777;
+}
+
+.funkyradio input[type="radio"]:checked ~ label:before,
+.funkyradio input[type="checkbox"]:checked ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio input[type="radio"]:focus ~ label:before,
+.funkyradio input[type="checkbox"]:focus ~ label:before {
+  box-shadow: 0 0 0 3px #999;
+}
+
+.funkyradio-default input[type="radio"]:checked ~ label:before,
+.funkyradio-default input[type="checkbox"]:checked ~ label:before {
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio-primary input[type="radio"]:checked ~ label:before,
+.funkyradio-primary input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #337ab7;
+}
+
+.funkyradio-success input[type="radio"]:checked ~ label:before,
+.funkyradio-success input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #5cb85c;
+}
+
+.funkyradio-danger input[type="radio"]:checked ~ label:before,
+.funkyradio-danger input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.funkyradio-warning input[type="radio"]:checked ~ label:before,
+.funkyradio-warning input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #f0ad4e;
+}
+
+.funkyradio-info input[type="radio"]:checked ~ label:before,
+.funkyradio-info input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #5bc0de;
+}
+
+.table-responsive.table-score {
+  overflow-y: scroll;
+  max-height: 346px;
+}
+
+.card .stats-score {
+  font-size: 2em;
+}
+
+.fc h2 {
+   font-size: 30px;
+   margin:0px;
+}
+
+.fc-toolbar .fc-left {
+  min-width: 0px
+}
+
+.card-calendar .fc-toolbar{
+  padding: 0;
+}
+
+.bootstrap-datetimepicker-widget table td.day > div {
+  z-index: 10;
+}
+
+.btn-xlg {
+  min-height:80px;
+}
+
+@media (max-width: 767px) {
+  .table-score>.table.table-responsive>tbody>tr>td,
+  .table-score>.table.table-responsive>tbody>tr>th,
+  .table-score>.table.table-responsive>tfoot>tr>td,
+  .table-score>.table.table-responsive>tfoot>tr>th,
+  .table-score>.table.table-responsive>thead>tr>td,
+  .table-score>.table.table-responsive>thead>tr>th {
+    white-space: normal;
+    font-size:8px !important;
+  }
+}

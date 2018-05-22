@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="header-text text-center">
+            <h2>VOLLEY-BALL.EU</h2>
+            <h4>Mot de passe oublié</h4>
+            <hr>
+        </div>
+    </div>
+    <div class="col-md-6 col-md-offset-3">
+        <?= $this->form()->openTag($form); ?>
+            <div class="card card-plain">
+                <div class="content">
+                    <div class="form-group">
+                        <?= $this->formElement($form->get('email')); ?>
+                    </div>
+                </div>
+                <div class="footer text-center">
+                    <a href="/auth/signin">Se connecter</a> | 
+                    <a href="/auth/signup">S'enregistrer</a> | 
+                    <button type="submit" class="btn btn-fill btn-danger btn-wd">Valider</button>
+                </div>
+            </div>
+        <?= $this->form()->closeTag($form); ?>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4 class="card-title">Vos Absences</h4>
+            </div>
+            <div class="card-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Du</th>
+                                        <th>Au</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($holidays as $holiday): ?>
+                                        <tr>
+                                            <?php
+                                                $from = \DateTime::createFromFormat('Y-m-d H:i:s', $holiday->from);
+                                                $to = \DateTime::createFromFormat('Y-m-d H:i:s', $holiday->to);
+                                            ?>
+                                            <td><?= $from->format('d/m/Y') ?></td>
+                                            <td><?= $to->format('d/m/Y') ?></td>
+                                            <td class="text-right">
+                                                <a href="/holiday/delete/<?= $holiday->id ?>" class="text-danger" onclick="return confirm('Êtes vous sûr ?')">
+                                                    <i class="ti-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card">
+            <?= $this->form()->openTag($form); ?>
+                <div class="card-header text-center">
+                    <h4 class="card-title">Créer une absence</h4>
+                    <p class="category">Définissez une période d'absence. Vous serez automatiquement marqué comme absent à tous les évènements dans cette période (déjà créés et futur).</p>
+                </div>
+                <div class="card-content">
+                    <div class="tab-content">
+                        <div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                            <div class="col-md-12 text-center"><h4>Date de début<star>*</star></h4></div>
+                                        <?= $this->formElement($form->get('from')); ?>
+                                        <div id="holiday-from"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-12 text-center"><h4>Date de fin (incluse)<star>*</star></h4></div>
+                                        <?= $this->formElement($form->get('to')); ?>
+                                        <div id="holiday-to"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <?= $this->formElement($form->get('submit')); ?>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,194 @@
+
+    <div class="content">
+            <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="card">
+                            <div class="card-header" data-background-color="purple">
+                                <h4><?= $group->name ?></h4>
+                            </div>
+
+                            <div class="card-content">
+                                <?= $this->form()->openTag($form); ?>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="name">
+                                                Name
+                                            </label>
+                                            <?= $this->formElement($form->get('name')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="description">
+                                                Description
+                                            </label>
+                                            <?= $this->formElement($form->get('description')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="gymnasium">
+                                                Gymnasium
+                                            </label>
+                                            <?= $this->formElement($form->get('gymnasium')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="address">
+                                                Address
+                                            </label>
+                                            <?= $this->formElement($form->get('address')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="schedule">
+                                                Schedule
+                                            </label>
+                                            <?= $this->formElement($form->get('schedule')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="long">
+                                                Longitude
+                                            </label>
+                                            <?= $this->formElement($form->get('long')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="lat">
+                                                Lattitude
+                                            </label>
+                                            <?= $this->formElement($form->get('lat')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <?= $this->formElement($form->get('submit')); ?>
+                                    </div>
+                                <?= $this->form()->closeTag($form); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="card">
+                            <div class="card-header" data-background-color="green">
+                                <h4 class="title">Members</h4>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="text-success">
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th style="width:50px" class="text-right"></th>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($users as $user): ?>
+                                            <tr>
+                                                <td><?= $user->id ?></td>
+                                                <td><?= $user->getFullname() ?></td>
+                                                <td>
+                                                    <a href="/admin/user/detail/<?= $user->id ?>" class="text-success">
+                                                        <i class="material-icons">search</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-header" data-background-color="orange">
+                                <h4 class="title">Recurent Events</h4>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="text-warning">
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Day</th>
+                                        <th>Time</th>
+                                        <th>Send on </th>
+                                        <th style="width:50px" class="text-right"></th>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($recurents as $recurent): ?>
+                                            <tr>
+                                                <td><?= $recurent->id ?></td>
+                                                <td><?= $recurent->name ?></td>
+                                                <td><?= $recurent->eventDay ?></td>
+                                                <td><?= $recurent->time ?></td>
+                                                <td><?= $recurent->emailDay ?></td>
+                                                <td>
+                                                    <a href="#" class="text-warning">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-header" data-background-color="red">
+                                <h4 class="title">Group Events</h4>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <div class="fresh-table">
+                                    <div class="toolbar"></div>
+
+                                    <table class="ftable table">
+                                        <thead class="text-danger">
+                                            <th data-field="name" data-sortable="true">Nom</th>
+                                            <th data-field="date" data-sortable="true">Date</th>
+                                            <th class="text-right" data-field="actions" data-width="50px">Actions</th>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($events as $event): ?>
+                                                <tr>
+                                                    <td><?= $event->name ?></td>
+                                                    <?php $date = \Datetime::createFromFormat('Y-m-d H:i:s', $event->date) ?>
+                                                    <td><?= \Application\Service\Date::toFr($date->format('l d F Y')) ?></td>
+                                                    <td class="text-right">
+                                                        <a href="/event/detail/<?= $event->id ?>" class="text-danger"><i class="material-icons">search</i></a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

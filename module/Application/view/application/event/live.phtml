@@ -1,0 +1,120 @@
+<h4><?= $event->name ?></h4>
+
+<?php
+$setFor = $setAgainst = 0;
+$lastFor = $lastThem = $lastUs = 0;
+foreach ($setsLastScore as $set => $scores) {
+    if ($set == "all") continue;
+    if ($scores) {
+        $lastUs = $scores[0];
+        $lastThem = $scores[1];
+        if (($lastUs >= 25 || $lastThem >= 25) && (abs(
+                $lastUs - $lastThem) >= 2)) {
+            if ($lastUs >= $lastThem) {
+                $setFor ++;
+            } else {
+                $setAgainst++;
+            }
+        }
+    }
+}
+
+?>
+<?php if ($lastUs == 0 && $lastThem == 0 && $setFor == 0 && $setAgainst == 0): ?>
+    <div id="history" data-set="0" data-event-id="<?= $event->id ?>" data-last-id="1"></div>
+<?php endif ?>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="col-xs-4">
+            <div class="card">
+                <div class="card-content">
+                    <div class="numbers-center">
+                        <p>Nous</p>
+                        <span class="score-us"><?= $lastUs ?></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="card">
+                <div class="card-content">
+                    <div class="text-center">
+                        <p>Sets</p>
+                        <?= $setFor ?> - <?= $setAgainst ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="card">
+                <div class="card-content">
+                    <div class="numbers-center">
+                        <p>Eux</p>
+                        <span class="score-them"><?= $lastThem ?></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="my-tab-content" class="tab-content text-center">
+    <?php $currentSet = true; ?>
+    <?php foreach ($setsHistory as $set => $scores) : ?>
+        <?php if ($scores): ?>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Set <?= $set ?> <span class="category">(Nous <span class="score-us"><?= $setsLastScore[$set][0] ?></span> - <span class="score-them"><?= $setsLastScore[$set][1] ?></span> Eux)</span></h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-score" style="max-height:346px; overflow-y:scroll">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" rowspan="2">Nous</th>
+                                        <th class="text-center" rowspan="2">Eux</th>
+                                        <th class="text-center" rowspan="2">Raison</th>
+                                        <th class="text-center" colspan="2">Block Défensif</th>
+                                        <th class="text-center" colspan="2">Défenses</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">Nous</th>
+                                        <th class="text-center">Eux</th>
+                                        <th class="text-center">Nous</th>
+                                        <th class="text-center">Eux</th>
+                                    </tr>
+                                </thead>
+                                <tbody <?= $currentSet ? 'id="history" data-set="' . $set . '" data-event-id="' . $event->id . '"  data-last-id="' . $scores[0]['id'] . '"' : ''; ?>>
+                                    <?php foreach ($scores as $score): ?>
+                                        <tr>
+                                            <td class="<?= $score['pointFor'] == \Application\Model\Stats::POINT_US ? 'success' : ''; ?>"><?= $score['us'] ?></td>
+                                            <td class="<?= $score['pointFor'] == \Application\Model\Stats::POINT_US ? '' : 'danger'; ?>"><?= $score['them'] ?></td>
+                                            <td>
+                                                <b><?= $score['reason'] ?></b>
+                                            </td>
+                                            <td>
+                                                <?= $score['blockUs'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $score['blockThem'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $score['defenceUs'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $score['defenceThem'] ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php $currentSet = false; ?>
+        <?php endif ?>
+    <?php endforeach; ?>
+</div>

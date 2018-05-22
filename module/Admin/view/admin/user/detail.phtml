@@ -1,0 +1,208 @@
+
+    <div class="content">
+            <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="card">
+                            <div class="card-header" data-background-color="purple">
+                                <h4><?= $user->email ?></h4>
+                            </div>
+
+                            <div class="card-content">
+                                <?= $this->form()->openTag($form); ?>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="firstname">
+                                                Firstname
+                                            </label>
+                                            <?= $this->formElement($form->get('firstname')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="lastname">
+                                                Lastname
+                                            </label>
+                                            <?= $this->formElement($form->get('lastname')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="phone">
+                                                Phone
+                                            </label>
+                                            <?= $this->formElement($form->get('phone')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="licence">
+                                                Licence
+                                            </label>
+                                            <?= $this->formElement($form->get('licence')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="status">
+                                                Status
+                                            </label>
+                                            <?= $this->formElement($form->get('status')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group label-floating is-filed">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">fingerprint</i>
+                                            </span>
+                                            <label class="control-label" for="display">
+                                                Display
+                                            </label>
+                                            <?= $this->formElement($form->get('display')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <?= $this->formElement($form->get('submit')); ?>
+                                    </div>
+                                <?= $this->form()->closeTag($form); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="card">
+                            <div class="card-header" data-background-color="green">
+                                <h4 class="title">User Groups</h4>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="text-success">
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th style="width:50px" class="text-right"></th>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($groups as $group): ?>
+                                            <tr>
+                                                <td><?= $group->id ?></td>
+                                                <td><?= $group->name ?></td>
+                                                <td>
+                                                    <a href="/admin/group/detail/<?= $group->id ?>" class="text-success">
+                                                        <i class="material-icons">search</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="card">
+                            <div class="card-header" data-background-color="orange">
+                                <h4 class="title">User Absents</h4>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="text-warning">
+                                        <th>ID</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th style="width:50px" class="text-right"></th>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($absents as $absent): ?>
+                                            <?php
+                                                $from = \Datetime::createFromFormat('Y-m-d H:i:s', $absent->from);
+                                                $to = \Datetime::createFromFormat('Y-m-d H:i:s', $absent->to);
+                                            ?>
+                                            <tr>
+                                                <td><?= $absent->id ?></td>
+                                                <td><?= $from->format('d-m-Y') ?></td>
+                                                <td><?= $to->format('d-m-Y') ?></td>
+                                                <td>
+                                                    <a href="#" class="text-warning">
+                                                        <i class="material-icons">delete_forever</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="card">
+                            <div class="card-header" data-background-color="blue">
+                                <h4 class="title">User Notif</h4>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="text-info">
+                                        <th>ID</th>
+                                        <th>Label</th>
+                                        <th style="width:50px" class="text-right"></th>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($notifs as $notif): ?>
+                                            <tr>
+                                                <td><?= $notif->id ?></td>
+                                                <td><?= $notif->getLabel() ?></td>
+                                                <td><?= $notif->status ?></td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-header" data-background-color="red">
+                                <h4 class="title">User Events</h4>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <div class="fresh-table">
+                                    <div class="toolbar"></div>
+
+                                    <table class="ftable table">
+                                        <thead class="text-danger">
+                                            <th data-field="name" data-sortable="true">Nom</th>
+                                            <th data-field="date" data-sortable="true">Date</th>
+                                            <th class="text-right" data-field="actions" data-width="50px">Actions</th>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($events as $event): ?>
+                                                <tr>
+                                                    <td><?= $event->name ?></td>
+                                                    <?php $date = \Datetime::createFromFormat('Y-m-d H:i:s', $event->date) ?>
+                                                    <td><?= \Application\Service\Date::toFr($date->format('l d F Y')) ?></td>
+                                                    <td class="text-right">
+                                                        <a href="/event/detail/<?= $event->id ?>" class="text-danger"><i class="material-icons">search</i></a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

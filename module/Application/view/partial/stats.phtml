@@ -1,0 +1,321 @@
+<?php if ($setsHistory[1]): ?>
+    <div class="nav-tabs-navigation">
+        <div class="nav-tabs-wrapper">
+            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                <?php foreach ($setsHistory as $set => $scores) : ?>
+                    <?php if ($scores): ?>
+                        <li class="<?= $set == 1 ? 'active' : ''; ?>"><a href="#pills-set-<?= $set ?>" data-toggle="tab" aria-expanded="false">Set <?= $set ?></a></li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <li><a href="#pills-match" data-toggle="tab" aria-expanded="false">Match</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="my-tab-content" class="tab-content text-center">
+        <?php foreach ($setsHistory as $set => $scores) : ?>
+            <?php $size = isset($size) ? $size : 4; ?>
+            <?php if ($scores): ?>
+                <div class="tab-pane <?= $set == 1 ? 'active' : ''; ?>" id="pills-set-<?= $set ?>">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="overall-stats-chart" style="width:100%" 
+                                        data-stats-us="<?= $setsStats[$set]['us'] ?>"
+                                        data-stats-them="<?= $setsStats[$set]['them'] ?>
+                                    "></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Set <?= $set ?> <span class="category">(Nous <?= $setsLastScore[$set][0] ?> - <?= $setsLastScore[$set][1] ?> Eux)</span></h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="table-score" style="max-height:346px; overflow-y:scroll">
+                                        <table class="table table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="2">Nous</th>
+                                                    <th rowspan="2">Eux</th>
+                                                    <th rowspan="2">Raison</th>
+                                                    <th colspan="2">Block Défensif</th>
+                                                    <th colspan="2">Défenses</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Nous</th>
+                                                    <th>Eux</th>
+                                                    <th>Nous</th>
+                                                    <th>Eux</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($scores as $score): ?>
+                                                    <tr>
+                                                        <td class="<?= $score['pointFor'] == \Application\Model\Stats::POINT_US ? 'success' : ''; ?>"><?= $score['us'] ?></td>
+                                                        <td class="<?= $score['pointFor'] == \Application\Model\Stats::POINT_US ? '' : 'danger'; ?>"><?= $score['them'] ?></td>
+                                                        <td>
+                                                            <b><?= $score['reason'] ?></b>
+                                                        </td>
+                                                        <td>
+                                                            <?= $score['blockUs']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $score['blockThem']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $score['defenceUs']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $score['defenceThem']; ?>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="efficiency-chart"
+                                        data-stats-point="<?= $efficiencyStats[$set]['point'] ?>"
+                                        data-stats-fault="<?= $efficiencyStats[$set]['fault'] ?>"
+                                        data-stats-defence="<?= $efficiencyStats[$set]['defence'] ?>"
+                                        data-stats-block="<?= $efficiencyStats[$set]['block'] ?>"
+                                        ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="post-attack-chart"
+                                        data-stats-post-post4 = "<?= $zoneRepartitionStats[$set]['post4'] ?>"
+                                        data-stats-post-post2 = "<?= $zoneRepartitionStats[$set]['post2'] ?>"
+                                        data-stats-post-post3m = "<?= $zoneRepartitionStats[$set]['post3m'] ?>"
+                                        data-stats-post-line4 = "<?= $zoneRepartitionStats[$set]['line4'] ?>"
+                                        data-stats-post-line3m = "<?= $zoneRepartitionStats[$set]['line3m'] ?>"
+                                        data-stats-post-line2 = "<?= $zoneRepartitionStats[$set]['line2'] ?>"
+                                        data-stats-post-largeDiag = "<?= $zoneRepartitionStats[$set]['largeDiag'] ?>"
+                                        data-stats-post-largeDiag2 = "<?= $zoneRepartitionStats[$set]['largeDiag2'] ?>"
+                                        data-stats-post-largeDiag4 = "<?= $zoneRepartitionStats[$set]['largeDiag4'] ?>"
+                                        data-stats-post-largeDiag3m = "<?= $zoneRepartitionStats[$set]['largeDiag3m'] ?>"
+                                        data-stats-post-smallDiag = "<?= $zoneRepartitionStats[$set]['smallDiag'] ?>"
+                                        data-stats-post-smallDiag2 = "<?= $zoneRepartitionStats[$set]['smallDiag2'] ?>"
+                                        data-stats-post-smallDiag4 = "<?= $zoneRepartitionStats[$set]['smallDiag4'] ?>"
+                                        data-stats-post-smallDiag3m = "<?= $zoneRepartitionStats[$set]['smallDiag3m'] ?>"
+                                        data-stats-post-bidouille = "<?= $zoneRepartitionStats[$set]['bidouille'] ?>"
+                                        data-stats-post-bidouille2 = "<?= $zoneRepartitionStats[$set]['bidouille2'] ?>"
+                                        data-stats-post-bidouille4 = "<?= $zoneRepartitionStats[$set]['bidouille4'] ?>"
+                                        data-stats-post-bidouille3m = "<?= $zoneRepartitionStats[$set]['bidouille3m'] ?>"
+                                        data-stats-post-blockOut = "<?= $zoneRepartitionStats[$set]['blockOut'] ?>"
+                                        data-stats-post-blockOut2 = "<?= $zoneRepartitionStats[$set]['blockOut2'] ?>"
+                                        data-stats-post-blockOut4 = "<?= $zoneRepartitionStats[$set]['blockOut4'] ?>"
+                                        data-stats-post-blockOut3m = "<?= $zoneRepartitionStats[$set]['blockOut3m'] ?>"
+                                        data-stats-post-center = "<?= $zoneRepartitionStats[$set]['center'] ?>"
+                                        data-stats-post-decaCenter = "<?= $zoneRepartitionStats[$set]['decaCenter'] ?>"
+                                        data-stats-post-fixCenter = "<?= $zoneRepartitionStats[$set]['fixCenter'] ?>"
+                                        data-stats-post-behindCenter = "<?= $zoneRepartitionStats[$set]['behindCenter'] ?>"
+                                        data-stats-post-set = "<?= $zoneRepartitionStats[$set]['set'] ?>"
+                                        data-stats-post-setAttack = "<?= $zoneRepartitionStats[$set]['setAttack'] ?>"
+                                        data-stats-post-setBidouille = "<?= $zoneRepartitionStats[$set]['setBidouille'] ?>"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="zone-attack-chart"
+                                        data-stats-zone-line = "<?= $zoneRepartitionStats[$set]['line'] ?>"
+                                        data-stats-zone-line4 = "<?= $zoneRepartitionStats[$set]['line4'] ?>"
+                                        data-stats-zone-line3m = "<?= $zoneRepartitionStats[$set]['line3m'] ?>"
+                                        data-stats-zone-line2 = "<?= $zoneRepartitionStats[$set]['line2'] ?>"
+                                        data-stats-zone-largeDiag = "<?= $zoneRepartitionStats[$set]['largeDiag'] ?>"
+                                        data-stats-zone-largeDiag2 = "<?= $zoneRepartitionStats[$set]['largeDiag2'] ?>"
+                                        data-stats-zone-largeDiag4 = "<?= $zoneRepartitionStats[$set]['largeDiag4'] ?>"
+                                        data-stats-zone-largeDiag3m = "<?= $zoneRepartitionStats[$set]['largeDiag3m'] ?>"
+                                        data-stats-zone-smallDiag = "<?= $zoneRepartitionStats[$set]['smallDiag'] ?>"
+                                        data-stats-zone-smallDiag2 = "<?= $zoneRepartitionStats[$set]['smallDiag2'] ?>"
+                                        data-stats-zone-smallDiag4 = "<?= $zoneRepartitionStats[$set]['smallDiag4'] ?>"
+                                        data-stats-zone-smallDiag3m = "<?= $zoneRepartitionStats[$set]['smallDiag3m'] ?>"
+                                        data-stats-zone-bidouille = "<?= $zoneRepartitionStats[$set]['bidouille'] ?>"
+                                        data-stats-zone-bidouille2 = "<?= $zoneRepartitionStats[$set]['bidouille2'] ?>"
+                                        data-stats-zone-bidouille4 = "<?= $zoneRepartitionStats[$set]['bidouille4'] ?>"
+                                        data-stats-zone-bidouille3m = "<?= $zoneRepartitionStats[$set]['bidouille3m'] ?>"
+                                        data-stats-zone-blockOut = "<?= $zoneRepartitionStats[$set]['blockOut'] ?>"
+                                        data-stats-zone-blockOut2 = "<?= $zoneRepartitionStats[$set]['blockOut2'] ?>"
+                                        data-stats-zone-blockOut4 = "<?= $zoneRepartitionStats[$set]['blockOut4'] ?>"
+                                        data-stats-zone-blockOut3m = "<?= $zoneRepartitionStats[$set]['blockOut3m'] ?>"
+                                        data-stats-zone-center = "<?= $zoneRepartitionStats[$set]['center'] ?>"
+                                        data-stats-zone-decaCenter = "<?= $zoneRepartitionStats[$set]['decaCenter'] ?>"
+                                        data-stats-zone-fixCenter = "<?= $zoneRepartitionStats[$set]['fixCenter'] ?>"
+                                        data-stats-zone-behindCenter = "<?= $zoneRepartitionStats[$set]['behindCenter'] ?>"
+                                        data-stats-zone-set = "<?= $zoneRepartitionStats[$set]['set'] ?>"
+                                        data-stats-zone-setAttack = "<?= $zoneRepartitionStats[$set]['setAttack'] ?>"
+                                        data-stats-zone-setBidouille = "<?= $zoneRepartitionStats[$set]['setBidouille'] ?>"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="fault-repartition-chart"
+                                        data-stats-fault-4="<?= $faultStats[$set]['4'] ?>"
+                                        data-stats-fault-2="<?= $faultStats[$set]['2'] ?>"
+                                        data-stats-fault-center="<?= $faultStats[$set]['center'] ?>"
+                                        data-stats-fault-3m="<?= $faultStats[$set]['3m'] ?>"
+                                        data-stats-fault-setter="<?= $faultStats[$set]['setter'] ?>"
+                                        ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="defensive-chart"
+                                        data-stats-block-us="<?= $defenceStats[$set]['blockUs'] ?>"
+                                        data-stats-defence-us="<?= $defenceStats[$set]['defenceUs'] ?>"
+                                        data-stats-block-them="<?= $defenceStats[$set]['blockThem'] ?>"
+                                        data-stats-defence-them="<?= $defenceStats[$set]['defenceThem'] ?>"
+                                        ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <div class="tab-pane " id="pills-match">
+            <div class="tab-pane" id="pills-match">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="overall-stats-chart" style="width:100%" 
+                                    data-stats-us="<?= $overallStats['us'] ?>"
+                                    data-stats-them="<?= $overallStats['them'] ?>
+                                "></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="efficiency-chart"
+                                    data-stats-point="<?= $efficiencyStats['all']['point'] ?>"
+                                    data-stats-fault="<?= $efficiencyStats['all']['fault'] ?>"
+                                    data-stats-defence="<?= $efficiencyStats['all']['defence'] ?>"
+                                    data-stats-block="<?= $efficiencyStats['all']['block'] ?>"
+                                    ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="fault-repartition-chart"
+                                    data-stats-fault-4="<?= $faultStats['all']['4'] ?>"
+                                    data-stats-fault-2="<?= $faultStats['all']['2'] ?>"
+                                    data-stats-fault-center="<?= $faultStats['all']['center'] ?>"
+                                    data-stats-fault-3m="<?= $faultStats['all']['3m'] ?>"
+                                    data-stats-fault-setter="<?= $faultStats['all']['setter'] ?>"
+                                    ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="post-attack-chart"
+                                    data-stats-post-post4 = "<?= $zoneRepartitionStats['all']['post4'] ?>"
+                                    data-stats-post-post2 = "<?= $zoneRepartitionStats['all']['post2'] ?>"
+                                    data-stats-post-post3m = "<?= $zoneRepartitionStats['all']['post3m'] ?>"
+                                    data-stats-post-line4 = "<?= $zoneRepartitionStats['all']['line4'] ?>"
+                                    data-stats-post-line3m = "<?= $zoneRepartitionStats['all']['line3m'] ?>"
+                                    data-stats-post-line2 = "<?= $zoneRepartitionStats['all']['line2'] ?>"
+                                    data-stats-post-largeDiag = "<?= $zoneRepartitionStats['all']['largeDiag'] ?>"
+                                    data-stats-post-largeDiag2 = "<?= $zoneRepartitionStats['all']['largeDiag2'] ?>"
+                                    data-stats-post-largeDiag4 = "<?= $zoneRepartitionStats['all']['largeDiag4'] ?>"
+                                    data-stats-post-largeDiag3m = "<?= $zoneRepartitionStats['all']['largeDiag3m'] ?>"
+                                    data-stats-post-smallDiag = "<?= $zoneRepartitionStats['all']['smallDiag'] ?>"
+                                    data-stats-post-smallDiag2 = "<?= $zoneRepartitionStats['all']['smallDiag2'] ?>"
+                                    data-stats-post-smallDiag4 = "<?= $zoneRepartitionStats['all']['smallDiag4'] ?>"
+                                    data-stats-post-smallDiag3m = "<?= $zoneRepartitionStats['all']['smallDiag3m'] ?>"
+                                    data-stats-post-bidouille = "<?= $zoneRepartitionStats['all']['bidouille'] ?>"
+                                    data-stats-post-bidouille2 = "<?= $zoneRepartitionStats['all']['bidouille2'] ?>"
+                                    data-stats-post-bidouille4 = "<?= $zoneRepartitionStats['all']['bidouille4'] ?>"
+                                    data-stats-post-bidouille3m = "<?= $zoneRepartitionStats['all']['bidouille3m'] ?>"
+                                    data-stats-post-blockOut = "<?= $zoneRepartitionStats['all']['blockOut'] ?>"
+                                    data-stats-post-blockOut2 = "<?= $zoneRepartitionStats['all']['blockOut2'] ?>"
+                                    data-stats-post-blockOut4 = "<?= $zoneRepartitionStats['all']['blockOut4'] ?>"
+                                    data-stats-post-blockOut3m = "<?= $zoneRepartitionStats['all']['blockOut3m'] ?>"
+                                    data-stats-post-center = "<?= $zoneRepartitionStats['all']['center'] ?>"
+                                    data-stats-post-decaCenter = "<?= $zoneRepartitionStats['all']['decaCenter'] ?>"
+                                    data-stats-post-fixCenter = "<?= $zoneRepartitionStats['all']['fixCenter'] ?>"
+                                    data-stats-post-behindCenter = "<?= $zoneRepartitionStats['all']['behindCenter'] ?>"
+                                    data-stats-post-set = "<?= $zoneRepartitionStats['all']['set'] ?>"
+                                    data-stats-post-setAttack = "<?= $zoneRepartitionStats['all']['setAttack'] ?>"
+                                    data-stats-post-setBidouille = "<?= $zoneRepartitionStats['all']['setBidouille'] ?>"
+                                ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="zone-attack-chart"
+                                    data-stats-zone-line = "<?= $zoneRepartitionStats['all']['line'] ?>"
+                                    data-stats-zone-line4 = "<?= $zoneRepartitionStats['all']['line4'] ?>"
+                                    data-stats-zone-line3m = "<?= $zoneRepartitionStats['all']['line3m'] ?>"
+                                    data-stats-zone-line2 = "<?= $zoneRepartitionStats['all']['line2'] ?>"
+                                    data-stats-zone-largeDiag = "<?= $zoneRepartitionStats['all']['largeDiag'] ?>"
+                                    data-stats-zone-largeDiag2 = "<?= $zoneRepartitionStats['all']['largeDiag2'] ?>"
+                                    data-stats-zone-largeDiag4 = "<?= $zoneRepartitionStats['all']['largeDiag4'] ?>"
+                                    data-stats-zone-largeDiag3m = "<?= $zoneRepartitionStats['all']['largeDiag3m'] ?>"
+                                    data-stats-zone-smallDiag = "<?= $zoneRepartitionStats['all']['smallDiag'] ?>"
+                                    data-stats-zone-smallDiag2 = "<?= $zoneRepartitionStats['all']['smallDiag2'] ?>"
+                                    data-stats-zone-smallDiag4 = "<?= $zoneRepartitionStats['all']['smallDiag4'] ?>"
+                                    data-stats-zone-smallDiag3m = "<?= $zoneRepartitionStats['all']['smallDiag3m'] ?>"
+                                    data-stats-zone-bidouille = "<?= $zoneRepartitionStats['all']['bidouille'] ?>"
+                                    data-stats-zone-bidouille2 = "<?= $zoneRepartitionStats['all']['bidouille2'] ?>"
+                                    data-stats-zone-bidouille4 = "<?= $zoneRepartitionStats['all']['bidouille4'] ?>"
+                                    data-stats-zone-bidouille3m = "<?= $zoneRepartitionStats['all']['bidouille3m'] ?>"
+                                    data-stats-zone-blockOut = "<?= $zoneRepartitionStats['all']['blockOut'] ?>"
+                                    data-stats-zone-blockOut2 = "<?= $zoneRepartitionStats['all']['blockOut2'] ?>"
+                                    data-stats-zone-blockOut4 = "<?= $zoneRepartitionStats['all']['blockOut4'] ?>"
+                                    data-stats-zone-blockOut3m = "<?= $zoneRepartitionStats['all']['blockOut3m'] ?>"
+                                    data-stats-zone-center = "<?= $zoneRepartitionStats['all']['center'] ?>"
+                                    data-stats-zone-decaCenter = "<?= $zoneRepartitionStats['all']['decaCenter'] ?>"
+                                    data-stats-zone-fixCenter = "<?= $zoneRepartitionStats['all']['fixCenter'] ?>"
+                                    data-stats-zone-behindCenter = "<?= $zoneRepartitionStats['all']['behindCenter'] ?>"
+                                    data-stats-zone-set = "<?= $zoneRepartitionStats['all']['set'] ?>"
+                                    data-stats-zone-setAttack = "<?= $zoneRepartitionStats['all']['setAttack'] ?>"
+                                    data-stats-zone-setBidouille = "<?= $zoneRepartitionStats['all']['setBidouille'] ?>"
+                                ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="defensive-chart"
+                                    data-stats-block-us="<?= $defenceStats['all']['blockUs'] ?>"
+                                    data-stats-defence-us="<?= $defenceStats['all']['defenceUs'] ?>"
+                                    data-stats-block-them="<?= $defenceStats['all']['blockThem'] ?>"
+                                    data-stats-defence-them="<?= $defenceStats['all']['defenceThem'] ?>"
+                                    ></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
