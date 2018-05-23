@@ -353,11 +353,6 @@ demo = {
                             $('#fullCalendar').fullCalendar('updateEvent', myEvent);
                             calendarModal.modal('hide');
                         });
-                        swal({
-                          title: 'Enregistré',
-                          type: 'success',
-                          showConfirmButton: false
-                        });
                     });
 
                     $('#event-url-no').off('click').on('click', function(e, state) {
@@ -373,11 +368,6 @@ demo = {
                             $('#fullCalendar').fullCalendar('updateEvent', myEvent);
                             calendarModal.modal('hide');
                         });
-                        swal({
-                          title: 'Enregistré',
-                          type: 'success',
-                          showConfirmButton: false
-                        });
                     });
 
                     $('#event-url-incertain').off('click').on('click', function(e, state) {
@@ -392,11 +382,6 @@ demo = {
                             myEvent.className = ['event-azure'];
                             $('#fullCalendar').fullCalendar('updateEvent', myEvent);
                             calendarModal.modal('hide');
-                        });
-                        swal({
-                          title: 'Enregistré',
-                          type: 'success',
-                          showConfirmButton: false
                         });
                     });
                 }

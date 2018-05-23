@@ -129,18 +129,66 @@
             //     $this.prop('checked', false);
             //   }
             // });
+            var calendarModal = $('#editNewEvent');
+            var myEvent = event;
+            $('#modal-title').html(myEvent.title);
+            $('#modal-date').html(myEvent.date);
+            $('.event-url').attr('href', myEvent.url);
+            $('#modal-count').html(myEvent.count);
+            $('#modal-place').html(myEvent.place);
+            $('#modal-city').html(myEvent.city);
+            $('#modal-zipcode').html(myEvent.zipcode);
+            $('#modal-address').html(myEvent.address);
+            $('#modal-month').html(myEvent.month);
+            $('#modal-day').html(myEvent.day);
+            $('#modal-date').html(myEvent.date);
+            $('#event-place-url').attr('href', 'https://maps.google.com/?q=' + myEvent.address + '+' + myEvent.city + '+' + myEvent.zipcode);
+            calendarModal.modal('show');
 
-            $('#editNewEvent').modal('show').one('hidden.bs.modal', function (e) {
-              // event.title = $('#editEname').val();
+            var url = '/api/guest/response/' + myEvent.id;
+            $('#event-url-ok').off('click').on('click', function(e, state) {
+                url = url + '/1';
+                var request = $.ajax({
+                    type: "GET",
+                    url: url
+                }).done(function(resp) {
+                    if (myEvent.className != 'event-green') {
+                        myEvent.count = myEvent.count + 1;
+                    }
+                    myEvent.className = ['event-green'];
+                    $('#calendar').fullCalendar('updateEvent', myEvent);
+                    calendarModal.modal('hide');
+                });
+            });
 
-              // var color = $('#editColor [type=radio]:checked').data('color').split('|');
-              // color = (0, _Config.colors)(color[0], color[1]);
-              // event.backgroundColor = color;
-              // event.borderColor = color;
+            $('#event-url-no').off('click').on('click', function(e, state) {
+                url = url + '/2';
+                var request = $.ajax({
+                    type: "GET",
+                    url: url
+                }).done(function(resp) {
+                    if (myEvent.className == 'event-green') {
+                        myEvent.count = myEvent.count - 1;
+                    }
+                    myEvent.className = ['event-red'];
+                    $('#calendar').fullCalendar('updateEvent', myEvent);
+                    calendarModal.modal('hide');
+                });
+            });
 
-              // event.start = new Date($('#editStarts').data('datepicker').getDate());
-              // event.end = new Date($('#editEnds').data('datepicker').getDate());
-              // $('#calendar').fullCalendar('updateEvent', event);
+            $('#event-url-incertain').off('click').on('click', function(e, state) {
+                url = url + '/3';
+                var request = $.ajax({
+                    type: "GET",
+                    url: url
+                }).done(function(resp) {
+                    if (myEvent.className == 'event-green') {
+                        myEvent.count = myEvent.count - 1;
+                    }
+                    myEvent.className = ['event-azure'];
+                    $('#calendar').fullCalendar('updateEvent', myEvent);
+                    calendarModal.modal('hide');
+                });
             });
           },
           eventDragStart: function eventDragStart() {
