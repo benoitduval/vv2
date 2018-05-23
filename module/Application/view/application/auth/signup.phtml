@@ -1,37 +1,66 @@
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <div class="header-text text-center">
-            <h2>VOLLEY-BALL.EU</h2>
-            <h4>S'enregistrer</h4>
-            <hr>
-        </div>
+
+<div class="page-login-main animation-slide-right animation-duration-1">
+  <div class="brand hidden-md-up">
+    <img class="brand-img" src="/assets/images/logo-mail.png" alt="...">
+    <h3 class="brand-text font-size-40">Volley-ball.eu</h3>
+  </div>
+  <h3 class="font-size-24">Register</h3>
+  <p>Create new account ?</p>
+
+  <?php if ($this->flashMessenger()->getMessages('error')): ?>
+    <div class="alert alert-alt alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      Something goes wrong, try again.
     </div>
-    <div class="col-md-6 col-md-offset-3">
-        <?= $this->form()->openTag($signUpForm); ?>
-            <div class="card card-plain">
-                <div class="content">
-                    <div class="form-group">
-                        <?= $this->formElement($signUpForm->get('firstname')); ?>
-                    </div>
-                    <div class="form-group">
-                        <?= $this->formElement($signUpForm->get('lastname')); ?>
-                    </div>
-                    <div class="form-group">
-                        <?= $this->formElement($signUpForm->get('email')); ?>
-                    </div>
-                    <div class="form-group">
-                        <?= $this->formElement($signUpForm->get('password')); ?>
-                    </div>
-                    <div class="form-group">
-                        <?= $this->formElement($signUpForm->get('repassword')); ?>
-                    </div>
-                </div>
-                <div class="footer text-center">
-                    <a href="/auth/signin<?= $group ? '?group=' . $group : ''; ?>">Se connecter</a> | 
-                    <a href="/auth/email">Mot de passe oublié</a> | 
-                    <button type="submit" class="btn btn-fill btn-danger btn-wd">Créer mon compte</button>
-                </div>
-            </div>
-        <?= $this->form()->closeTag($signUpForm); ?>
+  <?php endif ?>
+
+<?= $this->form()->openTag($signUpForm); ?>
+    <div class="form-group">
+      <label class="sr-only" for="email">Email</label>
+      <?= $this->formElement($signUpForm->get('email')); ?>
     </div>
+    <div class="form-group">
+      <label class="sr-only" for="firstname">Firstname</label>
+      <?= $this->formElement($signUpForm->get('firstname')); ?>
+    </div>
+    <div class="form-group">
+      <label class="sr-only" for="lastname">Lastname</label>
+      <?= $this->formElement($signUpForm->get('lastname')); ?>
+    </div>
+    <div class="form-group">
+      <label class="sr-only" for="password">Password</label>
+      <?= $this->formElement($signUpForm->get('password')); ?>
+    </div>
+    <div class="form-group">
+      <label class="sr-only" for="repassword">Confirmation</label>
+      <?= $this->formElement($signUpForm->get('repassword')); ?>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+    <?= $this->form()->closeTag($signUpForm); ?>
+
+    <div class="form-group clearfix">
+<!--       <div class="checkbox-custom checkbox-inline checkbox-primary float-left">
+        <input type="checkbox" id="rememberMe" name="rememberMe">
+        <label for="rememberMe">Remember me</label>
+      </div> -->
+      <p class="float-left">Have an account? <a href="/auth/signin<?= $group ? '?group=' . $group : ''; ?>">Sign In</a></p>
+      <a class="float-right" href="/auth/email">Forgot password?</a>
+    </div>
+
+    <footer class="page-copyright">
+      <p>© 2018 Volley-ball.eu</p>
+<!--     <div class="social">
+      <a class="btn btn-icon btn-round social-twitter mx-5" href="javascript:void(0)">
+        <i class="icon bd-twitter" aria-hidden="true"></i>
+      </a>
+          <a class="btn btn-icon btn-round social-facebook mx-5" href="javascript:void(0)">
+        <i class="icon bd-facebook" aria-hidden="true"></i>
+      </a>
+          <a class="btn btn-icon btn-round social-google-plus mx-5" href="javascript:void(0)">
+        <i class="icon bd-google-plus" aria-hidden="true"></i>
+      </a>
+    </div> -->
+  </footer>
 </div>

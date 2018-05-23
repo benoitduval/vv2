@@ -79,7 +79,7 @@
               }
           },
           firstDay: 1,
-          eventLimit: true, // allow "more" link when too many events
+          eventLimit: false, // allow "more" link when too many events
           timeFormat: 'H:mm',
           header: {
             left: null,
@@ -93,7 +93,6 @@
           },
 
           editable: true,
-          eventLimit: true,
           // windowResize: function windowResize(view) {
           //   var width = $(window).outerWidth();
           //   var options = Object.assign({}, myOptions);
@@ -104,43 +103,44 @@
           //   $('#calendar').fullCalendar('destroy');
           //   $('#calendar').fullCalendar(options);
           // },
-          eventClick: function eventClick(event) {
-            var color = event.backgroundColor ? event.backgroundColor : (0, _Config.colors)('blue', 600);
-            $('#editEname').val(event.title);
+          eventClick:  function(event, jsEvent, view) {
+            jsEvent.preventDefault();
+            // var color = event.backgroundColor ? event.backgroundColor : (0, _Config.colors)('blue', 600);
+            // $('#editEname').val(event.title);
 
-            if (event.start) {
-              $('#editStarts').datepicker('update', event.start._d);
-            } else {
-              $('#editStarts').datepicker('update', '');
-            }
-            if (event.end) {
-              $('#editEnds').datepicker('update', event.end._d);
-            } else {
-              $('#editEnds').datepicker('update', '');
-            }
+            // if (event.start) {
+            //   $('#editStarts').datepicker('update', event.start._d);
+            // } else {
+            //   $('#editStarts').datepicker('update', '');
+            // }
+            // if (event.end) {
+            //   $('#editEnds').datepicker('update', event.end._d);
+            // } else {
+            //   $('#editEnds').datepicker('update', '');
+            // }
 
-            $('#editColor [type=radio]').each(function () {
-              var $this = $(this),
-                  _value = $this.data('color').split('|'),
-                  value = (0, _Config.colors)(_value[0], _value[1]);
-              if (value === color) {
-                $this.prop('checked', true);
-              } else {
-                $this.prop('checked', false);
-              }
-            });
+            // $('#editColor [type=radio]').each(function () {
+            //   var $this = $(this),
+            //       _value = $this.data('color').split('|'),
+            //       value = (0, _Config.colors)(_value[0], _value[1]);
+            //   if (value === color) {
+            //     $this.prop('checked', true);
+            //   } else {
+            //     $this.prop('checked', false);
+            //   }
+            // });
 
             $('#editNewEvent').modal('show').one('hidden.bs.modal', function (e) {
-              event.title = $('#editEname').val();
+              // event.title = $('#editEname').val();
 
-              var color = $('#editColor [type=radio]:checked').data('color').split('|');
-              color = (0, _Config.colors)(color[0], color[1]);
-              event.backgroundColor = color;
-              event.borderColor = color;
+              // var color = $('#editColor [type=radio]:checked').data('color').split('|');
+              // color = (0, _Config.colors)(color[0], color[1]);
+              // event.backgroundColor = color;
+              // event.borderColor = color;
 
-              event.start = new Date($('#editStarts').data('datepicker').getDate());
-              event.end = new Date($('#editEnds').data('datepicker').getDate());
-              $('#calendar').fullCalendar('updateEvent', event);
+              // event.start = new Date($('#editStarts').data('datepicker').getDate());
+              // event.end = new Date($('#editEnds').data('datepicker').getDate());
+              // $('#calendar').fullCalendar('updateEvent', event);
             });
           },
           eventDragStart: function eventDragStart() {

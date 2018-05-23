@@ -7,31 +7,38 @@
   <h3 class="font-size-24">Sign In</h3>
   <p>Do you already have an account ?</p>
 
-  <?= $this->form()->openTag($signInForm); ?>
+  <?php if ($this->flashMessenger()->getMessages('error')): ?>
+    <div class="alert alert-alt alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      Invalid Email or Password.
+    </div>
+  <?php endif ?>
+
+<?= $this->form()->openTag($signInForm); ?>
     <div class="form-group">
       <label class="sr-only" for="inputEmail">Email</label>
-      <!-- <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email"> -->
       <?= $this->formElement($signInForm->get('email')); ?>
     </div>
     <div class="form-group">
       <label class="sr-only" for="inputPassword">Password</label>
-      <!-- <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password"> -->
       <?= $this->formElement($signInForm->get('password')); ?>
     </div>
+    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+    <?= $this->form()->closeTag($signInForm); ?>
+
     <div class="form-group clearfix">
-      <div class="checkbox-custom checkbox-inline checkbox-primary float-left">
+<!--       <div class="checkbox-custom checkbox-inline checkbox-primary float-left">
         <input type="checkbox" id="rememberMe" name="rememberMe">
         <label for="rememberMe">Remember me</label>
-      </div>
-      <a class="float-right" href="forgot-password.html">Forgot password?</a>
+      </div> -->
+      <p class="float-left">No account? <a href="/auth/signup<?= $group ? '?group=' . $group : ''; ?>">Sign Up</a></p>
+      <a class="float-right" href="/auth/email">Forgot password?</a>
     </div>
-    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-  <?= $this->form()->closeTag($signInForm); ?>
 
-  <p>No account? <a href="register-v2.html">Sign Up</a></p>
-
-  <footer class="page-copyright">
-    <p>© 2018 Volley-ball.eu</p>
+    <footer class="page-copyright">
+      <p>© 2018 Volley-ball.eu</p>
 <!--     <div class="social">
       <a class="btn btn-icon btn-round social-twitter mx-5" href="javascript:void(0)">
         <i class="icon bd-twitter" aria-hidden="true"></i>

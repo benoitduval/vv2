@@ -114,8 +114,10 @@
   background-color: rgba(214, 193, 171, 0.5); }
 
 .fc-event {
-  border:none;
-}
+  border:none; }
+
+.fc-toolbar {
+  margin-bottom:0; }
 
 @media (max-width: 991.98px) {
   .fc-toolbar .fc-center {
