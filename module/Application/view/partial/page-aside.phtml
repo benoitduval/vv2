@@ -13,7 +13,7 @@
               <?php foreach ($this->groups as $group): ?>
                   <div class="list-group-item" data-plugin="editlist">
                     <div class="list-content">
-                      <span class="item-right">10</span>
+                      <span class="item-right"><?= $this->count[$group->id] ?></span>
                       <span class="list-text"><?= $group->name ?></span>
                       <div class="item-actions">
                         <span class="btn btn-pure btn-icon" data-toggle="list-visible"><i class="icon wb-eye" aria-hidden="true"></i></span>

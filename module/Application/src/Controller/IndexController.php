@@ -23,21 +23,18 @@ class IndexController extends AbstractController
 
             $userId     = $this->getUser()->id;
             $groups     = $this->getUserGroups();
-            $result     = [];
-            $counters   = [];
             if ($groups) {
                 foreach ($groups as $group) {
-                    $userGroups[$group->id] = $group;
+                    $count[$group->id] = $this->eventTable->count(['groupId' => $group->id]);
                 }
             }
 
             $this->layout()->setTemplate('layout/page-aside.phtml');
             $this->layout()->user = $this->getUser();
+            $this->layout()->count = $count;
 
             return new ViewModel([
-                'events'       => $result,
-                'user'         => $this->getUser(),
-                'groups'       => $groups,
+                'user'   => $this->getUser(),
             ]);
         } else {
             return $this->redirect()->toUrl('/welcome');
