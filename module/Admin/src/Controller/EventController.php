@@ -47,7 +47,7 @@ class EventController extends AbstractController
                 Model\Disponibility::RESP_NO_ANSWER => [],
                 Model\Disponibility::RESP_OK        => [],
                 Model\Disponibility::RESP_NO        => [],
-                Model\Disponibility::RESP_INCERTAIN => [],
+                Model\Disponibility::RESP_UNCERTAIN => [],
             ];
 
             foreach ($disponibilities as $disponibility) {

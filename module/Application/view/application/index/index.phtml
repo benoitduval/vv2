@@ -3,384 +3,349 @@
 
   <!-- Edit Dialog -->
   <div class="modal fade" id="editNewEvent" aria-hidden="true" aria-labelledby="editNewEvent"
-  role="dialog" tabindex="-1" data-show="false">
-  <div class="modal-dialog modal-simple modal-sidebar w-350">
-    <form class="modal-content form-horizontal" action="#" method="post" role="form">
-      <div class="modal-header">
-        <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
-        <h4 class="modal-title" id="modal-title">Event Detail</h4>
-      </div>
-      <div class="modal-body pt-20">
-
-        <h3><i class="icon wb-calendar" aria-hidden="true"></i>Information</h3>
-        <hr>
-        <div>
-          <p class="mb-5 text-nowrap"><i class="icon wb-home mr-10" aria-hidden="true"></i>
-            <span class="text-break">Gymnase Dunois</span>
-          </p>
-          <p class="mb-5 text-nowrap"><i class="icon wb-map mr-10" aria-hidden="true"></i>
-            <span class="text-break">70 rue de Dunois, 75013 Paris</span>
-          </p>
-          <p class="mb-5 text-nowrap"><i class="icon wb-time mr-10" aria-hidden="true"></i>
-            <span class="text-break">Mai 20th 2018 20:00</span>
-          </p>
+    role="dialog" tabindex="-1" data-show="false">
+    <div class="modal-dialog modal-simple">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
         </div>
+        <div class="modal-body">
+          <h4 class="text-uppercase" id="modal-title"></h4>
+          <div>
+            <p class="mb-5 text-nowrap"><i class="icon wb-home mr-10" aria-hidden="true"></i>
+              <span class="text-break" id="modal-place"></span>
+            </p>
+            <p class="mb-5 text-nowrap"><i class="icon wb-map mr-10" aria-hidden="true"></i>
+              <span class="text-break" id="modal-address"></span>, 
+              <span class="text-break" id="modal-zipcode"></span> 
+              <span class="text-break" id="modal-city"></span>
+            </p>
+            <p class="mb-5 text-nowrap"><i class="icon wb-time mr-10" aria-hidden="true"></i>
+              <span class="text-break" id="modal-date"></span>
+            </p>
+          </div>
 
-        <h3 id="modal-title"><i class="icon wb-user" aria-hidden="true"></i>Disponibilities</h3>
-        <hr>
-        <div class="example-wrap mt-20">
-          <div class="nav-tabs-horizontal" data-plugin="tabs">
-            <ul class="nav nav-tabs" role="tablist">
-              <li class="nav-item" role="presentation">
-                <a class="nav-link active show" data-toggle="tab" href="#exampleTabsIconOne" aria-controls="exampleTabsIconOne" role="tab" aria-selected="true">
-                  <span>
-                    <i class="icon wb-check-circle" aria-hidden="true"></i>
-                    <span class="badge badge-pill up badge-warning">5</span>
-                  </span>
-                </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" data-toggle="tab" href="#exampleTabsIconTwo" aria-controls="exampleTabsIconTwo" role="tab" aria-selected="false">
-                  <span>
-                    <i class="icon wb-minus-circle" aria-hidden="true"></i>
-                    <span class="badge badge-pill up badge-warning">5</span>
-                  </span>
-                </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" data-toggle="tab" href="#exampleTabsIconThree" aria-controls="exampleTabsIconThree" role="tab" aria-selected="false">
-                  <span>
-                    <i class="icon wb-help-circle" aria-hidden="true"></i>
-                    <span class="badge badge-pill up badge-warning">5</span>
-                  </span>
-                </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" data-toggle="tab" href="#exampleTabsIconFour" aria-controls="exampleTabsIconFour" role="tab">
-                  <span>
-                    <i class="icon wb-alert-circle" aria-hidden="true"></i>
-                    <span class="badge badge-pill up badge-warning">5</span>
-                  </span>
-                </a>
-              </li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane active show" id="exampleTabsIconOne" role="tabpanel">
-                <div class="bootstrap-table">
-                  <div class="fixed-table-container" style="height: 200px;">
-                    <div class="fixed-table-body">
-                      <div class="fixed-table-loading" style="top: 37px;">Loading, please wait...</div>
-                      <table id="exampleTableFromData" data-mobile-responsive="true" class="table table-hover" style="margin-top: -36px;">
-                        <tbody>
-                          <tr data-index="0">
-                            <td style="">1</td>
-                            <td style="">Jill</td>
-                            <td style="">Smith</td>
-                            <td style="">50</td>
-                          </tr>
-                          <tr data-index="1">
-                            <td style="">2</td>
-                            <td style="">Eve</td>
-                            <td style="">Jackson</td>
-                            <td style="">94</td>
-                          </tr>
-                          <tr data-index="2">
-                            <td style="">3</td>
-                            <td style="">John</td>
-                            <td style="">Doe</td>
-                            <td style="">80</td>
-                          </tr>
-                          <tr data-index="3">
-                            <td style="">4</td>
-                            <td style="">Adam</td>
-                            <td style="">Johnson</td>
-                            <td style="">67</td>
-                          </tr>
-                          <tr data-index="4">
-                            <td style="">5</td>
-                            <td style="">Adam</td>
-                            <td style="">Johnson</td>
-                            <td style="">67</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="fixed-table-footer" style="display: none;">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="exampleTabsIconTwo" role="tabpanel">
-                <div class="table-responsive">
-                  <table class="table">
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Teagan</td>
-                        <td>Prohaska</td>
-                        <td>
-                          <span class="badge badge-danger">admin</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Andy</td>
-                        <td>Gaylord</td>
-                        <td>
-                          <span class="badge badge-info">member</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Veronica</td>
-                        <td>Gusikowski</td>
-                        <td>
-                          <span class="badge badge-warning">developer</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Bruce</td>
-                        <td>Rogahn</td>
-                        <td>
-                          <span class="badge badge-success">supporter</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>5</td>
-                        <td>Carolina</td>
-                        <td>Hickle</td>
-                        <td>
-                          <span class="badge badge-info">member</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>6</td>
-                        <td>Madaline</td>
-                        <td>Eichmann</td>
-                        <td>
-                          <span class="badge badge-success">supporter</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="tab-pane" id="exampleTabsIconThree" role="tabpanel">
-                Quarum eloquentiam, aperta. Hominibus adipiscuntur. Firme graecis doloris liberabuntur
-                sensum recteque declarant. Aiunt, fore tranquillae dicitis
-                necessariae, chorusque periculis libenter constituamus
-                aspernandum ait chaere, cogitemus, quisquis omnia genuit
-                has hae.
-              </div>
-              <div class="tab-pane" id="exampleTabsIconFour" role="tabpanel">
-                Excepturi causae, cepisse meliore quanta consectetur aliqua attulit aperiri. Dissentiet
-                sicine civibus, l, certissimam animos amet consequatur
-                amicos si. Albam. Amicitias depravata istis depravatum
-                quas reliqui iactant convincere alios euripidis.
-              </div>
+          <div class="btn-group btn-group-justified mt-20 mb-40">
+            <div class="btn-group" role="group">
+              <a href="#" class="btn btn-outline btn-default" id="event-place-url" target="_blank">
+                <i class="icon wb-map" aria-hidden="true"></i>
+                <span class="text-uppercase">go to map</span>
+              </a>
+            </div>
+
+            <div class="btn-group" role="group">
+              <a href="#" class="btn btn-outline btn-info event-url">
+                <i class="icon wb-eye" aria-hidden="true"></i>
+                <span class="text-uppercase">See details</span>
+              </a>
             </div>
           </div>
-        </div>
-      </div>
-      <hr>
-      <div class="modal-footer">
-        <div class="col-12" data-buttons="4">
-          <a id="event-url-ok" href="#" class="col-3 text-center">
-            <i class="icon wb-check-circle text-event-green" style="font-size: 30px;"></i>
-          </a>
-          <a id="event-url-no" href="#" class="col-3 text-center">
-            <i class="icon wb-minus-circle text-event-red" style="font-size: 30px;"></i>
-          </a>
-          <a id="event-url-incertain" href="#" class="col-3 text-center">
-            <i class="icon wb-help-circle text-event-azure" style="font-size: 30px;"></i>
-          </a>
-          <a class="event-url col-3 text-center" id="event-url" href="#">
-            <i class="icon wb-alert-circle text-event-default" style="font-size: 30px;"></i>
-          </a>
-        </div>
-    </form>
-  </div>
-</div>
 
-<!--AddEvent Dialog -->
-<div class="modal fade" id="addNewEvent" aria-hidden="true" aria-labelledby="addNewEvent"
-role="dialog" tabindex="-1">
-<div class="modal-dialog modal-simple">
-  <form class="modal-content form-horizontal" action="#" method="post" role="form">
-    <div class="modal-header">
-      <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
-      <h4 class="modal-title">New Event</h4>
-    </div>
-    <div class="modal-body">
+          <h4 id="modal-title" class="text-uppercase text-center"><i class="icon wb-check-circle" aria-hidden="true"></i>Your Disponibility</h4>
+          <div class="btn-group btn-group-justified mt-20 mb-40">
+            <div class="btn-group" role="group">
+              <a id="event-url-ok" href="#" class="btn btn-outline btn-present">
+                <i class="icon wb-check-circle" aria-hidden="true"></i>
+                <br>
+                <span class="text-uppercase hidden-sm-down">In</span>
+              </a>
+            </div>
 
-      <div class="row row-lg">
-        <div class="col-xl-12">
-          <!-- Example Tabs Line -->
-          <div class="example-wrap m-xl-0">
+            <div class="btn-group" role="group">
+              <a id="event-url-no" href="#" class="btn btn-outline btn-absent">
+                <i class="icon wb-minus-circle" aria-hidden="true"></i>
+                <br>
+                <span class="text-uppercase hidden-sm-down">Out</span>
+              </a>
+            </div>
+
+            <div class="btn-group mt-40" role="group">
+              <a id="event-url-incertain" href="#" class="btn btn-outline btn-uncertain">
+                <i class="icon wb-help-circle" aria-hidden="true"></i>
+                <br>
+                <span class="text-uppercase hidden-sm-down">Uncertain</span>
+              </a>
+            </div>
+          </div>
+
+          <h4 id="modal-title" class="text-uppercase text-center"><i class="icon wb-users" aria-hidden="true"></i>Your Team</h4>
+
+          <div class="example-wrap mt-20 mb-0">
             <div class="nav-tabs-horizontal" data-plugin="tabs">
-              <ul class="nav nav-tabs nav-tabs-line" role="tablist">
-                <li class="nav-item" role="presentation"><a class="nav-link active" data-toggle="tab" href="#training"
-                  aria-controls="training" role="tab">Training</a></li>
-                  <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#match"
-                    aria-controls="match" role="tab">Match</a></li>
-                  </ul>
-                  <div class="tab-content pt-20">
-                    <div class="tab-pane active" id="training" role="tabpanel">
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="inputTime">Group</label>
-                        <div class="col-10">
-                          <div class="input-group">
-                            <select data-plugin="selectpicker">
-                              <option disabled="disabled" selected>Choose your group</option>
-                              <option>Mustard</option>
-                              <option>Ketchup</option>
-                              <option>Relish</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="ename">Name</label>
-                        <div class="col-10">
-                          <input type="text" class="form-control" id="ename" name="ename" placeholder="Training Tuesday">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="starts">Date</label>
-                        <div class="col-5 col-lg-7">
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="starts" data-container="#addNewEvent"
-                            data-plugin="datepicker">
-                            <div class="input-group-append">
-                              <span class="input-group-text">
-                                <i class="icon wb-calendar" aria-hidden="true"></i>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-5 col-lg-3">
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="inputTime" data-plugin="formatter" data-pattern="[[99]]:[[99]]">
-                            <div class="hidden-xs input-group-append">
-                              <span class="input-group-text">
-                                <i class="icon wb-time" aria-hidden="true"></i>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="place">Place</label>
-                        <div class="col-10">
-                          <input type="text" class="form-control" id="place" name="place" placeholder="Gymnasium Dunois">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="address">Address</label>
-                        <div class="col-10">
-                          <input type="text" class="form-control" id="address" name="address" placeholder="70 rue de Dunois">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="zipcode">Zipcode</label>
-                        <div class="col-10">
-                          <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Paris">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="city">City</label>
-                        <div class="col-10">
-                          <input type="text" class="form-control" id="city" name="city" placeholder="Paris">
-                        </div>
-                      </div>
-                    </div>
-                    <!-- MATCH -->
-                    <div class="tab-pane" id="match" role="tabpanel">
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="inputTime">Group</label>
-                        <div class="col-10">
-                          <div class="input-group">
-                            <select data-plugin="selectpicker">
-                              <option disabled="disabled" selected>Choose your group</option>
-                              <option>Mustard</option>
-                              <option>Ketchup</option>
-                              <option>Relish</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="opponent">Opponent</label>
-                        <div class="col-10">
-                          <input type="text" class="form-control" id="opponent" name="opponent" placeholder="Volley 6">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="starts">Date</label>
-                        <div class="col-5 col-lg-7">
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="starts" data-container="#addNewEvent"
-                            data-plugin="datepicker">
-                            <div class="input-group-append">
-                              <span class="input-group-text">
-                                <i class="icon wb-calendar" aria-hidden="true"></i>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-5 col-lg-3">
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="inputTime" data-plugin="formatter" data-pattern="[[99]]:[[99]]">
-                            <div class="input-group-append">
-                              <span class="input-group-text">
-                                <i class="icon wb-time" aria-hidden="true"></i>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="place">Place</label>
-                        <div class="col-10">
-                          <input type="text" class="form-control" id="place" name="place" placeholder="Gymnasium Dunois">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="address">Address</label>
-                        <div class="col-10">
-                          <input type="text" class="form-control" id="address" name="address" placeholder="70 rue de Dunois">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="zipcode">Zipcode</label>
-                        <div class="col-10">
-                          <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Paris">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-2 form-control-label" for="address">City</label>
-                        <div class="col-10">
-                          <input type="text" class="form-control" id="city" name="city" placeholder="Paris">
-                        </div>
-                      </div>
-                    </div>
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link active show" data-toggle="tab" href="#exampleTabsIconOne" aria-controls="exampleTabsIconOne" role="tab" aria-selected="true">
+                    <span>
+                      <i class="icon wb-check-circle text-present" style="font-size:24px;" aria-hidden="true"></i>
+                      <span class="badge badge-pill up badge-info" id="event-count-ok"></span>
+                    </span>
+                  </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" data-toggle="tab" href="#exampleTabsIconTwo" aria-controls="exampleTabsIconTwo" role="tab" aria-selected="false">
+                    <span>
+                      <i class="icon wb-minus-circle text-absent" style="font-size:24px;" aria-hidden="true"></i>
+                      <span class="badge badge-pill up badge-info" id="event-count-no"></span>
+                    </span>
+                  </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" data-toggle="tab" href="#exampleTabsIconThree" aria-controls="exampleTabsIconThree" role="tab" aria-selected="false">
+                    <span>
+                      <i class="icon wb-help-circle text-uncertain" style="font-size:24px;" aria-hidden="true"></i>
+                      <span class="badge badge-pill up badge-info" id="event-count-uncertain"></span>
+                    </span>
+                  </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" data-toggle="tab" href="#exampleTabsIconFour" aria-controls="exampleTabsIconFour" role="tab">
+                    <span>
+                      <i class="icon wb-alert-circle text-no-answer" style="font-size:24px;" aria-hidden="true"></i>
+                      <span class="badge badge-pill up badge-info" id="event-count-no-answer"></span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active show" id="exampleTabsIconOne" role="tabpanel">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tbody id="table-resp-ok">
+                        <td class="text-center">NO USER</td>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane" id="exampleTabsIconTwo" role="tabpanel">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tbody id="table-resp-no">
+                        <td class="text-center">NO USER</td>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane" id="exampleTabsIconThree" role="tabpanel">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tbody id="table-resp-uncertain">
+                        <td class="text-center">NO USER</td>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane" id="exampleTabsIconFour" role="tabpanel">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tbody id="table-resp-no-answer">
+                        <td class="text-center">NO USER</td>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
-              <!-- End Example Tabs Line -->
             </div>
           </div>
-
         </div>
-        <div class="modal-footer">
-          <div class="form-actions">
-            <button class="btn btn-primary" data-dismiss="modal" type="button">Add this event</button>
-            <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
-          </div>
+      </div>
+    </div>
+  </div>
+
+
+<!--   <div class="modal fade" id="editNewEvent" aria-hidden="true" aria-labelledby="editNewEvent" role="dialog" tabindex="-1" data-show="false">
+    <div class="modal-dialog modal-simple modal-sidebar w-350">
+      <form class="modal-content" action="#" method="post" role="form">
+        <div class="modal-header">
+          <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+          <h4 class="modal-title mb-40" id="modal-title">Event Detail</h4>
+        </div>
+        <div class="modal-body pt-40">
+          
         </div>
       </form>
     </div>
+  </div> -->
+
+  <!--AddEvent Dialog -->
+  <div class="modal fade" id="addNewEvent" aria-hidden="true" aria-labelledby="addNewEvent"
+  role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-simple">
+    <form class="modal-content form-horizontal" action="#" method="post" role="form">
+      <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+        <h4 class="modal-title">New Event</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="row row-lg">
+          <div class="col-xl-12">
+            <!-- Example Tabs Line -->
+            <div class="example-wrap m-xl-0">
+              <div class="nav-tabs-horizontal" data-plugin="tabs">
+                <ul class="nav nav-tabs nav-tabs-line" role="tablist">
+                  <li class="nav-item" role="presentation"><a class="nav-link active" data-toggle="tab" href="#training"
+                    aria-controls="training" role="tab">Training</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#match"
+                      aria-controls="match" role="tab">Match</a></li>
+                    </ul>
+                    <div class="tab-content pt-20">
+                      <div class="tab-pane active" id="training" role="tabpanel">
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="inputTime">Group</label>
+                          <div class="col-10">
+                            <div class="input-group">
+                              <select data-plugin="selectpicker">
+                                <option disabled="disabled" selected>Choose your group</option>
+                                <option>Mustard</option>
+                                <option>Ketchup</option>
+                                <option>Relish</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="ename">Name</label>
+                          <div class="col-10">
+                            <input type="text" class="form-control" id="ename" name="ename" placeholder="Training Tuesday">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="starts">Date</label>
+                          <div class="col-5 col-lg-7">
+                            <div class="input-group">
+                              <input type="text" class="form-control" id="starts" data-container="#addNewEvent"
+                              data-plugin="datepicker">
+                              <div class="input-group-append">
+                                <span class="input-group-text">
+                                  <i class="icon wb-calendar" aria-hidden="true"></i>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-5 col-lg-3">
+                            <div class="input-group">
+                              <input type="text" class="form-control" id="inputTime" data-plugin="formatter" data-pattern="[[99]]:[[99]]">
+                              <div class="hidden-xs input-group-append">
+                                <span class="input-group-text">
+                                  <i class="icon wb-time" aria-hidden="true"></i>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="place">Place</label>
+                          <div class="col-10">
+                            <input type="text" class="form-control" id="place" name="place" placeholder="Gymnasium Dunois">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="address">Address</label>
+                          <div class="col-10">
+                            <input type="text" class="form-control" id="address" name="address" placeholder="70 rue de Dunois">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="zipcode">Zipcode</label>
+                          <div class="col-10">
+                            <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Paris">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="city">City</label>
+                          <div class="col-10">
+                            <input type="text" class="form-control" id="city" name="city" placeholder="Paris">
+                          </div>
+                        </div>
+                      </div>
+                      <!-- MATCH -->
+                      <div class="tab-pane" id="match" role="tabpanel">
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="inputTime">Group</label>
+                          <div class="col-10">
+                            <div class="input-group">
+                              <select data-plugin="selectpicker">
+                                <option disabled="disabled" selected>Choose your group</option>
+                                <option>Mustard</option>
+                                <option>Ketchup</option>
+                                <option>Relish</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="opponent">Opponent</label>
+                          <div class="col-10">
+                            <input type="text" class="form-control" id="opponent" name="opponent" placeholder="Volley 6">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="starts">Date</label>
+                          <div class="col-5 col-lg-7">
+                            <div class="input-group">
+                              <input type="text" class="form-control" id="starts" data-container="#addNewEvent"
+                              data-plugin="datepicker">
+                              <div class="input-group-append">
+                                <span class="input-group-text">
+                                  <i class="icon wb-calendar" aria-hidden="true"></i>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-5 col-lg-3">
+                            <div class="input-group">
+                              <input type="text" class="form-control" id="inputTime" data-plugin="formatter" data-pattern="[[99]]:[[99]]">
+                              <div class="input-group-append">
+                                <span class="input-group-text">
+                                  <i class="icon wb-time" aria-hidden="true"></i>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="place">Place</label>
+                          <div class="col-10">
+                            <input type="text" class="form-control" id="place" name="place" placeholder="Gymnasium Dunois">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="address">Address</label>
+                          <div class="col-10">
+                            <input type="text" class="form-control" id="address" name="address" placeholder="70 rue de Dunois">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="zipcode">Zipcode</label>
+                          <div class="col-10">
+                            <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Paris">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-2 form-control-label" for="address">City</label>
+                          <div class="col-10">
+                            <input type="text" class="form-control" id="city" name="city" placeholder="Paris">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Example Tabs Line -->
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <div class="form-actions">
+              <button class="btn btn-primary" data-dismiss="modal" type="button">Add this event</button>
+              <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- End AddEvent Dialog -->
   </div>
-  <!-- End AddEvent Dialog -->
-</div>

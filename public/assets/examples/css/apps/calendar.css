@@ -102,7 +102,7 @@
   background-color: rgba(213, 229, 163); }
 
 .fc-event.event-red {
-  background-color: rgba(255, 143, 94); }
+  background-color: rgba(255, 143, 94, 0.9) }
 
 .fc-event .fc-time, .fc-event .fc-title {
   color: #37474f; }

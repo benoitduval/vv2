@@ -342,7 +342,7 @@ class ConsoleController extends AbstractController
                 'eventId' => $event->id,
                 'response' => [
                     Model\Disponibility::RESP_NO_ANSWER,
-                    Model\Disponibility::RESP_INCERTAIN
+                    Model\Disponibility::RESP_UNCERTAIN
                 ]
             ]);
 

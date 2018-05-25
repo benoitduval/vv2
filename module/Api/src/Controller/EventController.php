@@ -28,15 +28,36 @@ class EventController extends AbstractController
             $result = [];
             $config = $this->get('config');
             foreach ($events as $event) {
+                $group     = $this->groupTable->find($event->groupId);
                 $disponibility = $this->disponibilityTable->fetchOne([
                     'userId'  => $this->getUser()->id,
                     'eventId' => $event->id
                 ]);
 
-                $count = $this->disponibilityTable->count([
-                    'eventId' => $event->id,
-                    'response' => Model\Disponibility::RESP_OK
-                ]);
+                $counters = $this->disponibilityTable->getCounters($event->id);
+                $count[Model\Disponibility::LABEL_RESP_OK] = $counters[Model\Disponibility::RESP_OK];
+                $count[Model\Disponibility::LABEL_RESP_NO] = $counters[Model\Disponibility::RESP_NO];
+                $count[Model\Disponibility::LABEL_RESP_UNCERTAIN] = $counters[Model\Disponibility::RESP_UNCERTAIN];
+                $count[Model\Disponibility::LABEL_RESP_NO_ANSWER] = $counters[Model\Disponibility::RESP_NO_ANSWER];
+
+                $disponibilities    = $this->disponibilityTable->fetchAll(['eventId' => $event->id]);
+                $users = [
+                    Model\Disponibility::RESP_NO_ANSWER => [],
+                    Model\Disponibility::RESP_OK        => [],
+                    Model\Disponibility::RESP_NO        => [],
+                    Model\Disponibility::RESP_UNCERTAIN => [],
+                ];
+                foreach ($disponibilities as $disp) {
+                    $user = $this->userTable->find($disp->userId);
+                    $users[$disp->response][] = [
+                        'firstname' => $user->firstname,
+                        'lastname' => $user->lastname
+                    ];
+                }
+                $team[Model\Disponibility::LABEL_RESP_NO_ANSWER] = $users[Model\Disponibility::RESP_NO_ANSWER];
+                $team[Model\Disponibility::LABEL_RESP_OK] = $users[Model\Disponibility::RESP_OK];
+                $team[Model\Disponibility::LABEL_RESP_NO] = $users[Model\Disponibility::RESP_NO];
+                $team[Model\Disponibility::LABEL_RESP_UNCERTAIN] = $users[Model\Disponibility::RESP_UNCERTAIN];
 
                 $className = 'event-default';
                 if ($disponibility) {
@@ -44,7 +65,7 @@ class EventController extends AbstractController
                         $className = 'event-green';
                     } else if ($disponibility->response == Model\Disponibility::RESP_NO) {
                         $className = 'event-red';
-                    } else if ($disponibility->response == Model\Disponibility::RESP_INCERTAIN) {
+                    } else if ($disponibility->response == Model\Disponibility::RESP_UNCERTAIN) {
                         $className = 'event-azure';
                     }
                 }
@@ -61,9 +82,8 @@ class EventController extends AbstractController
                     'address'      => $event->address,
                     'zipcode'      => $event->zipCode,
                     'city'         => $event->city,
-                    'month'        => \Application\Service\Date::toFr($eventDate->format('F')),
-                    'date'         => $eventDate->format('d'),
-                    'day'          => \Application\Service\Date::toFr($eventDate->format('D')) . ' ' . $eventDate->format('H:i'),
+                    'team'         => $team,
+                    'date'         => $eventDate->format('l jS F \- g:ia'),
                 ];
             }
 
@@ -86,6 +106,50 @@ class EventController extends AbstractController
                 }
             }
 
+            $view = new ViewModel(['result' => $result]);
+            $view->setTerminal(true);
+            $view->setTemplate('api/default/json.phtml');
+            return $view;
+        }
+    }
+
+    public function getInfoAction()
+    {
+        $result = [];
+        if ($this->getUser()) {
+            if ($eventId = $this->params('id', null)) {
+                $event = $this->eventTable->find($eventId);
+
+                $counters = $this->disponibilityTable->getCounters($event->id);
+                $count[Model\Disponibility::LABEL_RESP_OK] = $counters[Model\Disponibility::RESP_OK];
+                $count[Model\Disponibility::LABEL_RESP_NO] = $counters[Model\Disponibility::RESP_NO];
+                $count[Model\Disponibility::LABEL_RESP_UNCERTAIN] = $counters[Model\Disponibility::RESP_UNCERTAIN];
+                $count[Model\Disponibility::LABEL_RESP_NO_ANSWER] = $counters[Model\Disponibility::RESP_NO_ANSWER];
+
+                $disponibilities    = $this->disponibilityTable->fetchAll(['eventId' => $event->id]);
+                $users = [
+                    Model\Disponibility::RESP_NO_ANSWER => [],
+                    Model\Disponibility::RESP_OK        => [],
+                    Model\Disponibility::RESP_NO        => [],
+                    Model\Disponibility::RESP_UNCERTAIN => [],
+                ];
+                foreach ($disponibilities as $disp) {
+                    $user = $this->userTable->find($disp->userId);
+                    $users[$disp->response][] = [
+                        'firstname' => $user->firstname,
+                        'lastname' => $user->lastname
+                    ];
+                }
+                $team[Model\Disponibility::LABEL_RESP_NO_ANSWER] = $users[Model\Disponibility::RESP_NO_ANSWER];
+                $team[Model\Disponibility::LABEL_RESP_OK] = $users[Model\Disponibility::RESP_OK];
+                $team[Model\Disponibility::LABEL_RESP_NO] = $users[Model\Disponibility::RESP_NO];
+                $team[Model\Disponibility::LABEL_RESP_UNCERTAIN] = $users[Model\Disponibility::RESP_UNCERTAIN];
+
+                $result  = [
+                    'count'        => $count,
+                    'team'         => $team
+                ];
+            }
             $view = new ViewModel(['result' => $result]);
             $view->setTerminal(true);
             $view->setTemplate('api/default/json.phtml');

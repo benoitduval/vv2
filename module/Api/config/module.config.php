@@ -35,6 +35,16 @@ return [
                     ],
                 ],
             ],
+            'get-event' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/api/event/:id',
+                    'defaults' => [
+                        'controller'    => Controller\EventController::class,
+                        'action'        => 'getInfo',
+                    ],
+                ],
+            ],
             'event-live' => [
                 'type'    => Segment::class,
                 'options' => [

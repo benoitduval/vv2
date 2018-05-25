@@ -32,8 +32,8 @@
             </a>
         </div>
         <div class="col-xs-4">
-            <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_INCERTAIN ?>">
-                <div class="card <?= ($myDisponibility->response == Application\Model\Disponibility::RESP_INCERTAIN) ? 'card-info' : ''; ?>">
+            <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_UNCERTAIN ?>">
+                <div class="card <?= ($myDisponibility->response == Application\Model\Disponibility::RESP_UNCERTAIN) ? 'card-info' : ''; ?>">
                     <div class="card-content">
                         <div class="row">
                             <div class="col-xs-12">
@@ -121,7 +121,7 @@
                 <a href="#" data-toggle="modal" data-target="#incertain">
                     <div class="card card-circle-chart" data-background-color="blue">
                         <div class="card-content">
-                            <div id="chartOrders" class="chart-circle" data-percent="<?= ($counters[Application\Model\Disponibility::RESP_INCERTAIN] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_INCERTAIN] ?>
+                            <div id="chartOrders" class="chart-circle" data-percent="<?= ($counters[Application\Model\Disponibility::RESP_UNCERTAIN] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_UNCERTAIN] ?>
                                 <i class="ti-help"></i></div>
                         </div>
                     </div>
@@ -168,7 +168,7 @@
                     <div class="card card-circle-chart" data-background-color="blue">
                         <div class="card-content">
                             <i class="ti-help"></i><br>
-                            <div data-percent="<?= ($counters[Application\Model\Disponibility::RESP_INCERTAIN] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_INCERTAIN] ?>
+                            <div data-percent="<?= ($counters[Application\Model\Disponibility::RESP_UNCERTAIN] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_UNCERTAIN] ?>
                             </div>
                         </div>
                     </div>
@@ -367,7 +367,7 @@
                 <div class="table-responsive">
                     <table class="table text-center">
                         <tbody>
-                            <?php foreach ($users[Application\Model\Disponibility::RESP_INCERTAIN] as $user) : ?>
+                            <?php foreach ($users[Application\Model\Disponibility::RESP_UNCERTAIN] as $user) : ?>
                                 <tr>
                                     <td><?= $user->firstname ?></td>
                                     <td><?= $user->lastname ?></td>

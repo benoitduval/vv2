@@ -7,7 +7,12 @@ class Disponibility extends AbstractModel
     const RESP_NO_ANSWER = 0;
     const RESP_OK        = 1;
     const RESP_NO        = 2;
-    const RESP_INCERTAIN = 3;
+    const RESP_UNCERTAIN = 3;
+
+    const LABEL_RESP_NO_ANSWER = 'noanswer';
+    const LABEL_RESP_OK        = 'ok';
+    const LABEL_RESP_NO        = 'no';
+    const LABEL_RESP_UNCERTAIN = 'uncertain';
 
     protected $_id       = null;
     protected $_userId   = null;
@@ -19,6 +24,6 @@ class Disponibility extends AbstractModel
         self::RESP_NO_ANSWER => 'Sans réponse',
         self::RESP_OK        => 'Présent',
         self::RESP_NO        => 'Absent',
-        self::RESP_INCERTAIN => 'Incertain',
+        self::RESP_UNCERTAIN => 'Incertain',
     ];
 }

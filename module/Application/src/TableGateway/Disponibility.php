@@ -15,7 +15,7 @@ class Disponibility extends AbstractTableGateway
         $result = [
             Model\Disponibility::RESP_OK => 0,
             Model\Disponibility::RESP_NO => 0,
-            Model\Disponibility::RESP_INCERTAIN => 0,
+            Model\Disponibility::RESP_UNCERTAIN => 0,
             Model\Disponibility::RESP_NO_ANSWER => 0,
         ];
         $disponibilities = $this->fetchAll([
@@ -35,13 +35,13 @@ class Disponibility extends AbstractTableGateway
             'counters' => [
                 Model\Disponibility::RESP_OK => 0,
                 Model\Disponibility::RESP_NO => 0,
-                Model\Disponibility::RESP_INCERTAIN => 0,
+                Model\Disponibility::RESP_UNCERTAIN => 0,
                 Model\Disponibility::RESP_NO_ANSWER => 0,
             ],
             'users' => [
                 Model\Disponibility::RESP_OK => [],
                 Model\Disponibility::RESP_NO => [],
-                Model\Disponibility::RESP_INCERTAIN => [],
+                Model\Disponibility::RESP_UNCERTAIN => [],
                 Model\Disponibility::RESP_NO_ANSWER => [],
             ]
         ];

@@ -1,0 +1,58 @@
+.text-present {
+    color: #d5e5a3;
+}
+.btn-present {
+    background-color:#d5e5a3;
+    color:#FFF;
+}
+    .btn-outline.btn-present {
+        border-color:#d5e5a3;
+        background-color: #FFF;
+        color:#d5e5a3;
+    }
+    .btn-outline.btn-present:hover {
+        background-color: #d5e5a3;
+        color:#FFF;
+    }
+
+.text-absent {
+    color: rgba(255, 143, 94, 0.9);
+}
+.btn-absent {
+    background-color: rgba(255, 143, 94, 0.9);
+    color:#FFF;
+}
+    .btn-outline.btn-absent {
+        border-color:rgba(255, 143, 94, 0.9);
+        background-color: #FFF;
+        color:rgba(255, 143, 94, 0.9);
+    }
+    .btn-outline.btn-absent:hover {
+        background-color: rgba(255, 143, 94, 0.9);
+        color:#FFF;
+    }
+
+.text-uncertain {
+    color: rgba(184, 216, 216);
+}
+.btn-uncertain {
+    background-color:rgba(184, 216, 216);
+    color:#FFF;
+}
+    .btn-outline.btn-uncertain {
+        border-color:rgba(184, 216, 216);
+        background-color: #FFF;
+        color:rgba(184, 216, 216);
+    }
+    .btn-outline.btn-uncertain:hover {
+        background-color: rgba(184, 216, 216);
+        color:#FFF;
+    }
+
+.text-no-answer {
+    color: rgba(214, 193, 171, 0.8);
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    background-color: #fff;
+}
