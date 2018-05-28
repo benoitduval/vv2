@@ -1,0 +1,183 @@
+
+<div class="row">
+  <div class="col-lg-5">
+    <div class="card ribbon-bookmark ribbon-warning">
+      <span class="ribbon-inner">Outside Hitter</span>
+      
+      <div id="personalCompletedWidget" class="card card-shadow pb-20">
+        <div class="card-header card-header-transparent cover overlay">
+          <img class="cover-image" src="/img/email-header.jpeg">
+          <div class="overlay-panel vertical-align">
+            <div class="vertical-align-middle">
+              <a class="avatar" href="javascript:void(0)">
+                <img alt="" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+              </a>
+              <div class="font-size-20 mt-10"><?= $user->getFullname() ?></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-block">
+          <div class="row text-center mb-20">
+            <div class="col-6">
+              <div class="counter">
+                <div class="counter-label total-completed">EVENTS</div>
+                <div class="counter-number red-600">1,628</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="counter">
+                <div class="counter-label">MATCH PLAYED</div>
+                <div class="counter-number blue-600">170</div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    Present
+                  </td>
+                  <td>
+                    <div class="progress progress-xs mb-0">
+                      <div class="progress-bar progress-bar-info bg-blue-600" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    90%
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Absent
+                  </td>
+                  <td>
+                    <div class="progress progress-xs mb-0">
+                      <div class="progress-bar progress-bar-info bg-green-600" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%">
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    86%
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Points Completed
+                  </td>
+                  <td>
+                    <div class="progress progress-xs mb-0">
+                      <div class="progress-bar progress-bar-info bg-red-600" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%">
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    68%
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-7">
+
+    <div class="card">
+      <div class="card-header card-header-transparent">
+        <h4 class="card-title">
+          My Holidays
+        </h4>
+          <div class="card-actions float-right">
+            <a href="javascript:void(0)">
+              <i class="icon wb-plus"></i>
+            </a>
+          </div>
+      </div>
+      <div class="list-group mb-0  has-actions">
+        <a class="list-group-item">
+          <div class="media">
+            <div class="media-body">
+              <h5 class="mt-0 mb-5">July, 20 2017  <i class="icon wb-arrow-right" aria-hidden="true"></i> July, 28 2017</h5>
+            </div>
+            <div class="item-actions">
+                <span class="btn btn-pure btn-icon" data-toggle="list-visible"><i class="icon wb-trash" aria-hidden="true"></i></span>
+              </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="card wall-recent-comments">
+      <div class="card-header card-header-transparent">
+        <h4 class="card-title">
+          Recent Comments
+        </h4>
+      </div>
+      <div class="list-group mb-0  has-actions">
+        <a class="list-group-item" data-recomment-id="c_1">
+          <div class="media">
+            <div class="pr-15">
+              <div class="avatar avatar-md">
+                <img class="img-fluid" src="../../../global/portraits/6.jpg">
+              </div>
+            </div>
+            <div class="media-body">
+              <h5 class="mt-0 mb-5">David Belle</h5>
+              <p class="mb-0">
+                Lorem ipsum sit eiusmod elit deserunt est....
+              </p>
+            </div>
+            <div class="item-actions">
+                <span class="btn btn-pure btn-icon" data-toggle="list-visible"><i class="icon wb-eye" aria-hidden="true"></i></span>
+              </div>
+          </div>
+        </a>
+        <a class="list-group-item" data-recomment-id="c_2">
+          <div class="media">
+            <div class="pr-15">
+              <div class="avatar avatar-md">
+                <img class="img-fluid" src="../../../global/portraits/7.jpg">
+              </div>
+            </div>
+            <div class="media-body">
+              <h5 class="mt-0 mb-5">Jonathan Morris</h5>
+              <p class="mb-0">
+                Ex esse cillum aliqua nulla consequat....
+              </p>
+            </div>
+          </div>
+        </a>
+        <a class="list-group-item" data-recomment-id="c_3">
+          <div class="media">
+            <div class="pr-15">
+              <div class="avatar avatar-md">
+                <img class="img-fluid" src="../../../global/portraits/4.jpg">
+              </div>
+            </div>
+            <div class="media-body">
+              <h5 class="mt-0 mb-5">Fredric Mitchell Jr.</h5>
+              <p class="mb-0">
+                In ullamco ea enim eu labore est consectetur....
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php $form->prepare(); // The correct enctype is set here ?>
+<?= $this->form()->openTag($form); ?>
+
+    <div class="form-element">
+        <?php $fileElement = $form->get('image-file'); ?>
+        <?= $this->formFile($fileElement); ?>
+    </div>
+
+    <button>Submit</button>
+
+<?= $this->form()->closeTag(); ?>

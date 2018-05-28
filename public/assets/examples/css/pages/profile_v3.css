@@ -36,7 +36,7 @@
 .wall-person-info {
   position: relative;
   padding-left: 190px;
-  padding-bottom: 45px; }
+  padding-bottom: 10px; }
   .wall-person-info .person-avatar {
     position: absolute;
     top: -75px;

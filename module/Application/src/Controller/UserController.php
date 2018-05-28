@@ -11,7 +11,7 @@ use Application\Service\MailService;
 class UserController extends AbstractController
 {
 
-    public function paramsAction()
+    public function paramsOldAction()
     {
         if ($this->getUser()) {
             $form = new Form\SignUp;
@@ -47,5 +47,36 @@ class UserController extends AbstractController
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
             $this->redirect()->toRoute('home');
         }
+    }
+
+    public function profileAction()
+    {
+        $form = new Form\Profile('uploader', ['userId' => $this->getUser()->id]);
+        $tempFile = null;
+
+        $prg = $this->fileprg($form);
+        if ($prg instanceof \Zend\Http\PhpEnvironment\Response) {
+            return $prg; // Return PRG redirect response
+        } elseif (is_array($prg)) {
+            if ($form->isValid()) {
+                $data = $form->getData();
+                // Form is valid, save the form!
+            } else {
+                // Form not valid, but file uploads might be valid...
+                // Get the temporary file information to show the user in the view
+                $fileErrors = $form->get('image-file')->getMessages();
+                if (empty($fileErrors)) {
+                    $tempFile = $form->get('image-file')->getValue();
+                }
+            }
+        }
+
+        $this->layout()->setTemplate('layout/no-title.phtml');
+        $this->layout()->user = $this->getUser();
+
+        return new ViewModel([
+            'user'   => $this->getUser(),
+            'form'     => $form,
+        ]);
     }
 }

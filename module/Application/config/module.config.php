@@ -187,14 +187,10 @@ return [
             'user' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/user[/:action[/:id]]',
-                    'constraints' => [
-                        'id'     => '[0-9]+',
-                        'action' => '[a-z][a-z_-]*',
-                    ],
+                    'route'    => '/user/profile',
                     'defaults' => [
                         'controller'    => Controller\UserController::class,
-                        'action'        => 'params',
+                        'action'        => 'profile',
                     ],
                 ],
             ],

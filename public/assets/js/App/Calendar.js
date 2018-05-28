@@ -106,28 +106,28 @@
                 $('#table-resp-ok').empty();
                 if (resp.count.ok) {
                   $.each(resp.team.ok, function( index, user ) {
-                    $('#table-resp-ok').append('<tr class="text-center"><td>' + user.firstname + '</td><td>' + user.lastname + '</td></tr>');
+                    $('#table-resp-ok').append('<tr class="text-center"><td class="avatar avatar-md"><img class="img-fluid" src="/img/avatars/' + user.id + '.png" onerror="if (this.src != \'/img/default-avatar.png\') this.src = \'/img/default-avatar.png\';"></td><td>' + user.firstname + '</td><td>' + user.lastname + '</td></tr>');
                   });
                 }
 
                 $('#table-resp-no').empty();
                 if (resp.count.no) {
                   $.each(resp.team.no, function( index, user ) {
-                    $('#table-resp-no').append('<tr class="text-center"><td>' + user.firstname + '</td><td>' + user.lastname + '</td></tr>');
+                    $('#table-resp-no').append('<tr class="text-center"><td class="avatar avatar-md"><img class="img-fluid" src="/img/avatars/' + user.id + '.png" onerror="if (this.src != \'/img/default-avatar.png\') this.src = \'/img/default-avatar.png\';"></td><td>' + user.firstname + '</td><td>' + user.lastname + '</td></tr>');
                   });
                 }
 
                 $('#table-resp-uncertain').empty();
                 if (resp.count.uncertain) {
                   $.each(resp.team.uncertain, function( index, user ) {
-                    $('#table-resp-uncertain').append('<tr class="text-center"><td>' + user.firstname + '</td><td>' + user.lastname + '</td></tr>');
+                    $('#table-resp-uncertain').append('<tr class="text-center"><td class="avatar avatar-md"><img class="img-fluid" src="/img/avatars/' + user.id + '.png" onerror="if (this.src != \'/img/default-avatar.png\') this.src = \'/img/default-avatar.png\';"></td><td>' + user.firstname + '</td><td>' + user.lastname + '</td></tr>');
                   });
                 }
 
                 $('#table-resp-no-answer').empty();
                 if (resp.count.noanswer) {
                   $.each(resp.team.noanswer, function( index, user ) {
-                    $('#table-resp-no-answer').append('<tr class="text-center"><td>' + user.firstname + '</td><td>' + user.lastname + '</td></tr>');
+                    $('#table-resp-no-answer').append('<tr class="text-center"><td class="avatar avatar-md"><img class="img-fluid" src="/img/avatars/' + user.id + '.png" onerror="if (this.src != \'/img/default-avatar.png\') this.src = \'/img/default-avatar.png\';"></td><td>' + user.firstname + '</td><td>' + user.lastname + '</td></tr>');
                   });
                 }
 
