@@ -266,6 +266,7 @@ class EventController extends AbstractController
                     $this->redirect()->toUrl('/event/detail/' . $event->id);
                 }
             }
+
             return new ViewModel([
                 'overallStats'    => $overallStats,
                 'setsLastScore'   => $setsLastScore,

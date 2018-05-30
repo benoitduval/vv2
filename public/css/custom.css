@@ -10,7 +10,7 @@
     }
     .btn-outline.btn-present {
         border-color:#d5e5a3;
-        background-color: #FFF;
+        background-color: transparent;
         color:#d5e5a3;
     }
     .btn-outline.btn-present:hover {
@@ -30,7 +30,7 @@
     }
     .btn-outline.btn-absent {
         border-color:rgba(255, 143, 94, 0.9);
-        background-color: #FFF;
+        background-color: transparent;
         color:rgba(255, 143, 94, 0.9);
     }
     .btn-outline.btn-absent:hover {
@@ -50,7 +50,7 @@
     }
     .btn-outline.btn-uncertain {
         border-color:rgba(184, 216, 216);
-        background-color: #FFF;
+        background-color: transparent;
         color:rgba(184, 216, 216);
     }
     .btn-outline.btn-uncertain:hover {

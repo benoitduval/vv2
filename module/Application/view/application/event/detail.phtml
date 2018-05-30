@@ -1,444 +1,267 @@
 <?php $eventDate   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date); ?>
-<?php if ($eventDate->format('U') > time()): ?>
-    <div class="row">
-        <div class="col-xs-4">
-            <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_OK ?>">
-                <div class="card <?= ($myDisponibility->response == Application\Model\Disponibility::RESP_OK) ? 'card-success' : ''; ?>">
-                    <div class="card-content">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="icon-big icon-success text-center">
-                                    <i class="ti-check"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-xs-4">
-            <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_NO ?>">
-                <div class="card <?= ($myDisponibility->response == Application\Model\Disponibility::RESP_NO) ? 'card-danger' : ''; ?>">
-                    <div class="card-content">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="icon-big icon-danger text-center">
-                                    <i class="ti-close"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-xs-4">
-            <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_UNCERTAIN ?>">
-                <div class="card <?= ($myDisponibility->response == Application\Model\Disponibility::RESP_UNCERTAIN) ? 'card-info' : ''; ?>">
-                    <div class="card-content">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="icon-big icon-info text-center">
-                                    <i class="ti-help"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-<?php endif ?>
-
 <div class="row">
-    <div class="col-lg-6">
-        <div class="card">
-            <?php if ($isMember): ?>
-                <div class="card-header text-right">
-                    <div class="btn-group text-right">
-                        <button type="button" class="btn btn-info dropdown-toggle dropdown-menu-right" data-toggle="dropdown">
-                            <i class="ti-settings"></i> <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                            <li><a href="/event/live-stats/<?= $event->id ?>"><i class="far fa-chart-bar"></i> Take Stats</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#share"><i class="fas fa-play"></i> Live Score</a></li>
-                            <?php if ($isAdmin): ?>
-                                <li><a href="/event/result/<?= $event->id ?>"><i class="far fa-file-alt"></i> Débrief</a></li>
-                                <li><a href="/event/edit/<?= $event->id ?>"><i class="far fa-edit"></i> Éditer</a></li>
-                                <li class="divider"></li>
-                                <li><a href="/event/delete/<?= $event->id ?>" onclick="return confirm('Êtes vous sûr ?')"><i class="far fa-trash-alt"></i> Supprimer</a></li>
-                            <?php endif ?>
-                        </ul>
-                    </div>
-                </div>
-            <?php endif ?>
-            <div class="card-content">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="tab-pane active" id="date">
-                            <div class="date-icon">
-                                <em><?= \Application\Service\Date::toFr($eventDate->format('F')) ?></em>
-                                <strong><?= \Application\Service\Date::toFr($eventDate->format('D')) ?></strong>
-                                <span ><?= \Application\Service\Date::toFr($eventDate->format('d')) ?></span>
-                            </div>
+
+    <!-- Left Side -->
+    <div class="col-sm-6">
+        <div class="card card-inverse overlay mb-20">
+          <img class="card-img overlay-figure h-only-xs-250 h-only-sm-250" src="/img/email-header.jpeg" alt="...">
+          <div class="card-img-overlay overlay-background text-center vertical-align">
+            <div class="vertical-align-middle">
+              <div class="card-text card-divider">
+                <span>July 28, 2017 <br> 20:00</span>
+              </div>
+              <h3 class="card-title mb-20"><?= $event->name ?></h3>
+              <p><span class="card-title mb-10"><?= $event->address ?>, <?= $event->zipCode ?> <?= $event->city ?></span></p>
+              <a href="javascript:void(0)" class=" btn btn-outline btn-inverse">GO TO MAP</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role numbers -->
+<!--         <div class="card card-shadow">
+            <div class="card-block">
+                <div class="card card-shadow text-center">
+                  <div class="card-block bg-white">
+                    <div class="row">
+                      <div class="col-6 col-sm-4 pie-left text-center">
+                        <h5 class="blue-grey-500 font-size-14 font-weight-100">Ouside Hitter</h5>
+                        <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                          data-valuemin="0" data-barcolor="#a57afa" data-size="100" data-barsize="4"
+                          data-goal="60" aria-valuenow="60" role="progressbar">
+                          <span class="pie-progress-number">4</span>
                         </div>
-                        <h4 class="card-title text-center"><i class="far fa-clock"></i> <?= \Application\Service\Date::toFr($eventDate->format('H:i')) ?></h4>
+                      </div>
+                      <div class="col-6 col-sm-4 pie-right text-center">
+                        <h5 class="blue-grey-500 font-size-14 font-weight-100">Opposite</h5>
+                        <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                          data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
+                          data-goal="78" aria-valuenow="78" role="progressbar">
+                          <span class="pie-progress-number">2</span>
+                        </div>
+                      </div>
+                      <div class="col-6 col-sm-4 pie-right text-center">
+                        <h5 class="blue-grey-500 font-size-14 font-weight-100">Setter</h5>
+                        <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                          data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
+                          data-goal="78" aria-valuenow="78" role="progressbar">
+                          <span class="pie-progress-number">2</span>
+                        </div>
+                      </div>
+                      <div class="col-6 col-sm-4 pie-right text-center">
+                        <h5 class="blue-grey-500 font-size-14 font-weight-100">Libero</h5>
+                        <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                          data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
+                          data-goal="78" aria-valuenow="78" role="progressbar">
+                          <span class="pie-progress-number">1</span>
+                        </div>
+                      </div>
+                      <div class="col-6 col-sm-4 pie-right text-center">
+                        <h5 class="blue-grey-500 font-size-14 font-weight-100">Mid. Blocker</h5>
+                        <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                          data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
+                          data-goal="78" aria-valuenow="78" role="progressbar">
+                          <span class="pie-progress-number">4</span>
+                        </div>
+                      </div>
+                      <div class="col-6 col-sm-4 pie-right text-center">
+                        <h5 class="blue-grey-500 font-size-14 font-weight-100">Others</h5>
+                        <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                          data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
+                          data-goal="78" aria-valuenow="78" role="progressbar">
+                          <span class="pie-progress-number">5</span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-md-8 text-center">
-                        <h4 class="card-title"><?= $event->name ?></h4>
-                        <h4><?= $event->place ?></h4>
-                        <a href="https://maps.google.com/?q=<?= $event->address ?>+<?= $event->zipCode ?>+<?= $event->city ?>">
-                            <p class="category" style="z-index: 1;"><?= $event->address ?></p>
-                            <p class="category" style="z-index: 1;"><?= $event->zipCode ?>, <?= $event->city ?></p>
+                  </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <!-- Right Side -->
+    <div class="col-sm-6">
+        <?php if (true || $eventDate->format('U') > time()): ?>
+
+            <div class="card card-shadow">
+              <div class="btn-group btn-group-justified mt-0 mb-0">
+                <div class="btn-group" role="group">
+                  <a id="event-url-ok" href="#" class="btn btn-present">
+                    <i class="icon wb-check-circle" aria-hidden="true"></i>
+                    <br>
+                    <span class="text-uppercase">In</span>
+                  </a>
+                </div>
+                <div class="btn-group" role="group">
+                  <a id="event-url-no" href="#" class="btn btn-absent">
+                    <i class="icon wb-minus-circle" aria-hidden="true"></i>
+                    <br>
+                    <span class="text-uppercase">Out</span>
+                  </a>
+                </div>
+                <div class="btn-group mt-40" role="group">
+                  <a id="event-url-incertain" href="#" class="btn btn-uncertain">
+                    <i class="icon wb-help-circle" aria-hidden="true"></i>
+                    <br>
+                    <span class="text-uppercase">Uncertain</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+        <?php endif; ?>
+
+        <!-- Disponibility card -->
+        <div class="card card-shadow">
+            <div class="card-block">
+                <div class="example-wrap mt-20 mb-0">
+                  <div class="nav-tabs-horizontal" data-plugin="tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <a class="nav-link active show" data-toggle="tab" href="#exampleTabsIconOne" aria-controls="exampleTabsIconOne" role="tab" aria-selected="true">
+                          <span>
+                            <i class="icon wb-check-circle text-present" style="font-size:24px;" aria-hidden="true"></i>
+                            <span class="badge badge-pill up badge-info"><?= $counters[Application\Model\Disponibility::RESP_OK] ?></span>
+                          </span>
                         </a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <a class="nav-link" data-toggle="tab" href="#exampleTabsIconTwo" aria-controls="exampleTabsIconTwo" role="tab" aria-selected="false">
+                          <span>
+                            <i class="icon wb-minus-circle text-absent" style="font-size:24px;" aria-hidden="true"></i>
+                            <span class="badge badge-pill up badge-info"><?= $counters[Application\Model\Disponibility::RESP_NO] ?></span>
+                          </span>
+                        </a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <a class="nav-link" data-toggle="tab" href="#exampleTabsIconThree" aria-controls="exampleTabsIconThree" role="tab" aria-selected="false">
+                          <span>
+                            <i class="icon wb-help-circle text-uncertain" style="font-size:24px;" aria-hidden="true"></i>
+                            <span class="badge badge-pill up badge-info"><?= $counters[Application\Model\Disponibility::RESP_UNCERTAIN] ?></span>
+                          </span>
+                        </a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <a class="nav-link" data-toggle="tab" href="#exampleTabsIconFour" aria-controls="exampleTabsIconFour" role="tab">
+                          <span>
+                            <i class="icon wb-alert-circle text-no-answer" style="font-size:24px;" aria-hidden="true"></i>
+                            <span class="badge badge-pill up badge-info"><?= $counters[Application\Model\Disponibility::RESP_NO_ANSWER] ?></span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content">
+                      <div class="tab-pane active show" id="exampleTabsIconOne" role="tabpanel">
+                        <div class="table-responsive">
+                          <table class="table">
+                            <tbody id="table-resp-ok">
+                              <?php foreach ($users[Application\Model\Disponibility::RESP_OK] as $user) : ?>
+                                  <tr>
+                                      <td class="avatar avatar-md p-0">
+                                        <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                      </td>
+                                      <td><?= $user->firstname ?></td>
+                                      <td><?= $user->lastname ?></td>
+                                  </tr>
+                              <?php endforeach; ?>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="exampleTabsIconTwo" role="tabpanel">
+                        <div class="table-responsive">
+                          <table class="table">
+                            <tbody id="table-resp-no">
+                              <?php foreach ($users[Application\Model\Disponibility::RESP_NO] as $user) : ?>
+                                  <tr>
+                                      <td class="avatar avatar-md p-0">
+                                        <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                      </td>
+                                      <td><?= $user->firstname ?></td>
+                                      <td><?= $user->lastname ?></td>
+                                  </tr>
+                              <?php endforeach; ?>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="exampleTabsIconThree" role="tabpanel">
+                        <div class="table-responsive">
+                          <table class="table">
+                            <tbody id="table-resp-uncertain">
+                              <?php foreach ($users[Application\Model\Disponibility::RESP_UNCERTAIN] as $user) : ?>
+                                  <tr>
+                                      <td class="avatar avatar-md p-0">
+                                        <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                      </td>
+                                      <td><?= $user->firstname ?></td>
+                                      <td><?= $user->lastname ?></td>
+                                  </tr>
+                              <?php endforeach; ?>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="exampleTabsIconFour" role="tabpanel">
+                        <div class="table-responsive">
+                          <table class="table">
+                            <tbody id="table-resp-no-answer">
+                              <?php foreach ($users[Application\Model\Disponibility::RESP_NO_ANSWER] as $user) : ?>
+                                  <tr>
+                                      <td class="avatar avatar-md p-0">
+                                        <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                      </td>
+                                      <td><?= $user->firstname ?></td>
+                                      <td><?= $user->lastname ?></td>
+                                  </tr>
+                              <?php endforeach; ?>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6 text-center hidden-xs">
-        <div class="row">
-            <div class="col-xs-3 col-md-6">
-                <a href="#" data-toggle="modal" data-target="#ok">
-                    <div class="card card-circle-chart" data-background-color="green">
-                        <div class="card-content">
-                            <div id="chartOrders" class="chart-circle" data-percent="<?= ($counters[Application\Model\Disponibility::RESP_OK] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_OK] ?>
-                                <i class="ti-check"></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xs-3 col-md-6">
-                <a href="#" data-toggle="modal" data-target="#no">
-                    <div class="card card-circle-chart" data-background-color="orange">
-                        <div class="card-content">
-                            <div id="chartOrders" class="chart-circle" data-percent="<?= ($counters[Application\Model\Disponibility::RESP_NO] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_NO] ?>
-                                <i class="ti-close"></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xs-3 col-md-6">
-                <a href="#" data-toggle="modal" data-target="#incertain">
-                    <div class="card card-circle-chart" data-background-color="blue">
-                        <div class="card-content">
-                            <div id="chartOrders" class="chart-circle" data-percent="<?= ($counters[Application\Model\Disponibility::RESP_UNCERTAIN] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_UNCERTAIN] ?>
-                                <i class="ti-help"></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xs-3 col-md-6">
-                <a href="#" data-toggle="modal" data-target="#no-answer">
-                    <div class="card card-circle-chart" data-background-color="brown">
-                        <div class="card-content">
-                            <div id="chartOrders" class="chart-circle" data-percent="<?= ($counters[Application\Model\Disponibility::RESP_NO_ANSWER] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_NO_ANSWER] ?>
-                                <i class="ti-na"></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 text-center hidden-md hidden-sm hidden-md hidden-lg">
-        <div class="row">
-            <div class="col-xs-3 col-md-6">
-                <a href="#" data-toggle="modal" data-target="#ok">
-                    <div class="card card-circle-chart" data-background-color="green">
-                        <div class="card-content">
-                            <i class="ti-check"></i><br>
-                            <div data-percent="<?= ($counters[Application\Model\Disponibility::RESP_OK] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_OK] ?>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xs-3 col-md-6">
-                <a href="#" data-toggle="modal" data-target="#no">
-                    <div class="card card-circle-chart" data-background-color="orange">
-                        <div class="card-content">
-                            <i class="ti-close"></i><br>
-                            <div data-percent="<?= ($counters[Application\Model\Disponibility::RESP_NO] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_NO] ?>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xs-3 col-md-6">
-                <a href="#" data-toggle="modal" data-target="#incertain">
-                    <div class="card card-circle-chart" data-background-color="blue">
-                        <div class="card-content">
-                            <i class="ti-help"></i><br>
-                            <div data-percent="<?= ($counters[Application\Model\Disponibility::RESP_UNCERTAIN] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_UNCERTAIN] ?>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xs-3 col-md-6">
-                <a href="#" data-toggle="modal" data-target="#no-answer">
-                    <div class="card card-circle-chart" data-background-color="brown">
-                        <div class="card-content">
-                            <i class="ti-na"></i><br>
-                            <div data-percent="<?= ($counters[Application\Model\Disponibility::RESP_NO_ANSWER] / array_sum($counters) * 100) ?>"><?= $counters[Application\Model\Disponibility::RESP_NO_ANSWER] ?>
-                                </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
 
-<?php if ($event->debrief): ?>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-content">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="card-title">Débrief</h4>
-                            <div class="table-responsive">
-                                <p class="category">
-                                    <?= nl2br($event->debrief) ?>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title"><i class="panel-title-icon icon wb-chat-group" aria-hidden="true"></i>Comments</h3>
             </div>
-        </div>
-    </div>
-<?php endif ?>
-
-<?= $this->partial('partial/stats.phtml') ?>
-
-<?php if ($event->victory !== null && !$setsHistory): ?>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-content">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="card-title"><?= ($event->victory) ? 'Victoire' : 'Défaite' ?> : <?= $event->score ?></h4>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <tbody>
-                                        <?php foreach ($event->sets as $key => $scores): ?>
-                                            <tr>
-                                                <td>
-                                                    Set <?= $key + 1 ?>
-                                                </td>
-                                                <td class="text-right">
-                                                    <?= $scores ?>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php endif ?>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <?= $this->form()->openTag($form); ?>
-                <div class="card-header">
-                    <h4 class="card-title">
-                        Laisser un commentaire
-                    </h4>
-                </div>
-                <div class="card-content">
-                    <?= $this->formElement($form->get('comment')); ?>
-                </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-fill btn-info">Submit</button>
-                </div>
-            <?= $this->form()->closeTag(); ?>
-        </div>
-        <!-- end card -->
-    </div>
-    <!--  end col-md-6  -->
-
-    <div class="col-md-12">
-        <div class="card card-timeline card-plain">
-            <div class="card-content">
-                <ul class="timeline timeline-simple">
-                    <?php if (!$comments): ?>
-                        <li class="timeline-inverted">
-                            <div class="timeline-panel">
-                                <div class="timeline-body">
-                                    <p>Il n'y a actuellement aucun commentaire pour cet évènement.</p>
-                                </div>
-                            </div>
-                        </li>
-                    <?php endif ?>
+            <div class="panel-body scrollable is-enabled scrollable-vertical" data-plugin="scrollable">
+              <div data-role="container" class="scrollable-container">
+                <div data-role="content" class="scrollable-content">
+                  <ul class="list-group list-group-dividered list-group-full">
                     <?php foreach ($comments as $comment): ?>
-                        <li class="timeline-inverted">
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <span class="label label-success"><?= isset($comment['author']) ? $comment['author']->getFullName() : 'Utilisateur supprimé'; ?></span>
-                                </div>
-                                <div class="timeline-body">
-                                    <p><?= nl2br($comment['comment']); ?></p>
-                                </div>
-                                <h6>
-                                    <i class="ti-time"></i>
-                                    <?= \Application\Service\Date::toFr($comment['date']); ?>
-                                </h6>
-                            </div>
-                        </li>
+                      <li class="list-group-item">
+                        <div class="media">
+                          <div class="pr-20">
+                            <a class="avatar avatar-away" href="javascript:void(0)">
+                              <img src="/img/avatars/<?= $comment['author']->id ?>.png" alt="...">
+                              <i></i>
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <small class="float-right"><?= \Application\Service\Date::toFr($comment['date']); ?></small>
+                            <small><?= isset($comment['author']) ? $comment['author']->getFullName() : 'Deleted User'; ?></small>
+                            <h5 class="mt-0 mb-5"><?= nl2br($comment['comment']); ?></h5>
+                          </div>
+                        </div>
+                      </li>
                     <?php endforeach ?>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="ok" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #d5e5a3; color:#FFF;">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-                <h4 class="modal-title">Personnes Présentes</h4>
-            </div>
-            <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table text-center">
-                        <tbody>
-                            <?php foreach ($users[Application\Model\Disponibility::RESP_OK] as $user) : ?>
-                                <tr>
-                                    <td><?= $user->firstname ?></td>
-                                    <td><?= $user->lastname ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                  </ul>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="no" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #ff8f5e; color:#FFF;">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-                <h4 class="modal-title">Personnes Absentes</h4>
-            </div>
-            <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table text-center">
-                        <tbody>
-                            <?php foreach ($users[Application\Model\Disponibility::RESP_NO] as $user) : ?>
-                                <tr>
-                                    <td><?= $user->firstname ?></td>
-                                    <td><?= $user->lastname ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+              </div>
+            <div class="scrollable-bar scrollable-bar-vertical scrollable-bar-hide" draggable="false"><div class="scrollable-bar-handle" style="height: 91.0112px; transform: translate3d(0px, 74.155px, 0px);"></div></div></div>
+            <div class="panel-footer">
+              <form>
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Say something">
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button">Send</button>
+                  </span>
                 </div>
+              </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="incertain" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #b8d8d8; color:#FFF;">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-                <h4 class="modal-title">Personnes Incertaines</h4>
-            </div>
-            <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table text-center">
-                        <tbody>
-                            <?php foreach ($users[Application\Model\Disponibility::RESP_UNCERTAIN] as $user) : ?>
-                                <tr>
-                                    <td><?= $user->firstname ?></td>
-                                    <td><?= $user->lastname ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="no-answer" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #d6c1ab; color:#FFF;">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-                <h4 class="modal-title">Personnes Sans Réponse</h4>
-            </div>
-            <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table text-center">
-                        <tbody>
-                            <?php foreach ($users[Application\Model\Disponibility::RESP_NO_ANSWER] as $user) : ?>
-                                <tr>
-                                    <td><?= $user->firstname ?></td>
-                                    <td><?= $user->lastname ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="share" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-                <h4 class="modal-title">Partagez le Live Score</h4>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-12">
-                    <p class="category">
-                        Partagez ce lien ci-dessous pour inviter des personnes à suivre le score en temps réel
-                    </p>
-                </div>
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <input type="text" id="to-copy" name="name" class="form-control" value="<?= $liveScoreUrl ?>">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-info btn-fill btn-wd btn-finish pull-right copy-to-clipboard" data-clipboard-target="#to-copy">copier</button>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a href="<?= $liveScoreUrl ?>" type="button" class="btn btn-primary">S'y rendre</a>
-            </div>
-        </div>
+          </div>
     </div>
 </div>
