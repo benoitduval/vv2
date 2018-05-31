@@ -17,65 +17,22 @@
           </div>
         </div>
 
-        <!-- Role numbers -->
-<!--         <div class="card card-shadow">
-            <div class="card-block">
-                <div class="card card-shadow text-center">
-                  <div class="card-block bg-white">
-                    <div class="row">
-                      <div class="col-6 col-sm-4 pie-left text-center">
-                        <h5 class="blue-grey-500 font-size-14 font-weight-100">Ouside Hitter</h5>
-                        <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                          data-valuemin="0" data-barcolor="#a57afa" data-size="100" data-barsize="4"
-                          data-goal="60" aria-valuenow="60" role="progressbar">
-                          <span class="pie-progress-number">4</span>
-                        </div>
-                      </div>
-                      <div class="col-6 col-sm-4 pie-right text-center">
-                        <h5 class="blue-grey-500 font-size-14 font-weight-100">Opposite</h5>
-                        <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                          data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
-                          data-goal="78" aria-valuenow="78" role="progressbar">
-                          <span class="pie-progress-number">2</span>
-                        </div>
-                      </div>
-                      <div class="col-6 col-sm-4 pie-right text-center">
-                        <h5 class="blue-grey-500 font-size-14 font-weight-100">Setter</h5>
-                        <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                          data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
-                          data-goal="78" aria-valuenow="78" role="progressbar">
-                          <span class="pie-progress-number">2</span>
-                        </div>
-                      </div>
-                      <div class="col-6 col-sm-4 pie-right text-center">
-                        <h5 class="blue-grey-500 font-size-14 font-weight-100">Libero</h5>
-                        <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                          data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
-                          data-goal="78" aria-valuenow="78" role="progressbar">
-                          <span class="pie-progress-number">1</span>
-                        </div>
-                      </div>
-                      <div class="col-6 col-sm-4 pie-right text-center">
-                        <h5 class="blue-grey-500 font-size-14 font-weight-100">Mid. Blocker</h5>
-                        <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                          data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
-                          data-goal="78" aria-valuenow="78" role="progressbar">
-                          <span class="pie-progress-number">4</span>
-                        </div>
-                      </div>
-                      <div class="col-6 col-sm-4 pie-right text-center">
-                        <h5 class="blue-grey-500 font-size-14 font-weight-100">Others</h5>
-                        <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                          data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
-                          data-goal="78" aria-valuenow="78" role="progressbar">
-                          <span class="pie-progress-number">5</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-        </div> -->
+        <div class="btn-group btn-group-justified mt-20 mb-20">
+          <div class="btn-group" role="group">
+            <a id="event-url-ok" href="#" class="btn btn-outline btn-default">
+              <i class="icon wb-camera" aria-hidden="true"></i>
+              <br>
+              <span class="text-uppercase">Live Score</span>
+            </a>
+          </div>
+          <div class="btn-group" role="group">
+            <a id="event-url-no" href="#" class="btn btn-outline btn-primary">
+              <i class="icon wb-stats-bars" aria-hidden="true"></i>
+              <br>
+              <span class="text-uppercase">See Stats</span>
+            </a>
+          </div>
+        </div>
     </div>
 
     <!-- Right Side -->
@@ -85,21 +42,21 @@
             <div class="card card-shadow">
               <div class="btn-group btn-group-justified mt-0 mb-0">
                 <div class="btn-group" role="group">
-                  <a id="event-url-ok" href="#" class="btn btn-present">
+                  <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_OK ?>" class="btn btn-present">
                     <i class="icon wb-check-circle" aria-hidden="true"></i>
                     <br>
                     <span class="text-uppercase">In</span>
                   </a>
                 </div>
                 <div class="btn-group" role="group">
-                  <a id="event-url-no" href="#" class="btn btn-absent">
+                  <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_NO ?>" class="btn btn-absent">
                     <i class="icon wb-minus-circle" aria-hidden="true"></i>
                     <br>
                     <span class="text-uppercase">Out</span>
                   </a>
                 </div>
                 <div class="btn-group mt-40" role="group">
-                  <a id="event-url-incertain" href="#" class="btn btn-uncertain">
+                  <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_UNCERTAIN ?>" class="btn btn-uncertain">
                     <i class="icon wb-help-circle" aria-hidden="true"></i>
                     <br>
                     <span class="text-uppercase">Uncertain</span>
@@ -119,7 +76,7 @@
                         <a class="nav-link active show" data-toggle="tab" href="#exampleTabsIconOne" aria-controls="exampleTabsIconOne" role="tab" aria-selected="true">
                           <span>
                             <i class="icon wb-check-circle text-present" style="font-size:24px;" aria-hidden="true"></i>
-                            <span class="badge badge-pill up badge-info"><?= $counters[Application\Model\Disponibility::RESP_OK] ?></span>
+                            <span class="badge badge-pill up badge-info float-right"><?= $counters[Application\Model\Disponibility::RESP_OK] ?></span>
                           </span>
                         </a>
                       </li>
@@ -127,7 +84,7 @@
                         <a class="nav-link" data-toggle="tab" href="#exampleTabsIconTwo" aria-controls="exampleTabsIconTwo" role="tab" aria-selected="false">
                           <span>
                             <i class="icon wb-minus-circle text-absent" style="font-size:24px;" aria-hidden="true"></i>
-                            <span class="badge badge-pill up badge-info"><?= $counters[Application\Model\Disponibility::RESP_NO] ?></span>
+                            <span class="badge badge-pill up badge-info float-right"><?= $counters[Application\Model\Disponibility::RESP_NO] ?></span>
                           </span>
                         </a>
                       </li>
@@ -135,7 +92,7 @@
                         <a class="nav-link" data-toggle="tab" href="#exampleTabsIconThree" aria-controls="exampleTabsIconThree" role="tab" aria-selected="false">
                           <span>
                             <i class="icon wb-help-circle text-uncertain" style="font-size:24px;" aria-hidden="true"></i>
-                            <span class="badge badge-pill up badge-info"><?= $counters[Application\Model\Disponibility::RESP_UNCERTAIN] ?></span>
+                            <span class="badge badge-pill up badge-info float-right"><?= $counters[Application\Model\Disponibility::RESP_UNCERTAIN] ?></span>
                           </span>
                         </a>
                       </li>
@@ -143,7 +100,7 @@
                         <a class="nav-link" data-toggle="tab" href="#exampleTabsIconFour" aria-controls="exampleTabsIconFour" role="tab">
                           <span>
                             <i class="icon wb-alert-circle text-no-answer" style="font-size:24px;" aria-hidden="true"></i>
-                            <span class="badge badge-pill up badge-info"><?= $counters[Application\Model\Disponibility::RESP_NO_ANSWER] ?></span>
+                            <span class="badge badge-pill up badge-info float-right"><?= $counters[Application\Model\Disponibility::RESP_NO_ANSWER] ?></span>
                           </span>
                         </a>
                       </li>
@@ -153,15 +110,20 @@
                         <div class="table-responsive">
                           <table class="table">
                             <tbody id="table-resp-ok">
-                              <?php foreach ($users[Application\Model\Disponibility::RESP_OK] as $user) : ?>
-                                  <tr>
-                                      <td class="avatar avatar-md p-0">
-                                        <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                                      </td>
-                                      <td><?= $user->firstname ?></td>
-                                      <td><?= $user->lastname ?></td>
-                                  </tr>
-                              <?php endforeach; ?>
+                              <?php if (!$users[Application\Model\Disponibility::RESP_OK]): ?>
+                                <tr><td class="text-center">No one here !</td></tr>
+                              <?php else: ?>
+                                <?php foreach ($users[Application\Model\Disponibility::RESP_OK] as $user) : ?>
+                                    <tr>
+                                        <td class="avatar avatar-md" style="border: none; padding:2px;">
+                                          <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                        </td>
+                                        <td><?= $user->firstname ?></td>
+                                        <td><?= $user->lastname ?></td>
+                                        <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                              <?php endif ?>
                             </tbody>
                           </table>
                         </div>
@@ -170,15 +132,20 @@
                         <div class="table-responsive">
                           <table class="table">
                             <tbody id="table-resp-no">
-                              <?php foreach ($users[Application\Model\Disponibility::RESP_NO] as $user) : ?>
-                                  <tr>
-                                      <td class="avatar avatar-md p-0">
-                                        <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                                      </td>
-                                      <td><?= $user->firstname ?></td>
-                                      <td><?= $user->lastname ?></td>
-                                  </tr>
-                              <?php endforeach; ?>
+                              <?php if (!$users[Application\Model\Disponibility::RESP_NO]): ?>
+                                <tr><td class="text-center">No one here !</td></tr>
+                              <?php else: ?>
+                                <?php foreach ($users[Application\Model\Disponibility::RESP_NO] as $user) : ?>
+                                    <tr>
+                                        <td class="avatar avatar-md" style="border: none; padding:2px;">
+                                          <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                        </td>
+                                        <td><?= $user->firstname ?></td>
+                                        <td><?= $user->lastname ?></td>
+                                        <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                              <?php endif ?>
                             </tbody>
                           </table>
                         </div>
@@ -187,15 +154,20 @@
                         <div class="table-responsive">
                           <table class="table">
                             <tbody id="table-resp-uncertain">
-                              <?php foreach ($users[Application\Model\Disponibility::RESP_UNCERTAIN] as $user) : ?>
-                                  <tr>
-                                      <td class="avatar avatar-md p-0">
-                                        <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                                      </td>
-                                      <td><?= $user->firstname ?></td>
-                                      <td><?= $user->lastname ?></td>
-                                  </tr>
-                              <?php endforeach; ?>
+                              <?php if (!$users[Application\Model\Disponibility::RESP_UNCERTAIN]): ?>
+                                <tr><td class="text-center">No one here !</td></tr>
+                              <?php else: ?>
+                                <?php foreach ($users[Application\Model\Disponibility::RESP_UNCERTAIN] as $user) : ?>
+                                    <tr>
+                                        <td class="avatar avatar-md" style="border: none; padding:2px;">
+                                          <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                        </td>
+                                        <td><?= $user->firstname ?></td>
+                                        <td><?= $user->lastname ?></td>
+                                        <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                              <?php endif ?>
                             </tbody>
                           </table>
                         </div>
@@ -204,15 +176,20 @@
                         <div class="table-responsive">
                           <table class="table">
                             <tbody id="table-resp-no-answer">
-                              <?php foreach ($users[Application\Model\Disponibility::RESP_NO_ANSWER] as $user) : ?>
-                                  <tr>
-                                      <td class="avatar avatar-md p-0">
-                                        <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                                      </td>
-                                      <td><?= $user->firstname ?></td>
-                                      <td><?= $user->lastname ?></td>
-                                  </tr>
-                              <?php endforeach; ?>
+                              <?php if (!$users[Application\Model\Disponibility::RESP_NO_ANSWER]): ?>
+                                <tr><td class="text-center">No one here !</td></tr>
+                              <?php else: ?>
+                                <?php foreach ($users[Application\Model\Disponibility::RESP_NO_ANSWER] as $user) : ?>
+                                    <tr>
+                                        <td class="avatar avatar-md" style="border: none; padding:2px;">
+                                          <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                        </td>
+                                        <td><?= $user->firstname ?></td>
+                                        <td><?= $user->lastname ?></td>
+                                        <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                              <?php endif ?>
                             </tbody>
                           </table>
                         </div>
@@ -228,26 +205,35 @@
               <h3 class="panel-title"><i class="panel-title-icon icon wb-chat-group" aria-hidden="true"></i>Comments</h3>
             </div>
             <div class="panel-body scrollable is-enabled scrollable-vertical" data-plugin="scrollable">
-              <div data-role="container" class="scrollable-container">
+              <div data-role="container" class="scrollable-container" style="max-height: 250px">
                 <div data-role="content" class="scrollable-content">
                   <ul class="list-group list-group-dividered list-group-full">
-                    <?php foreach ($comments as $comment): ?>
+                    <?php if (!$comments): ?>
                       <li class="list-group-item">
                         <div class="media">
-                          <div class="pr-20">
-                            <a class="avatar avatar-away" href="javascript:void(0)">
-                              <img src="/img/avatars/<?= $comment['author']->id ?>.png" alt="...">
-                              <i></i>
-                            </a>
-                          </div>
                           <div class="media-body">
-                            <small class="float-right"><?= \Application\Service\Date::toFr($comment['date']); ?></small>
-                            <small><?= isset($comment['author']) ? $comment['author']->getFullName() : 'Deleted User'; ?></small>
-                            <h5 class="mt-0 mb-5"><?= nl2br($comment['comment']); ?></h5>
+                            <h5 class="mt-0 mb-5">No comments !</h5>
                           </div>
                         </div>
-                      </li>
-                    <?php endforeach ?>
+                    <?php else: ?>
+                      <?php foreach ($comments as $comment): ?>
+                        <li class="list-group-item">
+                          <div class="media">
+                            <div class="pr-20">
+                              <a class="avatar" href="javascript:void(0)">
+                                <img src="/img/avatars/<?= $comment['author']->id ?>.png" alt="...">
+                                <i></i>
+                              </a>
+                            </div>
+                            <div class="media-body">
+                              <small class="float-right"><?= \Application\Service\Date::toFr($comment['date']); ?></small>
+                              <small><?= isset($comment['author']) ? $comment['author']->getFullName() : 'Deleted User'; ?></small>
+                              <h5 class="mt-0 mb-5"><?= nl2br($comment['comment']); ?></h5>
+                            </div>
+                          </div>
+                        </li>
+                      <?php endforeach ?>
+                    <?php endif ?>
                   </ul>
                 </div>
               </div>
