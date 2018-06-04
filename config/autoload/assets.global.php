@@ -1,9 +1,101 @@
-<?php 
+<?php
+
+use Application\Controller;
+
 return [
-    'js' => [
-        ''
-    ],
-    'css' => [
-        ''
+    'assets' => [
+        'global' => [
+            'js' => [
+                '/global/vendor/babel-external-helpers/babel-external-helpers.js',
+                '/global/vendor/jquery/jquery.js',
+                '/global/vendor/popper-js/umd/popper.min.js',
+                '/global/vendor/bootstrap/bootstrap.js',
+                '/global/vendor/animsition/animsition.js',
+                '/global/vendor/mousewheel/jquery.mousewheel.js',
+                '/global/vendor/asscrollbar/jquery-asScrollbar.js',
+                '/global/vendor/asscrollable/jquery-asScrollable.js',
+                '/global/vendor/ashoverscroll/jquery-asHoverScroll.js',
+                '/global/vendor/switchery/switchery.js',
+                '/global/vendor/screenfull/screenfull.js',
+                '/global/vendor/jquery-ui/jquery-ui.min.js',
+                '/global/vendor/moment/moment.min.js',
+            ],
+            'css' => [
+                '/global/css/bootstrap.min.css',
+                '/global/css/bootstrap-extend.min.css',
+                '/assets/css/site.min.css',
+                '/css/custom.css',
+            ],
+            'fonts' => [
+                '/global/fonts/web-icons/web-icons.min.css',
+                '/global/fonts/brand-icons/brand-icons.min.css',
+                'http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic',
+            ]
+        ],
+
+        Controller\IndexController::class . '::index' => [
+            'js' => [
+                // '/global/vendor/intro-js/intro.js',
+                // '/global/vendor/slidepanel/jquery-slidePanel.js',
+                '/global/vendor/fullcalendar/fullcalendar.js',
+                '/global/vendor/jquery-selective/jquery-selective.min.js',
+                '/global/vendor/bootstrap-datepicker/bootstrap-datepicker.js',
+                '/global/vendor/bootstrap-touchspin/bootstrap-touchspin.min.js',
+                '/global/vendor/bootbox/bootbox.js',
+                '/global/vendor/formatter/jquery.formatter.js',
+                '/global/vendor/bootstrap-select/bootstrap-select.js',
+                '/global/vendor/matchheight/jquery.matchHeight-min.js',
+                '/global/vendor/bootstrap-table/bootstrap-table.min.js',
+                '/global/vendor/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js',
+                '/global/js/Component.js',
+                '/global/js/Plugin.js',
+                '/global/js/Base.js',
+                '/global/js/Config.js',
+                // '/global/js/Plugin/loading-button.js',
+                // '/global/js/Plugin/more-button.js',
+                // '/global/js/Plugin/ladda.js',
+                '/assets/js/Section/Menubar.js',
+                '/assets/js/Section/GridMenu.js',
+                '/assets/js/Section/Sidebar.js',
+                '/assets/js/Section/PageAside.js',
+                '/assets/js/Plugin/menu.js',
+                // '/global/js/config/colors.js',
+                // '/assets/js/config/tour.js',
+                '/global/js/Plugin/asscrollable.js',
+                // '/global/js/Plugin/slidepanel.js',
+                // '/global/js/Plugin/switchery.js',
+                '/global/js/Plugin/bootstrap-touchspin.js',
+                '/global/js/Plugin/bootstrap-datepicker.js',
+                // '/global/js/Plugin/material.js',
+                // '/global/js/Plugin/action-btn.js',
+                '/global/js/Plugin/editlist.js',
+                '/global/js/Plugin/bootbox.js',
+                '/global/js/Plugin/formatter.js',
+                '/global/js/Plugin/responsive-tabs.js',
+                '/global/js/Plugin/closeable-tabs.js',
+                '/global/js/Plugin/tabs.js',
+                '/assets/js/Site.js',
+                '/assets/js/App/Calendar.js',
+                '/assets/examples/js/apps/calendar.js',
+            ],
+            'css' => [
+                '/global/vendor/animsition/animsition.css',
+                '/global/vendor/asscrollable/asScrollable.css',
+                '/global/vendor/switchery/switchery.css',
+                '/global/vendor/intro-js/introjs.css',
+                '/global/vendor/slidepanel/slidePanel.css',
+                '/global/vendor/flag-icon-css/flag-icon.css',
+                '/global/vendor/fullcalendar/fullcalendar.css',
+                '/global/vendor/bootstrap-datepicker/bootstrap-datepicker.css',
+                '/global/vendor/bootstrap-touchspin/bootstrap-touchspin.css',
+                '/global/vendor/jquery-selective/jquery-selective.css',
+                '/global/vendor/bootstrap-select/bootstrap-select.css',
+                '/global/vendor/bootstrap-table/bootstrap-table.css',
+                '/global/vendor/ladda/ladda.css',
+                '/assets/examples/css/uikit/buttons.css',
+                '/assets/examples/css/forms/masks.css',
+                '/assets/examples/css/apps/calendar.css',
+            ],
+        ]
     ]
 ];

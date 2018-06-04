@@ -58,7 +58,11 @@ class AbstractController extends AbstractActionController
 
     public function onDispatch(\Zend\Mvc\MvcEvent $e)
     {
+        $controllerName = $this->params('controller');
+        $actionName = $this->params('action');
+
         $config = $this->get('config');
+        $this->layout()->assetsBundle = $controllerName . '::' . $actionName;
         $this->layout()->vCss   = $config['version']['css'];
         $this->layout()->vJs    = $config['version']['js'];
         $this->layout()->user   = $this->getUser();

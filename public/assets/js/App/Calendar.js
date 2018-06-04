@@ -44,9 +44,6 @@
         babelHelpers.get(AppCalendar.prototype.__proto__ || Object.getPrototypeOf(AppCalendar.prototype), 'process', this).call(this);
 
         this.handleFullcalendar();
-        this.handleSelective();
-        this.handleAction();
-        this.handleListItem();
         this.handleEventList();
       }
     }, {
@@ -215,77 +212,6 @@
         $('#calendar').fullCalendar(_options);
       }
     }, {
-      key: 'handleSelective',
-      value: function handleSelective() {
-        var member = [{
-          id: 'uid_1',
-          name: 'Herman Beck',
-          avatar: '../../../../global/portraits/1.jpg'
-        }, {
-          id: 'uid_2',
-          name: 'Mary Adams',
-          avatar: '../../../../global/portraits/2.jpg'
-        }, {
-          id: 'uid_3',
-          name: 'Caleb Richards',
-          avatar: '../../../../global/portraits/3.jpg'
-        }, {
-          id: 'uid_4',
-          name: 'June Lane',
-          avatar: '../../../../global/portraits/4.jpg'
-        }];
-
-        var items = [{
-          id: 'uid_1',
-          name: 'Herman Beck',
-          avatar: '../../../../global/portraits/1.jpg'
-        }, {
-          id: 'uid_2',
-          name: 'Caleb Richards',
-          avatar: '../../../../global/portraits/2.jpg'
-        }];
-
-        $('.plugin-selective').selective({
-          namespace: 'addMember',
-          local: member,
-          selected: items,
-          buildFromHtml: false,
-          tpl: {
-            optionValue: function optionValue(data) {
-              return data.id;
-            },
-            frame: function frame() {
-              return '<div class="' + this.namespace + '">\n          ' + this.options.tpl.items.call(this) + '\n          <div class="' + this.namespace + '-trigger">\n          ' + this.options.tpl.triggerButton.call(this) + '\n          <div class="' + this.namespace + '-trigger-dropdown">\n          ' + this.options.tpl.list.call(this) + '\n          </div>\n          </div>\n          </div>';
-            },
-            triggerButton: function triggerButton() {
-              return '<div class="' + this.namespace + '-trigger-button"><i class="wb-plus"></i></div>';
-            },
-            listItem: function listItem(data) {
-              return '<li class="' + this.namespace + '-list-item"><img class="avatar" src="' + data.avatar + '">' + data.name + '</li>';
-            },
-            item: function item(data) {
-              return '<li class="' + this.namespace + '-item"><img class="avatar" src="' + data.avatar + '" title="' + data.name + '">' + this.options.tpl.itemRemove.call(this) + '</li>';
-            },
-            itemRemove: function itemRemove() {
-              return '<span class="' + this.namespace + '-remove"><i class="wb-minus-circle"></i></span>';
-            },
-            option: function option(data) {
-              return '<option value="' + this.options.tpl.optionValue.call(this, data) + '">' + data.name + '</option>';
-            }
-          }
-        });
-      }
-    }, {
-      key: 'handleAction',
-      value: function handleAction() {
-        var _this2 = this;
-
-        this.$actionToggleBtn.on('click', function (e) {
-          _this2.$addNewCalendarForm.modal('show');
-          e.stopPropagation();
-        });
-      }
-    }, {
       key: 'handleEventList',
       value: function handleEventList() {
         $('#addNewEventBtn').on('click', function () {
@@ -308,29 +234,6 @@
             appendTo: '.page',
             helper: function helper() {
               return '<a class="fc-day-grid-event fc-event fc-start fc-end" style="background-color:' + (0, _Config.colors)(color[0], color[1]) + ';border-color:' + (0, _Config.colors)(color[0], color[1]) + '">\n          <div class="fc-content">\n            <span class="fc-title">' + $this.data('title') + '</span>\n          </div>\n          </a>';
-            }
-          });
-        });
-      }
-    }, {
-      key: 'handleListItem',
-      value: function handleListItem() {
-        this.$actionToggleBtn.on('click', function (e) {
-          $('#addNewCalendar').modal('show');
-          e.stopPropagation();
-        });
-
-        $(document).on('click', '[data-tag=list-delete]', function (e) {
-          bootbox.dialog({
-            message: 'Do you want to delete the calendar?',
-            buttons: {
-              success: {
-                label: 'Delete',
-                className: 'btn-danger',
-                callback: function callback() {
-                  // $(e.target).closest('.list-group-item').remove();
-                }
-              }
             }
           });
         });
