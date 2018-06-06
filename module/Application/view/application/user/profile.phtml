@@ -14,13 +14,13 @@
             <div class="col-6">
               <div class="counter">
                 <div class="counter-label total-completed">EVENTS</div>
-                <div class="counter-number red-600">1,628</div>
+                <div class="counter-number red-600"><?= $count['total'] ?></div>
               </div>
             </div>
             <div class="col-6">
               <div class="counter">
                 <div class="counter-label">MATCH PLAYED</div>
-                <div class="counter-number blue-600">170</div>
+                <div class="counter-number blue-600"><?= $count['match'] ?></div>
               </div>
             </div>
           </div>
@@ -33,12 +33,12 @@
                   </td>
                   <td>
                     <div class="progress progress-xs mb-0">
-                      <div class="progress-bar progress-bar-info bg-green-600" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%">
+                      <div class="progress-bar progress-bar-info bg-green-600" role="progressbar" aria-valuenow="<?= $count['ok'] ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $count['ok'] ?>%">
                       </div>
                     </div>
                   </td>
                   <td>
-                    86%
+                    <?= $count['ok'] ?>%
                   </td>
                 </tr>
                 <tr>
@@ -47,12 +47,12 @@
                   </td>
                   <td>
                     <div class="progress progress-xs mb-0">
-                      <div class="progress-bar progress-bar-info bg-red-600" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%">
+                      <div class="progress-bar progress-bar-info bg-red-600" role="progressbar" aria-valuenow="<?= $count['no']?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $count['no']?>%">
                       </div>
                     </div>
                   </td>
                   <td>
-                    68%
+                    <?= $count['no']?>%
                   </td>
                 </tr>
               </tbody>
@@ -62,7 +62,6 @@
       </div>
     </div>
   </div>
-
 
   <div class="col-lg-4">
     <div class="card">

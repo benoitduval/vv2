@@ -10,48 +10,10 @@ use Application\Service\MailService;
 
 class UserController extends AbstractController
 {
-
-    public function paramsOldAction()
-    {
-        if ($this->getUser()) {
-            $form = new Form\SignUp;
-            $form->setData($this->getUser()->toArray());
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-                $post = $request->getPost();
-                $post['status']  = $this->getUser()->status;
-                $post['display'] = $this->getUser()->display;
-
-                $form->setData($request->getPost());
-                if ($form->isValid()) {
-                    $data['firstname']= $post['firstname'];
-                    $data['lastname'] = $post['lastname'];
-                    $data['phone']    = $post['phone'];
-                    $data['licence']  = $post['licence'] ? $post['licence'] : null;
-                    $this->_user->exchangeArray($data);
-                    $user = $this->userTable->save($this->_user);
-                    $this->_user = $user;
-                    $this->flashMessenger()->addSuccessMessage('Enregistré !');
-                    $this->redirect()->toUrl('/user/params');
-                }
-            }
-            $notifs = $this->notifTable->fetchAll(['userId' => $this->getUser()->id]);
-
-            return new ViewModel([
-                'form'          => $form,
-                'notifications' => $notifs,
-                'user'          => $this->getUser(),
-            ]);
-
-        } else {
-            $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
-            $this->redirect()->toRoute('home');
-        }
-    }
-
     public function profileAction()
     {
-        $form = new Form\Profile('uploader', ['userId' => $this->getUser()->id]);
+        $user = $this->getUser();
+        $form = new Form\Profile('uploader', ['userId' => $user->id]);
         $tempFile = null;
 
         $prg = $this->fileprg($form);
@@ -71,12 +33,26 @@ class UserController extends AbstractController
             }
         }
 
+        $groupTable = $this->get(TableGateway\Group::class);
+        $groups     = $this->getUserGroups();
+
+        $count['total'] = $this->disponibilityTable->count(['userId' => $user->id]);
+        $eventsOk = $this->disponibilityTable->fetchAll(['userId' => $user->id, 'response' => \Application\Model\Disponibility::RESP_OK]);
+
+        $count['match'] = 0;
+        foreach ($eventsOk as $event) {
+            if ($this->statsTable->count(['eventId' => $event->id])) $count['match']++;
+        }
+        $count['ok'] = floor(count($eventsOk) * 100 / $count['total']);
+        $count['no'] = floor($this->disponibilityTable->count(['userId' => $user->id, 'response' => \Application\Model\Disponibility::RESP_NO]) * 100 / $count['total']);
+
         $this->layout()->setTemplate('layout/no-title.phtml');
         $this->layout()->user = $this->getUser();
 
         return new ViewModel([
-            'user'   => $this->getUser(),
-            'form'     => $form,
+            'user'  => $this->getUser(),
+            'form'  => $form,
+            'count' => $count,
         ]);
     }
 }
