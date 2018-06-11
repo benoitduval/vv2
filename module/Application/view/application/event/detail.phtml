@@ -198,54 +198,43 @@
             </div>
         </div>
 
-        <div class="panel">
-            <div class="panel-heading">
-              <h3 class="panel-title"><i class="panel-title-icon icon wb-chat-group" aria-hidden="true"></i>Comments</h3>
-            </div>
-            <div class="panel-body scrollable is-enabled scrollable-vertical" data-plugin="scrollable">
-              <div data-role="container" class="scrollable-container" style="max-height: 250px">
-                <div data-role="content" class="scrollable-content">
-                  <ul class="list-group list-group-dividered list-group-full">
-                    <?php if (!$comments): ?>
-                      <li class="list-group-item">
-                        <div class="media">
-                          <div class="media-body">
-                            <h5 class="mt-0 mb-5">No comments !</h5>
-                          </div>
-                        </div>
-                    <?php else: ?>
-                      <?php foreach ($comments as $comment): ?>
-                        <li class="list-group-item">
-                          <div class="media">
-                            <div class="pr-20">
-                              <a class="avatar" href="javascript:void(0)">
-                                <img src="/img/avatars/<?= $comment['author']->id ?>.png" alt="...">
-                                <i></i>
-                              </a>
-                            </div>
-                            <div class="media-body">
-                              <small class="float-right"><?= \Application\Service\Date::toFr($comment['date']); ?></small>
-                              <small><?= isset($comment['author']) ? $comment['author']->getFullName() : 'Deleted User'; ?></small>
-                              <h5 class="mt-0 mb-5"><?= nl2br($comment['comment']); ?></h5>
-                            </div>
-                          </div>
-                        </li>
-                      <?php endforeach ?>
-                    <?php endif ?>
-                  </ul>
-                </div>
-              </div>
-            <div class="scrollable-bar scrollable-bar-vertical scrollable-bar-hide" draggable="false"><div class="scrollable-bar-handle" style="height: 91.0112px; transform: translate3d(0px, 74.155px, 0px);"></div></div></div>
-            <div class="panel-footer">
-              <form>
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Say something">
-                  <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button">Send</button>
-                  </span>
-                </div>
-              </form>
-            </div>
+        <!-- Last comments -->
+        <div class="panel" id="messge">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="panel-title-icon icon wb-chat-group" aria-hidden="true"></i> Comments</h3>
           </div>
+          <div class="panel-body pr-0 pl-10">
+            <ul class="list-group list-group-full flow-y" style="max-height: 250px">
+              <?php foreach ($comments as $comment): ?>
+              <li class="list-group-item">
+                <div class="media">
+                  <div class="pr-20">
+                    <span class="avatar">
+                      <img alt="" src="/img/avatars/<?= $comment['author']->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                    </span>
+                  </div>
+                  <div class="media-body col-12">
+                    <h5 class="list-group-item-heading mt-0 mb-5">
+                      <small class="float-right">3 days ago</small>
+                      <?= isset($comment['author']) ? $comment['author']->getFullName() : 'Deleted User'; ?>
+                    </h5>
+                    <p class="list-group-item-text"><?= nl2br($comment['comment']); ?></p>
+                  </div>
+                </div>
+              </li>
+              <?php endforeach ?>
+            </ul>
+          </div>
+          <div class="panel-footer">
+            <form>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Say something">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button">Send</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
     </div>
 </div>
