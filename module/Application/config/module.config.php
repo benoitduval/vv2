@@ -35,10 +35,10 @@ return [
 
     'view_helpers' => [
         'aliases' => [
-            'assets' => View\Helper\assetsHelper::class,
+            'assets' => View\Helper\AssetsHelper::class,
         ],
         'factories' => [
-            View\Helper\assetsHelper::class => Factory\View\Helper\assetsHelperFactory::class
+            View\Helper\AssetsHelper::class => Factory\View\Helper\AssetsHelperFactory::class
         ]
     ],
 
