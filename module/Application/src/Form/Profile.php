@@ -11,7 +11,7 @@ class Profile extends Form
     {
         parent::__construct($name, $options);
         $this->addElements();
-        $this->addInputFilter($options['userId']);
+        $this->addInputFilter($options['entity']);
     }
 
     public function addElements()
@@ -26,7 +26,7 @@ class Profile extends Form
         $this->add($file);
     }
 
-    public function addInputFilter($userId)
+    public function addInputFilter($entity)
     {
         $inputFilter = new InputFilter\InputFilter();
 
@@ -36,7 +36,7 @@ class Profile extends Form
         $fileInput->getFilterChain()->attachByName(
             'filerenameupload',
             array(
-                'target'    => getcwd() . '/public/img/avatars/' . $userId . '.png',
+                'target'    => getcwd() . '/public/img/avatars/' . md5($entity) . '.png',
                 'randomize' => false,
                 'overwrite' => true,
             )

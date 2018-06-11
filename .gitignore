@@ -2,8 +2,13 @@
 composer.phar
 vendor/
 
+*.DS_Store
+
 # Local configs
 config/autoload/*.local.php
+
+#avatars
+public/img/avatars/*
 
 # Binary gettext files
 *.mo

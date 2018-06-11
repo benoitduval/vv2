@@ -5,7 +5,7 @@
         <div class="user-base card-block ribbon-bookmark ribbon-warning">
           <span class="ribbon-inner">Outside Hitter</span>
           <a class="avatar img-bordered avatar-100" href="javascript:void(0)">
-            <img alt="" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+            <img alt="" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
           </a>
           <h4 class="user-name"><?= $user->getFullname(); ?></h4>
         </div>
@@ -67,7 +67,7 @@
     <div class="card">
       <div class="card-header card-header-transparent pb-0">
         <h4 class="card-title">
-          My Holidays
+          <i class="icon wb-heart"></i>My Holidays
         </h4>
       </div>
       <div class="card-block mb-0 pt-10">
@@ -252,10 +252,10 @@
         </ul>
       </div>
     </div>
-</div>
+  </div>
 
-<div class="col-lg-4">
-  <div class="card">
+  <div class="col-lg-4">
+    <div class="card">
     <div class="card-header card-header-transparent">
       <h4 class="card-title">
         Edit Your Profile
@@ -292,6 +292,6 @@
         </div>
       <?= $this->form()->closeTag(); ?>
     </div>
-  </div>
+    </div>
   </div>
 </div>

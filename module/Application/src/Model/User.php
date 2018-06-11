@@ -37,4 +37,9 @@ class User extends AbstractModel
     {
         return ucfirst(mb_strtolower($this->_lastname));
     }
+
+    public function getAvatarPath()
+    {
+        return '/img/avatars/' . md5($this->getFullname() . $this->id) . '.png';
+    }
 }

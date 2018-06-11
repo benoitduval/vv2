@@ -1,3 +1,7 @@
+.fc-event.event-absent {
+    background-color: #e6eaff;
+}
+
 .text-present {
     color: #d5e5a3;
 }

@@ -1,277 +1,134 @@
-<div class="row">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-content">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="text-center">
-                            <h2><?= $group->name ?></h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php if ($isAdmin): ?>
-                <hr>
-                <div class="text-center">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <a href="/group/edit/<?= $group->id ?>"><h5><i class="ti-pencil"></i><br /><small>Éditer</small></h5></a>
-                        </div>
-                        <div class="col-xs-6">
-                            <a href="/group/delete/<?= $group->id ?>"  onclick="return confirm('Êtes vous sûr ?')"><h5><i class="ti-trash"></i><br /><small>Supprimer</small></h5></a>
-                        </div>
-                    </div>
-                </div>
-            <?php endif ?>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-content">
-                <div class="row">
-                    <div class="col-xs-5">
-                        <div class="icon-big icon-warning">
-                            <i class="ti-user"></i>
-                        </div>
-                    </div>
-                    <div class="col-xs-7">
-                        <div class="numbers">
-                            <p>Membres</p>
-                            <?= count($users) ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php if ($isAdmin): ?>
-                <hr>
-                <div class="text-center">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <a href="/group/users/<?= $group->id ?>"><h5><i class="ti-pencil"></i><br /><small>Gérer</small></h5></a>
-                        </div>
-                        <div class="col-xs-6">
-                            <a href="#" data-toggle="modal" data-target="#share"><h5><i class="ti-plus"></i><br /><small>Ajouter</small></h5></a>
-                        </div>
-                    </div>
-                </div>
-            <?php endif ?>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-content">
-                <div class="row">
-                    <div class="col-xs-5">
-                        <div class="icon-big icon-success">
-                            <i class="ti-calendar"></i>
-                        </div>
-                    </div>
-                    <div class="col-xs-7">
-                        <div class="numbers">
-                            <p>Évènements</p>
-                            <?= $eventsCount ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php if ($isAdmin): ?>
-                <hr>
-                <div class="text-center">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <a href="/event/create/<?= $group->id ?>"><h5><i class="ti-plus"></i><br /><small>Évènement</small></h5></a>
-                        </div>
-                        <div class="col-xs-6">
-                            <a href="/training/create/<?= $group->id ?>"><h5><i class="ti-time"></i><br /><small>Entrainement</small></h5></a>
-                        </div>
-                    </div>
-                </div>
-            <?php endif ?>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="card card-calendar">
-            <div class="card-content">
-                <div id="fullCalendar" data-groupId="<?= $group->id ?>" data-missing="true">
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="card ">
-            <div class="card-header">
-                <h4 class="card-title">Membres</h4>
-                <p class="category">Informations des membres</p>
-            </div>
-            <div class="card-content">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Nom</th>
-                                        <th>Email</th>
-                                        <th>Téléphone</th>
-                                        <th>Licence</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($users as $user): ?>
-                                        <tr>
-                                            <td><?= $user->getFullName() ?></td>
-                                            <td><?= $user->email ?></td>
-                                            <td><?= $user->phone ?></td>
-                                            <td><?= $user->licence ?></td>
-                                        </tr>
-                                    <?php endforeach ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<?php if ($isAdmin): ?>
+<div class="page-content container-fluid">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-3">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Entrainements</h4>
-                    <p class="category">Évènements récurrent, création automatique</p>
+              <div class="user-info card card-shadow text-center mb-0">
+                <div class="user-base card-block">
+                  <a class="avatar img-bordered avatar-100" href="javascript:void(0)">
+                    <img alt="" src="<?= $group->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                  </a>
+                  <h4 class="user-name"><?= $group->name; ?></h4>
                 </div>
-                <div class="card-content">
-                    <div class="table table-tasks">
-                        <table class="table">
-                            <tbody>
-                                <?php foreach ($trainings as $training): ?>
-                                <tr>
-                                    <td>
-                                        <i><?= $training->name ?></i><br/>
-                                        Le <b><?= \Application\Service\Date::toFr($training->eventDay) ?></b> à <b><?= $training->time ?></b><br/>
-                                        Invitation envoyé le <b><?= \Application\Service\Date::toFr($training->emailDay) ?></b> précédent à <b>12:00</b>
-                                    </td>
-                                    <td class="td-actions text-right">
-                                        <div class="table-icons">
-                                            <div class="col-md-4">
-                                                <input type="checkbox" name="training" data-id="<?= $training->id ?>" class="switch" <?= ($isAdmin) ? : 'disabled' ?> 
-                                                    <?php if ($training->status == \Application\Model\Training::ACTIVE): ?>
-                                                        checked=""
-                                                        value="2"
-                                                    <?php else: ?>
-                                                        value="1"
-                                                    <?php endif ?>
-                                                >
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <a href="/training/delete/<?= $group->id ?>/<?= $training->id ?>" class="text-danger" onclick="return confirm('Êtes vous sûr ?')" style='font-size: 20px;'>
-                                            <i class="ti-trash"></i>
-                                        </a>&nbsp;
-                                        <a href="/training/edit/<?= $group->id ?>/<?= $training->id ?>" class="text-info" style='font-size: 20px;'>
-                                            <i class="ti-pencil"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <?php endforeach ?>
-                            </tbody>
-                        </table>
+                <div class="card-block">
+                  <?php $form->prepare(); // The correct enctype is set here ?>
+                  <?= $this->form()->openTag($form); ?>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="name" placeholder="Group Name"
+                        autocomplete="off" value="<?= $group->name ?>" />
                     </div>
+                    <div class="row">
+                      <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="zipcode" placeholder="Zipcode"
+                          autocomplete="off" value="<?= $group->id ?>"/>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="city" placeholder="City"
+                          autocomplete="off" value="<?= $group->id ?>"/>
+                      </div>
+                    </div>
+                    <div class="form-element">
+                        <label>Change your image</label>
+                        <?php $fileElement = $form->get('image-file'); ?>
+                        <?= $this->formFile($fileElement); ?>
+                    </div>
+                    <div class="form-group mt-10 float-right">
+                      <button type="button" class="btn btn-primary">Submit</button>
+                    </div>
+                  <?= $this->form()->closeTag(); ?>
                 </div>
+              </div>
             </div>
         </div>
-    </div>
-<?php endif ?>
-
-<!-- Modal -->
-<div class="modal fade" id="share" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-                <h4 class="modal-title">Partagez votre groupe</h4>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-12">
-                    <p class="category">
-                        Partagez le lien ci-dessous pour inviter d'autres personnes à votre groupe
-                    </p>
-                </div>
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <input type="text" id="to-copy" name="name" class="form-control" value="<?= $shareUrl ?>">
+        <div class="col-md-4">
+            <!-- Card -->
+            <div class="card card-block p-30 bg-green-600">
+                <div class="card-watermark darker font-size-80 m-15"><i class="icon wb-users" aria-hidden="true"></i></div>
+                <div class="counter counter-md counter-inverse text-left">
+                    <div class="counter-number-group">
+                        <span class="counter-number">42</span>
+                        <span class="counter-number-related text-capitalize">People</span>
                     </div>
+                    <div class="counter-label text-capitalize">in group</div>
                 </div>
-                <div class="col-md-4">
-                    <button class="btn btn-info btn-fill btn-wd btn-finish pull-right copy-to-clipboard" data-clipboard-target="#to-copy">copier</button>
+            </div>
+            <!-- End Card -->
+            <!-- Card -->
+            <div class="card card-block p-30 bg-red-600">
+                <div class="card-watermark darker font-size-80 m-15"><i class="icon wb-calendar" aria-hidden="true"></i></div>
+                <div class="counter counter-md counter-inverse text-left">
+                    <div class="counter-number-group">
+                        <span class="counter-number">142</span>
+                        <span class="counter-number-related text-capitalize">Events</span>
+                    </div>
+                    <div class="counter-label text-capitalize">in room</div>
                 </div>
-                <div class="clearfix"></div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <!-- End Card -->
+
+            <div class="card card-shadow">
+              <div class="card-header card-header-transparent">
+                <h4 class="card-title">
+                  Trainings
+                </h4>
+              </div>
+              <div class="card-block">
+                <div class="table-responsive">
+                  <table class="table">
+                    <tbody id="table-resp-ok">
+                      <?php if (!$trainings): ?>
+                        <tr><td class="text-center">No training here !</td></tr>
+                      <?php else: ?>
+                        <?php foreach ($trainings as $training) : ?>
+                            <tr>
+                                <td><?= $training->name ?></td>
+                                <td><?= $training->eventDay ?></td>
+                                <td><?= $training->time ?></td>
+                                <td><a href="#"><i class="icon wb-trash "></i></a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                      <?php endif ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
+        </div>
+        <div class="col-md-5">
+          <div class="card card-shadow">
+            <div class="card-header card-header-transparent">
+              <h4 class="card-title">
+                <i class="icon wb-users"></i> Your team
+              </h4>
+            </div>
+            <div class="card-block">
+              <div class="table-responsive">
+                <table class="table">
+                  <tbody id="table-resp-ok">
+                    <?php if (!$users): ?>
+                      <tr><td class="text-center">No one here !</td></tr>
+                    <?php else: ?>
+                      <?php foreach ($users as $user) : ?>
+                          <tr>
+                              <td class="avatar avatar-md" style="border: none; padding:2px;">
+                                <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                              </td>
+                              <td><?= $user->firstname ?></td>
+                              <td><?= $user->lastname ?></td>
+                              <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                          </tr>
+                      <?php endforeach; ?>
+                    <?php endif ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
 </div>
 
-<div id="fullCalModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-                <h4 id="modal-title" class="modal-title"></h4>
-            </div>
-            <div class="modal-body">
-                <div class="col-sm-3">
-                    <a href="#" class="event-url">
-                        <div class="tab-pane active" id="date">
-                            <div class="date-icon">
-                                <em id="modal-month"></em>
-                                <strong id="modal-day"></strong>
-                                <span id="modal-date"></span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-6 text-center">
-                    <h5 id="modal-place"></h5>
-                    <a href="#" id='event-place-url' target="_blank">
-                        <span id="modal-address"></span><br>
-                        <span id="modal-zipcode"></span> <span id="modal-city"></span>
-                    </a>
-                </div>
-                <div class="col-sm-3">
-                    <h2 class="text-center text-event-green"><span id="modal-count"></span> <i class="ti ti-check text-event-green"></i></h2>
-                </div>
-                <div class="clearfix"></div>
-                <hr>
-                <div class="col-sm-12" data-buttons="4">
-                    <a id="event-url-ok" href="#" class="col-xs-3 text-center">
-                        <i class="ti ti-check text-event-green" style="font-size: 30px;"></i>
-                    </a>
-                    <a id="event-url-no" href="#" class="col-xs-3 text-center">
-                        <i class="ti ti-close text-event-red" style="font-size: 30px;"></i>
-                    </a>
-                    <a id="event-url-incertain" href="#" class="col-xs-3 text-center">
-                        <i class="ti ti-help text-event-azure" style="font-size: 30px;"></i>
-                    </a>
-                    <a class="event-url col-xs-3 text-center" id="event-url" href="#">
-                        <i class="ti ti-search text-event-default" style="font-size: 30px;"></i>
-                    </a>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
+<div class="calendar-container">
+    <div id="calendar" data-groupId="<?= $group->id ?>"></div>
+    <?= $this->partial('partial/event-detail-side.phtml') ?>
+    <?= $this->partial('partial/add-event.phtml') ?>
 </div>

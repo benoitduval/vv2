@@ -26,4 +26,9 @@ class Group extends AbstractModel
     {
         return '/welcome-to/' . $this->brand;
     }
+
+    public function getAvatarPath()
+    {
+        return '/img/avatars/' . md5($this->name . $this->id) . '.png';
+    }
 }

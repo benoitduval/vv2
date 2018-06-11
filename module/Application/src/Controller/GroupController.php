@@ -177,19 +177,36 @@ class GroupController extends AbstractController
 
     public function welcomeAction()
     {
-        $brand       = $this->params('brand');
-        $group       = $this->groupTable->fetchOne(['brand' => $brand]);
-        if (!$this->userGroupTable->isMember($this->getUser()->id, $group->id)) $this->redirect()->toRoute('home');
+        $brand = $this->params('brand');
+        $group = $this->groupTable->fetchOne(['brand' => $brand]);
+        $user  = $this->getUser();
+        if (!$this->userGroupTable->isMember($user->id, $group->id)) $this->redirect()->toRoute('home');
+
+        $form = new Form\Profile('uploader', ['entity' => $group->name . $group->id]);
+        $tempFile = null;
+
+        $prg = $this->fileprg($form);
+        if ($prg instanceof \Zend\Http\PhpEnvironment\Response) {
+            return $prg; // Return PRG redirect response
+        } elseif (is_array($prg)) {
+            if ($form->isValid()) {
+                $data = $form->getData();
+                // Form is valid, save the form!
+            } else {
+                // Form not valid, but file uploads might be valid...
+                // Get the temporary file information to show the user in the view
+                $fileErrors = $form->get('image-file')->getMessages();
+                if (empty($fileErrors)) {
+                    $tempFile = $form->get('image-file')->getValue();
+                }
+            }
+        }
 
         $users       = $this->userTable->getAllByGroupId($group->id);
-        $isAdmin     = $this->userGroupTable->isAdmin($this->getUser()->id, $group->id);
-        $isMember    = $this->userGroupTable->isMember($this->getUser()->id, $group->id);
+        $isAdmin     = $this->userGroupTable->isAdmin($user->id, $group->id);
+        $isMember    = $this->userGroupTable->isMember($user->id, $group->id);
         $trainings   = $this->trainingTable->fetchAll(['groupId' =>  $group->id]);
         $eventsCount = $this->eventTable->count(['groupId' =>  $group->id]);
-
-        if ($this->getUser() && $this->userGroupTable->isMember($this->getUser()->id, $group->id)) {
-            $disponibilities = $this->groupTable->getDisponibilities($group->id);
-        }
 
         $config   = $this->get('config');
         $shareUrl = $config['baseUrl'] . '/group/join/' . $group->brand;
@@ -197,16 +214,16 @@ class GroupController extends AbstractController
         $this->layout()->group = $group;
         $this->layout()->isAdmin = $isAdmin;
 
+        $this->layout()->setTemplate('layout/page-aside.phtml');
         return new ViewModel([
-            'user'          => $this->getUser(),
+            'user'          => $user,
+            'form'          => $form,
             'group'         => $group,
             'users'         => $users,
             'isMember'      => $isMember,
             'isAdmin'       => $isAdmin,
             'trainings'     => $trainings,
             'shareUrl'      => $shareUrl,
-            'lastDisp'      => json_encode(array_values($disponibilities['last'])),
-            'currentDisp'   => json_encode(array_values($disponibilities['current'])),
             'eventsCount'   => $eventsCount,
         ]);
     }

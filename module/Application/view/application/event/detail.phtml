@@ -37,34 +37,32 @@
 
     <!-- Right Side -->
     <div class="col-sm-6">
-        <?php if (true || $eventDate->format('U') > time()): ?>
 
-            <div class="card card-shadow">
-              <div class="btn-group btn-group-justified mt-0 mb-0">
-                <div class="btn-group" role="group">
-                  <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_OK ?>" class="btn btn-present">
-                    <i class="icon wb-check-circle" aria-hidden="true"></i>
-                    <br>
-                    <span class="text-uppercase">In</span>
-                  </a>
-                </div>
-                <div class="btn-group" role="group">
-                  <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_NO ?>" class="btn btn-absent">
-                    <i class="icon wb-minus-circle" aria-hidden="true"></i>
-                    <br>
-                    <span class="text-uppercase">Out</span>
-                  </a>
-                </div>
-                <div class="btn-group mt-40" role="group">
-                  <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_UNCERTAIN ?>" class="btn btn-uncertain">
-                    <i class="icon wb-help-circle" aria-hidden="true"></i>
-                    <br>
-                    <span class="text-uppercase">Uncertain</span>
-                  </a>
-                </div>
-              </div>
+        <div class="card card-shadow">
+          <div class="btn-group btn-group-justified mt-0 mb-0">
+            <div class="btn-group" role="group">
+              <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_OK ?>" class="btn btn-present">
+                <i class="icon wb-check-circle" aria-hidden="true"></i>
+                <br>
+                <span class="text-uppercase">In</span>
+              </a>
             </div>
-        <?php endif; ?>
+            <div class="btn-group" role="group">
+              <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_NO ?>" class="btn btn-absent">
+                <i class="icon wb-minus-circle" aria-hidden="true"></i>
+                <br>
+                <span class="text-uppercase">Out</span>
+              </a>
+            </div>
+            <div class="btn-group mt-40" role="group">
+              <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_UNCERTAIN ?>" class="btn btn-uncertain">
+                <i class="icon wb-help-circle" aria-hidden="true"></i>
+                <br>
+                <span class="text-uppercase">Uncertain</span>
+              </a>
+            </div>
+          </div>
+        </div>
 
         <!-- Disponibility card -->
         <div class="card card-shadow">
@@ -116,7 +114,7 @@
                                 <?php foreach ($users[Application\Model\Disponibility::RESP_OK] as $user) : ?>
                                     <tr>
                                         <td class="avatar avatar-md" style="border: none; padding:2px;">
-                                          <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                          <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
                                         </td>
                                         <td><?= $user->firstname ?></td>
                                         <td><?= $user->lastname ?></td>
@@ -138,7 +136,7 @@
                                 <?php foreach ($users[Application\Model\Disponibility::RESP_NO] as $user) : ?>
                                     <tr>
                                         <td class="avatar avatar-md" style="border: none; padding:2px;">
-                                          <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                          <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
                                         </td>
                                         <td><?= $user->firstname ?></td>
                                         <td><?= $user->lastname ?></td>
@@ -160,7 +158,7 @@
                                 <?php foreach ($users[Application\Model\Disponibility::RESP_UNCERTAIN] as $user) : ?>
                                     <tr>
                                         <td class="avatar avatar-md" style="border: none; padding:2px;">
-                                          <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                          <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
                                         </td>
                                         <td><?= $user->firstname ?></td>
                                         <td><?= $user->lastname ?></td>
@@ -182,7 +180,7 @@
                                 <?php foreach ($users[Application\Model\Disponibility::RESP_NO_ANSWER] as $user) : ?>
                                     <tr>
                                         <td class="avatar avatar-md" style="border: none; padding:2px;">
-                                          <img class="img-fluid" src="/img/avatars/<?= $user->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                          <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
                                         </td>
                                         <td><?= $user->firstname ?></td>
                                         <td><?= $user->lastname ?></td>
