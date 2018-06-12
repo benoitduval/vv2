@@ -267,6 +267,7 @@ class EventController extends AbstractController
                 }
             }
 
+            $this->layout()->setTemplate('layout/titled.phtml');
             return new ViewModel([
                 'overallStats'    => $overallStats,
                 'setsLastScore'   => $setsLastScore,

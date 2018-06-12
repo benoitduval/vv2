@@ -40,13 +40,12 @@ class UserController extends AbstractController
         $eventsOk = $this->disponibilityTable->fetchAll(['userId' => $user->id, 'response' => \Application\Model\Disponibility::RESP_OK]);
 
         $count['match'] = 0;
-        foreach ($eventsOk as $event) {
-            if ($this->statsTable->count(['eventId' => $event->id])) $count['match']++;
+        foreach ($eventsOk as $dispo) {
+            if ($this->statsTable->count(['eventId' => $dispo->eventId])) $count['match']++;
         }
         $count['ok'] = floor(count($eventsOk) * 100 / $count['total']);
         $count['no'] = floor($this->disponibilityTable->count(['userId' => $user->id, 'response' => \Application\Model\Disponibility::RESP_NO]) * 100 / $count['total']);
 
-        $this->layout()->setTemplate('layout/no-title.phtml');
         $this->layout()->user = $this->getUser();
 
         return new ViewModel([

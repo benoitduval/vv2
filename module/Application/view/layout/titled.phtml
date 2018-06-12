@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Volley-ball managment team & matchs">
+    <meta name="author" content="">
+    
+    <title>Volley-ball.eu | Manage your team, games, statistics</title>
+    
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+
+    <!-- <link rel="apple-touch-icon" href="/img/favicon.png">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico"> -->
+    
+    <!-- Stylesheets -->
+    <?= $this->assets()->render('css', $this->assetsBundle) ?>
+
+    <!-- Plugins -->
+    <link rel="stylesheet" href="/global/vendor/animsition/animsition.css">
+    <link rel="stylesheet" href="/global/vendor/asscrollable/asScrollable.css">
+    <link rel="stylesheet" href="/global/vendor/switchery/switchery.css">
+    <link rel="stylesheet" href="/global/vendor/intro-js/introjs.css">
+    <link rel="stylesheet" href="/global/vendor/slidepanel/slidePanel.css">
+    <link rel="stylesheet" href="/global/vendor/flag-icon-css/flag-icon.css">
+    <link rel="stylesheet" href="/global/vendor/fullcalendar/fullcalendar.css">
+    <link rel="stylesheet" href="/global/vendor/bootstrap-datepicker/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/global/vendor/bootstrap-touchspin/bootstrap-touchspin.css">
+    <link rel="stylesheet" href="/global/vendor/jquery-selective/jquery-selective.css">
+    <link rel="stylesheet" href="/global/vendor/blueimp-file-upload/jquery.fileupload.css">
+    <link rel="stylesheet" href="/global/vendor/dropify/dropify.css">
+    <link rel="stylesheet" href="/global/vendor/plyr/plyr.css">
+    <link rel="stylesheet" href="/global/vendor/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="/assets/examples/css/dashboard/v2.css">
+    <link rel="stylesheet" href="/assets/examples/css/apps/calendar.css">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="/global/fonts/web-icons/web-icons.min.css">
+    <link rel="stylesheet" href="/global/fonts/brand-icons/brand-icons.min.css">
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
+    
+    <!--[if lt IE 9]>
+    <script src="/global/vendor/html5shiv/html5shiv.min.js"></script>
+    <![endif]-->
+    
+    <!--[if lt IE 10]>
+    <script src="/global/vendor/media-match/media.match.min.js"></script>
+    <script src="/global/vendor/respond/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Scripts -->
+    <script src="/global/vendor/breakpoints/breakpoints.js"></script>
+    <script>
+      Breakpoints();
+    </script>
+  </head>
+  <body class="animsition site-menubar-fold site-menubar-keep">
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <?= $this->partial('partial/navbar.phtml') ?>
+    <?= $this->partial('partial/sidebar.phtml') ?>
+
+    <!-- Page -->
+    <div class="page">
+        <div class="page-header">
+            <h1 class="page-title">Page Title</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">You are Here</li>
+            </ol>
+            <div class="page-header-actions">
+                <div class="btn-group btn-group-sm" id="withBtnGroup" aria-label="Page Header Actions"
+              role="group">
+                    <button type="button" class="btn btn-outline btn-default">
+                        <i class="icon wb-wrench" aria-hidden="true"></i>
+                        <span class="hidden-sm-down">Settings</span>
+                    </button>
+                    <button type="button" class="btn btn-outline btn-default" data-toggle="tooltip" data-original-title="Reload" data-container="body">
+                        <i class="icon wb-reload" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline btn-default" data-toggle="tooltip" data-original-title="Search" data-container="body">
+                        <i class="icon wb-search" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline btn-default" data-toggle="tooltip" data-original-title="Print" data-container="body">
+                        <i class="icon wb-print" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="page-content container-fluid">
+            <?= $this->content ?>
+        </div>
+    </div>
+
+    <!-- Site Action -->
+<!--     <div class="site-action" data-plugin="actionBtn">
+      <button type="button" class="site-action-toggle btn-raised btn btn-success btn-floating">
+        <i class="front-icon wb-plus animation-scale-up" aria-hidden="true"></i>
+        <i class="back-icon wb-trash animation-scale-up" aria-hidden="true"></i>
+      </button>
+    </div> -->
+    <!-- End Site Action -->
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="site-footer-legal">© 2018 <a href="http://volley-ball.eu">Volley-ball.eu</a></div>
+      <div class="site-footer-right">
+        Crafted with <i class="red-600 wb wb-heart"></i> by YuCkY
+      </div>
+    </footer>
+    <!-- Core  -->
+    <script src="/global/vendor/babel-external-helpers/babel-external-helpers.js"></script>
+    <script src="/global/vendor/jquery/jquery.js"></script>
+    <script src="/global/vendor/popper-js/umd/popper.min.js"></script>
+    <script src="/global/vendor/bootstrap/bootstrap.js"></script>
+    <script src="/global/vendor/animsition/animsition.js"></script>
+    <script src="/global/vendor/mousewheel/jquery.mousewheel.js"></script>
+    <script src="/global/vendor/asscrollbar/jquery-asScrollbar.js"></script>
+    <script src="/global/vendor/asscrollable/jquery-asScrollable.js"></script>
+    <script src="/global/vendor/ashoverscroll/jquery-asHoverScroll.js"></script>
+    
+    <!-- Plugins -->
+    <script src="/global/vendor/switchery/switchery.js"></script>
+    <script src="/global/vendor/intro-js/intro.js"></script>
+    <script src="/global/vendor/screenfull/screenfull.js"></script>
+    <script src="/global/vendor/slidepanel/jquery-slidePanel.js"></script>
+    <script src="/global/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/global/vendor/moment/moment.min.js"></script>
+    <script src="/global/vendor/fullcalendar/fullcalendar.js"></script>
+    <script src="/global/vendor/jquery-selective/jquery-selective.min.js"></script>
+    <script src="/global/vendor/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <script src="/global/vendor/bootstrap-touchspin/bootstrap-touchspin.min.js"></script>
+    <script src="/global/vendor/bootbox/bootbox.js"></script>
+    <script src="/global/vendor/blueimp-tmpl/tmpl.js"></script>
+    <script src="/global/vendor/blueimp-canvas-to-blob/canvas-to-blob.js"></script>
+    <script src="/global/vendor/blueimp-load-image/load-image.all.min.js"></script>
+    <script src="/global/vendor/blueimp-file-upload/jquery.fileupload.js"></script>
+    <script src="/global/vendor/blueimp-file-upload/jquery.fileupload-process.js"></script>
+    <script src="/global/vendor/blueimp-file-upload/jquery.fileupload-image.js"></script>
+    <script src="/global/vendor/blueimp-file-upload/jquery.fileupload-validate.js"></script>
+    <script src="/global/vendor/blueimp-file-upload/jquery.fileupload-ui.js"></script>
+    <script src="/global/vendor/dropify/dropify.min.js"></script>
+    <script src="/global/vendor/matchheight/jquery.matchHeight-min.js"></script>
+
+    
+    <!-- Scripts -->
+    <script src="/global/js/Component.js"></script>
+    <script src="/global/js/Plugin.js"></script>
+    <script src="/global/js/Base.js"></script>
+    <script src="/global/js/Config.js"></script>
+    
+    <script src="/assets/js/Section/Menubar.js"></script>
+    <script src="/assets/js/Section/GridMenu.js"></script>
+    <script src="/assets/js/Section/Sidebar.js"></script>
+    <script src="/assets/js/Section/PageAside.js"></script>
+    <script src="/assets/js/Plugin/menu.js"></script>
+    
+    <script src="/global/js/config/colors.js"></script>
+    <script src="/assets/js/config/tour.js"></script>
+    <script>Config.set('assets', '/assets');</script>
+    
+    <!-- Page -->
+    <script src="/assets/js/Site.js"></script>
+    <script src="/global/js/Plugin/asscrollable.js"></script>
+    <script src="/global/js/Plugin/slidepanel.js"></script>
+    <script src="/global/js/Plugin/switchery.js"></script>
+    <script src="/global/js/Plugin/bootstrap-touchspin.js"></script>
+    <script src="/global/js/Plugin/bootstrap-datepicker.js"></script>
+    <script src="/global/js/Plugin/material.js"></script>
+    <script src="/global/js/Plugin/action-btn.js"></script>
+    <script src="/global/js/Plugin/editlist.js"></script>
+    <script src="/global/js/Plugin/bootbox.js"></script>
+    <script src="/assets/js/Site.js"></script>
+    <script src="/assets/js/App/Calendar.js"></script>
+    <script src="/global/js/Plugin/dropify.js"></script>
+    <script src="/global/js/Plugin/plyr.js"></script>
+    <script src="/global/js/Plugin/magnific-popup.js"></script>
+    <script src="/global/js/Plugin/matchheight.js"></script>
+    <script src="/global/js/Plugin/asscrollable.js"></script>
+
+    <script src="/assets/examples/js/dashboard/v2.js"></script>
+    <script src="/assets/examples/js/forms/uploads.js"></script>
+    <script src="/assets/examples/js/apps/calendar.js"></script>
+  </body>
+</html>

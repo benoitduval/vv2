@@ -214,7 +214,6 @@ class GroupController extends AbstractController
         $this->layout()->group = $group;
         $this->layout()->isAdmin = $isAdmin;
 
-        $this->layout()->setTemplate('layout/page-aside.phtml');
         return new ViewModel([
             'user'          => $user,
             'form'          => $form,
