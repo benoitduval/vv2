@@ -2,8 +2,6 @@
 composer.phar
 #vendor/
 
-*.DS_Store
-
 # Local configs
 config/autoload/*.local.php
 
@@ -19,5 +17,7 @@ data/cache/
 data/sessions/
 data/tmp/
 temp/
+
+.DS_Store
 
 

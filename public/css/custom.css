@@ -43,22 +43,22 @@
     }
 
 .text-uncertain {
-    color: rgba(184, 216, 216);
+    color: rgba(184, 216, 216, 1);
 }
 .btn-uncertain {
-    background-color:rgba(184, 216, 216);
+    background-color:rgba(184, 216, 216, 1);
     color:#FFF;
 }
     .btn-uncertain:hover {
         color: #FFF;
     }
     .btn-outline.btn-uncertain {
-        border-color:rgba(184, 216, 216);
+        border-color:rgba(184, 216, 216, 1);
         background-color: transparent;
-        color:rgba(184, 216, 216);
+        color:rgba(184, 216, 216, 1);
     }
     .btn-outline.btn-uncertain:hover {
-        background-color: rgba(184, 216, 216);
+        background-color: rgba(184, 216, 216, 1);
         color:#FFF;
     }
 

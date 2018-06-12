@@ -96,7 +96,7 @@
   left: 3px; }
 
 .fc-event.event-green {
-  background-color: rgba(213, 229, 163); }
+  background-color: rgba(213, 229, 163, 1); }
 
 .fc-event.event-red {
   background-color: rgba(255, 143, 94, 0.9) }
@@ -105,7 +105,7 @@
   color: #37474f; }
 
 .fc-event.event-azure {
-  background-color: rgba(184, 216, 216); }
+  background-color: rgba(184, 216, 216, 1); }
 
 .fc-event.event-default {
   background-color: rgba(214, 193, 171, 0.5); }
