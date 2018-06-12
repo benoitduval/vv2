@@ -13,7 +13,7 @@ class EventController extends AbstractController
 {
     public function createAction()
     {
-        $groupId        = $this->params('id', null);
+        $groupId = $this->params('id', null);
 
         $isAdmin = $this->userGroupTable->isAdmin($this->getUser()->id, $groupId);
         if (($group = $this->groupTable->find($groupId)) && $isAdmin) {
@@ -175,7 +175,7 @@ class EventController extends AbstractController
                 }
 
                 $date = \DateTime::createFromFormat('Y-m-d H:i:s', $comment->date);
-                $result[$comment->id]['date']    = $date->format('d F Y \à H:i');
+                $result[$comment->id]['date']    = $date;
                 $result[$comment->id]['author']  = $author;
                 $result[$comment->id]['comment'] = $comment->comment;
             }

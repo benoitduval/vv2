@@ -109,11 +109,26 @@ class Date
 
     public static function getInterval(\Datetime $date)
     {
-        $datetime2 = new DateTime();
-        $interval  = $date->diff($datetime2);
-        $elapsed   = $interval->format('%y years, %m months, %a days, %h hours, %i minutes, %S seconds');
+        $datetime2 = new \DateTime();
+        $interval  = $datetime2->diff($date);
+        if ($interval->y) {
+            $elapsed = $interval->format('%y years, %m months');
+        } else if ($interval->m) {
+            $elapsed = $interval->format('%m months, %d days');
+        } else if ($interval->d) {
+            $elapsed = $interval->format('%d days, %h hours');
+            
+        } else if ($interval->h) {
+            $elapsed = $interval->format('%h hours, %i minutes');
+            
+        } else if ($interval->i) {
+            $elapsed = $interval->format('%i minutes, %S seconds');
+        } else if ($interval->s) {
+            $elapsed = $interval->format('%S seconds');
+        }
+        // $elapsed   = $interval->format('%y years, %m months, %d days, %h hours, %i minutes, %S seconds');
         $elapsed   = str_replace(array('0 years,', ' 0 months,', ' 0 days,',  ' 0 hours,', ' 0 minutes,'), '', $elapsed);
         $elapsed   = str_replace(array('1 years, ', ' 1 months, ', ' 1 days, ',  ' 1 hours, ', ' 1 minutes'), array('1 year, ', '1 month, ', ' 1 day, ', ' 1 hour, ', ' 1 minute'), $elapsed);
-        echo $elapsed;
+        return $elapsed;
     }
 }

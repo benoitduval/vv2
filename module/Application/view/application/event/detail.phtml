@@ -214,7 +214,7 @@
                   </div>
                   <div class="media-body col-12">
                     <h5 class="list-group-item-heading mt-0 mb-5">
-                      <small class="float-right">3 days ago</small>
+                      <small class="float-right"><?= \Application\Service\Date::getInterval($comment['date']) ?> ago</small>
                       <?= isset($comment['author']) ? $comment['author']->getFullName() : 'Deleted User'; ?>
                     </h5>
                     <p class="list-group-item-text"><?= nl2br($comment['comment']); ?></p>
