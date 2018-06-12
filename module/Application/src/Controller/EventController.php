@@ -182,8 +182,8 @@ class EventController extends AbstractController
 
             $counters = $this->disponibilityTable->getCounters($eventId);
 
-            $config     = $this->get('config');
-            $baseUrl    = $config['baseUrl'];
+            $config  = $this->get('config');
+            $baseUrl = $config['baseUrl'];
 
             // User submit commment
             $form = new Form\Comment();
