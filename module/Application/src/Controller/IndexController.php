@@ -29,7 +29,7 @@ class IndexController extends AbstractController
                 }
             }
 
-            $this->layout()->setTemplate('layout/page-aside.phtml');
+            // $this->layout()->setTemplate('layout/page-aside.phtml');
             $this->layout()->user = $this->getUser();
             $this->layout()->count = $count;
 
