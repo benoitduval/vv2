@@ -154,7 +154,7 @@
                     <?php else: ?>
                       <?php foreach ($users as $user) : ?>
                           <tr>
-                              <td class="avatar avatar-md pt-10 pb-10" style="border: none; padding:2px;">
+                              <td class="avatar avatar-md pt-10" style="border: none; padding:2px;">
                                 <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
                               </td>
                               <td><?= $user->firstname ?></td>

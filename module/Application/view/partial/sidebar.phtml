@@ -9,15 +9,10 @@
             </a>
           </li>
           <li class="site-menu-item">
-            <a href="/user/profile">
-              <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i>
+            <a href="/user/profile" class="pl-20">
+              <!-- <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i> -->
+              <i class="avatar avatar-md"><img src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-group-avatar.png') this.src = '/img/default-group-avatar.png';"></i>
               <span class="site-menu-title">Profile</span>
-            </a>
-          </li>
-          <li class="site-menu-item">
-            <a href="/holiday">
-              <i class="site-menu-icon wb-heart-outline" aria-hidden="true"></i>
-              <span class="site-menu-title">Holidays</span>
             </a>
           </li>
           <li class="site-menu-item">
@@ -26,6 +21,15 @@
               <span class="site-menu-title">New Group</span>
             </a>
           </li>
+          <?php foreach ($groups as $group): ?>
+            <li class="site-menu-item">
+              <a href="/welcome-to/<?= $group->brand ?>" class="pl-20">
+                <!-- <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i> -->
+                <i class="avatar avatar-md"><img src="<?= $group->getAvatarPath() ?>" onerror="if (this.src != '/img/default-group-avatar.png') this.src = '/img/default-group-avatar.png';"></i>
+                <span class="site-menu-title"><?= $group->name ?></span>
+              </a>
+            </li>
+          <?php endforeach ?>
           <li class="divider"></li>
           <li class="site-menu-item">
             <a href="/auth/signout">
