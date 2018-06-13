@@ -21,13 +21,13 @@
             <div class="col-4">
               <div class="counter">
                 <div class="counter-label total-completed">Events</div>
-                <div class="counter-number red-600">1,628</div>
+                <div class="counter-number red-600"><?= $eventsCount ?></div>
               </div>
             </div>
             <div class="col-4">
               <div class="counter">
                 <div class="counter-label">Matchs</div>
-                <div class="counter-number blue-600">17</div>
+                <div class="counter-number blue-600"><?= $matchCount ?></div>
               </div>
             </div>
             <div class="col-4">
@@ -185,19 +185,19 @@
               <div class="row">
                 <div class="col-6">
                   <div class="counter text-left blue-grey-700">
-                    <div class="counter-label mt-10">Outside Hitter
+                    <div class="counter-label mt-10">Wins
                     </div>
                     <div class="counter-number font-size-40 mt-10">
-                      14
+                      <?= $winCount ?>
                     </div>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
                     data-barcolor="#57c7d4" data-size="100" data-barsize="10"
-                    data-goal="86" aria-valuenow="86" role="progressbar">
+                    data-goal="<?= $winPercent ?>" aria-valuenow="<?= $winPercent ?>" role="progressbar">
                     <span class="pie-progress-number blue-grey-700 font-size-20">
-                      86%
+                      <?= $winPercent ?>%
                     </span>
                   </div>
                 </div>
@@ -211,45 +211,19 @@
               <div class="row">
                 <div class="col-6">
                   <div class="counter text-left blue-grey-700">
-                    <div class="counter-label mt-10">Opposite
+                    <div class="counter-label mt-10">Loses
                     </div>
                     <div class="counter-number font-size-40 mt-10">
-                      698
+                      <?= $loseCount ?>
                     </div>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                    data-barcolor="#62a8ea" data-size="100" data-barsize="10"
-                    data-goal="62" aria-valuenow="62" role="progressbar">
+                    data-barcolor="#f96868" data-size="100" data-barsize="10"
+                    data-goal="<?= $losePercent ?>" aria-valuenow="<?= $losePercent ?>" role="progressbar">
                     <span class="pie-progress-number blue-grey-700 font-size-20">
-                      62%
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-4">
-          <div class="card card-shadow card-completed-options">
-            <div class="card-block p-30">
-              <div class="row">
-                <div class="col-6">
-                  <div class="counter text-left blue-grey-700">
-                    <div class="counter-label mt-10">Middle Blocker
-                    </div>
-                    <div class="counter-number font-size-40 mt-10">
-                      1,358
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                    data-barcolor="#926dde" data-size="100" data-barsize="10"
-                    data-goal="56" aria-valuenow="56" role="progressbar">
-                    <span class="pie-progress-number blue-grey-700 font-size-20">
-                      56%
+                      <?= $losePercent ?>%
                     </span>
                   </div>
                 </div>

@@ -207,7 +207,27 @@ class GroupController extends AbstractController
         $isMember    = $this->userGroupTable->isMember($user->id, $group->id);
         $trainings   = $this->trainingTable->fetchAll(['groupId' =>  $group->id]);
         $eventsCount = $this->eventTable->count(['groupId' =>  $group->id]);
+        $season      = Service\Date::getSeasonsDates();
+        $winCount    = $this->eventTable->count([
+            'groupId' =>  $group->id,
+            'victory' => 1,
+            'date > ?' => $season['from']->format('Y-m-d H:i:s'),
+            'date < ?' => $season['to']->format('Y-m-d H:i:s'),
+        ]);
 
+        $loseCount    = $this->eventTable->count([
+            'groupId' =>  $group->id,
+            'victory' => 0,
+            'date > ?' => $season['from']->format('Y-m-d H:i:s'),
+            'date < ?' => $season['to']->format('Y-m-d H:i:s'),
+        ]);
+
+        $matchCount  = $winCount + $loseCount;
+        $winPercent = $losePercent = 0;
+        if ($matchCount) {
+            $winPercent  = ($winCount * 100) / $matchCount;
+            $losePercent = ($loseCount * 100) / $matchCount;
+        }
         $config   = $this->get('config');
         $shareUrl = $config['baseUrl'] . '/group/join/' . $group->brand;
 
@@ -215,15 +235,20 @@ class GroupController extends AbstractController
         $this->layout()->isAdmin = $isAdmin;
 
         return new ViewModel([
-            'user'          => $user,
-            'form'          => $form,
-            'group'         => $group,
-            'users'         => $users,
-            'isMember'      => $isMember,
-            'isAdmin'       => $isAdmin,
-            'trainings'     => $trainings,
-            'shareUrl'      => $shareUrl,
-            'eventsCount'   => $eventsCount,
+            'user'        => $user,
+            'form'        => $form,
+            'group'       => $group,
+            'users'       => $users,
+            'isMember'    => $isMember,
+            'isAdmin'     => $isAdmin,
+            'trainings'   => $trainings,
+            'shareUrl'    => $shareUrl,
+            'eventsCount' => $eventsCount,
+            'winCount'    => $winCount,
+            'loseCount'   => $loseCount,
+            'matchCount'  => $matchCount,
+            'winPercent'  => $winPercent,
+            'losePercent' => $losePercent,
         ]);
     }
 

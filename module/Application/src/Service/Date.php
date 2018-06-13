@@ -82,25 +82,13 @@ class Date
         $dates = [];
         if (time() < strtotime($y . '-09-01')) {
             $dates = [
-                'last' => [
-                    'from' => strtotime($y . '-09-01 00:00:00 -2years'),
-                    'to'   => strtotime($y . '-08-31 23:59:59 -1years'),
-                ],
-                'current' => [
-                    'from' => strtotime($y . '-09-01 00:00:00 -1years'),
-                    'to'   => strtotime($y . '-08-31 23:59:59'),
-                ],
+                'from' => new \Datetime($y . '-09-01 00:00:00 -1years'),
+                'to'   => new \Datetime($y . '-08-31 23:59:59'),
             ];
         } else {
             $dates = [
-                'last' => [
-                    'from' => strtotime($y . '-09-01 00:00:00 -1years'),
-                    'to'   => strtotime($y . '-08-31 23:59:59'),
-                ],
-                'current' => [
-                    'from' => strtotime($y . '-09-01 00:00:00'),
-                    'to'   => strtotime($y . '-08-31 23:59:59  +1years'),
-                ],
+                'from' => new \Datetime($y . '-09-01 00:00:00'),
+                'to'   => new \Datetime($y . '-08-31 23:59:59  +1years'),
             ];
         }
 
