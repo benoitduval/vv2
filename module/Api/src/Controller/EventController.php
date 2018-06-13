@@ -137,8 +137,9 @@ class EventController extends AbstractController
                     $user = $this->userTable->find($disp->userId);
                     $users[$disp->response][] = [
                         'firstname' => $user->firstname,
-                        'lastname' => $user->lastname,
-                        'id' => $user->id
+                        'lastname'  => $user->lastname,
+                        'id'        => $user->id,
+                        'avatarUrl' => $user->getAvatarPath(),
                     ];
                 }
                 $team[Model\Disponibility::LABEL_RESP_NO_ANSWER] = $users[Model\Disponibility::RESP_NO_ANSWER];

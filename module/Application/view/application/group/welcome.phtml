@@ -1,106 +1,151 @@
-<div class="page-content container-fluid">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card">
-              <div class="user-info card card-shadow text-center mb-0">
-                <div class="user-base card-block">
-                  <a class="avatar img-bordered avatar-100" href="javascript:void(0)">
-                    <img alt="" src="<?= $group->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                  </a>
-                  <h4 class="user-name"><?= $group->name; ?></h4>
-                </div>
-                <div class="card-block">
-                  <?php $form->prepare(); // The correct enctype is set here ?>
-                  <?= $this->form()->openTag($form); ?>
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="name" placeholder="Group Name"
-                        autocomplete="off" value="<?= $group->name ?>" />
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-md-6">
-                        <input type="text" class="form-control" name="zipcode" placeholder="Zipcode"
-                          autocomplete="off" value="<?= $group->id ?>"/>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <input type="text" class="form-control" name="city" placeholder="City"
-                          autocomplete="off" value="<?= $group->id ?>"/>
-                      </div>
-                    </div>
-                    <div class="form-element">
-                        <label>Change your image</label>
-                        <?php $fileElement = $form->get('image-file'); ?>
-                        <?= $this->formFile($fileElement); ?>
-                    </div>
-                    <div class="form-group mt-10 float-right">
-                      <input type="submit" class="btn btn-primary" name="submit" value="Submit">
-                    </div>
-                  <?= $this->form()->closeTag(); ?>
-                </div>
-              </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <!-- Card -->
-            <div class="card card-block p-30 bg-green-600">
-                <div class="card-watermark darker font-size-80 m-15"><i class="icon wb-users" aria-hidden="true"></i></div>
-                <div class="counter counter-md counter-inverse text-left">
-                    <div class="counter-number-group">
-                        <span class="counter-number">42</span>
-                        <span class="counter-number-related text-capitalize">People</span>
-                    </div>
-                    <div class="counter-label text-capitalize">in group</div>
-                </div>
-            </div>
-            <!-- End Card -->
-            <!-- Card -->
-            <div class="card card-block p-30 bg-red-600">
-                <div class="card-watermark darker font-size-80 m-15"><i class="icon wb-calendar" aria-hidden="true"></i></div>
-                <div class="counter counter-md counter-inverse text-left">
-                    <div class="counter-number-group">
-                        <span class="counter-number">142</span>
-                        <span class="counter-number-related text-capitalize">Events</span>
-                    </div>
-                    <div class="counter-label text-capitalize">in room</div>
-                </div>
-            </div>
-            <!-- End Card -->
 
-            <div class="card card-shadow">
-              <div class="card-header card-header-transparent">
-                <h4 class="card-title">
-                  Trainings
-                </h4>
-              </div>
-              <div class="card-block">
-                <div class="table-responsive">
-                  <table class="table">
-                    <tbody id="table-resp-ok">
-                      <?php if (!$trainings): ?>
-                        <tr><td class="text-center">No training here !</td></tr>
-                      <?php else: ?>
-                        <?php foreach ($trainings as $training) : ?>
-                            <tr>
-                                <td><?= $training->name ?></td>
-                                <td><?= $training->eventDay ?></td>
-                                <td><?= $training->time ?></td>
-                                <td><a href="#"><i class="icon wb-trash "></i></a></td>
-                            </tr>
-                        <?php endforeach; ?>
-                      <?php endif ?>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+
+  <div class="row" data-plugin="matchHeight" data-by-row="true">
+    <!-- Personal -->
+    <div class="col-md-6 col-12">
+      <div id="personalCompletedWidget" class="card card-shadow pb-20">
+        <div class="card-header card-header-transparent cover overlay">
+          <img class="cover-image" src="/global/photos/placeholder.png">
+          <div class="overlay-panel overlay-background vertical-align">
+            <div class="vertical-align-middle">
+              <a class="avatar" href="javascript:void(0)">
+                <img alt="" src="<?= $group->getAvatarPath() ?>">
+              </a>
+              <div class="font-size-20 mt-10"><?= $group->name ?></div>
+              <div class="font-size-14">70 rue de Dunois, 75013 Paris</div>
             </div>
+          </div>
         </div>
-        <div class="col-md-5">
-          <div class="card card-shadow">
-            <div class="card-header card-header-transparent">
-              <h4 class="card-title">
-                <i class="icon wb-users"></i> Your team
-              </h4>
+        <div class="card-block">
+          <div class="row text-center mb-20">
+            <div class="col-4">
+              <div class="counter">
+                <div class="counter-label total-completed">Events</div>
+                <div class="counter-number red-600">1,628</div>
+              </div>
             </div>
-            <div class="card-block">
+            <div class="col-4">
+              <div class="counter">
+                <div class="counter-label">Matchs</div>
+                <div class="counter-number blue-600">17</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="counter">
+                <div class="counter-label">People</div>
+                <div class="counter-number green-600"><?= count($users) ?></div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="badge badge-outline badge-warning badge-lg">Outside Hitter</span>
+                  </td>
+                  <td>
+                    <div class="progress progress-xs mb-0">
+                      <div class="progress-bar progress-bar-warning bg-orange-600" role="progressbar" aria-valuenow="90"
+                        aria-valuemin="0" aria-valuemax="100" style="width: 90%">
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    90%
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="badge badge-outline badge-success badge-lg">Opposite</span>
+                  </td>
+                  <td>
+                    <div class="progress progress-xs mb-0">
+                      <div class="progress-bar progress-bar-success bg-green-600" role="progressbar" aria-valuenow="86"
+                        aria-valuemin="0" aria-valuemax="100" style="width: 86%">
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    86%
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="badge badge-outline badge-danger badge-lg">Setter</span>
+                  </td>
+                  <td>
+                    <div class="progress progress-xs mb-0">
+                      <div class="progress-bar progress-bar-danger bg-red-600" role="progressbar" aria-valuenow="68"
+                        aria-valuemin="0" aria-valuemax="100" style="width: 68%">
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    68%
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="badge badge-outline badge-info badge-lg">Middle Blocker</span>
+                  </td>
+                  <td>
+                    <div class="progress progress-xs mb-0">
+                      <div class="progress-bar progress-bar-info bg-blue-600" role="progressbar" aria-valuenow="68"
+                        aria-valuemin="0" aria-valuemax="100" style="width: 68%">
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    68%
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="badge badge-outline badge-dark badge-lg">Libero</span>
+                  </td>
+                  <td>
+                    <div class="progress progress-xs mb-0">
+                      <div class="progress-bar progress-bar-dark bg-grey-800" role="progressbar" aria-valuenow="68"
+                        aria-valuemin="0" aria-valuemax="100" style="width: 68%">
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    68%
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="badge badge-outline badge-default badge-lg">Others</span>
+                  </td>
+                  <td>
+                    <div class="progress progress-xs mb-0">
+                      <div class="progress-bar progress-bar-default bg-grey-600" role="progressbar" aria-valuenow="68"
+                        aria-valuemin="0" aria-valuemax="100" style="width: 68%">
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    68%
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-12">
+      <div class="card card-shadow card-completed-options">
+        <div class="card-header card-header-transparent">
+          <h4 class="card-title">
+            <i class="icon wb-users"></i> Your team
+          </h4>
+        </div>
+        <div class="card-block p-30">
+          <div class="row">
+            <div class="col-12">
               <div class="table-responsive">
                 <table class="table">
                   <tbody id="table-resp-ok">
@@ -109,12 +154,12 @@
                     <?php else: ?>
                       <?php foreach ($users as $user) : ?>
                           <tr>
-                              <td class="avatar avatar-md" style="border: none; padding:2px;">
+                              <td class="avatar avatar-md pt-10 pb-10" style="border: none; padding:2px;">
                                 <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
                               </td>
                               <td><?= $user->firstname ?></td>
                               <td><?= $user->lastname ?></td>
-                              <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                              <td><span class="badge badge-outline badge-warning float-right">Outside Hitter</span></td>
                           </tr>
                       <?php endforeach; ?>
                     <?php endif ?>
@@ -124,11 +169,138 @@
             </div>
           </div>
         </div>
+      </div>
     </div>
-</div>
+    <!-- End Personal -->
+  </div>
 
-<div class="calendar-container">
-    <div id="calendar" data-groupId="<?= $group->id ?>"></div>
-    <?= $this->partial('partial/event-detail-side.phtml') ?>
-    <?= $this->partial('partial/add-event.phtml') ?>
-</div>
+  <div class="row" data-plugin="matchHeight" data-by-row="true">
+    <!-- First Row -->
+    <!-- Completed Options Pie Widgets -->
+    <div class="col-xxl-12">
+      <div class="row h-full" data-plugin="matchHeight">
+        <div class="col-12 col-sm-4">
+          <div class="card card-shadow card-completed-options">
+            <div class="card-block p-30">
+              <div class="row">
+                <div class="col-6">
+                  <div class="counter text-left blue-grey-700">
+                    <div class="counter-label mt-10">Outside Hitter
+                    </div>
+                    <div class="counter-number font-size-40 mt-10">
+                      14
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                    data-barcolor="#57c7d4" data-size="100" data-barsize="10"
+                    data-goal="86" aria-valuenow="86" role="progressbar">
+                    <span class="pie-progress-number blue-grey-700 font-size-20">
+                      86%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-4">
+          <div class="card card-shadow card-completed-options">
+            <div class="card-block p-30">
+              <div class="row">
+                <div class="col-6">
+                  <div class="counter text-left blue-grey-700">
+                    <div class="counter-label mt-10">Opposite
+                    </div>
+                    <div class="counter-number font-size-40 mt-10">
+                      698
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                    data-barcolor="#62a8ea" data-size="100" data-barsize="10"
+                    data-goal="62" aria-valuenow="62" role="progressbar">
+                    <span class="pie-progress-number blue-grey-700 font-size-20">
+                      62%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-4">
+          <div class="card card-shadow card-completed-options">
+            <div class="card-block p-30">
+              <div class="row">
+                <div class="col-6">
+                  <div class="counter text-left blue-grey-700">
+                    <div class="counter-label mt-10">Middle Blocker
+                    </div>
+                    <div class="counter-number font-size-40 mt-10">
+                      1,358
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                    data-barcolor="#926dde" data-size="100" data-barsize="10"
+                    data-goal="56" aria-valuenow="56" role="progressbar">
+                    <span class="pie-progress-number blue-grey-700 font-size-20">
+                      56%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Completed Options Pie Widgets -->
+  </div>
+
+  <div class="row" data-plugin="matchHeight" data-by-row="true">
+    <!-- Personal -->
+    <div class="col-md-6 col-12">
+      <div class="card">
+        <div class="user-info card card-shadow text-center mb-0">
+          <div class="user-base card-block">
+            <a class="avatar img-bordered avatar-100" href="javascript:void(0)">
+              <img alt="" src="<?= $group->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+            </a>
+            <h4 class="user-name"><?= $group->name; ?></h4>
+          </div>
+          <div class="card-block">
+            <?php $form->prepare(); // The correct enctype is set here ?>
+            <?= $this->form()->openTag($form); ?>
+              <div class="form-group">
+                <input type="text" class="form-control" name="name" placeholder="Group Name"
+                  autocomplete="off" value="<?= $group->name ?>" />
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <input type="text" class="form-control" name="zipcode" placeholder="Zipcode"
+                    autocomplete="off" value="<?= $group->id ?>"/>
+                </div>
+                <div class="form-group col-md-6">
+                  <input type="text" class="form-control" name="city" placeholder="City"
+                    autocomplete="off" value="<?= $group->id ?>"/>
+                </div>
+              </div>
+              <div class="form-element">
+                  <label>Change your image</label>
+                  <?php $fileElement = $form->get('image-file'); ?>
+                  <?= $this->formFile($fileElement); ?>
+              </div>
+              <div class="form-group mt-10 float-right">
+                <input type="submit" class="btn btn-primary" name="submit" value="Submit">
+              </div>
+            <?= $this->form()->closeTag(); ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

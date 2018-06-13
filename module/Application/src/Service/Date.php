@@ -117,10 +117,8 @@ class Date
             $elapsed = $interval->format('%m months, %d days');
         } else if ($interval->d) {
             $elapsed = $interval->format('%d days, %h hours');
-            
         } else if ($interval->h) {
             $elapsed = $interval->format('%h hours, %i minutes');
-            
         } else if ($interval->i) {
             $elapsed = $interval->format('%i minutes, %S seconds');
         } else if ($interval->s) {
