@@ -23,7 +23,7 @@ class Event extends AbstractModel
     protected $_long     = null;
     protected $_sets     = null;
     protected $_stats    = null;
-    protected $_score    = null;
+    protected $_scores   = null;
     protected $_victory  = null;
     protected $_debrief  = null;
     protected $_reminder = null;

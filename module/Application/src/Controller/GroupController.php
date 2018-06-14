@@ -202,12 +202,31 @@ class GroupController extends AbstractController
             }
         }
 
-        $users       = $this->userTable->getAllByGroupId($group->id);
+        $players = $this->userTable->getAllByGroupId($group->id);
+        foreach ($players as $player) {
+            $users[$player->id] = $player;
+        }
         $isAdmin     = $this->userGroupTable->isAdmin($user->id, $group->id);
         $isMember    = $this->userGroupTable->isMember($user->id, $group->id);
         $trainings   = $this->trainingTable->fetchAll(['groupId' =>  $group->id]);
         $eventsCount = $this->eventTable->count(['groupId' =>  $group->id]);
         $season      = Service\Date::getSeasonsDates();
+
+        $games = $this->eventTable->fetchAll([
+            'groupId' =>  $group->id,
+            'date > ?' => $season['from']->format('Y-m-d H:i:s'),
+            'date < ?' => $season['to']->format('Y-m-d H:i:s'),
+            'victory' => [0, 1],
+        ]);
+
+        $present = [];
+        foreach ($games as $game) {
+            $presentUsers = $this->disponibilityTable->fetchAll(['eventId' => $game->id, 'response' => Model\Disponibility::RESP_OK]);
+            foreach ($presentUsers as $user) {
+                $present[$game->id][] = $user->userId;
+            }
+        }
+
         $winCount    = $this->eventTable->count([
             'groupId' =>  $group->id,
             'victory' => 1,
@@ -249,6 +268,8 @@ class GroupController extends AbstractController
             'matchCount'  => $matchCount,
             'winPercent'  => $winPercent,
             'losePercent' => $losePercent,
+            'games'       => $games,
+            'present'     => $present,
         ]);
     }
 

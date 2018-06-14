@@ -244,76 +244,32 @@
               </h5>
             </div>
             <ul class="timeline timeline-icon">
-              <li class="timeline-reverse timeline-item">
-                <div class="timeline-content-wrap">
-                  <div class="timeline-dot bg-green-600">
-                    <i class="icon wb-check" aria-hidden="true"></i>
-                  </div>
-                  <div class="timeline-content">
-                    <div class="title">
-                      <span class="authors">Dunois / Lognes 2</span> <span class="float-right text-success font-size-40">3-2</span>
+              <?php foreach ($games as $game): ?>
+                <li class="timeline-reverse timeline-item">
+                  <div class="timeline-content-wrap">
+                    <div class="timeline-dot <?= $game->victory ? 'bg-green-600' : 'bg-red-600' ?>">
+                      <i class="icon <?= $game->victory ? 'wb-check' : 'wb-close' ?>" aria-hidden="true"></i>
                     </div>
-                    <div class="metas">
-                      25/15 - 26/24 - 22/25 - 18/25 - 15-12
+                    <div class="timeline-content">
+                      <div class="title">
+                        <span class="authors"><?= $game->name ?></span> <span class="float-right font-size-40 <?= $game->victory ? 'text-success' : 'text-danger' ?>"><?= $game->scores ?></span>
+                      </div>
+                      <div class="metas">
+                        25/15 - 26/24 - 22/25 - 18/25 - 15-12
+                      </div>
+                      <ul class="members">
+                        <?php if (isset($present[$game->id])): ?>
+                        <?php foreach ($present[$game->id] as $userId): ?>
+                          <li>
+                            <img class="avatar avatar-sm" src="<?= $users[$userId]->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                          </li>
+                        <?php endforeach ?>
+                        <?php endif ?>
+                      </ul>
                     </div>
-                    <ul class="members">
-                      <li>
-                        <img class="avatar avatar-sm" src="../../../global/portraits/7.jpg">
-                      </li>
-                      <li>
-                        <img class="avatar avatar-sm" src="../../../global/portraits/6.jpg">
-                      </li>
-                      <li>
-                        <img class="avatar avatar-sm" src="../../../global/portraits/8.jpg">
-                      </li>
-                    </ul>
                   </div>
-                </div>
-              </li>
-              <li class="timeline-reverse timeline-item">
-                <div class="timeline-content-wrap">
-                  <div class="timeline-dot bg-red-600">
-                    <i class="icon wb-close" aria-hidden="true"></i>
-                  </div>
-                  <div class="timeline-content">
-                   <div class="title">
-                     <span class="authors">Dunois / Lognes 2</span> <span class="float-right text-danger font-size-40">0-3</span>
-                   </div>
-                   <div class="metas">
-                     15/25 - 18/25 - 22/25
-                   </div>
-                   <ul class="members">
-                     <li>
-                       <img class="avatar avatar-sm" src="../../../global/portraits/7.jpg">
-                     </li>
-                     <li>
-                       <img class="avatar avatar-sm" src="../../../global/portraits/6.jpg">
-                     </li>
-                     <li>
-                       <img class="avatar avatar-sm" src="../../../global/portraits/8.jpg">
-                     </li>
-                     <li>
-                       <img class="avatar avatar-sm" src="../../../global/portraits/7.jpg">
-                     </li>
-                     <li>
-                       <img class="avatar avatar-sm" src="../../../global/portraits/6.jpg">
-                     </li>
-                     <li>
-                       <img class="avatar avatar-sm" src="../../../global/portraits/8.jpg">
-                     </li>
-                     <li>
-                       <img class="avatar avatar-sm" src="../../../global/portraits/7.jpg">
-                     </li>
-                     <li>
-                       <img class="avatar avatar-sm" src="../../../global/portraits/6.jpg">
-                     </li>
-                     <li>
-                       <img class="avatar avatar-sm" src="../../../global/portraits/8.jpg">
-                     </li>
-                   </ul>
-                 </div>
-                </div>
-              </li>
+                </li>
+              <?php endforeach ?>
             </ul>
           </div>
         </div>
