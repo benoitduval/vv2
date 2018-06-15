@@ -22,9 +22,12 @@ class User extends AbstractTableGateway
                 $ids[] = $obj->userId;
             }
 
-            $users = $this->fetchAll([
+            $players = $this->fetchAll([
                 'id' => $ids
             ]);
+            foreach ($players as $user) {
+                $users[$user->id] = $user;
+            }
         }
         return $users;
     }

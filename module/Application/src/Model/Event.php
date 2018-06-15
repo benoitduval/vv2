@@ -11,6 +11,9 @@ class Event extends AbstractModel
     const STAT_SERVE_POINT  = 3;
     const STAT_ATTACK_POINT = 4;
 
+    const LOSE              = 0;
+    const WIN               = 1;
+
     protected $_id       = null;
     protected $_groupId  = null;
     protected $_name     = null;

@@ -5,28 +5,47 @@ namespace Application\TableGateway;
 use RuntimeException;
 use Zend\Db\TableGateway\TableGatewayInterface;
 use Application\TableGateway;
+use Application\Service;
+use Application\Model;
 
 class Event extends AbstractTableGateway
 {
-    public function getAllByGroupId($groupId)
+    public function getAllByGroupId($groupId, $from = null, $to = null)
     {
-        $disponibilityTable = $this->getContainer()->get(TableGateway\Disponibility::class);
-        $objs = $disponibilityTable->fetchAll([
-            'groupId' => $groupId
+        $season = Service\Date::getSeasonsDates();
+        if (!$from) $from = $season['from']->format('Y-m-d H:i:s');
+        if (!$to) $to = $season['to']->format('Y-m-d H:i:s');
+        $events = $this->fetchAll([
+            'groupId' => $groupId,
+            'date >= ?' => $from,
+            'date <= ?' => $to,
+        ]);
+        return $events;
+    }
+
+    public function getGamesByGroupId($groupId)
+    {
+        $season = Service\Date::getSeasonsDates();
+        $games  = $this->fetchAll([
+            'groupId' =>  $groupId,
+            'date > ?' => $season['from']->format('Y-m-d H:i:s'),
+            'date < ?' => $season['to']->format('Y-m-d H:i:s'),
+            'victory' => [0, 1],
         ]);
 
-        $events = [];
-        if ($objs->toArray()) {
-            $ids = [];
-            foreach ($objs as $obj) {
-                $ids[] = $obj->eventId;
+        $disponibilityTable = $this->getContainer()->get(TableGateway\Disponibility::class);
+        foreach ($games as $game) {
+            $presentUsers = $disponibilityTable->fetchAll(['eventId' => $game->id, 'response' => Model\Disponibility::RESP_OK]);
+            $present = [];
+            foreach ($presentUsers as $user) {
+                $present[] = $user->userId;
             }
-
-            $events = $this->fetchAll([
-                'id' => $ids
-            ]);
+            $result[$game->id] = [
+                'event'   => $game,
+                'userIds' => $present,
+            ];
         }
-        return $events;
+        return $result;
     }
 
     public function getAllByUserId($userId, $start, $end)
@@ -69,18 +88,5 @@ class Event extends AbstractTableGateway
             ], 'date ASC');
         }
         return $events;
-    }
-
-    public function getEventsByGroupId($groupId, $start = null, $end = null)
-    {
-        $result= [];
-        $data['groupId'] = $groupId;
-        if ($start) $data['date >= ?'] = $start;
-        if ($end) $data['date <= ?'] = $end;
-        $events = $this->fetchAll($data);
-        foreach ($events as $event) {
-            $result[$event->id] = $event;
-        }
-        return $result;
     }
 }

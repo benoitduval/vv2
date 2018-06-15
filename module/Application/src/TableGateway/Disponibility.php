@@ -59,4 +59,17 @@ class Disponibility extends AbstractTableGateway
 
         return $result;
     }
+
+    public function getUserIds($options = [])
+    {
+        if (!$options) return [];
+        $disponibilities = $this->fetchAll($options);
+
+        $result = [];
+        foreach ($disponibilities as $disponibility) {
+            $result[] = $disponibility->userId;
+        }
+
+        return $result;
+    }
 }

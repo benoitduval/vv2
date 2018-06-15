@@ -202,54 +202,34 @@ class GroupController extends AbstractController
             }
         }
 
-        $players = $this->userTable->getAllByGroupId($group->id);
-        foreach ($players as $player) {
-            $users[$player->id] = $player;
-        }
+        $users       = $this->userTable->getAllByGroupId($group->id);
         $isAdmin     = $this->userGroupTable->isAdmin($user->id, $group->id);
         $isMember    = $this->userGroupTable->isMember($user->id, $group->id);
         $trainings   = $this->trainingTable->fetchAll(['groupId' =>  $group->id]);
+        $events      = $this->eventTable->getAllByGroupId($group->id);
         $eventsCount = $this->eventTable->count(['groupId' =>  $group->id]);
-        $season      = Service\Date::getSeasonsDates();
+        $config      = $this->get('config');
 
-        $games = $this->eventTable->fetchAll([
-            'groupId' =>  $group->id,
-            'date > ?' => $season['from']->format('Y-m-d H:i:s'),
-            'date < ?' => $season['to']->format('Y-m-d H:i:s'),
-            'victory' => [0, 1],
-        ]);
-
-        $present = [];
-        foreach ($games as $game) {
-            $presentUsers = $this->disponibilityTable->fetchAll(['eventId' => $game->id, 'response' => Model\Disponibility::RESP_OK]);
-            foreach ($presentUsers as $user) {
-                $present[$game->id][] = $user->userId;
-            }
+        $present  = [];
+        $winCount = $loseCount = 0;
+        foreach ($events as $event) {
+            if ($event->victory == null) continue;
+            $event->victory ? $winCount ++ : $loseCount ++;
+            $present[$event->id] = $this->disponibilityTable->getUserIds([
+                'eventId'  => $event->id,
+                'response' => Model\Disponibility::RESP_OK
+            ]);
+            $games[] = $event;
         }
 
-        $winCount    = $this->eventTable->count([
-            'groupId' =>  $group->id,
-            'victory' => 1,
-            'date > ?' => $season['from']->format('Y-m-d H:i:s'),
-            'date < ?' => $season['to']->format('Y-m-d H:i:s'),
-        ]);
-
-        $loseCount    = $this->eventTable->count([
-            'groupId' =>  $group->id,
-            'victory' => 0,
-            'date > ?' => $season['from']->format('Y-m-d H:i:s'),
-            'date < ?' => $season['to']->format('Y-m-d H:i:s'),
-        ]);
-
-        $matchCount  = $winCount + $loseCount;
+        $matchCount = $winCount + $loseCount;
         $winPercent = $losePercent = 0;
         if ($matchCount) {
-            $winPercent  = ($winCount * 100) / $matchCount;
-            $losePercent = ($loseCount * 100) / $matchCount;
+            $winPercent  = floor(($winCount * 100) / $matchCount);
+            $losePercent = floor(($loseCount * 100) / $matchCount);
         }
-        $config   = $this->get('config');
-        $shareUrl = $config['baseUrl'] . '/group/join/' . $group->brand;
 
+        $shareUrl = $config['baseUrl'] . '/group/join/' . $group->brand;
         $this->layout()->group = $group;
         $this->layout()->isAdmin = $isAdmin;
 
@@ -276,8 +256,8 @@ class GroupController extends AbstractController
     public function usersAction()
     {
         if ($this->_group && $this->_isAdmin) {
-            $this->userTable      = $this->get(TableGateway\User::class);
-            $this->joinTable      = $this->get(TableGateway\Join::class);
+            $this->userTable = $this->get(TableGateway\User::class);
+            $this->joinTable = $this->get(TableGateway\Join::class);
 
             $joins = $this->joinTable->fetchAll([
                 'groupId' => $this->_id
