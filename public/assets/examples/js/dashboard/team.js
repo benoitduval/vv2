@@ -25,7 +25,6 @@
     var options = {
       showArea: true,
       low: 0,
-      high: 1000,
       height: 453,
       fullWidth: true,
       axisX: {
@@ -49,20 +48,22 @@
     };
 
     // team total completed data
-    var labelList = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'];
+    var labelList = [];
+    var hits = $('#teamCompletedWidget .ct-chart').attr('data-hits');
+    var faults = $('#teamCompletedWidget .ct-chart').attr('data-faults');
+
     var series1List = {
       name: 'series-1',
-      data: [0, 180, 600, 980, 850, 600, 300, 350, 600, 200, 630]
+      data: JSON.parse(hits)
     };
     var series2List = {
       name: 'series-2',
-      data: [0, 100, 520, 810, 620, 500, 630, 400, 380, 405, 210]
+      data: JSON.parse(faults)
 
     };
 
     var newScoreLineChart = function newScoreLineChart(chartId, labelList, series1List, series2List, options) {
       var lineChart = new Chartist.Line(chartId, {
-        labels: labelList,
         series: [series1List, series2List]
       }, options);
 

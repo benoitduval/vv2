@@ -220,7 +220,12 @@ class GroupController extends AbstractController
                 'response' => Model\Disponibility::RESP_OK
             ]);
             $games[] = $event;
+            $gameIds[] = $event->id;
         }
+
+        $stats = $this->statsTable->getEvolution($gameIds);
+        $hitsEvolution = json_encode($stats['hits']);
+        $faultsEvolution = json_encode($stats['faults']);
 
         $matchCount = $winCount + $loseCount;
         $winPercent = $losePercent = 0;
@@ -234,22 +239,24 @@ class GroupController extends AbstractController
         $this->layout()->isAdmin = $isAdmin;
 
         return new ViewModel([
-            'user'        => $user,
-            'form'        => $form,
-            'group'       => $group,
-            'users'       => $users,
-            'isMember'    => $isMember,
-            'isAdmin'     => $isAdmin,
-            'trainings'   => $trainings,
-            'shareUrl'    => $shareUrl,
-            'eventsCount' => $eventsCount,
-            'winCount'    => $winCount,
-            'loseCount'   => $loseCount,
-            'matchCount'  => $matchCount,
-            'winPercent'  => $winPercent,
-            'losePercent' => $losePercent,
-            'games'       => $games,
-            'present'     => $present,
+            'user'          => $user,
+            'form'          => $form,
+            'group'         => $group,
+            'users'         => $users,
+            'isMember'      => $isMember,
+            'isAdmin'       => $isAdmin,
+            'trainings'     => $trainings,
+            'shareUrl'      => $shareUrl,
+            'eventsCount'   => $eventsCount,
+            'winCount'      => $winCount,
+            'loseCount'     => $loseCount,
+            'matchCount'    => $matchCount,
+            'winPercent'    => $winPercent,
+            'losePercent'   => $losePercent,
+            'games'         => $games,
+            'present'       => $present,
+            'hitsEvolution' => $hitsEvolution,
+            'faultsEvolution' => $faultsEvolution,
         ]);
     }
 

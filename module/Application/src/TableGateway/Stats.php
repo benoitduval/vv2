@@ -9,6 +9,29 @@ use Application\Model\Stats as Statistics;
 
 class Stats extends AbstractTableGateway
 {
+
+    public function getEvolution($eventIds = [])
+    {
+        $result = [
+            'hits'  => [],
+            'fault' => [],
+        ];
+        foreach ($eventIds as $eventId) {
+            $result['faults'][] = $this->count([
+                'eventId' => $eventId,
+                'pointFor' => Statistics::POINT_THEM,
+                'reason' => Statistics::$faultUs
+            ]);
+
+            $result['hits'][] = $this->count([
+                'eventId' => $eventId,
+                'pointFor' => Statistics::POINT_US,
+                'reason' => Statistics::$attackUs,
+            ]);
+        }
+        return $result;
+    }
+
     public function getSetsStats($eventId, $set = null)
     {
         $result = [];
