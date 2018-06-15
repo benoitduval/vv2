@@ -12,15 +12,12 @@ class Stats extends AbstractTableGateway
 
     public function getEvolution($eventIds = [])
     {
-        $result = [
-            'hits'  => [],
-            'fault' => [],
-        ];
+        $result = [];
         foreach ($eventIds as $eventId) {
             $result['faults'][] = $this->count([
                 'eventId' => $eventId,
                 'pointFor' => Statistics::POINT_THEM,
-                'reason' => Statistics::FAULT_ATTACK
+                'reason' => Statistics::$faultUs
             ]);
 
             $result['hits'][] = $this->count([
