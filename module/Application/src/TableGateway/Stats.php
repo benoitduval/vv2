@@ -20,7 +20,7 @@ class Stats extends AbstractTableGateway
             $result['faults'][] = $this->count([
                 'eventId' => $eventId,
                 'pointFor' => Statistics::POINT_THEM,
-                'reason' => Statistics::$faultUs
+                'reason' => Statistics::FAULT_ATTACK
             ]);
 
             $result['hits'][] = $this->count([
