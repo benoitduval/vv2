@@ -25,7 +25,7 @@
     var options = {
       showArea: true,
       low: 0,
-      height: 453,
+      height: 300,
       fullWidth: true,
       axisX: {
         offset: 30
@@ -44,27 +44,25 @@
         bottom: 12,
         left: 10
       },
-      plugins: [Chartist.plugins.tooltip()]
+      plugins: [Chartist.plugins.tooltip({
+          transformTooltipTextFnc: function(x){
+              return parseFloat(x).toLocaleString();
+          }
+      })]
     };
 
     // team total completed data
-    var labelList = [];
-    var hits = $('#teamCompletedWidget .ct-chart').attr('data-hits');
-    var faults = $('#teamCompletedWidget .ct-chart').attr('data-faults');
+    var ratio = $('#teamCompletedWidget .ct-chart').attr('data-ratio');
 
     var series1List = {
-      name: 'series-1',
-      data: JSON.parse(hits)
-    };
-    var series2List = {
-      name: 'series-2',
-      data: JSON.parse(faults)
-
+      name: 'Ratio',
+      data: JSON.parse(ratio)
     };
 
-    var newScoreLineChart = function newScoreLineChart(chartId, labelList, series1List, series2List, options) {
+
+    var newScoreLineChart = function newScoreLineChart(chartId, series1List, options) {
       var lineChart = new Chartist.Line(chartId, {
-        series: [series1List, series2List]
+        series: [series1List]
       }, options);
 
       //start create
@@ -85,7 +83,7 @@
       });
     };
 
-    newScoreLineChart("#teamCompletedWidget .ct-chart", labelList, series1List, series2List, options);
+    newScoreLineChart("#teamCompletedWidget .ct-chart", series1List, options);
   })();
 
   // item dialog

@@ -10,21 +10,25 @@ use Application\Model\Stats as Statistics;
 class Stats extends AbstractTableGateway
 {
 
-    public function getEvolution($eventIds = [])
+    public function getRatioEvolution($eventIds = [])
     {
         $result = [];
+        $eventIds = array_reverse($eventIds);
         foreach ($eventIds as $eventId) {
-            $result['faults'][] = $this->count([
+            $fault = $this->count([
                 'eventId' => $eventId,
                 'pointFor' => Statistics::POINT_THEM,
                 'reason' => Statistics::$faultUs
             ]);
+            if (!$fault) continue;
 
-            $result['hits'][] = $this->count([
+            $attack = $this->count([
                 'eventId' => $eventId,
                 'pointFor' => Statistics::POINT_US,
                 'reason' => Statistics::$attackUs,
             ]);
+            // $result[] = floor(($attack * 100) / ($attack + $fault));
+            $result[] = $attack / $fault;
         }
         return $result;
     }

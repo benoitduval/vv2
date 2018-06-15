@@ -282,14 +282,14 @@
           <div class="row pb-40" data-plugin="matchHeight">
             <div class="col-md-6 col-sm-12">
               <div class="counter text-left pl-10">
-                <div class="counter-label">Hits Vs Faults</div>
-                <div class="counter-number-group text-truncate">
+                <div class="counter-label">Ratio Kills/Faults</div>
+<!--                 <div class="counter-number-group text-truncate">
                   <span>1439</span>
                   <span>1025</span>
-                </div>
+                </div> -->
               </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+<!--             <div class="col-md-6 col-sm-12">
               <ul class="list-inline mr-50">
                 <li class="list-inline-item">
                   Faults
@@ -298,9 +298,9 @@
                   Hits
                 </li>
               </ul>
-            </div>
+            </div> -->
           </div>
-          <div class="ct-chart" data-hits="<?= $hitsEvolution ?>" data-faults="<?= $faultsEvolution ?>"></div>
+          <div class="ct-chart" data-ratio="<?= $attackRatio ?>"></div>
         </div>
       </div>
     </div>
