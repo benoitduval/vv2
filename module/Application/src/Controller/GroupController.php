@@ -221,10 +221,12 @@ class GroupController extends AbstractController
             ]);
             $games[] = $event;
             $gameIds[] = $event->id;
+            $labels[] = (string) $event->name;
         }
 
         $stats = $this->statsTable->getRatioEvolution($gameIds);
         $attackRatio = json_encode($stats);
+        $labels = json_encode(array_reverse($labels), JSON_HEX_QUOT);
 
         $matchCount = $winCount + $loseCount;
         $winPercent = $losePercent = 0;
@@ -255,6 +257,7 @@ class GroupController extends AbstractController
             'games'         => $games,
             'present'       => $present,
             'attackRatio'   => $attackRatio,
+            'labels'   => $labels,
         ]);
     }
 

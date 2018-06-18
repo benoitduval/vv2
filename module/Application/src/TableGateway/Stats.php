@@ -27,8 +27,7 @@ class Stats extends AbstractTableGateway
                 'pointFor' => Statistics::POINT_US,
                 'reason' => Statistics::$attackUs,
             ]);
-            // $result[] = floor(($attack * 100) / ($attack + $fault));
-            $result[] = $attack / $fault;
+            $result[] = (float) sprintf('%0.2f', $attack / $fault);
         }
         return $result;
     }

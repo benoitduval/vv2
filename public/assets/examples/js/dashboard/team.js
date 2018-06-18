@@ -22,68 +22,102 @@
   // Top Line Chart With Tooltips
   // ----------------------------
   (function () {
-    var options = {
-      showArea: true,
-      low: 0,
-      height: 300,
-      fullWidth: true,
-      axisX: {
-        offset: 30
-      },
-      axisY: {
-        offset: 30,
-        labelInterpolationFnc: function labelInterpolationFnc(value) {
-          if (value == 0) {
-            return null;
-          }
-          return value;
+    var ratio = $('#ratiokillsPerFaults').attr('data-ratio');
+    var labels = $('#ratiokillsPerFaults').attr('data-labels');
+    Highcharts.chart('ratiokillsPerFaults', {
+        chart: {
+            type: 'areaspline'
         },
-        scaleMinSpace: 50
-      },
-      chartPadding: {
-        bottom: 12,
-        left: 10
-      },
-      plugins: [Chartist.plugins.tooltip({
-          transformTooltipTextFnc: function(x){
-              return parseFloat(x).toLocaleString();
-          }
-      })]
-    };
+        title: {
+            text: 'Ratio Kills / Errors'
+        },
+        xAxis: {
+            categories: JSON.parse(labels),
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            title: {
+                text: null
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            areaspline: {
+                fillOpacity: 0.5
+            }
+        },
+        series: [{
+            name: 'Kills / Errors',
+            data: JSON.parse(ratio)
+        }]
+    });
 
-    // team total completed data
-    var ratio = $('#teamCompletedWidget .ct-chart').attr('data-ratio');
+    // var options = {
+    //   showArea: true,
+    //   low: 0,
+    //   height: 300,
+    //   fullWidth: true,
+    //   axisX: {
+    //     offset: 30
+    //   },
+    //   axisY: {
+    //     offset: 30,
+    //     labelInterpolationFnc: function labelInterpolationFnc(value) {
+    //       if (value == 0) {
+    //         return null;
+    //       }
+    //       return value;
+    //     },
+    //     scaleMinSpace: 50
+    //   },
+    //   chartPadding: {
+    //     bottom: 12,
+    //     left: 10
+    //   },
+    //   plugins: [Chartist.plugins.tooltip({
+    //       transformTooltipTextFnc: function(x){
+    //           return parseFloat(x).toLocaleString();
+    //       }
+    //   })]
+    // };
 
-    var series1List = {
-      name: 'Ratio',
-      data: JSON.parse(ratio)
-    };
+    // // team total completed data
+    // var ratio = $('#teamCompletedWidget .ct-chart').attr('data-ratio');
+
+    // var series1List = {
+    //   name: 'Ratio',
+    //   data: JSON.parse(ratio)
+    // };
 
 
-    var newScoreLineChart = function newScoreLineChart(chartId, series1List, options) {
-      var lineChart = new Chartist.Line(chartId, {
-        series: [series1List]
-      }, options);
+    // var newScoreLineChart = function newScoreLineChart(chartId, series1List, options) {
+    //   var lineChart = new Chartist.Line(chartId, {
+    //     series: [series1List]
+    //   }, options);
 
-      //start create
-      lineChart.on('draw', function (data) {
-        var elem, parent;
-        if (data.type === 'point') {
-          elem = data.element;
-          parent = new Chartist.Svg(elem._node.parentNode);
+    //   //start create
+    //   lineChart.on('draw', function (data) {
+    //     var elem, parent;
+    //     if (data.type === 'point') {
+    //       elem = data.element;
+    //       parent = new Chartist.Svg(elem._node.parentNode);
 
-          parent.elem('line', {
-            x1: data.x,
-            y1: data.y,
-            x2: data.x + 0.01,
-            y2: data.y,
-            "class": 'ct-point-content'
-          });
-        }
-      });
-    };
+    //       parent.elem('line', {
+    //         x1: data.x,
+    //         y1: data.y,
+    //         x2: data.x + 0.01,
+    //         y2: data.y,
+    //         "class": 'ct-point-content'
+    //       });
+    //     }
+    //   });
+    // };
 
-    newScoreLineChart("#teamCompletedWidget .ct-chart", series1List, options);
+    // newScoreLineChart("#teamCompletedWidget .ct-chart", series1List, options);
   })();
 
   // item dialog

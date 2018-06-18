@@ -121,6 +121,8 @@ return [
                 '/global/vendor/chartist/chartist.js',
                 '/global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.js',
                 '/global/vendor/aspieprogress/jquery-asPieProgress.js',
+                'https://code.highcharts.com/highcharts.js',
+                // 'https://cdnjs.cloudflare.com/ajax/libs/highcharts/6.0.7/highcharts-more.js',
 
                 '/global/js/Component.js',
                 '/global/js/Plugin.js',
@@ -169,6 +171,7 @@ return [
                 '/global/vendor/chartist/chartist.css',
                 '/global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css',
                 '/global/vendor/aspieprogress/asPieProgress.css',
+                'https://cdnjs.cloudflare.com/ajax/libs/highcharts/6.0.7/css/highcharts.css',
                 '/assets/examples/css/uikit/buttons.css',
                 '/assets/examples/css/forms/masks.css',
                 '/assets/examples/css/apps/calendar.css',

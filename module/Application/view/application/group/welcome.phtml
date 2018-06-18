@@ -279,28 +279,7 @@
     <div class="col-lg-6">
       <div id="teamCompletedWidget" class="card card-shadow example-responsive">
         <div class="card-block p-20 pb-25">
-          <div class="row pb-40" data-plugin="matchHeight">
-            <div class="col-md-6 col-sm-12">
-              <div class="counter text-left pl-10">
-                <div class="counter-label">Ratio Kills/Faults</div>
-<!--                 <div class="counter-number-group text-truncate">
-                  <span>1439</span>
-                  <span>1025</span>
-                </div> -->
-              </div>
-            </div>
-<!--             <div class="col-md-6 col-sm-12">
-              <ul class="list-inline mr-50">
-                <li class="list-inline-item">
-                  Faults
-                </li>
-                <li class="list-inline-item">
-                  Hits
-                </li>
-              </ul>
-            </div> -->
-          </div>
-          <div class="ct-chart" data-ratio="<?= $attackRatio ?>"></div>
+          <div class="ct-chart" id="ratiokillsPerFaults" data-ratio="<?= $attackRatio ?>" data-labels='<?= $labels ?>'></div>
         </div>
       </div>
     </div>
