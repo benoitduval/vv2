@@ -213,6 +213,7 @@ class GroupController extends AbstractController
         $present  = [];
         $winCount = $loseCount = 0;
         foreach ($events as $event) {
+            $eventsById[$event->id] = $event;
             if ($event->victory == null) continue;
             $event->victory ? $winCount ++ : $loseCount ++;
             $present[$event->id] = $this->disponibilityTable->getUserIds([
@@ -221,12 +222,14 @@ class GroupController extends AbstractController
             ]);
             $games[] = $event;
             $gameIds[] = $event->id;
-            $labels[] = (string) $event->name;
         }
 
         $stats = $this->statsTable->getRatioEvolution($gameIds);
-        $attackRatio = json_encode($stats);
-        $labels = json_encode(array_reverse($labels), JSON_HEX_QUOT);
+        foreach ($stats as $eventId => $ratio) {
+            $labels[] = $eventsById[$eventId]->name;
+        }
+        $attackRatio = json_encode(array_values($stats));
+        $labels = json_encode($labels);
 
         $matchCount = $winCount + $loseCount;
         $winPercent = $losePercent = 0;
