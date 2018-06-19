@@ -27,20 +27,20 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                // 'Cache\Adapter\Memcached' => function ($serviceManager) {
-                //     $memcached = new \Memcached($serviceManager->get('Cache\Adapter\MemcachedOptions'));
-                //     return $memcached;
-                // },
-                // 'Cache\Adapter\MemcachedOptions' => function ($serviceManager) {
-                //     return new \pMemcachedOptions(array(
-                //         'ttl'           => 60 * 60 * 24 * 7, // 1 week
-                //         'namespace'     => 'cache_listener',
-                //         'key_pattern'   => null,
-                //         'readable'      => true,
-                //         'writable'      => true,
-                //         'servers'       => 'localhost',
-                //     ));
-                // },
+                'Cache\Adapter\Memcached' => function ($serviceManager) {
+                    $memcached = new \Memcached($serviceManager->get('Cache\Adapter\MemcachedOptions'));
+                    return $memcached;
+                },
+                'Cache\Adapter\MemcachedOptions' => function ($serviceManager) {
+                    return new \pMemcachedOptions(array(
+                        'ttl'           => 60 * 60 * 24 * 7, // 1 week
+                        'namespace'     => 'cache_listener',
+                        'key_pattern'   => null,
+                        'readable'      => true,
+                        'writable'      => true,
+                        'servers'       => 'localhost',
+                    ));
+                },
             ],
         ];
     }

@@ -40,8 +40,8 @@ class GroupController extends AbstractController
     public function createAction()
     {
         if ($this->getUser()) {
-            $groupForm      = new Form\Group;
-            $config         = $this->get('config');
+            $groupForm = new Form\Group;
+            $config    = $this->get('config');
 
             // bypass validation on fields
             $groupForm->getInputFilter()->get('eventDay[]')->setRequired(false);

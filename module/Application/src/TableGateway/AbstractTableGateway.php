@@ -17,7 +17,7 @@ class AbstractTableGateway
     {
         $this->_tableGateway = $tableGateway;
         $this->_container = $container;
-        // static::$_cache = $this->_container->get('memcached');
+        static::$_cache = $this->_container->get('memcached');
     }
 
     public function getContainer()
