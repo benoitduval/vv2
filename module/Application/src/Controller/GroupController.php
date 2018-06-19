@@ -206,30 +206,27 @@ class GroupController extends AbstractController
         $isAdmin     = $this->userGroupTable->isAdmin($user->id, $group->id);
         $isMember    = $this->userGroupTable->isMember($user->id, $group->id);
         $trainings   = $this->trainingTable->fetchAll(['groupId' =>  $group->id]);
-        $events      = $this->eventTable->getAllByGroupId($group->id);
+        $games       = $this->eventTable->getGamesByGroupId($group->id);
         $eventsCount = $this->eventTable->count(['groupId' =>  $group->id]);
         $config      = $this->get('config');
 
         $present  = [];
         $winCount = $loseCount = 0;
-        foreach ($events as $event) {
-            $eventsById[$event->id] = $event;
-            if ($event->victory == null) continue;
-            $event->victory ? $winCount ++ : $loseCount ++;
-            $present[$event->id] = $this->disponibilityTable->getUserIds([
-                'eventId'  => $event->id,
-                'response' => Model\Disponibility::RESP_OK
-            ]);
-            $games[] = $event;
-            $gameIds[] = $event->id;
+
+        foreach ($games as $game) {
+            if ($ratio = $this->statsTable->getRatio($game->id)) {
+                $stats[$game->id]  = $ratio;
+                $labels[$game->id] = $game->name;
+            }
+            $presentUsers = $this->disponibilityTable->fetchAll(['eventId' => $game->id, 'response' => Model\Disponibility::RESP_OK]);
+            foreach ($presentUsers as $user) {
+                $present[$game->id][] = $user->userId;
+            }
+            $game->victory ? $winCount++ : $loseCount++;
         }
 
-        $stats = $this->statsTable->getRatioEvolution($gameIds);
-        foreach ($stats as $eventId => $ratio) {
-            $labels[] = $eventsById[$eventId]->name;
-        }
         $attackRatio = json_encode(array_values($stats));
-        $labels = json_encode($labels);
+        $labels = json_encode(array_reverse($labels));
 
         $matchCount = $winCount + $loseCount;
         $winPercent = $losePercent = 0;
@@ -243,24 +240,24 @@ class GroupController extends AbstractController
         $this->layout()->isAdmin = $isAdmin;
 
         return new ViewModel([
-            'user'          => $user,
-            'form'          => $form,
-            'group'         => $group,
-            'users'         => $users,
-            'isMember'      => $isMember,
-            'isAdmin'       => $isAdmin,
-            'trainings'     => $trainings,
-            'shareUrl'      => $shareUrl,
-            'eventsCount'   => $eventsCount,
-            'winCount'      => $winCount,
-            'loseCount'     => $loseCount,
-            'matchCount'    => $matchCount,
-            'winPercent'    => $winPercent,
-            'losePercent'   => $losePercent,
-            'games'         => $games,
-            'present'       => $present,
-            'attackRatio'   => $attackRatio,
-            'labels'   => $labels,
+            'user'        => $user,
+            'form'        => $form,
+            'group'       => $group,
+            'users'       => $users,
+            'isMember'    => $isMember,
+            'isAdmin'     => $isAdmin,
+            'trainings'   => $trainings,
+            'shareUrl'    => $shareUrl,
+            'eventsCount' => $eventsCount,
+            'winCount'    => $winCount,
+            'loseCount'   => $loseCount,
+            'matchCount'  => $matchCount,
+            'winPercent'  => $winPercent,
+            'losePercent' => $losePercent,
+            'games'       => $games,
+            'present'     => $present,
+            'attackRatio' => $attackRatio,
+            'labels'      => $labels,
         ]);
     }
 

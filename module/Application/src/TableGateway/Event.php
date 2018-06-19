@@ -31,21 +31,9 @@ class Event extends AbstractTableGateway
             'date > ?' => $season['from']->format('Y-m-d H:i:s'),
             'date < ?' => $season['to']->format('Y-m-d H:i:s'),
             'victory' => [0, 1],
-        ]);
+        ], 'id DESC');
 
-        $disponibilityTable = $this->getContainer()->get(TableGateway\Disponibility::class);
-        foreach ($games as $game) {
-            $presentUsers = $disponibilityTable->fetchAll(['eventId' => $game->id, 'response' => Model\Disponibility::RESP_OK]);
-            $present = [];
-            foreach ($presentUsers as $user) {
-                $present[] = $user->userId;
-            }
-            $result[$game->id] = [
-                'event'   => $game,
-                'userIds' => $present,
-            ];
-        }
-        return $result;
+        return $games;
     }
 
     public function getAllByUserId($userId, $start, $end)

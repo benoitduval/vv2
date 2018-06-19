@@ -9,27 +9,9 @@ use Application\Model\Stats as Statistics;
 
 class Stats extends AbstractTableGateway
 {
-
-    public function getRatioEvolution($eventIds = [])
+    public function getRatio($eventId, $set = null)
     {
-        $result = [];
-        $eventIds = array_reverse($eventIds);
-        foreach ($eventIds as $eventId) {
-            $fault = $this->count([
-                'eventId' => $eventId,
-                'pointFor' => Statistics::POINT_THEM,
-                'reason' => Statistics::$faultUs
-            ]);
-            if (!$fault) continue;
-
-            $attack = $this->count([
-                'eventId' => $eventId,
-                'pointFor' => Statistics::POINT_US,
-                'reason' => Statistics::$attackUs,
-            ]);
-            $result[$eventId] = (float) sprintf('%0.2f', $attack / $fault);
-        }
-        return $result;
+        return $this->_getRatio($eventId);
     }
 
     public function getSetsStats($eventId, $set = null)
@@ -316,6 +298,24 @@ class Stats extends AbstractTableGateway
         return $result;
     }
 
+    private function _getRatio($eventId)
+    {
+        $fault = $this->count([
+            'eventId'  => $eventId,
+            'pointFor' => Statistics::POINT_THEM,
+            'reason'   => Statistics::$faultUs
+        ]);
+
+        if (!$fault) return null;
+
+        $attack = $this->count([
+            'eventId'  => $eventId,
+            'pointFor' => Statistics::POINT_US,
+            'reason'   => Statistics::$attackUs,
+        ]);
+        return (float) sprintf('%0.2f', $attack / $fault);
+    }
+
     private function _getStats($eventId, $set)
     {
         if (!$this->fetchOne(['eventId' => $eventId, 'set' => $set])) return [];
@@ -548,7 +548,6 @@ class Stats extends AbstractTableGateway
 
         return $result;
     }
-
 
     private function _getZoneRepartitionStats($eventId, $set)
     {

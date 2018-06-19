@@ -252,10 +252,12 @@
                     </div>
                     <div class="timeline-content">
                       <div class="title">
-                        <span class="authors"><?= $game->name ?></span> <span class="float-right font-size-40 <?= $game->victory ? 'text-success' : 'text-danger' ?>"><?= $game->scores ?></span>
+                        <span class="authors"><?= $game->name ?></span> <span class="float-right font-size-30 <?= $game->victory ? 'text-success' : 'text-danger' ?>"><?= $game->score ?></span>
                       </div>
                       <div class="metas">
-                        25/15 - 26/24 - 22/25 - 18/25 - 15-12
+                        <?php if ($game->sets): ?>
+                              <?= implode(' | ', $game->sets) ?>
+                        <?php endif ?>
                       </div>
                       <ul class="members">
                         <?php if (isset($present[$game->id])): ?>
