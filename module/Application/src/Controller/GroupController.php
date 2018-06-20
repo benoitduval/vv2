@@ -214,10 +214,12 @@ class GroupController extends AbstractController
         $winCount = $loseCount = 0;
 
         foreach ($games as $game) {
-            if ($ratio = $this->statsTable->getRatio($game->id)) {
-                $stats[$game->id]  = $ratio;
+            $stats = $this->statsTable->getAllByEventId($game->id);
+            if ($stats && isset($stats['ratio']['all'])) {
+                $ratio[$game->id]  = $stats['ratio']['all'];
                 $labels[$game->id] = $game->name;
             }
+
             $presentUsers = $this->disponibilityTable->fetchAll(['eventId' => $game->id, 'response' => Model\Disponibility::RESP_OK]);
             foreach ($presentUsers as $user) {
                 $present[$game->id][] = $user->userId;
@@ -225,7 +227,7 @@ class GroupController extends AbstractController
             $game->victory ? $winCount++ : $loseCount++;
         }
 
-        $attackRatio = json_encode(array_values($stats));
+        $attackRatio = json_encode(array_values($ratio));
         $labels = json_encode(array_reverse($labels));
 
         $matchCount = $winCount + $loseCount;

@@ -28,6 +28,7 @@ class EventController extends AbstractController
     public function detailAction()
     {
         $eventId = $this->params('id');
+        $start = microtime();
         if (($event = $this->eventTable->find($eventId)) && $this->getUser()->id == 1) {
 
             $setsHistory   = $this->statsTable->getSetsHistory($eventId);
@@ -74,6 +75,8 @@ class EventController extends AbstractController
             $config     = $this->get('config');
             $baseUrl    = $config['baseUrl'];
 
+            $end = microtime();
+            error_log($end - $start);
             $this->layout()->setTemplate('admin/layout/layout.phtml');
             return new ViewModel([
                 'overallStats'    => $overallStats,

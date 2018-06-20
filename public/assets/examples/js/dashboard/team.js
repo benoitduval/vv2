@@ -29,7 +29,7 @@
             type: 'areaspline'
         },
         title: {
-            text: 'Ratio Kills / Errors'
+            text: 'Ratio Points / Faults'
         },
         xAxis: {
             categories: JSON.parse(labels),
@@ -51,7 +51,7 @@
             }
         },
         series: [{
-            name: 'Kills / Errors',
+            name: 'Points / Faults',
             data: JSON.parse(ratio)
         }]
     });

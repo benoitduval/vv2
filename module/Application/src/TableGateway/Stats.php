@@ -9,32 +9,68 @@ use Application\Model\Stats as Statistics;
 
 class Stats extends AbstractTableGateway
 {
-    public function getRatio($eventId, $set = null)
+
+    public function getAllByEventId($eventId)
     {
-        return $this->_getRatio($eventId);
+        $key = 'event.stats.' . $eventId;
+        $memcached = $this->getContainer()->get('memcached');
+        $result = $memcached->getItem($key);
+        if ($result === null) {
+            $result = [];
+            if (($this->fetchOne(['eventId' => $eventId]))) {
+                $result = [
+                    'ratio'      => $this->getRatio($eventId),
+                    'compare'    => $this->getCompare($eventId),
+                    'efficiency' => $this->getEfficiency($eventId),
+                    'zone'       => $this->getZoneRepartition($eventId),
+                    'defence'    => $this->getDefence($eventId),
+                    'fault'      => $this->getFault($eventId),
+                    'history'    => $this->getSetsHistory($eventId),
+                ];
+            }
+            $memcached->setItem($key, $result);
+        }
+        return $result;
     }
 
-    public function getSetsStats($eventId, $set = null)
+    public function getRatio($eventId)
+    {
+        for ($i = 1; $i <= 5; $i++) {
+            $result[$i] = $this->_getRatio($eventId, $i);
+        }
+        $result = array_filter($result);
+        $result['all'] = array_sum($result) / count($result);
+        return $result;
+    }
+
+    public function getCompare($eventId, $set = null)
     {
         $result = [];
-        if ($set) {
-            $result[$set] = $this->_getStats($eventId, $set);
-        } else {
-            for ($i = 1; $i <= 5; $i++) {
-                $result[$i] = $this->_getStats($eventId, $i);
+        for ($i = 1; $i <= 5; $i++) {
+            $result[$i] = $this->_getCompare($eventId, $i);
+        }
+        $result = array_filter($result);
+
+        $result['all']['us'] = [];
+        $result['all']['them'] = [];
+        foreach ($result as $set => $data) {
+            foreach (['us', 'them'] as $target) {
+                $result['all'][$target] = array_map(function ($test) {
+                    return array_sum(func_get_args());
+                }, $result['all'][$target], $data[$target]);
             }
         }
         return $result;
     }
 
-    public function getEfficiencyStats($eventId, $set = null)
+    public function getEfficiency($eventId, $set = null)
     {
         $result = [];
         if ($set) {
-            $result[$set] = $this->_getEfficiencyStats($eventId, $set);
+            $result[$set] = $this->_getEfficiency($eventId, $set);
         } else {
             for ($i = 1; $i <= 5; $i++) {
-                $result[$i] = $this->_getEfficiencyStats($eventId, $i);
+                $result[$i] = $this->_getEfficiency($eventId, $i);
                 if ($i == 1) {
                     $result['all'] = $result[$i];
                 } else {
@@ -47,14 +83,14 @@ class Stats extends AbstractTableGateway
         return $result;
     }
 
-    public function getZoneRepartitionStats($eventId, $set = null)
+    public function getZoneRepartition($eventId, $set = null)
     {
         $result = [];
         if ($set) {
-            $result[$set] = $this->_getZoneRepartitionStats($eventId, $set);
+            $result[$set] = $this->_getZoneRepartition($eventId, $set);
         } else {
             for ($i = 1; $i <= 5; $i++) {
-                $result[$i] = $this->_getZoneRepartitionStats($eventId, $i);
+                $result[$i] = $this->_getZoneRepartition($eventId, $i);
                 if ($i == 1) {
                     $result['all'] = $result[$i];
                 } else {
@@ -67,14 +103,14 @@ class Stats extends AbstractTableGateway
         return $result;
     }
 
-    public function getDefenceStats($eventId, $set = null)
+    public function getDefence($eventId, $set = null)
     {
         $result = [];
         if ($set) {
-            $result[$set] = $this->_getDefenceStats($eventId, $set);
+            $result[$set] = $this->_getDefence($eventId, $set);
         } else {
             for ($i = 1; $i <= 5; $i++) {
-                $result[$i] = $this->_getDefenceStats($eventId, $i);
+                $result[$i] = $this->_getDefence($eventId, $i);
                 if ($i == 1) {
                     $result['all'] = $result[$i];
                 } else {
@@ -87,14 +123,14 @@ class Stats extends AbstractTableGateway
         return $result;
     }
 
-    public function getFaultStats($eventId, $set = null)
+    public function getFault($eventId, $set = null)
     {
         $result = [];
         if ($set) {
-            $result[$set] = $this->_getFaultStats($eventId, $set);
+            $result[$set] = $this->_getFault($eventId, $set);
         } else {
             for ($i = 1; $i <= 5; $i++) {
-                $result[$i] = $this->_getFaultStats($eventId, $i);
+                $result[$i] = $this->_getFault($eventId, $i);
                 if ($i == 1) {
                     $result['all'] = $result[$i];
                 } else {
@@ -170,138 +206,13 @@ class Stats extends AbstractTableGateway
         return $data;
     }
 
-    public function getOverallStats($eventId)
+    private function _getRatio($eventId, $set)
     {
-        if (!$this->fetchOne(['eventId' => $eventId])) return [];
+        if (!$this->fetchOne(['eventId' => $eventId, 'set' => $set])) return null;
 
-        $defenceFault = $this->count([
-            'eventId' => $eventId,
-            'pointFor' => Statistics::POINT_THEM,
-            'reason' => Statistics::FAULT_DEFENCE,
-        ]);
-
-        $blockPoint = $this->count([
-            'eventId' => $eventId,
-            'pointFor' => Statistics::POINT_US,
-            'reason' => Statistics::POINT_BLOCK,
-        ]);
-
-        $attackFault = $this->count([
-            'eventId' => $eventId,
-            'pointFor' => Statistics::POINT_THEM,
-            'reason' => Statistics::$faultUs
-        ]);
-
-        $attackPoint = $this->count([
-            'eventId' => $eventId,
-            'pointFor' => Statistics::POINT_US,
-            'reason' => Statistics::$attackUs,
-        ]);
-
-        $serveFault = $this->count([
-            'eventId' => $eventId,
-            'pointFor' => Statistics::POINT_THEM,
-            'reason' => Statistics::FAULT_SERVE,
-        ]);
-
-        $servePoint = $this->count([
-            'eventId' => $eventId,
-            'pointFor' => Statistics::POINT_US,
-            'reason' => Statistics::POINT_SERVE,
-        ]);
-
-        $blockUs = $this->sum('blockUs', [
-            'eventId'  => $eventId,
-            'blockUs > ?' => 0,
-        ]);
-
-        $defenceUs = $this->sum('defenceUs', [
-            'eventId'  => $eventId,
-            'defenceUs > ?' => 0,
-        ]);
-
-
-        $totalFaults = $defenceFault + $attackFault + $serveFault;
-
-        $result['us'] = json_encode([
-            $servePoint,
-            $attackPoint,
-            $blockPoint,
-            $serveFault,
-            $attackFault,
-            $defenceFault,
-            $blockUs,
-            $defenceUs,
-            $totalFaults,
-        ]);
-
-        $defenceFault = $this->count([
-            'eventId' => $eventId,
-            'pointFor' => Statistics::POINT_US,
-            'reason' => Statistics::FAULT_DEFENCE,
-        ]);
-
-        $blockPoint = $this->count([
-            'eventId' => $eventId,
-            'pointFor' => Statistics::POINT_THEM,
-            'reason' => Statistics::POINT_BLOCK,
-        ]);
-
-        $attackFault = $this->count([
-            'eventId' => $eventId,
-            'pointFor' => Statistics::POINT_US,
-            'reason' => Statistics::FAULT_ATTACK,
-        ]);
-
-        $attackPoint = $this->count([
-            'eventId' => $eventId,
-            'pointFor' => Statistics::POINT_THEM,
-            'reason' => Statistics::POINT_ATTACK,
-        ]);
-
-        $serveFault = $this->count([
-            'eventId' => $eventId,
-            'pointFor' => Statistics::POINT_US,
-            'reason' => Statistics::FAULT_SERVE,
-        ]);
-
-        $servePoint = $this->count([
-            'eventId' => $eventId,
-            'pointFor' => Statistics::POINT_THEM,
-            'reason' => Statistics::POINT_SERVE,
-        ]);
-
-        $blockThem = $this->sum('blockThem', [
-            'eventId'  => $eventId,
-            'blockThem > ?' => 0,
-        ]);
-
-        $defenceThem = $this->sum('defenceThem', [
-            'eventId'  => $eventId,
-            'defenceThem > ?' => 0,
-        ]);
-
-        $totalFaults = $defenceFault + $attackFault + $serveFault;
-
-        $result['them'] = json_encode([
-            $servePoint,
-            $attackPoint,
-            $blockPoint,
-            $serveFault,
-            $attackFault,
-            $defenceFault,
-            $blockThem,
-            $defenceThem,
-            $totalFaults,
-        ]);
-
-        return $result;
-    }
-
-    private function _getRatio($eventId)
-    {
         $fault = $this->count([
             'eventId'  => $eventId,
+            'set' => $set,
             'pointFor' => Statistics::POINT_THEM,
             'reason'   => Statistics::$faultUs
         ]);
@@ -310,15 +221,16 @@ class Stats extends AbstractTableGateway
 
         $attack = $this->count([
             'eventId'  => $eventId,
+            'set' => $set,
             'pointFor' => Statistics::POINT_US,
             'reason'   => Statistics::$attackUs,
         ]);
         return (float) sprintf('%0.2f', $attack / $fault);
     }
 
-    private function _getStats($eventId, $set)
+    private function _getCompare($eventId, $set)
     {
-        if (!$this->fetchOne(['eventId' => $eventId, 'set' => $set])) return [];
+        if (!$this->fetchOne(['eventId' => $eventId, 'set' => $set])) return null;
 
         $defenceFault = $this->count([
             'eventId' => $eventId,
@@ -376,7 +288,7 @@ class Stats extends AbstractTableGateway
 
         $totalFaults = $defenceFault + $attackFault + $serveFault;
 
-        $result['us'] = json_encode([
+        $result['us'] = [
             $servePoint,
             $attackPoint,
             $blockPoint,
@@ -386,7 +298,7 @@ class Stats extends AbstractTableGateway
             $blockUs,
             $defenceUs,
             $totalFaults,
-        ]);
+        ];
 
         $defenceFault = $this->count([
             'eventId' => $eventId,
@@ -444,7 +356,7 @@ class Stats extends AbstractTableGateway
 
         $totalFaults = $defenceFault + $attackFault + $serveFault;
 
-        $result['them'] = json_encode([
+        $result['them'] = [
             $servePoint,
             $attackPoint,
             $blockPoint,
@@ -454,12 +366,12 @@ class Stats extends AbstractTableGateway
             $blockThem,
             $defenceThem,
             $totalFaults,
-        ]);
+        ];
 
         return $result;
     }
 
-    private function _getEfficiencyStats($eventId, $set)
+    private function _getEfficiency($eventId, $set)
     {
         if (!$this->fetchOne(['eventId' => $eventId, 'set' => $set])) return [];
 
@@ -499,7 +411,7 @@ class Stats extends AbstractTableGateway
         return $result;
     }
 
-    private function _getFaultStats($eventId, $set)
+    private function _getFault($eventId, $set)
     {
         if (!$this->fetchOne(['eventId' => $eventId, 'set' => $set])) return [];
 
@@ -549,7 +461,7 @@ class Stats extends AbstractTableGateway
         return $result;
     }
 
-    private function _getZoneRepartitionStats($eventId, $set)
+    private function _getZoneRepartition($eventId, $set)
     {
         if (!$this->fetchOne(['eventId' => $eventId, 'set' => $set])) return [];
 
@@ -741,7 +653,7 @@ class Stats extends AbstractTableGateway
         return $result;
     }
 
-    private function _getDefenceStats($eventId, $set)
+    private function _getDefence($eventId, $set)
     {
         if (!$this->fetchOne(['eventId' => $eventId, 'set' => $set])) return [];
 
