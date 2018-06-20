@@ -209,7 +209,7 @@
                 <div class="media">
                   <div class="pr-20">
                     <span class="avatar">
-                      <img alt="" src="/img/avatars/<?= $comment['author']->id ?>.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                      <img alt="" src="<?= $comment['author']->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
                     </span>
                   </div>
                   <div class="media-body col-12">
