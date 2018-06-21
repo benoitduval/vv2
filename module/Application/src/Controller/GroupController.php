@@ -215,8 +215,11 @@ class GroupController extends AbstractController
 
         foreach ($games as $game) {
             $stats = $this->statsTable->getAllByEventId($game->id);
-            if ($stats && isset($stats['ratio']['all'])) {
-                $ratio[$game->id]  = $stats['ratio']['all'];
+            if ($stats && isset($stats['compare']['all'])) {
+                $all = $stats['compare']['all'];
+                $total = $all['us'][1] + $all['them'][2] + $all['us'][4] + $all['them'][6] + $all['them'][7];
+                $ratio['point'][$game->id] = floor(($all['us'][1] * 100) / $total);
+                $ratio['fault'][$game->id] = floor(($all['us'][4] * 100) / $total);
                 $labels[$game->id] = $game->name;
             }
 
@@ -227,8 +230,9 @@ class GroupController extends AbstractController
             $game->victory ? $winCount++ : $loseCount++;
         }
 
-        $attackRatio = json_encode(array_values($ratio));
-        $labels = json_encode(array_reverse($labels));
+        $attackRatio = json_encode(array_values(array_reverse($ratio['point'])));
+        $faultRatio  = json_encode(array_values(array_reverse($ratio['fault'])));
+        $labels      = json_encode(array_reverse($labels));
 
         $matchCount = $winCount + $loseCount;
         $winPercent = $losePercent = 0;
@@ -259,6 +263,7 @@ class GroupController extends AbstractController
             'games'       => $games,
             'present'     => $present,
             'attackRatio' => $attackRatio,
+            'faultRatio'  => $faultRatio,
             'labels'      => $labels,
         ]);
     }

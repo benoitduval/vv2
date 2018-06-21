@@ -22,14 +22,19 @@
   // Top Line Chart With Tooltips
   // ----------------------------
   (function () {
-    var ratio = $('#ratiokillsPerFaults').attr('data-ratio');
+    var point = $('#ratiokillsPerFaults').attr('data-ratio-point');
+    var fault = $('#ratiokillsPerFaults').attr('data-ratio-fault');
     var labels = $('#ratiokillsPerFaults').attr('data-labels');
     Highcharts.chart('ratiokillsPerFaults', {
         chart: {
             type: 'areaspline'
         },
         title: {
-            text: 'Ratio Points / Faults'
+            text: 'Attacks'
+        },
+        tooltip: {
+            shared: true,
+            valueSuffix: '%'
         },
         xAxis: {
             categories: JSON.parse(labels),
@@ -51,8 +56,12 @@
             }
         },
         series: [{
-            name: 'Points / Faults',
-            data: JSON.parse(ratio)
+            name: 'Points',
+            data: JSON.parse(point)
+        },
+        {
+          name: 'Faults',
+          data: JSON.parse(fault)
         }]
     });
   })();
