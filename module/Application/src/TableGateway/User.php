@@ -31,4 +31,15 @@ class User extends AbstractTableGateway
         }
         return $users;
     }
+
+    public function getAllByEventId($eventId)
+    {
+        $dispTable = $this->getContainer()->get(TableGateway\Disponibility::class);
+        $disponibilities = $dispTable->fetchAll(['eventId' => $eventId, 'response' => \Application\Model\Disponibility::RESP_OK]);
+        foreach ($disponibilities as $disponibility) {
+            $userIds[] = $disponibility->userId;
+        }
+
+        return $this->fetchAll(['id' => $userIds]);
+    }
 }

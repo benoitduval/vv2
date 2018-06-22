@@ -432,6 +432,7 @@ class EventController extends AbstractController
         $eventId = $this->params('id');
         if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
 
+            $users = $this->userTable->getAllByEventId($event->id);
             $config     = $this->get('config');
             $stats      = $this->statsTable->fetchOne(['eventId' => $eventId], 'id DESC');
             $scoreUs    = 0;
@@ -449,15 +450,6 @@ class EventController extends AbstractController
                 }
                 $deleteLink = $config['baseUrl'] . '/event/delete-stats/' . $stats->id;
             }
-
-            $setsHistory     = $this->statsTable->getSetsHistory($eventId);
-            $setsStats       = $this->statsTable->getSetsStats($eventId);
-            $overallStats    = $this->statsTable->getOverallStats($eventId);
-            $setsLastScore   = $this->statsTable->setsLastScore($eventId);
-            $efficiencyStats = $this->statsTable->getEfficiencyStats($eventId);
-            $faultStats      = $this->statsTable->getFaultStats($eventId);
-            $defenceStats    = $this->statsTable->getDefenceStats($eventId);
-            $zoneRepartitionStats = $this->statsTable->getZoneRepartitionStats($eventId);
 
             $request = $this->getRequest();
             if ($request->isPost()) {
@@ -492,20 +484,11 @@ class EventController extends AbstractController
 
             return new ViewModel([
                 'deleteLink'    => $deleteLink,
-                'setsLastScore' => $setsLastScore,
-                'setsHistory'   => $setsHistory,
-                'setsStats'     => $setsStats,
                 'event'         => $event,
                 'user'          => $this->getUser(),
-                'scoreUs'       => $scoreUs,
-                'scoreThem'     => $scoreThem,
                 'set'           => (int) $set,
                 'size'          => 6,
-                'setsLastScore'   => $setsLastScore,
-                'defenceStats'    => $defenceStats,
-                'zoneRepartitionStats' => $zoneRepartitionStats,
-                'faultStats'      => $faultStats,
-                'efficiencyStats' => $efficiencyStats,
+                'users'         => $users
             ]);
         } else {
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');

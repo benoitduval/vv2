@@ -252,7 +252,7 @@
                     </div>
                     <div class="timeline-content">
                       <div class="title">
-                        <span class="authors"><?= $game->name ?></span> <span class="float-right font-size-30 <?= $game->victory ? 'text-success' : 'text-danger' ?>"><?= $game->score ?></span>
+                        <span class="authors"><a href="/event/detail/<?= $game->id ?>"><?= $game->name ?></a></span> <span class="float-right font-size-30 <?= $game->victory ? 'text-success' : 'text-danger' ?>"><?= $game->score ?></span>
                       </div>
                       <div class="metas">
                         <?php if ($game->sets): ?>
