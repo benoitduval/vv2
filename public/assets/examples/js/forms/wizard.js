@@ -82,7 +82,17 @@
 
     $('.out').on('click', function() {
         $('.out').css('fill', '#00bad5');
-        $(this).css('fill', '#F44336');
+        $(this).css('fill', '#ff4c52');
+    });
+
+    $('.target').on('click', function() {
+        $('.target').css('fill', '#D89B5C');
+        $(this).css('fill', '#11c26d');
+    });
+
+    $('.attack').on('click', function() {
+        $('.attack').css('fill', '#D89B5C');
+        $(this).css('fill', '#11c26d');
     });
   })();
 });
