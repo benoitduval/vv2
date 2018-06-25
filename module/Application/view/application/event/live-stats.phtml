@@ -94,26 +94,15 @@
           </div>
           <div class="wizard-pane" role="tabpanel">
             <div class="row">
-                <div id="attack-fault-detail" class='col-12 text-center hidden'>
-                    <h5>Faute au Poste</h5>
-                    <button value="<?= \Application\Model\Stats::FAULT_ATTACK . \Application\Model\Stats::POST_4 ?>" name="reason" class="btn btn-danger col-5 btn-xlg">4</button>
-                    <button value="<?= \Application\Model\Stats::FAULT_ATTACK . \Application\Model\Stats::POST_2 ?>" name="reason" class="btn btn-danger col-5 col-offset-2 btn-xlg">2</button>
-                    <div class="col-12" style="height: 10px;"></div>
-                    <button value="<?= \Application\Model\Stats::FAULT_ATTACK . \Application\Model\Stats::POST_FIX ?>" name="reason" class="btn btn-danger col-5 btn-xlg">Centre</button>
-                    <button value="<?= \Application\Model\Stats::FAULT_ATTACK . \Application\Model\Stats::POST_3M ?>" name="reason" class="btn btn-danger col-5 col-offset-2 btn-xlg">3m</button>
-                    <div class="col-12" style="height: 10px;"></div>
-                    <button value="<?= \Application\Model\Stats::FAULT_ATTACK . \Application\Model\Stats::POST_SETTER ?>" name="reason" class="btn btn-danger col-6 col-offset-3 btn-xlg">Passeur</button>
+                <div class="col-12 text-center">
+                    <?php foreach ($users as $user): ?>
+                        <label class="btn-avatar" data-user-id="<?= $user->id ?>">
+                          <input type="radio" name="user" />
+                          <img class="avatar avatar-lg" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                        </label>
+                    <?php endforeach ?>
                 </div>
-                <div id="attack-point-detail" class='col-12 text-center'>
-                    <div class="col-12">
-                        <?php foreach ($users as $user): ?>
-                            <label class="btn-avatar" data-user-id="<?= $user->id ?>">
-                              <input type="radio" name="user" />
-                              <img class="avatar avatar-lg" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                            </label>
-                        <?php endforeach ?>
-                    </div>
-                </div>
+                <svg width="1367" height="769" id="4bc259d6-9564-409f-9c90-269b62f7cbd1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1367 769"><defs><style>.c77c2c33-dc82-4b2f-8925-fcb4e7787c45{fill:#f8a081;}.c77c2c33-dc82-4b2f-8925-fcb4e7787c45,.d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a{stroke:#000;stroke-miterlimit:10;}.d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a{fill:#00bad5;}</style></defs><title>test</title><rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45" x="285.36" y="360.93" width="142.29" height="330.72" transform="translate(-169.28 883.29) rotate(-90)"/><rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45" x="531.29" y="445.55" width="142.29" height="161.13" transform="translate(76.82 1129.05) rotate(-90)"/><rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45" x="692.42" y="445.55" width="142.29" height="161.13" transform="translate(237.95 1290.18) rotate(-90)"/><rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45" x="935.44" y="363.67" width="142.29" height="324.89" transform="translate(480.97 1533.19) rotate(-90)"/><rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45" x="286.17" y="219.45" width="140.67" height="330.72" transform="translate(-27.8 741.82) rotate(-90)"/><rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45" x="532.1" y="304.07" width="140.67" height="161.13" transform="translate(218.3 987.57) rotate(-90)"/><rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45" x="693.04" y="304.26" width="140.67" height="160.76" transform="translate(379.24 1148.51) rotate(-90)"/><rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45" x="936.24" y="222.19" width="140.67" height="324.89" transform="translate(622.45 1391.71) rotate(-90)"/><rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45" x="285.36" y="77.8" width="142.29" height="330.72" transform="translate(113.85 600.16) rotate(-90)"/><rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45" x="531.29" y="162.41" width="142.29" height="161.13" transform="translate(359.95 845.91) rotate(-90)"/><rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45" x="692.42" y="162.41" width="142.29" height="161.13" transform="translate(521.09 1007.05) rotate(-90)"/><rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45" x="935.44" y="80.53" width="142.29" height="324.89" transform="translate(764.1 1250.06) rotate(-90)"/><rect class="d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a" x="255.58" y="-255.58" width="171.84" height="683" transform="translate(256.08 427.92) rotate(-90)"/><rect class="d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a" x="938.97" y="-255.19" width="171.06" height="683" transform="translate(938.69 1111.31) rotate(-90)"/><rect class="d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a" x="256.72" y="341.72" width="169.55" height="683" transform="translate(-341.22 1025.22) rotate(-90)"/><rect class="d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a" x="939.13" y="341.13" width="170.74" height="683" transform="translate(342.37 1707.63) rotate(-90)"/><rect class="d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a" x="-117.73" y="289.57" width="426.61" height="191.15" transform="translate(-289.07 481.22) rotate(-90)"/><rect class="d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a" x="1055.2" y="286.45" width="424.63" height="196.97" transform="translate(883.07 1652.95) rotate(-90)"/></svg>
             </div>
           </div>
         </div>

@@ -85,6 +85,7 @@
     $('.btn-avatar').each(function () {
         $(this).on('click', function() {
             var input = $(this).find('input');
+            $('.btn-avatar').find('input').removeAttr('checked');
             input.attr('checked', 'checked');
         });
     });
