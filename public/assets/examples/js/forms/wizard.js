@@ -67,16 +67,6 @@
         $('#attack-fault-them').removeClass('hidden');
     });
 
-    $('#attack-fault-us').on('click', function() {
-        $('#attack-point-detail').addClass('hidden');
-        $('#attack-fault-detail').removeClass('hidden');
-    });
-
-    $('#attack-us').on('click', function() {
-        $('#attack-point-detail').removeClass('hidden');
-        $('#attack-fault-detail').addClass('hidden');
-    });
-
     (0, _jquery2.default)("#statsWizard").wizard(options);
     $('.btn-next').on('click', function() {
       (0, _jquery2.default)("#statsWizard").wizard('next');
@@ -88,6 +78,11 @@
             $('.btn-avatar').find('input').removeAttr('checked');
             input.attr('checked', 'checked');
         });
+    });
+
+    $('.out').on('click', function() {
+        $('.out').css('fill', '#00bad5');
+        $(this).css('fill', '#F44336');
     });
   })();
 });
