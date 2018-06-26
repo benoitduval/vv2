@@ -12,172 +12,156 @@
       </div>
       <div class="panel-body">
         <div class="wizard-content">
-          <div class="wizard-pane active" role="tabpanel">
-            <div class="btn-group btn-group-justified">
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-success btn-next"  id="point-us">
-                  <input type="radio" class="hidden" name="point-for" value="<?= \Application\Model\Stats::POINT_US ?>">
-                  <span class="counter font-size-30"><?= $scoreUs ?></span>
-                  <br>
-                  <span class="text-uppercase">Us</span>
-                </button>
-              </div>
+              <div class="wizard-pane inactive" role="tabpanel">
+                <div class="btn-group btn-group-justified">
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-success btn-next" id="point-us" data-value="<?= \Application\Model\Stats::POINT_US ?>">
+                      <span class="counter font-size-30"><?= $scoreUs ?></span>
+                      <br>
+                      <span class="text-uppercase">Us</span>
+                    </button>
+                  </div>
 
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default btn-outline btn-counter">
-                  <input type="hidden" name="block-us" value="0">
-                  <span class="counter font-size-30">0</span>
-                  <br>
-                  <span class="text-uppercase">+1 Block</span>
-                </button>
-              </div>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default btn-outline btn-counter" data-input-target="#block-us">
+                      <span class="counter font-size-30">0</span>
+                      <br>
+                      <span class="text-uppercase">+1 Block</span>
+                    </button>
+                  </div>
 
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary btn-outline btn-counter">
-                  <input type="hidden" name="defence-us" value="0">
-                  <span class="counter font-size-30">0</span>
-                  <br>
-                  <span class="text-uppercase">+1 Dig</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="btn-group btn-group-justified mt-40">
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-danger btn-next" id="point-them">
-                  <input type="radio" class="hidden" name="point-for" value="<?= \Application\Model\Stats::POINT_THEM ?>">
-                  <span class="counter font-size-30"><?= $scoreThem ?></span>
-                  <br>
-                  <span class="text-uppercase">Them</span>
-                </button>
-              </div>
-
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default btn-outline btn-counter">
-                  <input type="hidden" name="block-them" value="0">
-                  <span class="counter font-size-30">0</span>
-                  <br>
-                  <span class="text-uppercase">+1 Block</span>
-                </button>
-              </div>
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary btn-outline btn-counter">
-                  <input type="hidden" name="defence-them" value="0">
-                  <span class="counter font-size-30">0</span>
-                  <br>
-                  <span class="text-uppercase">+1 Dig</span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="wizard-pane" role="tabpanel">
-            <div class="row">
-                <div class='col-6 text-center'>
-                    <h5 class="text-center">Point</h5>
-                    <button type="button" id="attack-us" class="btn btn-success btn-xlg btn-next col-12">Attaque</button>
-                    <button  id="attack-them" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success col-12 btn-xlg hidden">Attaque</button>
-                    <div class="col-12" style="height: 10px;"></div>
-                    <button value="<?= \Application\Model\Stats::POINT_SERVE ?>" name="reason" class="btn btn-success col-12 btn-xlg">Service</button>
-                    <div class="col-12" style="height: 10px;"></div>
-                    <button value="<?= \Application\Model\Stats::POINT_BLOCK ?>" name="reason" class="btn btn-success col-12 btn-xlg">Block</button>
-                </div>
-                <div class='col-6 text-center'>
-                    <h5>Faute</h5>
-                    <button id="attack-fault-them" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger col-12 btn-xlg" data-toggle="modal" data-target="#attaque">Attaque</button>
-                    <button id="attack-fault-us" type="button" id="attack-us" class="btn btn-danger btn-xlg btn-next col-12 hidden">Attaque</button>
-                    <div class="col-12" style="height: 10px;"></div>
-                    <button value="<?= \Application\Model\Stats::FAULT_SERVE ?>" name="reason" class="btn btn-danger col-12 btn-xlg">Service</button>
-                    <div class="col-12" style="height: 10px;"></div>
-                    <button value="<?= \Application\Model\Stats::FAULT_DEFENCE ?>" name="reason" class="btn btn-danger col-12 btn-xlg">Défensive</button>
-                </div>
-            </div>
-          </div>
-          <div class="wizard-pane" role="tabpanel">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <?php foreach ($users as $user): ?>
-                        <label class="btn-avatar" data-user-id="<?= $user->id ?>">
-                          <input type="radio" name="user" />
-                          <img class="avatar avatar-lg" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                        </label>
-                    <?php endforeach ?>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-primary btn-outline btn-counter" data-input-target="#defence-us">
+                      <span class="counter font-size-30">0</span>
+                      <br>
+                      <span class="text-uppercase">+1 Dig</span>
+                    </button>
+                  </div>
                 </div>
 
-                <svg version="1.1" width="100%" height="350px"
-                   id="Calque_1" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" image-rendering="optimizeQuality" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
-                   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 573.5 311.9"
-                   style="enable-background:new 0 0 573.5 311.9;" xml:space="preserve">
-                <style type="text/css">
-                  .st0{fill:#0EADB0;stroke:#0EADB0;}
-                  .st1{fill:#B3B3B3;}
-                  .st2{fill:#D89B5C;stroke:#E8B17E;}
-                  .st3{stroke:#FFFFFF;stroke-miterlimit:10;}
-                  .st4{font-family:'MyriadPro-Regular';}
-                  .st5{font-size:23.7479px;}
-                  .st6{fill:#FFFFFF;}
-                  .st7{font-size:12px;}
-                  .active{cursor:pointer;}
-                </style>
-                <rect id="out-left" x="285.8" y="0.5" class="st0 active out" width="287.2" height="32.8"/>
-                <rect id="out-back" x="539.4" y="33.3" class="st0 active out" width="33.6" height="251.2"/>
-                <rect id="out-right" x="285.8" y="284.5" class="st0 active out" width="287.2" height="26.9"/>
-                <rect id="out-net" x="278.2" y="33.3" class="st1 active net" width="16.4" height="251.2"/>
-                <rect id="target-p4" x="294.6" y="200.8" class="st2 active target" width="74.8" height="83.7"/>
-                <rect id="target-p3" x="294.6" y="117.1" class="st2 active target" width="74.8" height="83.7"/>
-                <rect id="target-p2" x="294.6" y="33.3" class="st2 active target" width="74.8" height="83.7"/>
-                <rect id="target-p5" x="373" y="200.8" class="st2 active target" width="166.4" height="83.7"/>
-                <rect id="target-p6" x="373" y="117.1" class="st2 active target" width="166.4" height="83.7"/>
-                <rect id="target-p1" x="373" y="33.3" class="st2 active target" width="166.4" height="83.7"/>
-                <rect id="attack-p2" x="202.2" y="200.9" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 480.331 485.377)" class="st2 active attack" width="76" height="83.7"/>
-                <rect id="attack-p3" x="202.2" y="117.1" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 480.331 317.8882)" class="st2 active attack" width="76" height="83.7"/>
-                <rect id="attack-p4" x="202.2" y="33.4" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 480.331 150.3993)" class="st2 active attack" width="76" height="83.7"/>
-                <rect id="attack-p1" x="32.1" y="200.8" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 230.4501 485.3091)" class="st2 active attack" width="166.2" height="83.7"/>
-                <rect id="attack-p6" x="32.1" y="117.1" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 230.4501 317.8882)" class="st2 active attack" width="166.2" height="83.7"/>
-                <rect id="attack-p5" x="32.1" y="33.3" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 230.4501 150.3993)" class="st2 active attack" width="166.2" height="83.7"/>
-                <text transform="matrix(1 0 0 1 71.4999 22.3329)" class="st3 st4 st5">OUR TEAM SIDE</text>
-                <text transform="matrix(1 0 0 1 37.8331 210.9996)" class="st6 st4 st7">1</text>
-                <text transform="matrix(1 0 0 1 206.8748 212.8743)" class="st6 st4 st7">2</text>
-                <text transform="matrix(1 0 0 1 206.8746 130.8743)" class="st6 st4 st7">3</text>
-                <text transform="matrix(1 0 0 1 206.8748 48.4997)" class="st6 st4 st7">4</text>
-                <text transform="matrix(1 0 0 1 37.8331 48.4997)" class="st6 st4 st7">5</text>
-                <text transform="matrix(1 0 0 1 37.8331 130.8743)" class="st6 st4 st7">6</text>
-                <text transform="matrix(1 0 0 1 360.4999 48.4997)" class="st6 st4 st7">2</text>
-                <text transform="matrix(1 0 0 1 525.4999 48.4997)" class="st6 st4 st7">1</text>
-                <text transform="matrix(1 0 0 1 525.4999 130.8743)" class="st6 st4 st7">6</text>
-                <text transform="matrix(1 0 0 1 525.4999 212.8743)" class="st6 st4 st7">5</text>
-                <text transform="matrix(1 0 0 1 360.4999 130.8743)" class="st6 st4 st7">3</text>
-                <text transform="matrix(1 0 0 1 360.4999 212.8743)" class="st6 st4 st7">4</text>
-                </svg>
+                <div class="btn-group btn-group-justified mt-40">
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-danger btn-next" id="point-them" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
+                      <span class="counter font-size-30"><?= $scoreThem ?></span>
+                      <br>
+                      <span class="text-uppercase">Them</span>
+                    </button>
+                  </div>
 
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default btn-outline btn-counter" data-input-target="#block-them">
+                      <span class="counter font-size-30">0</span>
+                      <br>
+                      <span class="text-uppercase">+1 Block</span>
+                    </button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-primary btn-outline btn-counter" data-input-target="#defence-them">
+                      <span class="counter font-size-30">0</span>
+                      <br>
+                      <span class="text-uppercase">+1 Dig</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="wizard-pane" role="tabpanel">
+                <div class="row">
+                    <div class='col-6 text-center'>
+                        <h5 class="text-center">Point</h5>
+                        <button type="button" id="attack-us" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success btn-xlg btn-next col-12">Attack</button>
+                        <button  id="attack-them" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success col-12 btn-xlg hidden">Attack</button>
+                        <div class="col-12" style="height: 10px;"></div>
+                        <button value="<?= \Application\Model\Stats::POINT_SERVE ?>" name="reason" class="btn btn-success col-12 btn-xlg">Serve</button>
+                        <div class="col-12" style="height: 10px;"></div>
+                        <button value="<?= \Application\Model\Stats::POINT_BLOCK ?>" name="reason" class="btn btn-success col-12 btn-xlg">Block</button>
+                    </div>
+                    <div class='col-6 text-center'>
+                        <h5>Faute</h5>
+                        <button id="attack-fault-them" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger col-12 btn-xlg" data-toggle="modal" data-target="#attaque">Attack</button>
+                        <button id="attack-fault-us" type="button" id="s" class="btn btn-danger btn-xlg btn-next col-12 hidden">Attack</button>
+                        <div class="col-12" style="height: 10px;"></div>
+                        <button value="<?= \Application\Model\Stats::FAULT_SERVE ?>" name="reason" class="btn btn-danger col-12 btn-xlg">Serve</button>
+                        <div class="col-12" style="height: 10px;"></div>
+                        <button value="<?= \Application\Model\Stats::FAULT_DEFENCE ?>" name="reason" class="btn btn-danger col-12 btn-xlg">Defensive</button>
+                    </div>
+                </div>
+              </div>
+              <div class="wizard-pane" role="tabpanel">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <?php foreach ($users as $user): ?>
+                            <label class="btn-avatar" data-user-id="<?= $user->id ?>">
+                              <input type="radio" name="user" />
+                              <img class="avatar avatar-lg" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                            </label>
+                        <?php endforeach ?>
+                    </div>
 
-<!--                 <svg width="100%" height="350" id="4bc259d6-9564-409f-9c90-269b62f7cbd1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1367 769"><defs><style>.c77c2c33-dc82-4b2f-8925-fcb4e7787c45{fill:#f8a081;}.d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a{fill:#00bad5;}</style></defs>
-
-                    <rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45 attack" data-zone="P1" x="285.36" y="360.93" width="142.29" height="330.72" transform="translate(-169.28 883.29) rotate(-90)"/>
-                    <rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45 attack" data-zone="P2" x="531.29" y="445.55" width="142.29" height="161.13" transform="translate(76.82 1129.05) rotate(-90)"/>
-                    <rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45 attack" data-zone="P3" x="532.1" y="304.07" width="140.67" height="161.13" transform="translate(218.3 987.57) rotate(-90)"/>
-                    <rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45 attack" data-zone="P4" x="531.29" y="162.41" width="142.29" height="161.13" transform="translate(359.95 845.91) rotate(-90)"/>
-                    <rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45 attack" data-zone="P5" x="285.36" y="77.8" width="142.29" height="330.72" transform="translate(113.85 600.16) rotate(-90)"/>
-                    <rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45 attack" data-zone="P6" x="286.17" y="219.45" width="140.67" height="330.72" transform="translate(-27.8 741.82) rotate(-90)"/>
-                    
-                    <rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45 target" data-zone="P1" x="935.44" y="80.53" width="142.29" height="324.89" transform="translate(764.1 1250.06) rotate(-90)"/>
-                    <rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45 target" data-zone="P2" x="692.42" y="162.41" width="142.29" height="161.13" transform="translate(521.09 1007.05) rotate(-90)"/>
-                    <rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45 target" data-zone="P3" x="693.04" y="304.26" width="140.67" height="160.76" transform="translate(379.24 1148.51) rotate(-90)"/>
-                    <rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45 target" data-zone="P4" x="692.42" y="445.55" width="142.29" height="161.13" transform="translate(237.95 1290.18) rotate(-90)"/>
-                    <rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45 target" data-zone="P5" x="935.44" y="363.67" width="142.29" height="324.89" transform="translate(480.97 1533.19) rotate(-90)"/>
-                    <rect class="c77c2c33-dc82-4b2f-8925-fcb4e7787c45 target" data-zone="P6" x="936.24" y="222.19" width="140.67" height="324.89" transform="translate(622.45 1391.71) rotate(-90)"/>
-                    <rect class="d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a out" data-zone="out-left" x="938.97" y="-255.19" width="171.06" height="683" transform="translate(938.69 1111.31) rotate(-90)"/>
-                    <rect class="d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a out" data-zone="out-right" x="939.13" y="341.13" width="170.74" height="683" transform="translate(342.37 1707.63) rotate(-90)"/>
-                    <rect class="d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a out" data-zone="out-long" x="1055.2" y="286.45" width="424.63" height="196.97" transform="translate(883.07 1652.95) rotate(-90)"/>
-                    
-                    <rect class="d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a no-action" x="256.72" y="341.72" width="169.55" height="683" transform="translate(-341.22 1025.22) rotate(-90)"/>
-                    <rect class="d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a no-action" x="-117.73" y="289.57" width="426.61" height="191.15" transform="translate(-289.07 481.22) rotate(-90)"/>
-                    <rect class="d7a5a9d4-b6ee-4d15-a980-44bc6f59b71a no-action" x="255.58" y="-255.58" width="171.84" height="683" transform="translate(256.08 427.92) rotate(-90)"/>
-                </svg> -->
-            </div>
-          </div>
+                    <svg version="1.1" width="100%" height="350px"
+                       id="Calque_1" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" image-rendering="optimizeQuality" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+                       xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 573.5 311.9"
+                       style="enable-background:new 0 0 573.5 311.9;" xml:space="preserve">
+                       <defs>
+                           <pattern id="inactiveOut" patternUnits="userSpaceOnUse" width="4" height="4">
+                             <path d="M-1,1 l2,-2
+                                      M0,4 l4,-4
+                                      M3,5 l2,-2" 
+                                   style="stroke:#00bad5; stroke-width:1" />
+                           </pattern>
+                           <pattern id="inactiveCourt" patternUnits="userSpaceOnUse" width="4" height="4">
+                             <path d="M-1,1 l2,-2
+                                      M0,4 l4,-4
+                                      M3,5 l2,-2" 
+                                   style="stroke:#f8a081; stroke-width:1" />
+                           </pattern>
+                       </defs>
+                    <rect fill="url(#inactiveOut)" data-out="9" x="285.8" y="0.5" class="zone-court st0 inactive out" width="287.2" height="32.8"/>
+                    <rect fill="url(#inactiveOut)" data-out="10" x="539.4" y="33.3" class="zone-court st0 inactive out" width="33.6" height="251.2"/>
+                    <rect fill="url(#inactiveOut)" data-out="8" x="285.8" y="284.5" class="zone-court st0 inactive out" width="287.2" height="26.9"/>
+                    <rect fill="url(#inactiveOut)" data-out="7" x="278.2" y="33.3" class="zone-court st0 inactive out" width="16.4" height="251.2"/>
+                    <rect fill="url(#inactiveCourt)" data-target="4" x="294.6" y="200.8" class="zone-court st2 inactive target" width="74.8" height="83.7"/>
+                    <rect fill="url(#inactiveCourt)" data-target="3" x="294.6" y="117.1" class="zone-court st2 inactive target" width="74.8" height="83.7"/>
+                    <rect fill="url(#inactiveCourt)" data-target="2" x="294.6" y="33.3" class="zone-court st2 inactive target" width="74.8" height="83.7"/>
+                    <rect fill="url(#inactiveCourt)" data-target="5" x="373" y="200.8" class="zone-court st2 inactive target" width="166.4" height="83.7"/>
+                    <rect fill="url(#inactiveCourt)" data-target="6" x="373" y="117.1" class="zone-court st2 inactive target" width="166.4" height="83.7"/>
+                    <rect fill="url(#inactiveCourt)" data-target="1" x="373" y="33.3" class="zone-court st2 inactive target" width="166.4" height="83.7"/>
+                    <rect fill="url(#inactiveCourt)" data-attack="2" x="202.2" y="200.9" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 480.331 485.377)" class="zone-court st2 inactive attack" width="76" height="83.7"/>
+                    <rect fill="url(#inactiveCourt)" data-attack="3" x="202.2" y="117.1" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 480.331 317.8882)" class="zone-court st2 inactive attack" width="76" height="83.7"/>
+                    <rect fill="url(#inactiveCourt)" data-attack="4" x="202.2" y="33.4" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 480.331 150.3993)" class="zone-court st2 inactive attack" width="76" height="83.7"/>
+                    <rect fill="url(#inactiveCourt)" data-attack="1" x="32.1" y="200.8" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 230.4501 485.3091)" class="zone-court st2 inactive attack" width="166.2" height="83.7"/>
+                    <rect fill="url(#inactiveCourt)" data-attack="6" x="32.1" y="117.1" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 230.4501 317.8882)" class="zone-court st2 inactive attack" width="166.2" height="83.7"/>
+                    <rect fill="url(#inactiveCourt)" data-attack="5" x="32.1" y="33.3" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 230.4501 150.3993)" class="zone-court st2 inactive attack" width="166.2" height="83.7"/>
+                    <text transform="matrix(1 0 0 1 71.4999 22.3329)" class="st3 st4 st5">OUR TEAM SIDE</text>
+                    <text transform="matrix(1 0 0 1 37.8331 210.9996)" class="st6 st4 st7">1</text>
+                    <text transform="matrix(1 0 0 1 206.8748 212.8743)" class="st6 st4 st7">2</text>
+                    <text transform="matrix(1 0 0 1 206.8746 130.8743)" class="st6 st4 st7">3</text>
+                    <text transform="matrix(1 0 0 1 206.8748 48.4997)" class="st6 st4 st7">4</text>
+                    <text transform="matrix(1 0 0 1 37.8331 48.4997)" class="st6 st4 st7">5</text>
+                    <text transform="matrix(1 0 0 1 37.8331 130.8743)" class="st6 st4 st7">6</text>
+                    <text transform="matrix(1 0 0 1 360.4999 48.4997)" class="st6 st4 st7">2</text>
+                    <text transform="matrix(1 0 0 1 525.4999 48.4997)" class="st6 st4 st7">1</text>
+                    <text transform="matrix(1 0 0 1 525.4999 130.8743)" class="st6 st4 st7">6</text>
+                    <text transform="matrix(1 0 0 1 525.4999 212.8743)" class="st6 st4 st7">5</text>
+                    <text transform="matrix(1 0 0 1 360.4999 130.8743)" class="st6 st4 st7">3</text>
+                    <text transform="matrix(1 0 0 1 360.4999 212.8743)" class="st6 st4 st7">4</text>
+                    </svg>
+                </div>
+              </div>
         </div>
       </div>
     </div>
     <!-- End Panel Wizard Pager -->
+
+    <form id="game-stats" method="POST">
+        <input type="hidden" placeholder="block-us" id="block-us" name="attack" value="0"/>
+        <input type="hidden" placeholder="block-them" id="block-them" name="attack" value="0"/>
+        <input type="hidden" placeholder="defence-us" id="defence-us" name="attack" value="0"/>
+        <input type="hidden" placeholder="defence-them" id="defence-them" name="attack" value="0"/>
+        <input type="text" placeholder="point-for" id="point-for" name="attack" value=""/>
+        <input type="text" placeholder="reason" id="reason" name="reason" value=""/>
+        <input type="text" placeholder="userId" id="userId" name="userId" value=""/>
+        <input type="text"  placeholder="attack" id="attack" name="attack" value=""/>
+        <input type="text" placeholder="target" id="target" name="target" value=""/>
+    </form>
   </div>
 </div>
