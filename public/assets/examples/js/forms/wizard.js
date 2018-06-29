@@ -29,14 +29,14 @@
       templates: {
         buttons: function buttons() {
           var options = this.options;
-          var html = '<div class="btn-group btn-group-sm">' + '<a class="btn btn-default btn-outline" href="#' + this.id + '" data-wizard="back" role="button">' + options.buttonLabels.back + '</a><a class="btn btn-danger btn-outline" href="#" role="button"><i class="icon wb-trash"></i> Last Point</a><a class="btn btn-success btn-outline disabled" id="submit-point" href="#' + this.id + '" data-wizard="finish" role="button">Submit</a></div>';
+          var html = '<div class="btn-group btn-group-sm">' + '<a id="reset" class="btn btn-default btn-outline" href="#' + this.id + '" role="button">' + options.buttonLabels.back + '</a><a class="btn btn-danger btn-outline" href="#" role="button"><i class="icon wb-trash"></i> Last Point</a><a class="btn btn-success btn-outline disabled" id="submit-point" href="#' + this.id + '" data-wizard="finish" role="button">' + options.buttonLabels.finish + '</a></div>';
           return html;
         }
       },
       buttonLabels: {
         next: '<i class="icon wb-chevron-right" aria-hidden="true"></i>',
-        back: '<i class="icon wb-chevron-left" aria-hidden="true"></i>',
-        finish: '<i class="icon wb-check" aria-hidden="true"></i>'
+        back: '<i class="icon wb-refresh" aria-hidden="true"></i> Cancel',
+        finish: '<i class="icon wb-check" aria-hidden="true"></i> Submit'
       },
 
       buttonsAppendTo: '.panel-actions'
@@ -242,6 +242,9 @@
     $("button[name=reason]").each(function () {
         $(this).on('click', function() {
           $('#reason').val($(this).attr('value'));
+          if (jQuery.inArray($(this).prop('id'), ['defensive-fault', 'service-point-them', 'service-fault-them', 'attack-them', 'attack-fault-them']) !== -1) {
+            $('#game-stats').submit();
+          }
         });
     });
 
@@ -253,6 +256,10 @@
     (0, _jquery2.default)("#statsWizard").wizard(options);
     $('.btn-next').on('click', function() {
       (0, _jquery2.default)("#statsWizard").wizard('next');
+    });
+
+    $("#reset").on('click', function (event) {
+      window.location.reload();
     });
 
   })();

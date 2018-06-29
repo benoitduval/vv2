@@ -1,4 +1,4 @@
---
+:--
 -- Table structure for table `comment`
 --
 DROP TABLE IF EXISTS `comment`;
@@ -174,6 +174,7 @@ CREATE TABLE `stats` (
   `defenceThem` tinyint(2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `eventId` (`eventId`, `userId`, `groupId`),
+  KEY `set` (`pointFor`),
   KEY `set` (`set`),
   KEY `reason` (`reason`),
   KEY `zone` (`fromZone`, `toZone`)
