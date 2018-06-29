@@ -29,7 +29,7 @@
       templates: {
         buttons: function buttons() {
           var options = this.options;
-          var html = '<div class="btn-group btn-group-sm">' + '<a id="reset" class="btn btn-default btn-outline" href="#' + this.id + '" role="button">' + options.buttonLabels.back + '</a><a class="btn btn-danger btn-outline" href="#" role="button"><i class="icon wb-trash"></i> Last Point</a><a class="btn btn-success btn-outline disabled" id="submit-point" href="#' + this.id + '" data-wizard="finish" role="button">' + options.buttonLabels.finish + '</a></div>';
+          var html = '<div class="btn-group btn-group-sm">' + '<a id="reset" class="btn btn-default btn-outline" href="#' + this.id + '" role="button">' + options.buttonLabels.back + '</a><a id="warning-confirm" data-url="<?= $deleteLink ?>" class="btn btn-danger btn-outline" href="#" role="button"><i class="icon wb-trash"></i> Last Point</a><a class="btn btn-success btn-outline disabled" id="submit-point" href="#' + this.id + '" data-wizard="finish" role="button">' + options.buttonLabels.finish + '</a></div>';
           return html;
         }
       },
@@ -262,5 +262,21 @@
       window.location.reload();
     });
 
+    var deleteLink = $("svg").attr('data-delete-link');
+    (0, _jquery2.default)('#warning-confirm').on("click", function () {
+      var elem = $(this);
+      swal({
+        title: "Are you sure?",
+        text: "You last point will be delete",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        confirmButtonText: 'Yes, delete it!',
+        closeOnConfirm: false
+        //closeOnCancel: false
+      }, function () {
+        window.location.href = deleteLink;
+      });
+    });
   })();
 });

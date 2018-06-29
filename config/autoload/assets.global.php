@@ -19,12 +19,14 @@ return [
                 '/global/vendor/screenfull/screenfull.js',
                 '/global/vendor/jquery-ui/jquery-ui.min.js',
                 '/global/vendor/moment/moment.min.js',
+                '/global/vendor/bootstrap-sweetalert/sweetalert.js',
             ],
             'css' => [
                 '/global/css/bootstrap.min.css',
                 '/global/css/bootstrap-extend.min.css',
                 '/assets/css/site.min.css',
                 '/css/custom.css',
+                '/global/vendor/bootstrap-sweetalert/sweetalert.css',
             ],
             'fonts' => [
                 '/global/fonts/web-icons/web-icons.min.css',
