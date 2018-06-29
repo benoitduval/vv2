@@ -33,17 +33,35 @@ class Stats extends AbstractModel
     const BEHIND              = 8;
     const SET_ATTACK          = 9;
 
-    protected $_id            = null;
-    protected $_eventId       = null;
-    protected $_scoreUs       = null;
-    protected $_scoreThem     = null;
-    protected $_pointFor      = null;
-    protected $_set           = null;
-    protected $_reason        = null;
-    protected $_blockUs       = null;
-    protected $_blockThem     = null;
-    protected $_defenceUs     = null;
-    protected $_defenceThem   = null;
+    const FROM_P1           = 1;
+    const FROM_P2           = 2;
+    const FROM_P3           = 3;
+    const FROM_P4           = 4;
+    const FROM_P5           = 5;
+    const FROM_P6           = 6;
+
+    const TO_P1             = 1;
+    const TO_P2             = 2;
+    const TO_P3             = 3;
+    const TO_P4             = 4;
+    const TO_P5             = 5;
+    const TO_P6             = 6;
+
+    protected $_id          = null;
+    protected $_eventId     = null;
+    protected $_scoreUs     = null;
+    protected $_scoreThem   = null;
+    protected $_pointFor    = null;
+    protected $_set         = null;
+    protected $_reason      = null;
+    protected $_blockUs     = null;
+    protected $_blockThem   = null;
+    protected $_defenceUs   = null;
+    protected $_defenceThem = null;
+    protected $_userId      = null;
+    protected $_fromZone    = null;
+    protected $_toZone      = null;
+    protected $_groupId     = null;
 
     public static $attackUs = [
         self::POINT_ATTACK,

@@ -29,7 +29,7 @@
       templates: {
         buttons: function buttons() {
           var options = this.options;
-          var html = '<div class="btn-group btn-group-sm">' + '<a class="btn btn-default btn-outline" href="#' + this.id + '" data-wizard="back" role="button">' + options.buttonLabels.back + '</a><a class="btn btn-danger btn-outline" href="#" role="button"><i class="icon wb-trash"></i> Last Point</a></div>';
+          var html = '<div class="btn-group btn-group-sm">' + '<a class="btn btn-default btn-outline" href="#' + this.id + '" data-wizard="back" role="button">' + options.buttonLabels.back + '</a><a class="btn btn-danger btn-outline" href="#" role="button"><i class="icon wb-trash"></i> Last Point</a><a class="btn btn-success btn-outline disabled" id="submit-point" href="#' + this.id + '" data-wizard="finish" role="button">Submit</a></div>';
           return html;
         }
       },
@@ -55,26 +55,28 @@
 
     $('#point-them').on('click', function() {
         $('#point-for').val($(this).attr('data-value'));
-        $('#attack-us').addClass('hidden');
         $('#attack-them').removeClass('hidden');
-        $('#attack-fault-them').addClass('hidden');
         $('#attack-fault-us').removeClass('hidden');
+        $('#service-fault-us').removeClass('hidden');
+        $('#service-point-them').removeClass('hidden');
+        $('#defensive-fault').removeClass('hidden');
+        $('#block-point-them').removeClass('hidden');
     });
 
     $('#point-us').on('click', function() {
         $('#point-for').val($(this).attr('data-value'));
         $('#attack-us').removeClass('hidden');
-        $('#attack-them').addClass('hidden');
-        $('#attack-fault-us').addClass('hidden');
         $('#attack-fault-them').removeClass('hidden');
+        $('#service-point-us').removeClass('hidden');
+        $('#service-fault-them').removeClass('hidden');
+        $('#defensive-fault').removeClass('hidden');
+        $('#block-point-us').removeClass('hidden');
     });
 
     $('#attack-us').on('click', function() {
       $('.btn-avatar').on('click', function() {
           $('#userId').val($(this).attr('data-user-id'));
           var input = $(this).find('input');
-          // $('.btn-avatar').find('input').removeAttr('checked');
-          // input.attr('checked', 'checked');
 
           $('.attack').each(function () {
             $(this).removeAttr('fill', 'url(#inactiveCourt)');
@@ -84,7 +86,7 @@
           });
 
           $('.attack.active').on('click', function () {
-            $('#attack').val($(this).attr('data-attack'));
+            $('#from-zone').val($(this).attr('data-attack'));
             $('.attack.active').css('fill', '#f8a081');
             $(this).css('fill', '#11c26d');
             $('.target').each(function () {
@@ -93,10 +95,13 @@
               $(this).removeClass('inactive');
               $(this).addClass('active');
               $('.target.active').on('click', function() {
-                  $('#target').val($(this).attr('data-target'));
+                  $('#to-zone').val($(this).attr('data-target'));
                   $('.target.active').css('fill', '#f8a081');
                   $(this).css('fill', '#11c26d');
-                  $('#game-stats').submit();
+                  $('#submit-point').removeClass('disabled');
+                  $('#submit-point').on('click', function() {
+                      $('#game-stats').submit();
+                  });
               });
             });
           });
@@ -107,8 +112,6 @@
       $('.btn-avatar').on('click', function() {
           $('#userId').val($(this).attr('data-user-id'));
           var input = $(this).find('input');
-          // $('.btn-avatar').find('input').removeAttr('checked');
-          // input.attr('checked', 'checked');
 
           $('.attack').each(function () {
             $(this).removeAttr('fill', 'url(#inactiveCourt)');
@@ -118,7 +121,7 @@
           });
 
           $('.attack.active').on('click', function () {
-            $('#attack').val($(this).attr('data-attack'));
+            $('#from-zone').val($(this).attr('data-attack'));
             $('.attack.active').css('fill', '#f8a081');
             $(this).css('fill', '#11c26d');
             $('.out').each(function () {
@@ -127,11 +130,110 @@
               $(this).removeClass('inactive');
               $(this).addClass('active');
               $('.out.active').on('click', function() {
-                  $('#target').val($(this).attr('data-target'));
+                  $('#to-zone').val($(this).attr('data-target'));
                   $('.out.active').css('fill', '#00bad5');
                   $(this).css('fill', '#ff5e5e');
-                  $('#game-stats').submit();
+                  $('#submit-point').removeClass('disabled');
+                  $('#submit-point').on('click', function() {
+                      $('#game-stats').submit();
+                  });
               });
+            });
+          });
+      });
+    });
+
+    $('#service-point-us').on('click', function() {
+      $('.btn-avatar').on('click', function() {
+          $('#userId').val($(this).attr('data-user-id'));
+          var input = $(this).find('input');
+
+          $('.target').each(function () {
+            $(this).removeAttr('fill', 'url(#inactiveCourt)');
+            $(this).css('fill', '#f8a081');
+            $(this).removeClass('inactive');
+            $(this).addClass('active');
+          });
+
+          $('.target.active').on('click', function () {
+            $('#to-zone').val($(this).attr('data-target'));
+            $('.target.active').css('fill', '#f8a081');
+            $(this).css('fill', '#11c26d');
+            $('#submit-point').removeClass('disabled');
+            $('#submit-point').on('click', function() {
+                $('#game-stats').submit();
+            });
+          });
+      });
+    });
+
+    $('#service-fault-us').on('click', function() {
+      $('.btn-avatar').on('click', function() {
+          $('#userId').val($(this).attr('data-user-id'));
+          var input = $(this).find('input');
+
+          $('.out').each(function () {
+            $(this).removeAttr('fill', 'url(#inactiveCourt)');
+            $(this).css('fill', '#00bad5');
+            $(this).removeClass('inactive');
+            $(this).addClass('active');
+          });
+
+          $('.out.active').on('click', function () {
+            $('#to-zone').val($(this).attr('data-target'));
+            $('.out.active').css('fill', '#00bad5');
+            $(this).css('fill', '#ff5e5e');
+            $('#submit-point').removeClass('disabled');
+            $('#submit-point').on('click', function() {
+                $('#game-stats').submit();
+            });
+          });
+      });
+    });
+
+    $('#block-point-us').on('click', function() {
+      $('.btn-avatar').on('click', function() {
+          $('#userId').val($(this).attr('data-user-id'));
+          var input = $(this).find('input');
+
+          $('.attack.front').each(function () {
+            $(this).removeAttr('fill', 'url(#inactiveCourt)');
+            $(this).css('fill', '#f8a081');
+            $(this).removeClass('inactive');
+            $(this).addClass('active');
+          });
+
+          $('.attack.front.active').on('click', function () {
+            $('#from-zone').val($(this).attr('data-target'));
+            $('.attack.front.active').css('fill', '#f8a081');
+            $(this).css('fill', '#11c26d');
+            $('#submit-point').removeClass('disabled');
+            $('#submit-point').on('click', function() {
+                $('#game-stats').submit();
+            });
+          });
+      });
+    });
+
+    $('#block-point-them').on('click', function() {
+      $('.btn-avatar').on('click', function() {
+          $('#userId').val($(this).attr('data-user-id'));
+          var input = $(this).find('input');
+
+          $('.attack.front').each(function () {
+            $(this).removeAttr('fill', 'url(#inactiveCourt)');
+            $(this).css('fill', '#f8a081');
+            $(this).removeClass('inactive');
+            $(this).addClass('active');
+          });
+
+          $('.attack.front.active').on('click', function () {
+            $('#from-zone').val($(this).attr('data-target'));
+            $('.attack.front.active').css('fill', '#f8a081');
+            $(this).css('fill', '#ff5e5e');
+            $('#submit-point').removeClass('disabled');
+            $('#submit-point').on('click', function() {
+                $('#game-stats').submit();
             });
           });
       });
@@ -141,6 +243,11 @@
         $(this).on('click', function() {
           $('#reason').val($(this).attr('value'));
         });
+    });
+
+    $('.btn-avatar').on('click', function() {
+        $('.btn-avatar').removeClass('avatar-checked');
+        $(this).addClass('avatar-checked');
     });
 
     (0, _jquery2.default)("#statsWizard").wizard(options);

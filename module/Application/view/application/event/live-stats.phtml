@@ -1,6 +1,3 @@
-<?php $scoreUs   =  isset($setsLastScore[$set][0]) ? $setsLastScore[$set][0] : 0; ?>
-<?php $scoreThem =  isset($setsLastScore[$set][1]) ? $setsLastScore[$set][1] : 0; ?>
-
 <div class="row" data-plugin="matchHeight" data-by-row="true">
   <div class="col-12">
     <!-- Panel Wizard Pager -->
@@ -8,7 +5,7 @@
       <div class="panel-heading">
         <div class="panel-actions panel-actions-keep">
         </div>
-        <h3 class="panel-title">Wizard Pager</h3>
+        <h3 class="panel-title">Statistics</h3>
       </div>
       <div class="panel-body">
         <div class="wizard-content">
@@ -68,21 +65,20 @@
                 <div class="row">
                     <div class='col-6 text-center'>
                         <h5 class="text-center">Point</h5>
-                        <button type="button" id="attack-us" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success btn-xlg btn-next col-12">Attack</button>
-                        <button  id="attack-them" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success col-12 btn-xlg hidden">Attack</button>
-                        <div class="col-12" style="height: 10px;"></div>
-                        <button value="<?= \Application\Model\Stats::POINT_SERVE ?>" name="reason" class="btn btn-success col-12 btn-xlg">Serve</button>
-                        <div class="col-12" style="height: 10px;"></div>
-                        <button value="<?= \Application\Model\Stats::POINT_BLOCK ?>" name="reason" class="btn btn-success col-12 btn-xlg">Block</button>
+                        <button id="attack-us" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success btn-xlg btn-next col-12 hidden">Attack</button>
+                        <button id="attack-them" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success col-12 btn-xlg hidden">Attack</button>
+                        <button id="service-point-them" value="<?= \Application\Model\Stats::POINT_SERVE ?>" name="reason" class="btn btn-success col-12 btn-xlg mt-10 hidden">Serve</button>
+                        <button id="service-point-us" value="<?= \Application\Model\Stats::POINT_SERVE ?>" name="reason" class="btn btn-success col-12 btn-xlg btn-next mt-10 hidden">Serve</button>
+                        <button id="block-point-us" value="<?= \Application\Model\Stats::POINT_SERVE ?>" name="reason" class="btn btn-success col-12 btn-xlg mt-10 hidden btn-next">Block</button>
+                        <button id="block-point-them" value="<?= \Application\Model\Stats::POINT_BLOCK ?>" name="reason" class="btn btn-success col-12 btn-xlg mt-10 hidden btn-next">Block</button>
                     </div>
                     <div class='col-6 text-center'>
                         <h5>Faute</h5>
-                        <button id="attack-fault-them" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger col-12 btn-xlg" data-toggle="modal" data-target="#attaque">Attack</button>
-                        <button id="attack-fault-us" type="button" id="s" class="btn btn-danger btn-xlg btn-next col-12 hidden">Attack</button>
-                        <div class="col-12" style="height: 10px;"></div>
-                        <button value="<?= \Application\Model\Stats::FAULT_SERVE ?>" name="reason" class="btn btn-danger col-12 btn-xlg">Serve</button>
-                        <div class="col-12" style="height: 10px;"></div>
-                        <button value="<?= \Application\Model\Stats::FAULT_DEFENCE ?>" name="reason" class="btn btn-danger col-12 btn-xlg">Defensive</button>
+                        <button id="attack-fault-them" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger col-12 btn-xlg hidden" data-toggle="modal" data-target="#attaque">Attack</button>
+                        <button id="attack-fault-us" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger btn-xlg btn-next col-12 hidden">Attack</button>
+                        <button id="service-fault-them" value="<?= \Application\Model\Stats::FAULT_SERVE ?>" name="reason" class="mt-10 btn btn-danger col-12 btn-xlg hidden">Serve</button>
+                        <button id="service-fault-us" value="<?= \Application\Model\Stats::FAULT_SERVE ?>" name="reason" class="mt-10 btn btn-danger col-12 btn-xlg btn-next hidden">Serve</button>
+                        <button id="defensive-fault" value="<?= \Application\Model\Stats::FAULT_DEFENCE ?>" name="reason" class="mt-10 btn btn-danger col-12 btn-xlg hidden">Defensive</button>
                     </div>
                 </div>
               </div>
@@ -91,59 +87,61 @@
                     <div class="col-12 text-center">
                         <?php foreach ($users as $user): ?>
                             <label class="btn-avatar" data-user-id="<?= $user->id ?>">
-                              <input type="radio" name="user" />
                               <img class="avatar avatar-lg" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
                             </label>
                         <?php endforeach ?>
                     </div>
 
-                    <svg version="1.1" width="100%" height="350px"
+                    <svg version="1.1" width="100%" height="350px" class="mt-20"
                        id="Calque_1" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" image-rendering="optimizeQuality" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 573.5 311.9"
                        style="enable-background:new 0 0 573.5 311.9;" xml:space="preserve">
-                       <defs>
-                           <pattern id="inactiveOut" patternUnits="userSpaceOnUse" width="4" height="4">
-                             <path d="M-1,1 l2,-2
-                                      M0,4 l4,-4
-                                      M3,5 l2,-2" 
-                                   style="stroke:#00bad5; stroke-width:1" />
-                           </pattern>
-                           <pattern id="inactiveCourt" patternUnits="userSpaceOnUse" width="4" height="4">
-                             <path d="M-1,1 l2,-2
-                                      M0,4 l4,-4
-                                      M3,5 l2,-2" 
-                                   style="stroke:#f8a081; stroke-width:1" />
-                           </pattern>
-                       </defs>
-                    <rect fill="url(#inactiveOut)" data-out="9" x="285.8" y="0.5" class="zone-court st0 inactive out" width="287.2" height="32.8"/>
-                    <rect fill="url(#inactiveOut)" data-out="10" x="539.4" y="33.3" class="zone-court st0 inactive out" width="33.6" height="251.2"/>
-                    <rect fill="url(#inactiveOut)" data-out="8" x="285.8" y="284.5" class="zone-court st0 inactive out" width="287.2" height="26.9"/>
-                    <rect fill="url(#inactiveOut)" data-out="7" x="278.2" y="33.3" class="zone-court st0 inactive out" width="16.4" height="251.2"/>
-                    <rect fill="url(#inactiveCourt)" data-target="4" x="294.6" y="200.8" class="zone-court st2 inactive target" width="74.8" height="83.7"/>
-                    <rect fill="url(#inactiveCourt)" data-target="3" x="294.6" y="117.1" class="zone-court st2 inactive target" width="74.8" height="83.7"/>
-                    <rect fill="url(#inactiveCourt)" data-target="2" x="294.6" y="33.3" class="zone-court st2 inactive target" width="74.8" height="83.7"/>
-                    <rect fill="url(#inactiveCourt)" data-target="5" x="373" y="200.8" class="zone-court st2 inactive target" width="166.4" height="83.7"/>
-                    <rect fill="url(#inactiveCourt)" data-target="6" x="373" y="117.1" class="zone-court st2 inactive target" width="166.4" height="83.7"/>
-                    <rect fill="url(#inactiveCourt)" data-target="1" x="373" y="33.3" class="zone-court st2 inactive target" width="166.4" height="83.7"/>
-                    <rect fill="url(#inactiveCourt)" data-attack="2" x="202.2" y="200.9" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 480.331 485.377)" class="zone-court st2 inactive attack" width="76" height="83.7"/>
-                    <rect fill="url(#inactiveCourt)" data-attack="3" x="202.2" y="117.1" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 480.331 317.8882)" class="zone-court st2 inactive attack" width="76" height="83.7"/>
-                    <rect fill="url(#inactiveCourt)" data-attack="4" x="202.2" y="33.4" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 480.331 150.3993)" class="zone-court st2 inactive attack" width="76" height="83.7"/>
-                    <rect fill="url(#inactiveCourt)" data-attack="1" x="32.1" y="200.8" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 230.4501 485.3091)" class="zone-court st2 inactive attack" width="166.2" height="83.7"/>
-                    <rect fill="url(#inactiveCourt)" data-attack="6" x="32.1" y="117.1" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 230.4501 317.8882)" class="zone-court st2 inactive attack" width="166.2" height="83.7"/>
-                    <rect fill="url(#inactiveCourt)" data-attack="5" x="32.1" y="33.3" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 230.4501 150.3993)" class="zone-court st2 inactive attack" width="166.2" height="83.7"/>
-                    <text transform="matrix(1 0 0 1 71.4999 22.3329)" class="st3 st4 st5">OUR TEAM SIDE</text>
-                    <text transform="matrix(1 0 0 1 37.8331 210.9996)" class="st6 st4 st7">1</text>
-                    <text transform="matrix(1 0 0 1 206.8748 212.8743)" class="st6 st4 st7">2</text>
-                    <text transform="matrix(1 0 0 1 206.8746 130.8743)" class="st6 st4 st7">3</text>
-                    <text transform="matrix(1 0 0 1 206.8748 48.4997)" class="st6 st4 st7">4</text>
-                    <text transform="matrix(1 0 0 1 37.8331 48.4997)" class="st6 st4 st7">5</text>
-                    <text transform="matrix(1 0 0 1 37.8331 130.8743)" class="st6 st4 st7">6</text>
-                    <text transform="matrix(1 0 0 1 360.4999 48.4997)" class="st6 st4 st7">2</text>
-                    <text transform="matrix(1 0 0 1 525.4999 48.4997)" class="st6 st4 st7">1</text>
-                    <text transform="matrix(1 0 0 1 525.4999 130.8743)" class="st6 st4 st7">6</text>
-                    <text transform="matrix(1 0 0 1 525.4999 212.8743)" class="st6 st4 st7">5</text>
-                    <text transform="matrix(1 0 0 1 360.4999 130.8743)" class="st6 st4 st7">3</text>
-                    <text transform="matrix(1 0 0 1 360.4999 212.8743)" class="st6 st4 st7">4</text>
+                        <defs>
+                            <pattern id="inactiveOut" patternUnits="userSpaceOnUse" width="4" height="4">
+                              <path d="M-1,1 l2,-2
+                                       M0,4 l4,-4
+                                       M3,5 l2,-2" 
+                                    style="stroke:#00bad5; stroke-width:1" />
+                            </pattern>
+                            <pattern id="inactiveCourt" patternUnits="userSpaceOnUse" width="4" height="4">
+                              <path d="M-1,1 l2,-2
+                                       M0,4 l4,-4
+                                       M3,5 l2,-2" 
+                                    style="stroke:#f8a081; stroke-width:1" />
+                            </pattern>
+                        </defs>
+                        <rect fill="url(#inactiveOut)" data-target="9" x="285.8" y="0.5" class="zone-court st0 inactive out" width="287.2" height="32.8"/>
+                        <rect fill="url(#inactiveOut)" data-target="10" x="539.4" y="33.3" class="zone-court st0 inactive out" width="33.6" height="251.2"/>
+                        <rect fill="url(#inactiveOut)" data-target="8" x="285.8" y="284.5" class="zone-court st0 inactive out" width="287.2" height="26.9"/>
+                        <rect fill="url(#inactiveOut)" data-target="7" x="278.2" y="33.3" class="zone-court st0 inactive out" width="16.4" height="251.2"/>
+
+                        <rect fill="url(#inactiveCourt)" data-target="4" x="294.6" y="200.8" class="zone-court st2 inactive target front" width="74.8" height="83.7"/>
+                        <rect fill="url(#inactiveCourt)" data-target="3" x="294.6" y="117.1" class="zone-court st2 inactive target front" width="74.8" height="83.7"/>
+                        <rect fill="url(#inactiveCourt)" data-target="2" x="294.6" y="33.3" class="zone-court st2 inactive target front" width="74.8" height="83.7"/>
+                        <rect fill="url(#inactiveCourt)" data-target="5" x="373" y="200.8" class="zone-court st2 inactive target" width="166.4" height="83.7"/>
+                        <rect fill="url(#inactiveCourt)" data-target="6" x="373" y="117.1" class="zone-court st2 inactive target" width="166.4" height="83.7"/>
+                        <rect fill="url(#inactiveCourt)" data-target="1" x="373" y="33.3" class="zone-court st2 inactive target" width="166.4" height="83.7"/>
+
+                        <rect fill="url(#inactiveCourt)" data-attack="2" x="202.2" y="200.9" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 480.331 485.377)" class="zone-court st2 inactive attack front" width="76" height="83.7"/>
+                        <rect fill="url(#inactiveCourt)" data-attack="3" x="202.2" y="117.1" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 480.331 317.8882)" class="zone-court st2 inactive attack front" width="76" height="83.7"/>
+                        <rect fill="url(#inactiveCourt)" data-attack="4" x="202.2" y="33.4" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 480.331 150.3993)" class="zone-court st2 inactive attack front" width="76" height="83.7"/>
+                        <rect fill="url(#inactiveCourt)" data-attack="1" x="32.1" y="200.8" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 230.4501 485.3091)" class="zone-court st2 inactive attack" width="166.2" height="83.7"/>
+                        <rect fill="url(#inactiveCourt)" data-attack="6" x="32.1" y="117.1" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 230.4501 317.8882)" class="zone-court st2 inactive attack" width="166.2" height="83.7"/>
+                        <rect fill="url(#inactiveCourt)" data-attack="5" x="32.1" y="33.3" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 230.4501 150.3993)" class="zone-court st2 inactive attack" width="166.2" height="83.7"/>
+
+                        <text transform="matrix(1 0 0 1 71.4999 22.3329)" class="st3 st4 st5">OUR TEAM SIDE</text>
+                        <text transform="matrix(1 0 0 1 37.8331 210.9996)" class="st6 st4 st7">1</text>
+                        <text transform="matrix(1 0 0 1 206.8748 212.8743)" class="st6 st4 st7">2</text>
+                        <text transform="matrix(1 0 0 1 206.8746 130.8743)" class="st6 st4 st7">3</text>
+                        <text transform="matrix(1 0 0 1 206.8748 48.4997)" class="st6 st4 st7">4</text>
+                        <text transform="matrix(1 0 0 1 37.8331 48.4997)" class="st6 st4 st7">5</text>
+                        <text transform="matrix(1 0 0 1 37.8331 130.8743)" class="st6 st4 st7">6</text>
+                        <text transform="matrix(1 0 0 1 360.4999 48.4997)" class="st6 st4 st7">2</text>
+                        <text transform="matrix(1 0 0 1 525.4999 48.4997)" class="st6 st4 st7">1</text>
+                        <text transform="matrix(1 0 0 1 525.4999 130.8743)" class="st6 st4 st7">6</text>
+                        <text transform="matrix(1 0 0 1 525.4999 212.8743)" class="st6 st4 st7">5</text>
+                        <text transform="matrix(1 0 0 1 360.4999 130.8743)" class="st6 st4 st7">3</text>
+                        <text transform="matrix(1 0 0 1 360.4999 212.8743)" class="st6 st4 st7">4</text>
                     </svg>
                 </div>
               </div>
@@ -152,16 +150,18 @@
     </div>
     <!-- End Panel Wizard Pager -->
 
-    <form id="game-stats" method="POST">
-        <input type="hidden" placeholder="block-us" id="block-us" name="attack" value="0"/>
-        <input type="hidden" placeholder="block-them" id="block-them" name="attack" value="0"/>
-        <input type="hidden" placeholder="defence-us" id="defence-us" name="attack" value="0"/>
-        <input type="hidden" placeholder="defence-them" id="defence-them" name="attack" value="0"/>
-        <input type="text" placeholder="point-for" id="point-for" name="attack" value=""/>
-        <input type="text" placeholder="reason" id="reason" name="reason" value=""/>
-        <input type="text" placeholder="userId" id="userId" name="userId" value=""/>
-        <input type="text"  placeholder="attack" id="attack" name="attack" value=""/>
-        <input type="text" placeholder="target" id="target" name="target" value=""/>
+    <form id="game-stats" method="POST" class="hidden">
+        <input type="hidden" placeholder="block-us" id="block-us" name="block-us" value="0"/>
+        <input type="hidden" placeholder="block-them" id="block-them" name="block-them" value="0"/>
+        <input type="hidden" placeholder="defence-us" id="defence-us" name="defence-us" value="0"/>
+        <input type="hidden" placeholder="defence-them" id="defence-them" name="defence-them" value="0"/>
+        <input type="hidden" placeholder="point-for" id="point-for" name="point-for" value=""/>
+        <input type="hidden" placeholder="reason" id="reason" name="reason" value=""/>
+        <input type="hidden" placeholder="userId" id="userId" name="userId" value=""/>
+        <input type="hidden"  placeholder="from-zone" id="from-zone" name="from-zone" value=""/>
+        <input type="hidden" placeholder="to-zone" id="to-zone" name="to-zone" value=""/>
+        <input type="hidden" id="score-us" name="score-us" value="<?= $scoreUs ?>"/>
+        <input type="hidden" id="score-them" name="score-them" value="<?= $scoreThem ?>"/>
     </form>
   </div>
 </div>

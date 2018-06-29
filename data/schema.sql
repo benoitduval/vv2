@@ -159,15 +159,22 @@ DROP TABLE IF EXISTS `stats`;
 CREATE TABLE `stats` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `eventId` int(11) unsigned NOT NULL,
+  `groupId` int(11) unsigned NOT NULL,
+  `userId` int(11) unsigned NOT NULL,
   `pointFor` tinyint(1) DEFAULT NULL,
   `scoreUs` tinyint(2) DEFAULT NULL,
   `scoreThem` tinyint(2) DEFAULT NULL,
   `set` tinyint(1) DEFAULT NULL,
-  `reason` int(4) DEFAULT NULL,
+  `reason` tinyint(4) DEFAULT NULL,
+  `fromZone` tinyint(4) DEFAULT NULL,
+  `toZone` tinyint(4) DEFAULT NULL,
   `blockUs` tinyint(2) DEFAULT NULL,
   `blockThem` tinyint(2) DEFAULT NULL,
   `defenceUs` tinyint(2) DEFAULT NULL,
   `defenceThem` tinyint(2) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `eventId` (`eventId`)
+  KEY `eventId` (`eventId`, `userId`, `groupId`),
+  KEY `set` (`set`),
+  KEY `reason` (`reason`),
+  KEY `zone` (`fromZone`, `toZone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

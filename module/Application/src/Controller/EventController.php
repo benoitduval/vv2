@@ -443,6 +443,8 @@ class EventController extends AbstractController
                 if (($stats->scoreUs >= 25 || $stats->scoreThem >= 25) && (abs(
                 $stats->scoreThem - $stats->scoreUs) >= 2)) {
                     $set = $stats->set + 1;
+                    $scoreUs = 0;
+                    $scoreThem = 0;
                 } else {
                     $set = $stats->set;
                     $scoreUs   = $stats->scoreUs;
@@ -469,8 +471,12 @@ class EventController extends AbstractController
                 $data['scoreUs']     = $post['score-us'];
                 $data['scoreThem']   = $post['score-them'];
                 $data['pointFor']    = $post['point-for'];
+                $data['userId']      = $post['userId'];
+                $data['fromZone']    = $post['from-zone'];
+                $data['toZone']      = $post['to-zone'];
                 $data['reason']      = $reason;
                 $data['eventId']     = $eventId;
+                $data['groupId']     = $event->groupId;
                 $data['set']         = $set;
                 $data['blockUs']     = isset($post['block-us']) ? $post['block-us'] : 0;
                 $data['blockThem']   = isset($post['block-them']) ? $post['block-them'] : 0;
@@ -487,8 +493,9 @@ class EventController extends AbstractController
                 'event'         => $event,
                 'user'          => $this->getUser(),
                 'set'           => (int) $set,
-                'size'          => 6,
-                'users'         => $users
+                'users'         => $users,
+                'scoreUs'       => $scoreUs,
+                'scoreThem'     => $scoreThem,
             ]);
         } else {
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
