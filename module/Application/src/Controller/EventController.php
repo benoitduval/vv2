@@ -133,6 +133,7 @@ class EventController extends AbstractController
         if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
 
             $stats = $this->statsTable->getAllByEventId($eventId);
+            $users = $this->userTable->getAllByGroupId($event->groupId);
 
             $comments  = $this->commentTable->fetchAll(['eventId' => $event->id]);
             $group     = $this->groupTable->find($event->groupId);
@@ -147,7 +148,7 @@ class EventController extends AbstractController
             $myGuest   = $this->disponibilityTable->fetchOne(['eventId' => $eventId, 'userId' => $this->getUser()->id]);
             $eventDate = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
 
-            $availability = [
+            $availabilities = [
                 Model\Disponibility::RESP_NO_ANSWER => [],
                 Model\Disponibility::RESP_OK        => [],
                 Model\Disponibility::RESP_NO        => [],
@@ -155,8 +156,7 @@ class EventController extends AbstractController
             ];
 
             foreach ($disponibilities as $disponibility) {
-                $users[$disponibility->userId] = $this->userTable->find($disponibility->userId);
-                $availability[$disponibility->response][] = $users[$disponibility->userId];
+                $availabilities[$disponibility->response][] = $users[$disponibility->userId];
             }
 
             $result = [];
@@ -260,7 +260,7 @@ class EventController extends AbstractController
                 }
             }
 
-            $this->layout()->setTemplate('layout/titled.phtml');
+            // $this->layout()->setTemplate('layout/titled.phtml');
             return new ViewModel([
                 'stats'           => $stats,
                 'counters'        => $counters,
@@ -268,7 +268,8 @@ class EventController extends AbstractController
                 'event'           => $event,
                 'form'            => $form,
                 'group'           => $group,
-                'users'           => $availability,
+                'users'           => $users,
+                'availabilities'  => $availabilities,
                 'user'            => $this->getUser(),
                 'date'            => $eventDate,
                 'isAdmin'         => $isAdmin,

@@ -104,13 +104,15 @@
                       <div class="table-responsive">
                         <table class="table">
                           <tbody id="table-resp-ok">
-                            <?php if (!$users[Application\Model\Disponibility::RESP_OK]): ?>
+                            <?php if (!$availabilities[Application\Model\Disponibility::RESP_OK]): ?>
                               <tr><td class="text-center">No one here !</td></tr>
                             <?php else: ?>
-                              <?php foreach ($users[Application\Model\Disponibility::RESP_OK] as $user) : ?>
+                              <?php foreach ($availabilities[Application\Model\Disponibility::RESP_OK] as $user) : ?>
                                   <tr>
-                                      <td class="avatar avatar-md" style="border: none; padding:2px;">
-                                        <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') :this.src = '/img/default-avatar.png';">
+                                      <td>
+                                        <div class="avatar avatar-md">
+                                          <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                        </div>
                                       </td>
                                       <td><?= $user->firstname ?></td>
                                       <td><?= $user->lastname ?></td>
@@ -126,13 +128,15 @@
                       <div class="table-responsive">
                         <table class="table">
                           <tbody id="table-resp-no">
-                            <?php if (!$users[Application\Model\Disponibility::RESP_NO]): ?>
+                            <?php if (!$availabilities[Application\Model\Disponibility::RESP_NO]): ?>
                               <tr><td class="text-center">No one here !</td></tr>
                             <?php else: ?>
-                              <?php foreach ($users[Application\Model\Disponibility::RESP_NO] as $user) : ?>
+                              <?php foreach ($availabilities[Application\Model\Disponibility::RESP_NO] as $user) : ?>
                                   <tr>
-                                      <td class="avatar avatar-md" style="border: none; padding:2px;">
-                                        <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                      <td>
+                                        <div class="avatar avatar-md">
+                                          <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                        </div>
                                       </td>
                                       <td><?= $user->firstname ?></td>
                                       <td><?= $user->lastname ?></td>
@@ -148,13 +152,15 @@
                       <div class="table-responsive">
                         <table class="table">
                           <tbody id="table-resp-uncertain">
-                            <?php if (!$users[Application\Model\Disponibility::RESP_UNCERTAIN]): ?>
+                            <?php if (!$availabilities[Application\Model\Disponibility::RESP_UNCERTAIN]): ?>
                               <tr><td class="text-center">No one here !</td></tr>
                             <?php else: ?>
-                              <?php foreach ($users[Application\Model\Disponibility::RESP_UNCERTAIN] as $user) : ?>
+                              <?php foreach ($availabilities[Application\Model\Disponibility::RESP_UNCERTAIN] as $user) : ?>
                                   <tr>
-                                      <td class="avatar avatar-md" style="border: none; padding:2px;">
-                                        <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                      <td>
+                                        <div class="avatar avatar-md">
+                                          <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                        </div>
                                       </td>
                                       <td><?= $user->firstname ?></td>
                                       <td><?= $user->lastname ?></td>
@@ -170,13 +176,15 @@
                       <div class="table-responsive">
                         <table class="table">
                           <tbody id="table-resp-no-answer">
-                            <?php if (!$users[Application\Model\Disponibility::RESP_NO_ANSWER]): ?>
+                            <?php if (!$availabilities[Application\Model\Disponibility::RESP_NO_ANSWER]): ?>
                               <tr><td class="text-center">No one here !</td></tr>
                             <?php else: ?>
-                              <?php foreach ($users[Application\Model\Disponibility::RESP_NO_ANSWER] as $user) : ?>
+                              <?php foreach ($availabilities[Application\Model\Disponibility::RESP_NO_ANSWER] as $user) : ?>
                                   <tr>
-                                      <td class="avatar avatar-md" style="border: none; padding:2px;">
-                                        <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                      <td>
+                                        <div class="avatar avatar-md">
+                                          <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                        </div>
                                       </td>
                                       <td><?= $user->firstname ?></td>
                                       <td><?= $user->lastname ?></td>
@@ -236,4 +244,188 @@
           </div>
         </div>
     </div>
+</div>
+
+<div class="row">
+  <div class="card card-shadow col-12">
+      <div class="card-block">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th>Points</th>
+                <th>Faults</th>
+                <th>Blocks</th>
+                <th>Aces</th>
+              </tr>
+            </thead>
+            <?php foreach ($users as $user): ?>
+              <tr>
+                <td>
+                  <div class="avatar avatar-md">
+                    <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                  </div>
+                </td>
+                <td><?= $user->getFullname() ?></td>
+                <td width="50px" height="50px" class="p-10">
+                  <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
+                    data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="2"
+                    data-goal="45" aria-valuenow="45" role="progressbar">
+                    <span class="pie-progress-number">15</span>
+                  </div>
+                </td>
+                <td width="50px" height="50px" class="p-10">
+                  <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
+                    data-valuemin="0" data-barcolor="#F00" data-size="60" data-barsize="2"
+                    data-goal="30" aria-valuenow="30" role="progressbar">
+                    <span class="pie-progress-number">5</span>
+                  </div>
+                </td>
+                <td width="50px" height="50px" class="p-10">
+                  <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
+                    data-valuemin="0" data-barcolor="#0F0" data-size="60" data-barsize="2"
+                    data-goal="10" aria-valuenow="10" role="progressbar">
+                    <span class="pie-progress-number">2</span>
+                  </div>
+                </td>
+                <td width="50px" height="50px">
+                  <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
+                    data-valuemin="0" data-barcolor="#00F" data-size="60" data-barsize="2"
+                    data-goal="20" aria-valuenow="20" role="progressbar">
+                    <span class="pie-progress-number">2</span>
+                  </div>
+                </td>
+              </tr>
+            <?php endforeach ?>
+          </table>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="row" data-plugin="matchHeight" data-by-row="true">
+  <div class="col-lg-6">
+    <div class="card card-shadow example-responsive">
+      <div class="card-block">
+        <div id="stats"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card card-shadow example-responsive">
+      <div class="card-block" style="background-color: #00bad5;">
+        <table class="table">
+          <tr class="text-center"  style="border: none;">
+            <td colspan="2" style="border: none; color:#FFF;">Attack From</td>
+            <td style="border: none;"></td>
+            <td colspan="2" style="border: none; color:#FFF;">Target Zone</td>
+          </tr>
+          <tr class="col-12" border="0px" style="border-bottom:0px;">
+            <td height="33%" width="25%" class="inside-court p-20" style="border:solid 4px #FFF;border-bottom:none;">
+              <div id="from-p5" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
+                  role="progressbar">
+                  <div class="pie-progress-number">0%</div>
+                </div>
+              </div>
+            </td>
+            <td height="33%" width="24%" class="inside-court p-20" style="border-top:solid 4px #FFF;">
+              <div id="from-p4" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                  data-size="60" data-barsize="4" data-goal="35" aria-valuenow="35"
+                  role="progressbar">
+                  <div class="pie-progress-number">35%</div>
+                </div>
+              </div>
+            </td>
+            <td height="33%" rowspan="3" width="2%" style="background-color: #CCC; border-top:solid 4px #FFF;border-bottom:solid 4px #FFF;"></td>
+            <td height="33%" width="24%" class="inside-court p-20" style="border-top:solid 4px #FFF;">
+              <div id="to-p2" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                  data-size="60" data-barsize="4" data-goal="75" aria-valuenow="75"
+                  role="progressbar">
+                  <div class="pie-progress-number">T2</div>
+                </div>
+              </div>
+            </td>
+            <td height="33%" width="25%" class="inside-court p-20" style="border:solid 4px #FFF;border-bottom:none;">
+              <div id="to-p1" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                  data-size="60" data-barsize="4" data-goal="75" aria-valuenow="75"
+                  role="progressbar">
+                  <div class="pie-progress-number">T1</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr class="col-12">
+            <td height="33%" width="25%" class="inside-court p-20" style="border:none;border-left:solid 4px #FFF;border-right:solid 4px #FFF;">
+              <div id="from-p6" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                  data-size="60" data-barsize="4" data-goal="5" aria-valuenow="5"
+                  role="progressbar">
+                  <div class="pie-progress-number">5%</div>
+                </div>
+              </div>
+            </td>
+            <td height="33%" width="24%" class="inside-court p-20" style="border-top:none;">
+              <div id="from-p3" height="33%" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
+                data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="4"
+                data-goal="15" aria-valuenow="15" role="progressbar">
+                <span class="pie-progress-number">15%</span>
+              </div>
+            </td>
+            <td height="33%" width="24%" class="inside-court p-20" style="border:none;">
+              <div id="to-p3" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                  data-size="60" data-barsize="4" data-goal="75" aria-valuenow="75"
+                  role="progressbar">
+                  <div class="pie-progress-number">T3</div>
+                </div>
+              </div>
+            </td>
+            <td height="33%" width="25%" class="inside-court p-20" style="border:none;border-left:solid 4px #FFF;border-right:solid 4px #FFF;">
+              <div id="to-p6" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                  data-size="60" data-barsize="4" data-goal="75" aria-valuenow="75"
+                  role="progressbar">
+                  <div class="pie-progress-number">T6</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr class="col-12">
+            <td height="33%" width="25%" class="inside-court p-20"  style="border:solid 4px #FFF;border-top:none;">
+              <div id="from-p1" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                  data-size="60" data-barsize="4" data-goal="15" aria-valuenow="15"
+                  role="progressbar">
+                  <div class="pie-progress-number">15%</div>
+                </div>
+              </div>
+            </td>
+            <td height="33%" width="24%" class="inside-court p-20" style="border-top:none;border-bottom: solid 4px #FFF;">
+              <div id="from-p2" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                  data-size="60" data-barsize="4" data-goal="45" aria-valuenow="45"
+                  role="progressbar">
+                  <div class="pie-progress-number">45%</div>
+                </div>
+              </div>
+            </td>
+            <td height="33%" width="24%" class="inside-court p-20" style="border-top:none;border-bottom: solid 4px #FFF;">
+              <div id="to-p4" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                  data-size="60" data-barsize="4" data-goal="75" aria-valuenow="75"
+                  role="progressbar">
+                  <div class="pie-progress-number">T4</div>
+                </div>
+              </div>
+            </td>
+            <td height="33%" width="25%" class="inside-court p-20" style="border: solid 4px #FFF;border-top:none;">
+              <div id="to-p5" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                  data-size="60" data-barsize="4" data-goal="75" aria-valuenow="75"
+                  role="progressbar">
+                  <div class="pie-progress-number">T5</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+    </div>
+  </div>
 </div>
