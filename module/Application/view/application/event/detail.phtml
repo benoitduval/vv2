@@ -306,7 +306,7 @@
 </div>
 
 <div class="row" data-plugin="matchHeight" data-by-row="true">
-  <div class="col-lg-6">
+  <div class="col-12">
     <div class="card card-shadow example-responsive">
       <div class="card-block">
         <div id="stats"></div>
@@ -314,17 +314,22 @@
     </div>
   </div>
 
-  <div class="col-lg-6">
+  <div class="col-6">
     <div class="card card-shadow example-responsive">
-      <div class="card-block" style="background-color: #00bad5;">
+      <div class="card-block">
+
         <table class="table">
-          <tr class="text-center"  style="border: none;">
-            <td colspan="2" style="border: none; color:#FFF;">Attack From</td>
-            <td style="border: none;"></td>
-            <td colspan="2" style="border: none; color:#FFF;">Target Zone</td>
+          <tr>
+            <td class="court-outside" width="2%" rowspan="5"></td>
+            <td class="court-outside" height="40px" colspan="2"></td>
+            <!-- NET -->
+            <td rowspan="5" width="2%" class="court-net out" data-target="7"></td>
+            <td class="court-outside out" height="40px" colspan="2" style="border: none; color:#FFF;" data-target="8"></td>
+            <td class="court-outside out" width="40px" rowspan="5" data-target="9"></td>
           </tr>
-          <tr class="col-12" border="0px" style="border-bottom:0px;">
-            <td height="33%" width="25%" class="inside-court p-20" style="border:solid 4px #FFF;border-bottom:none;">
+          <tr class="col-12">
+            <!-- attack P5 -->
+            <td height="70px" class="court-inside court-border-top court-border-left court-border-right attack text-center" data-attack="5">
               <div id="from-p5" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
                   data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
                   role="progressbar">
@@ -332,24 +337,24 @@
                 </div>
               </div>
             </td>
-            <td height="33%" width="24%" class="inside-court p-20" style="border-top:solid 4px #FFF;">
+            <!-- attack P4 -->
+            <td height="70px" class="court-inside court-border-top front attack text-center" data-attack="4">
               <div id="from-p4" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
                   data-size="60" data-barsize="4" data-goal="35" aria-valuenow="35"
                   role="progressbar">
                   <div class="pie-progress-number">35%</div>
                 </div>
-              </div>
             </td>
-            <td height="33%" rowspan="3" width="2%" style="background-color: #CCC; border-top:solid 4px #FFF;border-bottom:solid 4px #FFF;"></td>
-            <td height="33%" width="24%" class="inside-court p-20" style="border-top:solid 4px #FFF;">
+            <!-- target P2 -->
+            <td height="70px" class="court-inside court-border-top front target text-center" data-target="2">
               <div id="to-p2" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
                   data-size="60" data-barsize="4" data-goal="75" aria-valuenow="75"
                   role="progressbar">
                   <div class="pie-progress-number">T2</div>
                 </div>
-              </div>
             </td>
-            <td height="33%" width="25%" class="inside-court p-20" style="border:solid 4px #FFF;border-bottom:none;">
+            <!-- target P1 -->
+            <td height="70px" class="court-inside court-border-top court-border-left court-border-right target text-center" data-target="1">
               <div id="to-p1" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
                   data-size="60" data-barsize="4" data-goal="75" aria-valuenow="75"
                   role="progressbar">
@@ -359,7 +364,8 @@
             </td>
           </tr>
           <tr class="col-12">
-            <td height="33%" width="25%" class="inside-court p-20" style="border:none;border-left:solid 4px #FFF;border-right:solid 4px #FFF;">
+            <!-- attack P6 -->
+            <td height="70px" class="court-inside court-border-left court-border-right attack text-center" data-attack="6">
               <div id="from-p6" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
                   data-size="60" data-barsize="4" data-goal="5" aria-valuenow="5"
                   role="progressbar">
@@ -367,14 +373,16 @@
                 </div>
               </div>
             </td>
-            <td height="33%" width="24%" class="inside-court p-20" style="border-top:none;">
+            <!-- attack P3 -->
+            <td height="70px" class="court-inside front attack text-center" data-attack="3">
               <div id="from-p3" height="33%" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                 data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="4"
                 data-goal="15" aria-valuenow="15" role="progressbar">
                 <span class="pie-progress-number">15%</span>
               </div>
             </td>
-            <td height="33%" width="24%" class="inside-court p-20" style="border:none;">
+            <!-- target P3 -->
+            <td height="70px" class="court-inside front target text-center" data-target="3">
               <div id="to-p3" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
                   data-size="60" data-barsize="4" data-goal="75" aria-valuenow="75"
                   role="progressbar">
@@ -382,7 +390,8 @@
                 </div>
               </div>
             </td>
-            <td height="33%" width="25%" class="inside-court p-20" style="border:none;border-left:solid 4px #FFF;border-right:solid 4px #FFF;">
+            <!-- target P6 -->
+            <td height="70px" class="court-inside court-border-left court-border-right target text-center" data-target="6">
               <div id="to-p6" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
                   data-size="60" data-barsize="4" data-goal="75" aria-valuenow="75"
                   role="progressbar">
@@ -392,7 +401,8 @@
             </td>
           </tr>
           <tr class="col-12">
-            <td height="33%" width="25%" class="inside-court p-20"  style="border:solid 4px #FFF;border-top:none;">
+            <!-- attack P1 -->
+            <td height="70px" class="court-inside court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">
               <div id="from-p1" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
                   data-size="60" data-barsize="4" data-goal="15" aria-valuenow="15"
                   role="progressbar">
@@ -400,7 +410,8 @@
                 </div>
               </div>
             </td>
-            <td height="33%" width="24%" class="inside-court p-20" style="border-top:none;border-bottom: solid 4px #FFF;">
+            <!-- attack P2 -->
+            <td height="70px" class="court-inside court-border-bottom front attack text-center" data-attack="2">
               <div id="from-p2" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
                   data-size="60" data-barsize="4" data-goal="45" aria-valuenow="45"
                   role="progressbar">
@@ -408,7 +419,8 @@
                 </div>
               </div>
             </td>
-            <td height="33%" width="24%" class="inside-court p-20" style="border-top:none;border-bottom: solid 4px #FFF;">
+            <!-- target P4 -->
+            <td height="70px" class="court-inside court-border-bottom front target text-center" data-target="4">
               <div id="to-p4" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
                   data-size="60" data-barsize="4" data-goal="75" aria-valuenow="75"
                   role="progressbar">
@@ -416,7 +428,8 @@
                 </div>
               </div>
             </td>
-            <td height="33%" width="25%" class="inside-court p-20" style="border: solid 4px #FFF;border-top:none;">
+            <!-- target P5 -->
+            <td height="70px" class="court-inside court-border-bottom court-border-left court-border-right target text-center" data-target="5">
               <div id="to-p5" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
                   data-size="60" data-barsize="4" data-goal="75" aria-valuenow="75"
                   role="progressbar">
@@ -424,6 +437,10 @@
                 </div>
               </div>
             </td>
+          </tr>
+          <tr>
+            <td class="court-outside" height="40px" colspan="2"></td>
+            <td class="court-outside out" height="40px" colspan="2" data-target="10"></td>
           </tr>
         </table>
     </div>

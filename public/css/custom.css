@@ -83,10 +83,96 @@
   border:2px solid #f00;
 }
 
-.inside-court {
+.court-inside {
     background-color: #f8a081;
 }
 
-.inside-court.selected {
+.court-inside.selected {
     background-color:#eac3b5;
+}
+
+.court-inside.inactive {
+    background: repeating-linear-gradient(
+      45deg,
+      #f8a081,
+      #f8a081 10px,
+      #bf9485 10px,
+      #bf9485 20px
+    );
+    cursor:no-drop;
+}
+
+.court-inside.active:hover {
+  opacity: 0.7;
+}
+
+.attack.active.selected {
+  background-color: #11c26d;
+}
+
+.target.active.selected {
+  background-color: #11c26d;
+}
+
+.court-outside {
+    background-color: #00bad5;
+}
+
+.court-inside,
+.court-outside {
+  color:#FFF;
+}
+
+.court-outside.selected {
+    background-color:#ff5e5e;
+}
+
+.court-outside.inactive {
+    background: repeating-linear-gradient(
+      45deg,
+      #00bad5,
+      #00bad5 10px,
+      #CCC 10px,
+      #CCC 20px
+    );
+    cursor:no-drop;
+}
+
+.court-net {
+    background-color: #999;
+}
+
+.court-net.selected {
+    background-color:#ff5e5e;
+}
+
+.court-net.inactive {
+    background: repeating-linear-gradient(
+      45deg,
+      #999,
+      #999 10px,
+      #CCC 10px,
+      #CCC 20px
+    );
+    cursor:no-drop;
+}
+
+.selected-error {
+  background-color:#ff5e5e;
+}
+
+.court-border-top {
+    border-top:solid 6px #FFF !important;
+}
+
+.court-border-left {
+    border-left:solid 6px #FFF;
+}
+
+.court-border-right {
+    border-right:solid 6px #FFF;
+}
+
+.court-border-bottom {
+    border-bottom:solid 6px #FFF;
 }

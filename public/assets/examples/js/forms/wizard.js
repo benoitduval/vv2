@@ -75,36 +75,32 @@
 
     $('#attack-us').on('click', function() {
       $('.btn-avatar').on('click', function() {
-          $('#userId').val($(this).attr('data-user-id'));
-          var input = $(this).find('input');
+        $('#userId').val($(this).attr('data-user-id'));
+        var input = $(this).find('input');
 
-          $('.attack').each(function () {
-            $(this).removeAttr('fill', 'url(#inactiveCourt)');
-            $(this).css('fill', '#f8a081');
+        $('.attack').each(function () {
+          $(this).removeClass('inactive');
+          $(this).addClass('active');
+        });
+
+        $('.attack.active').on('click', function () {
+          $('#from-zone').val($(this).attr('data-attack'));
+          $('.attack.active').removeClass('selected');
+          $(this).addClass('selected');
+          $('.target').each(function () {
             $(this).removeClass('inactive');
             $(this).addClass('active');
-          });
-
-          $('.attack.active').on('click', function () {
-            $('#from-zone').val($(this).attr('data-attack'));
-            $('.attack.active').css('fill', '#f8a081');
-            $(this).css('fill', '#11c26d');
-            $('.target').each(function () {
-              $(this).removeAttr('fill', 'url(#inactiveCourt)');
-              $(this).css('fill', '#f8a081');
-              $(this).removeClass('inactive');
-              $(this).addClass('active');
-              $('.target.active').on('click', function() {
-                  $('#to-zone').val($(this).attr('data-target'));
-                  $('.target.active').css('fill', '#f8a081');
-                  $(this).css('fill', '#11c26d');
-                  $('#submit-point').removeClass('disabled');
-                  $('#submit-point').on('click', function() {
-                      $('#game-stats').submit();
-                  });
-              });
+            $('.target.active').on('click', function() {
+                $('#to-zone').val($(this).attr('data-target'));
+                $('.target.active').removeClass('selected');
+                $(this).addClass('selected');
+                $('#submit-point').removeClass('disabled');
+                $('#submit-point').on('click', function() {
+                    $('#game-stats').submit();
+                });
             });
           });
+        });
       });
     });
 
@@ -114,25 +110,21 @@
           var input = $(this).find('input');
 
           $('.attack').each(function () {
-            $(this).removeAttr('fill', 'url(#inactiveCourt)');
-            $(this).css('fill', '#f8a081');
             $(this).removeClass('inactive');
             $(this).addClass('active');
           });
 
           $('.attack.active').on('click', function () {
             $('#from-zone').val($(this).attr('data-attack'));
-            $('.attack.active').css('fill', '#f8a081');
-            $(this).css('fill', '#11c26d');
+            $('.attack.active').removeClass('selected');
+            $(this).addClass('selected');
             $('.out').each(function () {
-              $(this).removeAttr('fill', 'url(#inactiveCourt)');
-              $(this).css('fill', '#00bad5');
               $(this).removeClass('inactive');
               $(this).addClass('active');
               $('.out.active').on('click', function() {
                   $('#to-zone').val($(this).attr('data-target'));
-                  $('.out.active').css('fill', '#00bad5');
-                  $(this).css('fill', '#ff5e5e');
+                  $('.out.active').removeClass('selected');
+                  $(this).addClass('selected');
                   $('#submit-point').removeClass('disabled');
                   $('#submit-point').on('click', function() {
                       $('#game-stats').submit();
@@ -149,16 +141,14 @@
           var input = $(this).find('input');
 
           $('.target').each(function () {
-            $(this).removeAttr('fill', 'url(#inactiveCourt)');
-            $(this).css('fill', '#f8a081');
             $(this).removeClass('inactive');
             $(this).addClass('active');
           });
 
           $('.target.active').on('click', function () {
             $('#to-zone').val($(this).attr('data-target'));
-            $('.target.active').css('fill', '#f8a081');
-            $(this).css('fill', '#11c26d');
+            $('.target.active').removeClass('selected');
+            $(this).addClass('selected');
             $('#submit-point').removeClass('disabled');
             $('#submit-point').on('click', function() {
                 $('#game-stats').submit();
@@ -173,16 +163,14 @@
           var input = $(this).find('input');
 
           $('.out').each(function () {
-            $(this).removeAttr('fill', 'url(#inactiveCourt)');
-            $(this).css('fill', '#00bad5');
             $(this).removeClass('inactive');
             $(this).addClass('active');
           });
 
           $('.out.active').on('click', function () {
             $('#to-zone').val($(this).attr('data-target'));
-            $('.out.active').css('fill', '#00bad5');
-            $(this).css('fill', '#ff5e5e');
+            $('.out.active').removeClass('selected');
+            $(this).addClass('selected');
             $('#submit-point').removeClass('disabled');
             $('#submit-point').on('click', function() {
                 $('#game-stats').submit();
@@ -197,16 +185,14 @@
           var input = $(this).find('input');
 
           $('.attack.front').each(function () {
-            $(this).removeAttr('fill', 'url(#inactiveCourt)');
-            $(this).css('fill', '#f8a081');
             $(this).removeClass('inactive');
             $(this).addClass('active');
           });
 
           $('.attack.front.active').on('click', function () {
             $('#from-zone').val($(this).attr('data-target'));
-            $('.attack.front.active').css('fill', '#f8a081');
-            $(this).css('fill', '#11c26d');
+            $('.attack.front.active').removeClass('selected');
+            $(this).addClass('selected');
             $('#submit-point').removeClass('disabled');
             $('#submit-point').on('click', function() {
                 $('#game-stats').submit();
@@ -221,16 +207,14 @@
           var input = $(this).find('input');
 
           $('.attack.front').each(function () {
-            $(this).removeAttr('fill', 'url(#inactiveCourt)');
-            $(this).css('fill', '#f8a081');
             $(this).removeClass('inactive');
             $(this).addClass('active');
           });
 
           $('.attack.front.active').on('click', function () {
             $('#from-zone').val($(this).attr('data-target'));
-            $('.attack.front.active').css('fill', '#f8a081');
-            $(this).css('fill', '#ff5e5e');
+            $('.attack.front.active').removeClass('selected-error');
+            $(this).addClass('selected-error');
             $('#submit-point').removeClass('disabled');
             $('#submit-point').on('click', function() {
                 $('#game-stats').submit();
