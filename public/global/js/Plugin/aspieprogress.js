@@ -44,7 +44,6 @@
         }
 
         var $el = this.$el;
-
         $el.asPieProgress(this.options);
       }
     }], [{
