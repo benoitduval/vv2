@@ -86,10 +86,12 @@ return [
                 '/global/js/Plugin/matchheight.js',
                 '/global/js/Plugin/aspieprogress.js',
                 '/global/js/Plugin/bootstrap-datepicker.js',
+                '/global/js/Plugin/asselectable.js',
+                '/global/js/Plugin/selectable.js',
 
                 '/assets/js/Site.js',
                 '/assets/js/App/Calendar.js',
-                '/js/event-stats.js'
+                '/js/event-stats.js',
             ],
             'css' => [
                 '/global/vendor/animsition/animsition.css',

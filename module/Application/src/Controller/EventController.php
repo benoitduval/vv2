@@ -129,6 +129,104 @@ class EventController extends AbstractController
 
     public function detailAction()
     {
+        // \Zend\Debug\Debug::dump(json_encode([
+        //     'fromP1' => [
+        //         'toP1' => rand(0,100),
+        //         'toP2' => rand(0,100),
+        //         'toP3' => rand(0,100),
+        //         'toP4' => rand(0,100),
+        //         'toP5' => rand(0,100),
+        //         'toP6' => rand(0,100),
+        //     ],
+        //     'fromP2' => [
+        //         'toP1' => rand(0,100),
+        //         'toP2' => rand(0,100),
+        //         'toP3' => rand(0,100),
+        //         'toP4' => rand(0,100),
+        //         'toP5' => rand(0,100),
+        //         'toP6' => rand(0,100),
+        //     ],
+        //     'fromP3' => [
+        //         'toP1' => rand(0,100),
+        //         'toP2' => rand(0,100),
+        //         'toP3' => rand(0,100),
+        //         'toP4' => rand(0,100),
+        //         'toP5' => rand(0,100),
+        //         'toP6' => rand(0,100),
+        //     ],
+        //     'fromP4' => [
+        //         'toP1' => rand(0,100),
+        //         'toP2' => rand(0,100),
+        //         'toP3' => rand(0,100),
+        //         'toP4' => rand(0,100),
+        //         'toP5' => rand(0,100),
+        //         'toP6' => rand(0,100),
+        //     ],
+        //     'fromP5' => [
+        //         'toP1' => rand(0,100),
+        //         'toP2' => rand(0,100),
+        //         'toP3' => rand(0,100),
+        //         'toP4' => rand(0,100),
+        //         'toP5' => rand(0,100),
+        //         'toP6' => rand(0,100),
+        //     ],
+        //     'fromP6' => [
+        //         'toP1' => rand(0,100),
+        //         'toP2' => rand(0,100),
+        //         'toP3' => rand(0,100),
+        //         'toP4' => rand(0,100),
+        //         'toP5' => rand(0,100),
+        //         'toP6' => rand(0,100),
+        //     ],
+        //     'toP1' => [
+        //         'fromP1' => rand(0,100),
+        //         'fromP2' => rand(0,100),
+        //         'fromP3' => rand(0,100),
+        //         'fromP4' => rand(0,100),
+        //         'fromP5' => rand(0,100),
+        //         'fromP6' => rand(0,100)
+        //     ],
+        //     'toP2' => [
+        //         'fromP1' => rand(0,100),
+        //         'fromP2' => rand(0,100),
+        //         'fromP3' => rand(0,100),
+        //         'fromP4' => rand(0,100),
+        //         'fromP5' => rand(0,100),
+        //         'fromP6' => rand(0,100)
+        //     ],
+        //     'toP3' => [
+        //         'fromP1' => rand(0,100),
+        //         'fromP2' => rand(0,100),
+        //         'fromP3' => rand(0,100),
+        //         'fromP4' => rand(0,100),
+        //         'fromP5' => rand(0,100),
+        //         'fromP6' => rand(0,100)
+        //     ],
+        //     'toP4' => [
+        //         'fromP1' => rand(0,100),
+        //         'fromP2' => rand(0,100),
+        //         'fromP3' => rand(0,100),
+        //         'fromP4' => rand(0,100),
+        //         'fromP5' => rand(0,100),
+        //         'fromP6' => rand(0,100)
+        //     ],
+        //     'toP5' => [
+        //         'fromP1' => rand(0,100),
+        //         'fromP2' => rand(0,100),
+        //         'fromP3' => rand(0,100),
+        //         'fromP4' => rand(0,100),
+        //         'fromP5' => rand(0,100),
+        //         'fromP6' => rand(0,100)
+        //     ],
+        //     'toP6' => [
+        //         'fromP1' => rand(0,100),
+        //         'fromP2' => rand(0,100),
+        //         'fromP3' => rand(0,100),
+        //         'fromP4' => rand(0,100),
+        //         'fromP5' => rand(0,100),
+        //         'fromP6' => rand(0,100)
+        //     ],
+        // ]));die;
         $eventId = $this->params('id');
         if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
 
