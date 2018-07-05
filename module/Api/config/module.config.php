@@ -65,13 +65,23 @@ return [
                     ],
                 ],
             ],
-            'api-save-stats' => [
+            'api-stats-save' => [
                 'type'    => Segment::class,
                 'options' => [
                     'route'    => '/api/stats/save',
                     'defaults' => [
                         'controller'    => Controller\StatsController::class,
                         'action'        => 'save',
+                    ],
+                ],
+            ],
+            'api-stats-event' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/api/stats/event/:eventId',
+                    'defaults' => [
+                        'controller'    => Controller\StatsController::class,
+                        'action'        => 'event',
                     ],
                 ],
             ],

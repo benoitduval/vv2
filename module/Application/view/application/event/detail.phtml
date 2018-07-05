@@ -272,28 +272,28 @@
                 <td width="50px" height="50px" class="p-10">
                   <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                     data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="2"
-                    data-goal="0" aria-valuenow="0" role="progressbar">
+                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
                     <span class="pie-progress-number">15</span>
                   </div>
                 </td>
                 <td width="50px" height="50px" class="p-10">
                   <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                     data-valuemin="0" data-barcolor="#F00" data-size="60" data-barsize="2"
-                    data-goal="0" aria-valuenow="0" role="progressbar">
+                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
                     <span class="pie-progress-number">5</span>
                   </div>
                 </td>
                 <td width="50px" height="50px" class="p-10">
                   <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                     data-valuemin="0" data-barcolor="#0F0" data-size="60" data-barsize="2"
-                    data-goal="0" aria-valuenow="0" role="progressbar">
+                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
                     <span class="pie-progress-number">2</span>
                   </div>
                 </td>
                 <td width="50px" height="50px">
                   <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                     data-valuemin="0" data-barcolor="#00F" data-size="60" data-barsize="2"
-                    data-goal="0" aria-valuenow="0" role="progressbar">
+                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
                     <span class="pie-progress-number">2</span>
                   </div>
                 </td>
@@ -310,129 +310,129 @@
   <div class="col-md-6">
     <div class="card card-shadow example-responsive">
       <div class="card-block">
-        <table class="table" id="stats-repartition" data-stats='{"fromP1":{"toP1":68,"toP2":85,"toP3":64,"toP4":44,"toP5":29,"toP6":84},"fromP2":{"toP1":98,"toP2":63,"toP3":93,"toP4":72,"toP5":57,"toP6":22},"fromP3":{"toP1":79,"toP2":2,"toP3":23,"toP4":11,"toP5":91,"toP6":67},"fromP4":{"toP1":38,"toP2":0,"toP3":91,"toP4":8,"toP5":12,"toP6":60},"fromP5":{"toP1":87,"toP2":85,"toP3":5,"toP4":72,"toP5":16,"toP6":46},"fromP6":{"toP1":24,"toP2":30,"toP3":67,"toP4":32,"toP5":13,"toP6":81},"toP1":{"fromP1":23,"fromP2":55,"fromP3":14,"fromP4":6,"fromP5":29,"fromP6":34},"toP2":{"fromP1":29,"fromP2":61,"fromP3":93,"fromP4":85,"fromP5":13,"fromP6":42},"toP3":{"fromP1":36,"fromP2":96,"fromP3":46,"fromP4":50,"fromP5":83,"fromP6":27},"toP4":{"fromP1":5,"fromP2":59,"fromP3":12,"fromP4":92,"fromP5":96,"fromP6":2},"toP5":{"fromP1":85,"fromP2":81,"fromP3":36,"fromP4":42,"fromP5":30,"fromP6":70},"toP6":{"fromP1":47,"fromP2":57,"fromP3":37,"fromP4":19,"fromP5":15,"fromP6":38}}'>
+        <table class="table" id="stats-repartition" data-stats='<?= $percents ?>'>
           <tr>
-            <td class="court-outside" width="9%" rowspan="5"></td>
-            <td class="court-outside text-center" height="40px" colspan="2">Attack From</td>
+            <td class="court-outside inactive" width="9%" rowspan="5"></td>
+            <td class="court-outside inactive text-center" height="40px" colspan="2">Attack From</td>
             <!-- NET -->
             <td rowspan="5" width="2%" class="court-net out" data-target="7"></td>
-            <td class="court-outside out text-center" height="40px" colspan="2" style="border: none; color:#FFF;" data-target="8">Target Zone</td>
-            <td class="court-outside out" width="9%" rowspan="5" data-target="9"></td>
+            <td class="court-outside inactive out text-center" height="40px" colspan="2" style="border: none; color:#FFF;" data-target="8">Target Zone</td>
+            <td class="court-outside inactive out" width="9%" rowspan="5" data-target="9"></td>
           </tr>
           <tr class="col-12">
             <!-- attack P5 -->
-            <td height="70px" width="20%" class="court-inside court-border-top court-border-left court-border-right attack text-center" data-attack="5">
+            <td height="70px" width="20%" class="court-inside active court-border-top court-border-left court-border-right attack text-center" data-attack="5">
               <div id="fromP5" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
+                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $fromP5 ?>"
                   role="progressbar">
-                  <div class="pie-progress-number">0%</div>
+                  <div class="pie-progress-number"><?= $fromP5 ?>%</div>
                 </div>
               </div>
             </td>
             <!-- attack P4 -->
-            <td height="70px" width="20%" class="court-inside court-border-top front attack text-center" data-attack="4">
+            <td height="70px" width="20%" class="court-inside active court-border-top front attack text-center" data-attack="4">
               <div id="fromP4" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
+                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $fromP4 ?>"
                   role="progressbar">
-                  <div class="pie-progress-number">0%</div>
+                  <div class="pie-progress-number"><?= $fromP4 ?>%</div>
                 </div>
             </td>
             <!-- target P2 -->
-            <td height="70px" width="20%" class="court-inside court-border-top front target text-center" data-target="2">
+            <td height="70px" width="20%" class="court-inside active court-border-top front target text-center" data-target="2">
               <div id="toP2" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
+                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $toP2 ?>"
                   role="progressbar">
-                  <div class="pie-progress-number">0%</div>
+                  <div class="pie-progress-number"><?= $toP2 ?>%</div>
                 </div>
             </td>
             <!-- target P1 -->
-            <td height="70px" width="20%" class="court-inside court-border-top court-border-left court-border-right target text-center" data-target="1">
+            <td height="70px" width="20%" class="court-inside active court-border-top court-border-left court-border-right target text-center" data-target="1">
               <div id="toP1" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
+                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $toP1 ?>"
                   role="progressbar">
-                  <div class="pie-progress-number">0%</div>
+                  <div class="pie-progress-number"><?= $toP1 ?>%</div>
                 </div>
               </div>
             </td>
           </tr>
           <tr class="col-12">
             <!-- attack P6 -->
-            <td height="70px" width="20%" class="court-inside court-border-left court-border-right attack text-center" data-attack="6">
+            <td height="70px" width="20%" class="court-inside active court-border-left court-border-right attack text-center" data-attack="6">
               <div id="fromP6" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
+                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $fromP6 ?>"
                   role="progressbar">
-                  <div class="pie-progress-number">0%</div>
+                  <div class="pie-progress-number"><?= $fromP6 ?>%</div>
                 </div>
               </div>
             </td>
             <!-- attack P3 -->
-            <td height="70px" width="20%" class="court-inside front attack text-center" data-attack="3">
+            <td height="70px" width="20%" class="court-inside active front attack text-center" data-attack="3">
               <div id="fromP3" height="33%" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                 data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="4"
-                data-goal="0" aria-valuenow="0" role="progressbar">
-                <span class="pie-progress-number">0%</span>
+                data-goal="0" aria-valuenow="<?= $fromP3 ?>" role="progressbar">
+                <span class="pie-progress-number"><?= $fromP3 ?>%</span>
               </div>
             </td>
             <!-- target P3 -->
-            <td height="70px" width="20%" class="court-inside front target text-center" data-target="3">
+            <td height="70px" width="20%" class="court-inside active front target text-center" data-target="3">
               <div id="toP3" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
+                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $toP3 ?>"
                   role="progressbar">
-                  <div class="pie-progress-number">0%</div>
+                  <div class="pie-progress-number"><?= $toP3 ?>%</div>
                 </div>
               </div>
             </td>
             <!-- target P6 -->
-            <td height="70px" width="20%" class="court-inside court-border-left court-border-right target text-center" data-target="6">
+            <td height="70px" width="20%" class="court-inside active court-border-left court-border-right target text-center" data-target="6">
               <div id="toP6" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
+                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $toP6 ?>"
                   role="progressbar">
-                  <div class="pie-progress-number">0%</div>
+                  <div class="pie-progress-number"><?= $toP6 ?>%</div>
                 </div>
               </div>
             </td>
           </tr>
           <tr class="col-12">
             <!-- attack P1 -->
-            <td height="70px" width="20%" class="court-inside court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">
+            <td height="70px" width="20%" class="court-inside active court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">
               <div id="fromP1" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
+                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $fromP1 ?>"
                   role="progressbar">
-                  <div class="pie-progress-number">0%</div>
+                  <div class="pie-progress-number"><?= $fromP1 ?>%</div>
                 </div>
               </div>
             </td>
             <!-- attack P2 -->
-            <td height="70px" width="20%" class="court-inside court-border-bottom front attack text-center" data-attack="2">
+            <td height="70px" width="20%" class="court-inside active court-border-bottom front attack text-center" data-attack="2">
               <div id="fromP2" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
+                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $fromP2 ?>"
                   role="progressbar">
-                  <div class="pie-progress-number">0%</div>
+                  <div class="pie-progress-number"><?= $fromP2 ?>%</div>
                 </div>
               </div>
             </td>
             <!-- target P4 -->
-            <td height="70px" width="20%" class="court-inside court-border-bottom front target text-center" data-target="4">
+            <td height="70px" width="20%" class="court-inside active court-border-bottom front target text-center" data-target="4">
               <div id="toP4" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
+                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $toP4 ?>"
                   role="progressbar">
-                  <div class="pie-progress-number">0%</div>
+                  <div class="pie-progress-number"><?= $toP4 ?>%</div>
                 </div>
               </div>
             </td>
             <!-- target P5 -->
-            <td height="70px" width="20%" class="court-inside court-border-bottom court-border-left court-border-right target text-center" data-target="5">
+            <td height="70px" width="20%" class="court-inside active court-border-bottom court-border-left court-border-right target text-center" data-target="5">
               <div id="toP5" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="0"
+                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $toP5 ?>"
                   role="progressbar">
-                  <div class="pie-progress-number">0%</div>
+                  <div class="pie-progress-number"><?= $toP5 ?>%</div>
                 </div>
               </div>
             </td>
           </tr>
           <tr>
-            <td class="court-outside" height="40px" colspan="2"></td>
-            <td class="court-outside out" height="40px" colspan="2" data-target="10"></td>
+            <td class="court-outside inactive" height="40px" colspan="2"></td>
+            <td class="court-outside inactive out" height="40px" colspan="2" data-target="10"></td>
           </tr>
         </table>
       </div>
@@ -441,55 +441,52 @@
   <div class="col-md-6">
     <div class="card card-shadow example-responsive">
       <div class="card-block">
-        <table class="table is-indent"  data-plugin="selectable" data-row-selectable="true">
-          <thead>
-            <tr>
-              <th class="cell-30" scope="col">
-                <span class="checkbox-custom checkbox-primary checkbox-lg contacts-select-all">
-                  <input type="checkbox" class="selectable-all" id="select_all"/>
-                  <label for="select_all"></label>
-                </span>
-              </th>
-              <th class="cell-60">All</th>
-              <th>
-                <div>
-                  <select class="form-control post-selection">
-                      <option disabled="disabled" selected>Select Post</option>
-                      <option value="outside-hitter">Outside Hitter</option>
-                      <option value="opposite">Opposite</option>
-                      <option value="middle-blocker">Middle Blocker</option>
-                      <option value="setter">Setter</option>
-                      <option value="libero">Libero</option>
-                    </select>
-                </div>
-              </th>
-              <th>Points</th>
-            </tr>
-          </thead>
-          <?php foreach ($users as $user): ?>
-            <tr>
-              <td>
-                <span class="checkbox-custom checkbox-primary checkbox-lg">
-                  <input class="selectable-item <?= \Application\Model\User::$position[$user->position] ?>" type="checkbox" name='users' id="<?= $user->id ?>" value="<?= $user->id ?>"/>
-                  <label for="<?= $user->id ?>"></label>
-                </span>
-              </td>
-              <td>
-                <div class="avatar avatar-md">
-                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                </div>
-              </td>
-              <td class="text-left"><?= $user->getFullname() ?></td>
-              <td width="50px" height="50px" class="p-10">
-                <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
-                  data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="2"
-                  data-goal="0" aria-valuenow="0" role="progressbar">
-                  <span class="pie-progress-number">15</span>
-                </div>
-              </td>
-            </tr>
-          <?php endforeach ?>
-        </table>
+        <form id="user-selection" data-event-id="<?= $event->id ?>">
+          <table class="table is-indent"  data-plugin="selectable" data-row-selectable="true">
+            <thead>
+              <tr>
+                <th colspan="3">
+                  <div>
+                    <select class="form-control post-selection">
+                        <option disabled="disabled" selected>Select Position</option>
+                        <option value="all">All</option>
+                        <option value="none">None</option>
+                        <option value="outside-hitter">Outside Hitter</option>
+                        <option value="opposite">Opposite</option>
+                        <option value="middle-blocker">Middle Blocker</option>
+                        <option value="setter">Setter</option>
+                        <option value="libero">Libero</option>
+                      </select>
+                  </div>
+                </th>
+                <th>Points</th>
+              </tr>
+            </thead>
+            <?php foreach ($attackScorer as $userId): ?>
+              <tr>
+                <td>
+                  <span class="checkbox-custom checkbox-primary checkbox-lg">
+                    <input class="selectable-item <?= \Application\Model\User::$position[$users[$userId]->position] ?>" type="checkbox" name='users[]' checked="checked" id="<?= $users[$userId]->id ?>" value="<?= $users[$userId]->id ?>"/>
+                    <label for="<?= $users[$userId]->id ?>"></label>
+                  </span>
+                </td>
+                <td>
+                  <div class="avatar avatar-md">
+                    <img class="img-fluid" src="<?= $users[$userId]->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                  </div>
+                </td>
+                <td class="text-left"><?= $users[$userId]->getFullname() ?></td>
+                <td width="50px" height="50px" class="p-10">
+                  <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
+                    data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="2"
+                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
+                    <span class="pie-progress-number">15</span>
+                  </div>
+                </td>
+              </tr>
+            <?php endforeach ?>
+          </table>
+        </form>
       </div>
     </div>
   </div>

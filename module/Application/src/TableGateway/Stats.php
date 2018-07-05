@@ -33,6 +33,88 @@ class Stats extends AbstractTableGateway
         return $result;
     }
 
+    public function getZonePercent($options)
+    {
+        $stats = $this->fetchAll($options);
+
+        $result = [
+            'allFrom' => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
+            'allTo'   => [ 'toP1' => 0, 'toP2' => 0, 'toP3' => 0, 'toP4' => 0, 'toP5' => 0, 'toP6' => 0],
+            'fromP1'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0],
+            'fromP2'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0],
+            'fromP3'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0],
+            'fromP4'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0],
+            'fromP5'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0],
+            'fromP6'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0],
+            'toP1'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
+            'toP2'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
+            'toP3'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
+            'toP4'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
+            'toP5'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
+            'toP6'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0]
+        ];
+
+        foreach ($stats as $stat) {
+            switch ($stat->fromZone) {
+                case Statistics::FROM_P1:
+                    $labelFrom = 'fromP1';
+                case Statistics::FROM_P2:
+                    $labelFrom = 'fromP2';
+                    break;
+                case Statistics::FROM_P3:
+                    $labelFrom = 'fromP3';
+                    break;
+                case Statistics::FROM_P4:
+                    $labelFrom = 'fromP4';
+                    break;
+                case Statistics::FROM_P5:
+                    $labelFrom = 'fromP5';
+                    break;
+                case Statistics::FROM_P6:
+                    $labelFrom = 'fromP6';
+                    break;
+            }
+
+            switch ($stat->toZone) {
+                case Statistics::FROM_P1:
+                    $labelTo = 'toP1';
+                case Statistics::FROM_P2:
+                    $labelTo = 'toP2';
+                    break;
+                case Statistics::FROM_P3:
+                    $labelTo = 'toP3';
+                    break;
+                case Statistics::FROM_P4:
+                    $labelTo = 'toP4';
+                    break;
+                case Statistics::FROM_P5:
+                    $labelTo = 'toP5';
+                    break;
+                case Statistics::FROM_P6:
+                    $labelTo = 'toP6';
+                    break;
+            }
+
+            $result['allFrom'][$labelFrom] ++;
+            $result['allTo'][$labelTo] ++;
+
+            $result[$labelFrom][$labelTo] ++;
+            $result[$labelTo][$labelFrom] ++;
+        }
+
+        foreach ($result as $label => $data) {
+            $total = array_sum($data);
+
+            $data = array_map(function($hits) use ($total) {
+                if (!$total) return $total;
+               return (int) floor($hits / $total * 100);
+            }, $data);
+            $result[$label] = $data;
+        }
+
+        return $result;
+    }
+
     public function getRatio($eventId)
     {
         for ($i = 1; $i <= 5; $i++) {

@@ -39,4 +39,22 @@ class StatsController extends AbstractController
         $view->setTemplate('api/default/json.phtml');
         return $view;
     }
+
+    public function eventAction()
+    {
+        $eventId = $this->params('eventId', null);
+        $userIds = json_decode($this->params()->fromQuery('userIds', null));
+
+        $result = $this->statsTable->getZonePercent([
+            'eventId'  => $eventId,
+            'userId'   => $userIds,
+            'pointFor' => Stats::POINT_US,
+            'reason'   => Stats::POINT_ATTACK,
+        ]);
+
+        $view = new ViewModel(['result' => $result]);
+        $view->setTerminal(true);
+        $view->setTemplate('api/default/json.phtml');
+        return $view;
+    }
 }

@@ -129,108 +129,33 @@ class EventController extends AbstractController
 
     public function detailAction()
     {
-        // \Zend\Debug\Debug::dump(json_encode([
-        //     'fromP1' => [
-        //         'toP1' => rand(0,100),
-        //         'toP2' => rand(0,100),
-        //         'toP3' => rand(0,100),
-        //         'toP4' => rand(0,100),
-        //         'toP5' => rand(0,100),
-        //         'toP6' => rand(0,100),
-        //     ],
-        //     'fromP2' => [
-        //         'toP1' => rand(0,100),
-        //         'toP2' => rand(0,100),
-        //         'toP3' => rand(0,100),
-        //         'toP4' => rand(0,100),
-        //         'toP5' => rand(0,100),
-        //         'toP6' => rand(0,100),
-        //     ],
-        //     'fromP3' => [
-        //         'toP1' => rand(0,100),
-        //         'toP2' => rand(0,100),
-        //         'toP3' => rand(0,100),
-        //         'toP4' => rand(0,100),
-        //         'toP5' => rand(0,100),
-        //         'toP6' => rand(0,100),
-        //     ],
-        //     'fromP4' => [
-        //         'toP1' => rand(0,100),
-        //         'toP2' => rand(0,100),
-        //         'toP3' => rand(0,100),
-        //         'toP4' => rand(0,100),
-        //         'toP5' => rand(0,100),
-        //         'toP6' => rand(0,100),
-        //     ],
-        //     'fromP5' => [
-        //         'toP1' => rand(0,100),
-        //         'toP2' => rand(0,100),
-        //         'toP3' => rand(0,100),
-        //         'toP4' => rand(0,100),
-        //         'toP5' => rand(0,100),
-        //         'toP6' => rand(0,100),
-        //     ],
-        //     'fromP6' => [
-        //         'toP1' => rand(0,100),
-        //         'toP2' => rand(0,100),
-        //         'toP3' => rand(0,100),
-        //         'toP4' => rand(0,100),
-        //         'toP5' => rand(0,100),
-        //         'toP6' => rand(0,100),
-        //     ],
-        //     'toP1' => [
-        //         'fromP1' => rand(0,100),
-        //         'fromP2' => rand(0,100),
-        //         'fromP3' => rand(0,100),
-        //         'fromP4' => rand(0,100),
-        //         'fromP5' => rand(0,100),
-        //         'fromP6' => rand(0,100)
-        //     ],
-        //     'toP2' => [
-        //         'fromP1' => rand(0,100),
-        //         'fromP2' => rand(0,100),
-        //         'fromP3' => rand(0,100),
-        //         'fromP4' => rand(0,100),
-        //         'fromP5' => rand(0,100),
-        //         'fromP6' => rand(0,100)
-        //     ],
-        //     'toP3' => [
-        //         'fromP1' => rand(0,100),
-        //         'fromP2' => rand(0,100),
-        //         'fromP3' => rand(0,100),
-        //         'fromP4' => rand(0,100),
-        //         'fromP5' => rand(0,100),
-        //         'fromP6' => rand(0,100)
-        //     ],
-        //     'toP4' => [
-        //         'fromP1' => rand(0,100),
-        //         'fromP2' => rand(0,100),
-        //         'fromP3' => rand(0,100),
-        //         'fromP4' => rand(0,100),
-        //         'fromP5' => rand(0,100),
-        //         'fromP6' => rand(0,100)
-        //     ],
-        //     'toP5' => [
-        //         'fromP1' => rand(0,100),
-        //         'fromP2' => rand(0,100),
-        //         'fromP3' => rand(0,100),
-        //         'fromP4' => rand(0,100),
-        //         'fromP5' => rand(0,100),
-        //         'fromP6' => rand(0,100)
-        //     ],
-        //     'toP6' => [
-        //         'fromP1' => rand(0,100),
-        //         'fromP2' => rand(0,100),
-        //         'fromP3' => rand(0,100),
-        //         'fromP4' => rand(0,100),
-        //         'fromP5' => rand(0,100),
-        //         'fromP6' => rand(0,100)
-        //     ],
-        // ]));die;
         $eventId = $this->params('id');
         if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
 
-            $stats = $this->statsTable->getAllByEventId($eventId);
+            $stats = $this->statsTable->fetchAll([
+                'eventId'  => $eventId,
+                'pointFor' => Model\Stats::POINT_US,
+                'reason'   => Model\Stats::POINT_ATTACK,
+            ]);
+            $attackScorer = [];
+            foreach ($stats as $stat) {
+                if (!in_array($stat->userId, $attackScorer) && $stat->userId) $attackScorer[] = $stat->userId;
+            }
+            $percents = $this->statsTable->getZonePercent([
+                'eventId'  => $eventId,
+                'pointFor' => Model\Stats::POINT_US,
+                'reason'   => Model\Stats::POINT_ATTACK,
+            ]);
+
+            foreach (['allFrom', 'allTo'] as $index) {
+                foreach ($percents[$index] as $key => $value) {
+                    $$key = $value;
+                }
+            }
+            foreach ($percents['allFrom'] as $key => $value) {
+                $$key = $value;
+            }
+            $percents = json_encode($percents);
             $users = $this->userTable->getAllByGroupId($event->groupId);
 
             $comments  = $this->commentTable->fetchAll(['eventId' => $event->id]);
@@ -361,6 +286,20 @@ class EventController extends AbstractController
             // $this->layout()->setTemplate('layout/titled.phtml');
             return new ViewModel([
                 'stats'           => $stats,
+                'percents'        => $percents,
+                'attackScorer'    => $attackScorer,
+                'fromP1'          => $fromP1,
+                'fromP2'          => $fromP2,
+                'fromP3'          => $fromP3,
+                'fromP4'          => $fromP4,
+                'fromP5'          => $fromP5,
+                'fromP6'          => $fromP6,
+                'toP1'            => $toP1,
+                'toP2'            => $toP2,
+                'toP3'            => $toP3,
+                'toP4'            => $toP4,
+                'toP5'            => $toP5,
+                'toP6'            => $toP6,
                 'counters'        => $counters,
                 'comments'        => $result,
                 'event'           => $event,

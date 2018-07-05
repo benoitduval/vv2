@@ -22,6 +22,7 @@ class Stats extends AbstractModel
     const POST_3M             = 3;
     const POST_SETTER         = 4;
     const POST_4              = 5;
+    const POST_OTHER          = 6;
 
     const SMALL_DIAG          = 1;
     const LARGE_DIAG          = 2;
