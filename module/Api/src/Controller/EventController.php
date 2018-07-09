@@ -84,6 +84,10 @@ class EventController extends AbstractController
                     'city'         => $event->city,
                     'team'         => $team,
                     'date'         => $eventDate->format('l jS F \- g:ia'),
+                    'dayNumeric'   => $eventDate->format('d'),
+                    'day'          => $eventDate->format('l'),
+                    'time'         => $eventDate->format('g:ia'),
+                    'month'        => $eventDate->format('F'),
                 ];
             }
 

@@ -133,7 +133,7 @@
                 $('#event-count-uncertain').html(resp.count.uncertain);
                 $('#event-count-no-answer').html(resp.count.noanswer);
             });
-
+console.log(myEvent);
             $('#modal-title').html(myEvent.title);
             $('#modal-date').html(myEvent.date);
             $('.event-url').attr('href', myEvent.url);
@@ -144,7 +144,8 @@
             $('#modal-address').html(myEvent.address);
             $('#modal-month').html(myEvent.month);
             $('#modal-day').html(myEvent.day);
-            $('#modal-date').html(myEvent.date);
+            $('#modal-day-numeric').html(myEvent.dayNumeric);
+            $('#modal-time').html(myEvent.time);
             $('#event-place-url').attr('href', 'https://maps.google.com/?q=' + myEvent.address + '+' + myEvent.city + '+' + myEvent.zipcode);
             calendarModal.modal('show');
 

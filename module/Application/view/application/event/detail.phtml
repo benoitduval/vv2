@@ -6,8 +6,31 @@
         <div class="card mb-20">
           <div class="card-block text-center vertical-align">
             <div class="vertical-align-middle">
-              <div class="card-text card-divider">
-                <span>July 28, 2017 <br> 20:00</span>
+              <div class="card-text card-divider col-12">
+                <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border:1px solid #cccccc;border-collapse:collapse;margin:auto;">
+                  <tbody>
+                    <tr>
+                      <td align="center" style="padding:5px" valign="top" width="160">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                          <tbody>
+                            <tr>
+                              <td align="center" style="background-color:#fd9f1b;color:#ffffff;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:bold;padding-top:10px;padding-bottom:10px;text-align:center" valign="top"><?= \Application\Service\Date::toFr($date->format('F')) ?></td>
+                            </tr>
+                            <tr>
+                              <td align="center" style="color:#000;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:100%;padding-top:5px;padding-bottom:5px;text-align:center" valign="top"><?= \Application\Service\Date::toFr($date->format('l')) ?></td>
+                            </tr>
+                            <tr>
+                              <td align="center" style="color:#fd9f1b;font-family:Helvetica,Arial,sans-serif;font-size:60px;font-weight:bold;line-height:100%;text-align:center" valign="top"><?= \Application\Service\Date::toFr($date->format('d')) ?></td>
+                            </tr>
+                            <tr>
+                              <td align="center" style="color:#000;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:100%;padding-top:5px;padding-bottom:5px;text-align:center" valign="top"><?= \Application\Service\Date::toFr($date->format('H\:i')) ?></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
               <h3 class="card-title mb-20"><?= $event->name ?></h3>
               <p><span class="card-title mb-10"><?= $event->address ?>, <?= $event->zipCode ?> <?= $event->city ?></span></p>
