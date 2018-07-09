@@ -9,10 +9,10 @@
                 <span class="site-menu-title">Calendar</span>
               </a>
             </li>
-            <li class="site-menu-item">
+            <li class="site-menu-item menu-img">
               <a href="/user/profile" class="pl-20">
                 <!-- <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i> -->
-                <i class="site-menu-icon"><img class="avatar avatar-md" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-group-avatar.png') this.src = '/img/default-group-avatar.png';"></i>
+                <i class="site-menu-icon menu-img"><img class="avatar avatar-md" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-group-avatar.png') this.src = '/img/default-group-avatar.png';"></i>
                 <span class="site-menu-title">Profile</span>
               </a>
             </li>
@@ -26,7 +26,7 @@
               <li class="site-menu-item">
                 <a href="/welcome-to/<?= $group->brand ?>" class="pl-20">
                   <!-- <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i> -->
-                  <i class="site-menu-icon"><img class="avatar avatar-md" src="<?= $group->getAvatarPath() ?>" onerror="if (this.src != '/img/default-group-avatar.png') this.src = '/img/default-group-avatar.png';"></i>
+                  <i class="site-menu-icon menu-img"><img class="avatar avatar-md" src="<?= $group->getAvatarPath() ?>" onerror="if (this.src != '/img/default-group-avatar.png') this.src = '/img/default-group-avatar.png';"></i>
                   <span class="site-menu-title"><?= $group->name ?></span>
                 </a>
               </li>

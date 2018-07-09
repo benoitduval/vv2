@@ -177,3 +177,7 @@
 .court-border-bottom {
     border-bottom:solid 6px #FFF;
 }
+
+.site-menu-icon.menu-img {
+  min-width: 25px;
+}

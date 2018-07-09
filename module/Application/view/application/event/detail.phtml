@@ -85,6 +85,9 @@
       <!-- Disponibility card -->
       <div class="card card-shadow">
           <div class="card-block">
+
+
+
               <div class="example-wrap mt-20 mb-0">
                 <div class="nav-tabs-horizontal" data-plugin="tabs">
                   <ul class="nav nav-tabs" role="tablist">
@@ -92,7 +95,9 @@
                       <a class="nav-link active show" data-toggle="tab" href="#exampleTabsIconOne" aria-controls="exampleTabsIconOne" role="tab" aria-selected="true">
                         <span>
                           <i class="icon wb-check-circle text-present" style="font-size:24px;" aria-hidden="true"></i>
-                          <span class="badge badge-pill up badge-info float-right"><?= $counters[Application\Model\Disponibility::RESP_OK] ?></span>
+                          <span class="badge badge-pill up badge-info" id="event-count-ok">
+                              <?= $counters[Application\Model\Disponibility::RESP_OK] ?>
+                          </span>
                         </span>
                       </a>
                     </li>
@@ -100,7 +105,9 @@
                       <a class="nav-link" data-toggle="tab" href="#exampleTabsIconTwo" aria-controls="exampleTabsIconTwo" role="tab" aria-selected="false">
                         <span>
                           <i class="icon wb-minus-circle text-absent" style="font-size:24px;" aria-hidden="true"></i>
-                          <span class="badge badge-pill up badge-info float-right"><?= $counters[Application\Model\Disponibility::RESP_NO] ?></span>
+                          <span class="badge badge-pill up badge-info" id="event-count-no">
+                            <?= $counters[Application\Model\Disponibility::RESP_NO] ?>
+                          </span>
                         </span>
                       </a>
                     </li>
@@ -108,7 +115,9 @@
                       <a class="nav-link" data-toggle="tab" href="#exampleTabsIconThree" aria-controls="exampleTabsIconThree" role="tab" aria-selected="false">
                         <span>
                           <i class="icon wb-help-circle text-uncertain" style="font-size:24px;" aria-hidden="true"></i>
-                          <span class="badge badge-pill up badge-info float-right"><?= $counters[Application\Model\Disponibility::RESP_UNCERTAIN] ?></span>
+                          <span class="badge badge-pill up badge-info" id="event-count-uncertain">
+                            <?= $counters[Application\Model\Disponibility::RESP_UNCERTAIN] ?>
+                          </span>
                         </span>
                       </a>
                     </li>
@@ -116,7 +125,9 @@
                       <a class="nav-link" data-toggle="tab" href="#exampleTabsIconFour" aria-controls="exampleTabsIconFour" role="tab">
                         <span>
                           <i class="icon wb-alert-circle text-no-answer" style="font-size:24px;" aria-hidden="true"></i>
-                          <span class="badge badge-pill up badge-info float-right"><?= $counters[Application\Model\Disponibility::RESP_NO_ANSWER] ?></span>
+                          <span class="badge badge-pill up badge-info" id="event-count-no-answer">
+                            <?= $counters[Application\Model\Disponibility::RESP_NO_ANSWER] ?>
+                          </span>
                         </span>
                       </a>
                     </li>
