@@ -104,6 +104,7 @@
 
 .court-inside.active:hover {
   opacity: 0.7;
+  cursor: pointer;
 }
 
 .attack.active.selected {

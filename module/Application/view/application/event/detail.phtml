@@ -310,6 +310,7 @@
   <div class="col-md-6">
     <div class="card card-shadow example-responsive">
       <div class="card-block">
+        <h4 class="card-title">Select Attack or Target zone</h4>
         <table class="table" id="stats-repartition" data-stats='<?= $percents ?>'>
           <tr>
             <td class="court-outside inactive" width="9%" rowspan="5"></td>
@@ -321,34 +322,34 @@
           </tr>
           <tr class="col-12">
             <!-- attack P5 -->
-            <td height="70px" width="20%" class="court-inside active court-border-top court-border-left court-border-right attack text-center" data-attack="5">
+            <td height="70px" width="20%" class="court-inside <?= ($fromP5) ? 'active' : 'inactive'; ?> court-border-top court-border-left court-border-right attack text-center" data-attack="5">
               <div id="fromP5" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $fromP5 ?>"
+                  data-size="60" data-barsize="2" data-goal="0" aria-valuenow="<?= $fromP5 ?>"
                   role="progressbar">
                   <div class="pie-progress-number"><?= $fromP5 ?>%</div>
                 </div>
               </div>
             </td>
             <!-- attack P4 -->
-            <td height="70px" width="20%" class="court-inside active court-border-top front attack text-center" data-attack="4">
+            <td height="70px" width="20%" class="court-inside <?= ($fromP4) ? 'active' : 'inactive'; ?> court-border-top front attack text-center" data-attack="4">
               <div id="fromP4" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $fromP4 ?>"
+                  data-size="60" data-barsize="2" data-goal="0" aria-valuenow="<?= $fromP4 ?>"
                   role="progressbar">
                   <div class="pie-progress-number"><?= $fromP4 ?>%</div>
                 </div>
             </td>
             <!-- target P2 -->
-            <td height="70px" width="20%" class="court-inside active court-border-top front target text-center" data-target="2">
+            <td height="70px" width="20%" class="court-inside <?= ($toP2) ? 'active' : 'inactive'; ?> court-border-top front target text-center" data-target="2">
               <div id="toP2" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $toP2 ?>"
+                  data-size="60" data-barsize="2" data-goal="0" aria-valuenow="<?= $toP2 ?>"
                   role="progressbar">
                   <div class="pie-progress-number"><?= $toP2 ?>%</div>
                 </div>
             </td>
             <!-- target P1 -->
-            <td height="70px" width="20%" class="court-inside active court-border-top court-border-left court-border-right target text-center" data-target="1">
+            <td height="70px" width="20%" class="court-inside <?= ($toP1) ? 'active' : 'inactive'; ?> court-border-top court-border-left court-border-right target text-center" data-target="1">
               <div id="toP1" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $toP1 ?>"
+                  data-size="60" data-barsize="2" data-goal="0" aria-valuenow="<?= $toP1 ?>"
                   role="progressbar">
                   <div class="pie-progress-number"><?= $toP1 ?>%</div>
                 </div>
@@ -357,35 +358,35 @@
           </tr>
           <tr class="col-12">
             <!-- attack P6 -->
-            <td height="70px" width="20%" class="court-inside active court-border-left court-border-right attack text-center" data-attack="6">
+            <td height="70px" width="20%" class="court-inside <?= ($fromP6) ? 'active' : 'inactive'; ?> court-border-left court-border-right attack text-center" data-attack="6">
               <div id="fromP6" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $fromP6 ?>"
+                  data-size="60" data-barsize="2" data-goal="0" aria-valuenow="<?= $fromP6 ?>"
                   role="progressbar">
                   <div class="pie-progress-number"><?= $fromP6 ?>%</div>
                 </div>
               </div>
             </td>
             <!-- attack P3 -->
-            <td height="70px" width="20%" class="court-inside active front attack text-center" data-attack="3">
+            <td height="70px" width="20%" class="court-inside <?= ($fromP3) ? 'active' : 'inactive'; ?> front attack text-center" data-attack="3">
               <div id="fromP3" height="33%" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
-                data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="4"
+                data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="2"
                 data-goal="0" aria-valuenow="<?= $fromP3 ?>" role="progressbar">
                 <span class="pie-progress-number"><?= $fromP3 ?>%</span>
               </div>
             </td>
             <!-- target P3 -->
-            <td height="70px" width="20%" class="court-inside active front target text-center" data-target="3">
+            <td height="70px" width="20%" class="court-inside <?= ($toP3) ? 'active' : 'inactive'; ?> front target text-center" data-target="3">
               <div id="toP3" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $toP3 ?>"
+                  data-size="60" data-barsize="2" data-goal="0" aria-valuenow="<?= $toP3 ?>"
                   role="progressbar">
                   <div class="pie-progress-number"><?= $toP3 ?>%</div>
                 </div>
               </div>
             </td>
             <!-- target P6 -->
-            <td height="70px" width="20%" class="court-inside active court-border-left court-border-right target text-center" data-target="6">
+            <td height="70px" width="20%" class="court-inside <?= ($toP6) ? 'active' : 'inactive'; ?> court-border-left court-border-right target text-center" data-target="6">
               <div id="toP6" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $toP6 ?>"
+                  data-size="60" data-barsize="2" data-goal="0" aria-valuenow="<?= $toP6 ?>"
                   role="progressbar">
                   <div class="pie-progress-number"><?= $toP6 ?>%</div>
                 </div>
@@ -394,36 +395,36 @@
           </tr>
           <tr class="col-12">
             <!-- attack P1 -->
-            <td height="70px" width="20%" class="court-inside active court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">
+            <td height="70px" width="20%" class="court-inside <?= ($fromP1) ? 'active' : 'inactive'; ?> court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">
               <div id="fromP1" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $fromP1 ?>"
+                  data-size="60" data-barsize="2" data-goal="0" aria-valuenow="<?= $fromP1 ?>"
                   role="progressbar">
                   <div class="pie-progress-number"><?= $fromP1 ?>%</div>
                 </div>
               </div>
             </td>
             <!-- attack P2 -->
-            <td height="70px" width="20%" class="court-inside active court-border-bottom front attack text-center" data-attack="2">
+            <td height="70px" width="20%" class="court-inside <?= ($fromP2) ? 'active' : 'inactive'; ?> court-border-bottom front attack text-center" data-attack="2">
               <div id="fromP2" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $fromP2 ?>"
+                  data-size="60" data-barsize="2" data-goal="0" aria-valuenow="<?= $fromP2 ?>"
                   role="progressbar">
                   <div class="pie-progress-number"><?= $fromP2 ?>%</div>
                 </div>
               </div>
             </td>
             <!-- target P4 -->
-            <td height="70px" width="20%" class="court-inside active court-border-bottom front target text-center" data-target="4">
+            <td height="70px" width="20%" class="court-inside <?= ($toP4) ? 'active' : 'inactive'; ?> court-border-bottom front target text-center" data-target="4">
               <div id="toP4" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $toP4 ?>"
+                  data-size="60" data-barsize="2" data-goal="0" aria-valuenow="<?= $toP4 ?>"
                   role="progressbar">
                   <div class="pie-progress-number"><?= $toP4 ?>%</div>
                 </div>
               </div>
             </td>
             <!-- target P5 -->
-            <td height="70px" width="20%" class="court-inside active court-border-bottom court-border-left court-border-right target text-center" data-target="5">
+            <td height="70px" width="20%" class="court-inside <?= ($toP5) ? 'active' : 'inactive'; ?> court-border-bottom court-border-left court-border-right target text-center" data-target="5">
               <div id="toP5" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="4" data-goal="0" aria-valuenow="<?= $toP5 ?>"
+                  data-size="60" data-barsize="2" data-goal="0" aria-valuenow="<?= $toP5 ?>"
                   role="progressbar">
                   <div class="pie-progress-number"><?= $toP5 ?>%</div>
                 </div>
@@ -441,6 +442,7 @@
   <div class="col-md-6">
     <div class="card card-shadow example-responsive">
       <div class="card-block">
+        <h4 class="card-title">Filter By Players</h4>
         <form id="user-selection" data-event-id="<?= $event->id ?>">
           <table class="table is-indent"  data-plugin="selectable" data-row-selectable="true">
             <thead>
@@ -464,13 +466,13 @@
             </thead>
             <?php foreach ($attackScorer as $userId): ?>
               <tr>
-                <td>
+                <td class="w-20">
                   <span class="checkbox-custom checkbox-primary checkbox-lg">
                     <input class="selectable-item <?= \Application\Model\User::$position[$users[$userId]->position] ?>" type="checkbox" name='users[]' checked="checked" id="<?= $users[$userId]->id ?>" value="<?= $users[$userId]->id ?>"/>
                     <label for="<?= $users[$userId]->id ?>"></label>
                   </span>
                 </td>
-                <td>
+                <td class="w-20">
                   <div class="avatar avatar-md">
                     <img class="img-fluid" src="<?= $users[$userId]->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
                   </div>

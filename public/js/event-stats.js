@@ -128,23 +128,39 @@
           $.each(statsAllFrom, function( key, value ) {
             $('#' + key).find('path').attr('stroke', getColorForPercentage(value / 100));
             $('#' + key).asPieProgress('go', value);
+            if (value == 0) {
+              $('#' + key).parent('td').addClass('inactive');
+              $('#' + key).parent('td').removeClass('active');
+            } else {
+              $('#' + key).parent('td').addClass('active');
+              $('#' + key).parent('td').removeClass('inactive');
+            }
           });
 
           var statsAllTo = stats.allTo;
           $.each(statsAllTo, function( key, value ) {
             $('#' + key).find('path').attr('stroke', getColorForPercentage(value / 100));
             $('#' + key).asPieProgress('go', value);
+            if (value == 0) {
+              $('#' + key).parent('td').addClass('inactive');
+              $('#' + key).parent('td').removeClass('active');
+            } else {
+              $('#' + key).parent('td').addClass('active');
+              $('#' + key).parent('td').removeClass('inactive');
+            }
           });
         });
       });
 
     // Create the chart
       $('.zone-court').on('click', function () {
+        if ($(this).parent('td').hasClass('inactive')) return;
         $('.zone-court').parent().removeClass('selected');
         $(this).parent().addClass('selected');
       });
 
       $('.zone-attack').on('click', function () {
+        if ($(this).parent('td').hasClass('inactive')) return;
         var stats = JSON.parse($('#stats-repartition').attr('data-stats'));
         var name = $(this).prop('id');
         $.each( stats, function( key, data ) {
@@ -152,6 +168,13 @@
           $.each(data, function( key2, value ) {
             $('#' + key2).find('path').attr('stroke', getColorForPercentage(value / 100));
             $('#' + key2).asPieProgress('go', value);
+            if (value == 0) {
+              $('#' + key2).parent('td').addClass('inactive');
+              $('#' + key2).parent('td').removeClass('active');
+            } else {
+              $('#' + key2).parent('td').addClass('active');
+              $('#' + key2).parent('td').removeClass('inactive');
+            }
           });
         });
         $.each(['fromP1', 'fromP2', 'fromP3', 'fromP4', 'fromP5', 'fromP6'], function( k, keyFrom ) {
@@ -163,6 +186,7 @@
       });
 
       $('.zone-to').on('click', function () {
+        if ($(this).parent('td').hasClass('inactive')) return;
         var stats = JSON.parse($('#stats-repartition').attr('data-stats'));
         var name = $(this).prop('id');
         $.each( stats, function( key, data ) {
@@ -170,6 +194,13 @@
           $.each(data, function( key2, value ) {
             $('#' + key2).find('path').attr('stroke', getColorForPercentage(value / 100));
             $('#' + key2).asPieProgress('go', value);
+            if (value == 0) {
+              $('#' + key2).parent('td').addClass('inactive');
+              $('#' + key2).parent('td').removeClass('active');
+            } else {
+              $('#' + key2).parent('td').addClass('active');
+              $('#' + key2).parent('td').removeClass('inactive');
+            }
           });
         });
         $.each(['toP1', 'toP2', 'toP3', 'toP4', 'toP5', 'toP6'], function( k, keyTo ) {
