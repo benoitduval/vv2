@@ -19,6 +19,10 @@
     (0, _Site.run)();
   });
 
+  (function () {
+
+  }),
+
   // Example Wizard Pager
   // --------------------------
   (function () {

@@ -156,7 +156,9 @@ return [
                 '/global/js/Plugin/matchheight.js',
                 '/global/js/Plugin/jquery-wizard.js',
                 '/global/js/Plugin/matchheight.js',
-                '/assets/examples/js/forms/wizard.js',
+                // '/assets/examples/js/forms/wizard.js',
+                '/js/Stats.js',
+                '/js/stats2.js',
             ],
             'css' => [
                 '/global/vendor/animsition/animsition.css',
