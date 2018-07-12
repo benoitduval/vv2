@@ -470,7 +470,7 @@ class EventController extends AbstractController
         $eventId = $this->params('id');
         if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
 
-            $users = $this->userTable->getAllByEventId($event->id);
+            $users      = $this->userTable->getAllByEventId($event->id);
             $config     = $this->get('config');
             $stats      = $this->statsTable->fetchOne(['eventId' => $eventId], 'id DESC');
             $scoreUs    = 0;

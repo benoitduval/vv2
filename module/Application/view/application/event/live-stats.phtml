@@ -9,7 +9,71 @@
       </div>
       <div class="panel-body">
         <div class="wizard-content">
-              <div class="wizard-pane inactive" role="tabpanel">
+              <div class="wizard-pane active" role="tabpanel">
+                <div class="row" id="service-quality">
+                  <h4 class="col-12">Service</h4>
+                  <div class="col-12 text-center mb-10">
+                    <img class="avatar" src="/img/avatars/2cbab098cd318b3ef269c68d06464066.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                  </div>
+                  <div class="col-12 mb-10">
+                    <div class="btn-group btn-group-justified">
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-danger btn-outline" data-value="<?= \Application\Model\Stats::POINT_US ?>">
+                          <span class="text-uppercase">Easy</span>
+                        </button>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-warning btn-outline" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
+                          <span class="text-uppercase">Medium</span>
+                        </button>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-success btn-outline" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
+                          <span class="text-uppercase">Hard</span>
+                        </button>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-success" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
+                          <span class="text-uppercase">Ace</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" id="service-quality">
+                  <h4 class="col-12">Reception</h4>
+                  <div class="col-12 text-center mb-10">
+                    <?php for ($i = 0; $i < 6; $i++) :?>
+                      <img class="avatar" src="/img/avatars/2cbab098cd318b3ef269c68d06464066.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                    <?php endfor; ?>
+                  </div>
+                  <div class="col-12 mb-10">
+                    <div class="btn-group btn-group-justified">
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-success btn-outline" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
+                          <span class="text-uppercase">Good</span>
+                        </button>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-warning btn-outline" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
+                          <span class="text-uppercase">Medium</span>
+                        </button>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-danger btn-outline" data-value="<?= \Application\Model\Stats::POINT_US ?>">
+                          <span class="text-uppercase">Bad</span>
+                        </button>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-danger" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
+                          <span class="text-uppercase">Ace</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="btn-group btn-group-justified">
                   <div class="btn-group" role="group">
                     <button type="button" class="btn btn-success btn-next" id="point-us" data-value="<?= \Application\Model\Stats::POINT_US ?>">
@@ -18,45 +82,11 @@
                       <span class="text-uppercase">Us</span>
                     </button>
                   </div>
-
-                  <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default btn-outline btn-counter" data-input-target="#block-us">
-                      <span class="counter font-size-30">0</span>
-                      <br>
-                      <span class="text-uppercase">+1 Block</span>
-                    </button>
-                  </div>
-
-                  <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-primary btn-outline btn-counter" data-input-target="#defence-us">
-                      <span class="counter font-size-30">0</span>
-                      <br>
-                      <span class="text-uppercase">+1 Dig</span>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="btn-group btn-group-justified mt-40">
                   <div class="btn-group" role="group">
                     <button type="button" class="btn btn-danger btn-next" id="point-them" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
                       <span class="counter font-size-30"><?= $scoreThem ?></span>
                       <br>
                       <span class="text-uppercase">Them</span>
-                    </button>
-                  </div>
-
-                  <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default btn-outline btn-counter" data-input-target="#block-them">
-                      <span class="counter font-size-30">0</span>
-                      <br>
-                      <span class="text-uppercase">+1 Block</span>
-                    </button>
-                  </div>
-                  <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-primary btn-outline btn-counter" data-input-target="#defence-them">
-                      <span class="counter font-size-30">0</span>
-                      <br>
-                      <span class="text-uppercase">+1 Dig</span>
                     </button>
                   </div>
                 </div>
@@ -83,11 +113,6 @@
                 </div>
               </div>
               <div class="wizard-pane" role="tabpanel">
-                <div class="form-group row">
-                  <div class="col-md-12 text-center">
-                    <select id="eventPeople" multiple="multiple" class="plugin-selective"></select>
-                  </div>
-                </div>
                 <div class="row">
                     <div class="col-12 text-center">
                         <?php foreach ($users as $user): ?>
@@ -97,7 +122,7 @@
                         <?php endforeach ?>
                     </div>
 
-                    <table class="table">
+                    <table class="table" data-delete-link="<?= $deleteLink ?>">
                       <tr>
                         <td class="court-outside inactive" width="2%" rowspan="5"></td>
                         <td class="court-outside inactive" height="40px" colspan="2"></td>
@@ -149,17 +174,152 @@
     <!-- End Panel Wizard Pager -->
 
     <form id="game-stats" method="POST" class="hidden">
-        <input type="hidden" placeholder="block-us" id="block-us" name="block-us" value="0"/>
-        <input type="hidden" placeholder="block-them" id="block-them" name="block-them" value="0"/>
-        <input type="hidden" placeholder="defence-us" id="defence-us" name="defence-us" value="0"/>
-        <input type="hidden" placeholder="defence-them" id="defence-them" name="defence-them" value="0"/>
-        <input type="hidden" placeholder="point-for" id="point-for" name="point-for" value=""/>
-        <input type="hidden" placeholder="reason" id="reason" name="reason" value=""/>
-        <input type="hidden" placeholder="userId" id="userId" name="userId" value=""/>
-        <input type="hidden" placeholder="from-zone" id="from-zone" name="from-zone" value=""/>
-        <input type="hidden" placeholder="to-zone" id="to-zone" name="to-zone" value=""/>
+        <input type="hidden" id="block-us" name="block-us" value="0"/>
+        <input type="hidden" id="block-them" name="block-them" value="0"/>
+        <input type="hidden" id="defence-us" name="defence-us" value="0"/>
+        <input type="hidden" id="defence-them" name="defence-them" value="0"/>
+        <input type="hidden" id="point-for" name="point-for" value=""/>
+        <input type="hidden" id="reason" name="reason" value=""/>
+        <input type="hidden" id="userId" name="userId" value=""/>
+        <input type="hidden" id="from-zone" name="from-zone" value=""/>
+        <input type="hidden" id="to-zone" name="to-zone" value=""/>
         <input type="hidden" id="score-us" name="score-us" value="<?= $scoreUs ?>"/>
         <input type="hidden" id="score-them" name="score-them" value="<?= $scoreThem ?>"/>
+    </form>
+  </div>
+</div>
+
+<?php
+  $newSet   = (!$scoreUs && !$scorethem) ? 'true': 'false';
+  $keyboard = ($newSet == 'true') ? 'false' : 'true';
+  $backdrop = ($keyboard == 'true') ? 'dark' : 'static';
+?>
+
+<div class="modal fade" id="positions" aria-hidden="true" data-keyboard="<?= $keyboard ?>" data-backdrop="<?= $backdrop ?>" aria-labelledby="positions"
+  role="dialog" tabindex="-1" data-show="<?= $newSet ?>">
+  <div class="modal-dialog modal-simple">
+    <form id="positions-form" method="POST" action="/">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Make Your Selection</h4>
+          <?php if ($newSet == 'false'): ?>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          <?php endif ?>
+        </div>
+        <div class="modal-body row">
+          <?php if ($newSet == 'true'): ?>
+            <div class="col-12 mt-10">
+              <h5>Start set with</h5>
+              <select class="form-control" id="first-point" required>
+                <option selected="selected" value="" disabled>First Point</option>
+                  <option value="1">Reception</option>
+                  <option value="2">Service</option>
+              </select>
+            </div>
+          <?php endif ?>
+
+          <div class="col-12 mt-10">
+            <h5>Positions</h5>
+            <table class="table">
+              <tr>
+                <td class="court-outside" width="40px" rowspan="5"></td>
+                <td class="court-outside" height="40px" colspan="2">
+                  <div class="col-8 mt-10">
+                    <select class="form-control user-select" required id="libero">
+                      <option selected="selected" value="" disabled>Libero</option>
+                      <?php foreach ($users as $user): ?>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </td>
+                <!-- NET -->
+                <td rowspan="5" width="2%" class="court-net inactive out" data-target="7"></td>
+              </tr>
+              <tr class="col-12">
+                <!-- attack P5 -->
+                <td height="70px" class="court-inside court-border-top court-border-left court-border-right attack text-center" data-attack="5">
+                  <div class="col-12">
+                    <select class="form-control user-select" required id="select-P5">
+                      <option selected="selected" value="" disabled>P5</option>
+                      <?php foreach ($users as $user): ?>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </td>
+                <!-- attack P4 -->
+                <td height="70px" class="court-inside court-border-top front attack text-center" data-attack="4">
+                  <div class="col-12">
+                    <select class="form-control user-select" required id="select-P4">
+                      <option selected="selected" value="" disabled>P4</option>
+                      <?php foreach ($users as $user): ?>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+              <tr class="col-12">
+                <!-- attack P6 -->
+                <td height="70px" class="court-inside court-border-left court-border-right attack text-center" data-attack="6">
+                  <div class="col-12">
+                    <select class="form-control user-select" required id="select-P6">
+                      <option selected="selected" value="" disabled>P6</option>
+                      <?php foreach ($users as $user): ?>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </td>
+                <!-- attack P3 -->
+                <td height="70px" class="court-inside front attack text-center" data-attack="3">
+                  <div class="col-12">
+                    <select class="form-control user-select" required id="select-P3">
+                      <option selected="selected" value="" disabled>P3</option>
+                      <?php foreach ($users as $user): ?>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+              <tr class="col-12">
+                <!-- attack P1 -->
+                <td height="70px" class="court-inside court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">
+                  <div class="col-12">
+                    <select class="form-control user-select" required id="select-P1">
+                      <option selected="selected" value="" disabled>P1</option>
+                      <?php foreach ($users as $user): ?>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </td>
+                <!-- attack P2 -->
+                <td height="70px" class="court-inside court-border-bottom front attack text-center" data-attack="2">
+                  <div class="col-12">
+                    <select class="form-control user-select" required id="select-P2">
+                      <option selected="selected" value="" disabled>P2</option>
+                      <?php foreach ($users as $user): ?>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="court-outside" height="40px" colspan="2"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success btn-outline" id="submit-point" href="#" role="button">Submit</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>
