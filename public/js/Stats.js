@@ -42,8 +42,37 @@
         this.handleWizard();
         this.handleModal();
         this.handleSelect();
+        this.handleSlideUp();
+        this.handleDig();
         // this.handlePlusOne();
       }
+    }, {
+        key: 'handleSlideUp',
+        value: function handleSlideUp() {
+            $('.slide-up').on('click', function() {
+              $('#slide-up-service').slideUp();
+              $('#slide-up-reception').slideUp();
+              $('#slide-down-point').slideDown();
+            });
+
+          $('.avatar-reception').on('click', function() {
+            $('.btn-reception-quality').removeAttr('disabled');
+          });
+
+        }
+    }, {
+        key: 'handleDig',
+        value: function handleDig() {
+            $('.avatar-dig').on('click', function() {
+              $('.btn-dig-quality').removeAttr('disabled');
+            });
+
+            $(".btn-dig-quality").click(function() {
+              $(".btn-dig-quality").attr('disabled', 'disabled');
+              $("#confirm-dig").toggle();
+              $("#confirm-dig").fadeToggle(2000);
+            });
+        }
     }, {
         key: 'handleModal',
         value: function handleModal() {
@@ -86,13 +115,13 @@
           templates: {
             buttons: function buttons() {
               var options = this.options;
-              var html = '<div class="btn-group btn-group-sm">' + '<a id="reset" class="btn btn-default btn-outline" href="#' + this.id + '" role="button">' + options.buttonLabels.back + '</a><a id="warning-confirm" data-url="<?= $deleteLink ?>" class="btn btn-danger btn-outline" href="#" role="button"><i class="icon wb-trash"></i> Last Point</a><a class="btn btn-primary btn-outline" href="#" role="button"  data-toggle="modal" data-target="#positions"><i class="icon wb-random" aria-hidden="true"></i> Switch</a><a class="btn btn-success btn-outline disabled" id="submit-point" href="#' + this.id + '" data-wizard="finish" role="button">' + options.buttonLabels.finish + '</a></div>';
+              var html = '<div class="btn-group btn-group-sm">' + '<a id="reset" class="btn btn-default btn-outline" href="#' + this.id + '" role="button">' + options.buttonLabels.back + '</a><a id="warning-confirm" data-url="<?= $deleteLink ?>" class="btn btn-danger btn-outline" href="#" role="button"><i class="icon wb-trash"></i> <span class="hidden-sm-down">Last Point</span></a><a class="btn btn-primary btn-outline" href="#" role="button"  data-toggle="modal" data-target="#positions"><i class="icon wb-random" aria-hidden="true"></i> Switch</a><a class="btn btn-success btn-outline disabled" id="submit-point" href="#' + this.id + '" data-wizard="finish" role="button">' + options.buttonLabels.finish + '</a></div>';
               return html;
             }
           },
           buttonLabels: {
             next: '<i class="icon wb-chevron-right" aria-hidden="true"></i>',
-            back: '<i class="icon wb-refresh" aria-hidden="true"></i> Cancel',
+            back: '<i class="icon wb-refresh" aria-hidden="true"></i> <span class="hidden-sm-down">Cancel</span>',
             finish: '<i class="icon wb-check" aria-hidden="true"></i> Submit'
           },
 
@@ -130,6 +159,7 @@
             });
 
             $('.attack.active').on('click', function () {
+              $('#table-title').html('Target Zone ?');
               $('#from-zone').val($(this).attr('data-attack'));
               $('.attack.active').removeClass('selected');
               $(this).addClass('selected');
@@ -161,6 +191,7 @@
               });
 
               $('.attack.active').on('click', function () {
+                $('#table-title').html('Fault Zone ?');
                 $('#from-zone').val($(this).attr('data-attack'));
                 $('.attack.active').removeClass('selected');
                 $(this).addClass('selected');
@@ -181,53 +212,11 @@
           });
         });
 
-        $('#service-point-us').on('click', function() {
-          $('.btn-avatar').on('click', function() {
-              $('#userId').val($(this).attr('data-user-id'));
-              var input = $(this).find('input');
-
-              $('.target').each(function () {
-                $(this).removeClass('inactive');
-                $(this).addClass('active');
-              });
-
-              $('.target.active').on('click', function () {
-                $('#to-zone').val($(this).attr('data-target'));
-                $('.target.active').removeClass('selected');
-                $(this).addClass('selected');
-                $('#submit-point').removeClass('disabled');
-                $('#submit-point').on('click', function() {
-                    $('#game-stats').submit();
-                });
-              });
-          });
-        });
-
-        $('#service-fault-us').on('click', function() {
-          $('.btn-avatar').on('click', function() {
-              $('#userId').val($(this).attr('data-user-id'));
-              var input = $(this).find('input');
-
-              $('.out').each(function () {
-                $(this).removeClass('inactive');
-                $(this).addClass('active');
-              });
-
-              $('.out.active').on('click', function () {
-                $('#to-zone').val($(this).attr('data-target'));
-                $('.out.active').removeClass('selected');
-                $(this).addClass('selected');
-                $('#submit-point').removeClass('disabled');
-                $('#submit-point').on('click', function() {
-                    $('#game-stats').submit();
-                });
-              });
-          });
-        });
-
         $('#block-point-us').on('click', function() {
+          $('#table-title').html('Block From ?');
           $('.btn-avatar').on('click', function() {
               $('#userId').val($(this).attr('data-user-id'));
+
               var input = $(this).find('input');
 
               $('.attack.front').each(function () {
@@ -248,6 +237,7 @@
         });
 
         $('#block-point-them').on('click', function() {
+          $('#table-title').html('Blocked From ?');
           $('.btn-avatar').on('click', function() {
               $('#userId').val($(this).attr('data-user-id'));
               var input = $(this).find('input');
@@ -288,8 +278,52 @@
           $("#statsWizard").wizard('next');
         });
 
-        $('.btn-last').on('click', function() {
+        $('#service-point-us').on('click', function() {
+          $('#table-title').html('Target Zone ?');
+          $('#user-selection').hide();
           $("#statsWizard").wizard('goTo', 2);
+
+          $('#userId').val($(this).attr('data-user-id'));
+          var input = $(this).find('input');
+
+          $('.target').each(function () {
+            $(this).removeClass('inactive');
+            $(this).addClass('active');
+          });
+
+          $('.target.active').on('click', function () {
+            $('#to-zone').val($(this).attr('data-target'));
+            $('.target.active').removeClass('selected');
+            $(this).addClass('selected');
+            $('#submit-point').removeClass('disabled');
+            $('#submit-point').on('click', function() {
+                $('#game-stats').submit();
+            });
+          });
+        });
+
+        $('#service-fault-us').on('click', function() {
+          $('#table-title').html('Fault Zone ?');
+          $("#statsWizard").wizard('goTo', 2);
+          $('#user-selection').hide();
+
+          $('#userId').val($(this).attr('data-user-id'));
+          var input = $(this).find('input');
+
+          $('.out').each(function () {
+            $(this).removeClass('inactive');
+            $(this).addClass('active');
+          });
+
+          $('.out.active').on('click', function () {
+            $('#to-zone').val($(this).attr('data-target'));
+            $('.out.active').removeClass('selected');
+            $(this).addClass('selected');
+            $('#submit-point').removeClass('disabled');
+            $('#submit-point').on('click', function() {
+                $('#game-stats').submit();
+            });
+          });
         });
 
         $("#reset").on('click', function (event) {

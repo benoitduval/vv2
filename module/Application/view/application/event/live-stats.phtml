@@ -3,188 +3,273 @@
     <!-- Panel Wizard Pager -->
     <div class="panel" id="statsWizard" style="min-height: calc(100% - 44px);">
       <div class="panel-heading">
+        <h3 class="panel-title"></h3>
         <div class="panel-actions panel-actions-keep">
         </div>
-        <h3 class="panel-title">Statistics</h3>
       </div>
       <div class="panel-body">
         <div class="wizard-content">
-              <div class="wizard-pane active" role="tabpanel">
-                <div class="row" id="service-quality">
-                  <h4 class="col-12">Service</h4>
-                  <div class="col-12 text-center mb-10">
-                    <img class="avatar" src="/img/avatars/2cbab098cd318b3ef269c68d06464066.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                  </div>
-                  <div class="col-12 mb-10">
-                    <div class="btn-group btn-group-justified">
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-danger btn-outline" data-value="<?= \Application\Model\Stats::POINT_US ?>">
-                          <span class="text-uppercase">Easy</span>
-                        </button>
-                      </div>
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-warning btn-outline" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
-                          <span class="text-uppercase">Medium</span>
-                        </button>
-                      </div>
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-success btn-outline" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
-                          <span class="text-uppercase">Hard</span>
-                        </button>
-                      </div>
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-success" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
-                          <span class="text-uppercase">Ace</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row" id="service-quality">
-                  <h4 class="col-12">Reception</h4>
-                  <div class="col-12 text-center mb-10">
-                    <?php for ($i = 0; $i < 6; $i++) :?>
-                      <img class="avatar" src="/img/avatars/2cbab098cd318b3ef269c68d06464066.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                    <?php endfor; ?>
-                  </div>
-                  <div class="col-12 mb-10">
-                    <div class="btn-group btn-group-justified">
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-success btn-outline" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
-                          <span class="text-uppercase">Good</span>
-                        </button>
-                      </div>
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-warning btn-outline" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
-                          <span class="text-uppercase">Medium</span>
-                        </button>
-                      </div>
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-danger btn-outline" data-value="<?= \Application\Model\Stats::POINT_US ?>">
-                          <span class="text-uppercase">Bad</span>
-                        </button>
-                      </div>
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-danger" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
-                          <span class="text-uppercase">Ace</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
+          <div class="wizard-pane active" role="tabpanel">
+            <div class="row hidden" id="slide-up-service">
+              <h4 class="col-12">Service Quality</h4>
+              <div class="col-12 text-center mb-10">
+                <img class="avatar" src="/img/avatars/2cbab098cd318b3ef269c68d06464066.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+              </div>
+              <div class="col-12 mb-10">
                 <div class="btn-group btn-group-justified">
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-success btn-next" id="point-us" data-value="<?= \Application\Model\Stats::POINT_US ?>">
-                      <span class="counter font-size-30"><?= $scoreUs ?></span>
-                      <br>
-                      <span class="text-uppercase">Us</span>
+                    <button id="service-fault-us" data-user-id="<?= $p1 ?>" type="button" class="btn btn-danger btn-last" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
+                      <span class="text-uppercase">Fault</span>
                     </button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-danger btn-next" id="point-them" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
-                      <span class="counter font-size-30"><?= $scoreThem ?></span>
-                      <br>
-                      <span class="text-uppercase">Them</span>
+                    <button type="button" class="btn btn-danger btn-outline slide-up">
+                      <span class="text-uppercase">Easy</span>
+                    </button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-warning btn-outline slide-up">
+                      <span class="text-uppercase">Med.</span>
+                    </button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-success btn-outline slide-up">
+                      <span class="text-uppercase">Hard</span>
+                    </button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button id="service-point-us" type="button" data-user-id="<?= $p1 ?>" class="btn btn-success btn-last" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
+                      <span class="text-uppercase">Ace</span>
                     </button>
                   </div>
                 </div>
               </div>
-              <div class="wizard-pane" role="tabpanel">
-                <div class="row">
-                    <div class='col-6 text-center'>
-                        <h5 class="text-center">Point</h5>
-                        <button id="attack-us" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success btn-xlg btn-next col-12 hidden">Attack</button>
-                        <button id="attack-them" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success col-12 btn-xlg hidden">Attack</button>
-                        <button id="service-point-them" value="<?= \Application\Model\Stats::POINT_SERVE ?>" name="reason" class="btn btn-success col-12 btn-xlg mt-10 hidden">Serve</button>
-                        <button id="service-point-us" value="<?= \Application\Model\Stats::POINT_SERVE ?>" name="reason" class="btn btn-success col-12 btn-xlg btn-next mt-10 hidden">Serve</button>
-                        <button id="block-point-us" value="<?= \Application\Model\Stats::POINT_SERVE ?>" name="reason" class="btn btn-success col-12 btn-xlg mt-10 hidden btn-next">Block</button>
-                        <button id="block-point-them" value="<?= \Application\Model\Stats::POINT_BLOCK ?>" name="reason" class="btn btn-success col-12 btn-xlg mt-10 hidden btn-next">Block</button>
-                    </div>
-                    <div class='col-6 text-center'>
-                        <h5>Faute</h5>
-                        <button id="attack-fault-them" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger col-12 btn-xlg hidden" data-toggle="modal" data-target="#attaque">Attack</button>
-                        <button id="attack-fault-us" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger btn-xlg btn-next col-12 hidden">Attack</button>
-                        <button id="service-fault-them" value="<?= \Application\Model\Stats::FAULT_SERVE ?>" name="reason" class="mt-10 btn btn-danger col-12 btn-xlg hidden">Serve</button>
-                        <button id="service-fault-us" value="<?= \Application\Model\Stats::FAULT_SERVE ?>" name="reason" class="mt-10 btn btn-danger col-12 btn-xlg btn-next hidden">Serve</button>
-                        <button id="defensive-fault" value="<?= \Application\Model\Stats::FAULT_DEFENCE ?>" name="reason" class="mt-10 btn btn-danger col-12 btn-xlg hidden">Defensive</button>
-                    </div>
-                </div>
-              </div>
-              <div class="wizard-pane" role="tabpanel">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <?php foreach ($users as $user): ?>
-                            <label class="btn-avatar" data-user-id="<?= $user->id ?>">
-                              <img class="avatar avatar-lg" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                            </label>
-                        <?php endforeach ?>
-                    </div>
+            </div>
 
-                    <table class="table" data-delete-link="<?= $deleteLink ?>">
-                      <tr>
-                        <td class="court-outside inactive" width="2%" rowspan="5"></td>
-                        <td class="court-outside inactive" height="40px" colspan="2"></td>
-                        <!-- NET -->
-                        <td rowspan="5" width="2%" class="court-net inactive out" data-target="7"></td>
-                        <td class="court-outside inactive out" height="40px" colspan="2" style="border: none; color:#FFF;" data-target="8"></td>
-                        <td class="court-outside inactive out" width="40px" rowspan="5" data-target="9"></td>
-                      </tr>
-                      <tr class="col-12">
-                        <!-- attack P5 -->
-                        <td height="70px" class="court-inside inactive court-border-top court-border-left court-border-right attack text-center" data-attack="5">P5</td>
-                        <!-- attack P4 -->
-                        <td height="70px" class="court-inside inactive court-border-top front attack text-center" data-attack="4">P4</td>
-                        <!-- target P2 -->
-                        <td height="70px" class="court-inside inactive court-border-top front target text-center" data-target="2">P2</td>
-                        <!-- target P1 -->
-                        <td height="70px" class="court-inside inactive court-border-top court-border-left court-border-right target text-center" data-target="1">P1</td>
-                      </tr>
-                      <tr class="col-12">
-                        <!-- attack P6 -->
-                        <td height="70px" class="court-inside inactive court-border-left court-border-right attack text-center" data-attack="6">P6</td>
-                        <!-- attack P3 -->
-                        <td height="70px" class="court-inside inactive front attack text-center" data-attack="3">P3</td>
-                        <!-- target P3 -->
-                        <td height="70px" class="court-inside inactive front target text-center" data-target="3">P3</td>
-                        <!-- target P6 -->
-                        <td height="70px" class="court-inside inactive court-border-left court-border-right target text-center" data-target="6">P6</td>
-                      </tr>
-                      <tr class="col-12">
-                        <!-- attack P1 -->
-                        <td height="70px" class="court-inside inactive court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">P1</td>
-                        <!-- attack P2 -->
-                        <td height="70px" class="court-inside inactive court-border-bottom front attack text-center" data-attack="2">P2</td>
-                        <!-- target P4 -->
-                        <td height="70px" class="court-inside inactive court-border-bottom front target text-center" data-target="4">P4</td>
-                        <!-- target P5 -->
-                        <td height="70px" class="court-inside inactive court-border-bottom court-border-left court-border-right target text-center" data-target="5">P5</td>
-                      </tr>
-                      <tr>
-                        <td class="court-outside inactive" height="40px" colspan="2"></td>
-                        <td class="court-outside inactive out" height="40px" colspan="2" data-target="10"></td>
-                      </tr>
-                    </table>
+            <div class="row" id="slide-up-reception">
+              <h4 class="col-12">Reception in play</h4>
+              <div class="col-12 text-center mb-10">
+                <?php foreach ($users as $user): ?>
+                    <label class="btn-avatar" data-user-id="<?= $user->id ?>">
+                      <img class="avatar avatar-md avatar-reception" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                    </label>
+                <?php endforeach ?>
+              </div>
+              <div class="col-12 mb-10">
+                <div class="btn-group btn-group-justified">
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-success btn-reception-quality btn-outline slide-up" disabled>
+                      <span class="text-uppercase">Good</span>
+                    </button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-warning btn-reception-quality btn-outline slide-up" disabled>
+                      <span class="text-uppercase">Medium</span>
+                    </button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-danger btn-reception-quality btn-outline slide-up" disabled>
+                      <span class="text-uppercase">Bad</span>
+                    </button>
+                  </div>
                 </div>
               </div>
+
+              <h4 class="col-12">Or Service</h4>
+              <div class="col-12 mb-10">
+                <div class="btn-group btn-group-justified">
+                  <div class="btn-group" role="group">
+                    <button id="service-point-us" type="button" class="btn btn-success btn-last" data-value="<?= \Application\Model\Stats::POINT_US ?>" name="reason">
+                      <span class="text-uppercase">Fault</span>
+                    </button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button id="service-point-them" type="button" class="btn btn-danger btn-last" data-value="<?= \Application\Model\Stats::POINT_THEM ?>" name="reason">
+                      <span class="text-uppercase">Ace</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" id="slide-down-point" style="display: none;">
+              <h4 class="col-12">Who Scores ?</h4>
+              <div class="btn-group btn-group-justified">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-success btn-next" id="point-us" data-value="<?= \Application\Model\Stats::POINT_US ?>">
+                    <span class="counter font-size-30"><?= $scoreUs ?></span>
+                    <br>
+                    <span class="text-uppercase">Us</span>
+                  </button>
+                </div>
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-danger btn-next" id="point-them" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
+                    <span class="counter font-size-30"><?= $scoreThem ?></span>
+                    <br>
+                    <span class="text-uppercase">Them</span>
+                  </button>
+                </div>
+              </div>
+
+              <h4 class="col-12 mt-30">Dig ! <span id="confirm-dig" class="badge badge-success" style="display: none;">Saved</span></h4>
+              <div class="col-12 text-center mb-10">
+                <?php foreach ($users as $user): ?>
+                    <label class="btn-avatar" data-user-id="<?= $user->id ?>">
+                      <img class="avatar avatar-md avatar-dig" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                    </label>
+                <?php endforeach ?>
+              </div>
+              <div class="col-12 mb-10">
+                <div class="btn-group btn-group-justified">
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-success btn-dig-quality btn-outline" disabled>
+                      <span class="text-uppercase">Good</span>
+                    </button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-warning btn-dig-quality btn-outline" disabled>
+                      <span class="text-uppercase">Medium</span>
+                    </button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-danger btn-dig-quality btn-outline" disabled>
+                      <span class="text-uppercase">Bad</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="wizard-pane" role="tabpanel">
+            <h4>Reason ?</h4>
+            <div class="btn-group btn-group-justified mb-10">
+              <div class="btn-group" role="group">
+                <button id="attack-us" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success btn-outline btn-next hidden">
+                  <span class="counter font-size-24">Attack</span>
+                  <br>
+                  <span class="text-uppercase">Point</span>
+                </button>
+                <button id="attack-them" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success btn-outline hidden">
+                  <span class="counter font-size-24">Attack</span>
+                  <br>
+                  <span class="text-uppercase">Point</span>
+                </button>
+              </div>
+
+              <div class="btn-group" role="group">
+                <button id="attack-fault-them" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger btn-outline hidden">
+                  <span class="counter font-size-24">Attack</span>
+                  <br>
+                  <span class="text-uppercase">Fault</span>
+                </button>
+                <button id="attack-fault-us" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger btn-outline btn-next hidden">
+                  <span class="counter font-size-24">Attack</span>
+                  <br>
+                  <span class="text-uppercase">Fault</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="btn-group btn-group-justified mb-10">
+              <div class="btn-group" role="group">
+                <button id="block-point-us" value="<?= \Application\Model\Stats::POINT_BLOCK ?>" name="reason" class="btn btn-success btn-outline hidden btn-next">
+                  <span class="counter font-size-24">Block</span>
+                  <br>
+                  <span class="text-uppercase">Point</span>
+                </button>
+                <button id="block-point-them" value="<?= \Application\Model\Stats::POINT_BLOCK ?>" name="reason" class="btn btn-success btn-outline hidden btn-next">
+                  <span class="counter font-size-24">Block</span>
+                  <br>
+                  <span class="text-uppercase">Point</span>
+                </button>
+              </div>
+
+              <div class="btn-group" role="group">
+                <button id="defensive-fault" value="<?= \Application\Model\Stats::FAULT_DEFENCE ?>" name="reason" class="btn btn-danger btn-outline hidden">
+                  <span class="counter font-size-24">Defence</span>
+                  <br>
+                  <span class="text-uppercase">Fault</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="wizard-pane" role="tabpanel">
+            <div class="row">
+                <h4>Select Player</h4>
+                <div id="user-selection" class="col-12 text-center">
+                    <?php foreach ($users as $user): ?>
+                        <label class="btn-avatar" data-user-id="<?= $user->id ?>">
+                          <img class="avatar avatar-md" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                        </label>
+                    <?php endforeach ?>
+                </div>
+
+                <h4 id="table-title">Attack From ?</h4>
+                <table class="table" data-delete-link="<?= $deleteLink ?>">
+                  <tr>
+                    <td class="court-outside inactive" width="2%" rowspan="5"></td>
+                    <td class="court-outside inactive" height="40px" colspan="2"></td>
+                    <!-- NET -->
+                    <td rowspan="5" width="2%" class="court-net inactive out" data-target="7"></td>
+                    <td class="court-outside inactive out" height="40px" colspan="2" style="border: none; color:#FFF;" data-target="8"></td>
+                    <td class="court-outside inactive out" width="40px" rowspan="5" data-target="9"></td>
+                  </tr>
+                  <tr class="col-12">
+                    <!-- attack P5 -->
+                    <td height="70px" class="court-inside inactive court-border-top court-border-left court-border-right attack text-center" data-attack="5">P5</td>
+                    <!-- attack P4 -->
+                    <td height="70px" class="court-inside inactive court-border-top front attack text-center" data-attack="4">P4</td>
+                    <!-- target P2 -->
+                    <td height="70px" class="court-inside inactive court-border-top front target text-center" data-target="2">P2</td>
+                    <!-- target P1 -->
+                    <td height="70px" class="court-inside inactive court-border-top court-border-left court-border-right target text-center" data-target="1">P1</td>
+                  </tr>
+                  <tr class="col-12">
+                    <!-- attack P6 -->
+                    <td height="70px" class="court-inside inactive court-border-left court-border-right attack text-center" data-attack="6">P6</td>
+                    <!-- attack P3 -->
+                    <td height="70px" class="court-inside inactive front attack text-center" data-attack="3">P3</td>
+                    <!-- target P3 -->
+                    <td height="70px" class="court-inside inactive front target text-center" data-target="3">P3</td>
+                    <!-- target P6 -->
+                    <td height="70px" class="court-inside inactive court-border-left court-border-right target text-center" data-target="6">P6</td>
+                  </tr>
+                  <tr class="col-12">
+                    <!-- attack P1 -->
+                    <td height="70px" class="court-inside inactive court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">P1</td>
+                    <!-- attack P2 -->
+                    <td height="70px" class="court-inside inactive court-border-bottom front attack text-center" data-attack="2">P2</td>
+                    <!-- target P4 -->
+                    <td height="70px" class="court-inside inactive court-border-bottom front target text-center" data-target="4">P4</td>
+                    <!-- target P5 -->
+                    <td height="70px" class="court-inside inactive court-border-bottom court-border-left court-border-right target text-center" data-target="5">P5</td>
+                  </tr>
+                  <tr>
+                    <td class="court-outside inactive" height="40px" colspan="2"></td>
+                    <td class="court-outside inactive out" height="40px" colspan="2" data-target="10"></td>
+                  </tr>
+                </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <!-- End Panel Wizard Pager -->
 
     <form id="game-stats" method="POST" class="hidden">
-        <input type="hidden" id="block-us" name="block-us" value="0"/>
-        <input type="hidden" id="block-them" name="block-them" value="0"/>
-        <input type="hidden" id="defence-us" name="defence-us" value="0"/>
-        <input type="hidden" id="defence-them" name="defence-them" value="0"/>
-        <input type="hidden" id="point-for" name="point-for" value=""/>
-        <input type="hidden" id="reason" name="reason" value=""/>
-        <input type="hidden" id="userId" name="userId" value=""/>
-        <input type="hidden" id="from-zone" name="from-zone" value=""/>
-        <input type="hidden" id="to-zone" name="to-zone" value=""/>
-        <input type="hidden" id="score-us" name="score-us" value="<?= $scoreUs ?>"/>
-        <input type="hidden" id="score-them" name="score-them" value="<?= $scoreThem ?>"/>
+        <input type="text" id="service-user" name="service-user" value=""/>
+        <input type="text" id="service-quality" name="service-quality" value=""/>
+        <input type="text" id="service-type" name="service-type" value="1"/>
+
+        <input type="text" id="defence-them" name="defence-them" value="0"/>
+        <input type="text" id="point-for" name="point-for" value=""/>
+        <input type="text" id="reason" name="reason" value=""/>
+        <input type="text" id="userId" name="userId" value=""/>
+        <input type="text" id="from-zone" name="from-zone" value=""/>
+        <input type="text" id="to-zone" name="to-zone" value=""/>
+        <input type="text" id="score-us" name="score-us" value="<?= $scoreUs ?>"/>
+        <input type="text" id="score-them" name="score-them" value="<?= $scoreThem ?>"/>
     </form>
   </div>
 </div>

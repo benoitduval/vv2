@@ -747,8 +747,8 @@
                 that.goTo(index);
               }
 
-              e.preventDefault();
-              e.stopPropagation();
+              // e.preventDefault();
+              // e.stopPropagation();
             });
 
             if (this.options.keyboard) {
