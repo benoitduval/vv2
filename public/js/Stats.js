@@ -49,16 +49,15 @@
     }, {
         key: 'handleSlideUp',
         value: function handleSlideUp() {
-            $('.slide-up').on('click', function() {
-              $('#slide-up-service').slideUp();
-              $('#slide-up-reception').slideUp();
-              $('#slide-down-point').slideDown();
-            });
+          $('.slide-up').on('click', function() {
+            $('#slide-up-service').slideUp();
+            $('#slide-up-reception').slideUp();
+            $('#slide-down-point').slideDown();
+          });
 
           $('.avatar-reception').on('click', function() {
             $('.btn-reception-quality').removeAttr('disabled');
           });
-
         }
     }, {
         key: 'handleDig',
@@ -85,10 +84,15 @@
         $('.user-select').on('focus', function () {
           previous = this.value;
         }).on('change', function() {
-          var userId = this.value;
-          $('.user-' + previous).removeAttr('disabled');
-          $('.user-' + userId).attr('disabled', 'disabled');
-          previous = userId;
+          $('#select-P1, #select-P2, #select-P3, #select-P4, #select-P5, #select-P6, #libero').not(this)
+              .children('option[value=' + this.value + ']')
+              .attr('disabled', true);
+          if (previous) {
+            $('#select-P1, #select-P2, #select-P3, #select-P4, #select-P5, #select-P6, #libero').not(this)
+              .children('option[value=' + previous + ']')
+              .removeAttr('disabled');
+            previous = this.value;
+          }
         });
       }
     }, {

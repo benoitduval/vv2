@@ -168,14 +168,33 @@ CREATE TABLE `stats` (
   `reason` tinyint(4) DEFAULT NULL,
   `fromZone` tinyint(4) DEFAULT NULL,
   `toZone` tinyint(4) DEFAULT NULL,
-  `blockUs` tinyint(2) DEFAULT NULL,
-  `blockThem` tinyint(2) DEFAULT NULL,
-  `defenceUs` tinyint(2) DEFAULT NULL,
-  `defenceThem` tinyint(2) DEFAULT NULL,
+  `numero` int(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `eventId` (`eventId`, `userId`, `groupId`),
-  KEY `set` (`pointFor`),
-  KEY `set` (`set`),
-  KEY `reason` (`reason`),
-  KEY `zone` (`fromZone`, `toZone`)
+  KEY `pointFor` (`set`, `pointFor`, `reason`),
+  KEY `zone` (`fromZone`, `toZone`),
+  KEY `numero` (`numero`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `game`;
+CREATE TABLE `game` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `userId` int(11) DEFAULT NULL,
+  `eventId` int(11) unsigned NOT NULL,
+  `numero` int(11) unsigned NOT NULL,
+  `p1` tinyint(2) DEFAULT NULL,
+  `p2` tinyint(2) DEFAULT NULL,
+  `p3` tinyint(2) DEFAULT NULL,
+  `p4` tinyint(2) DEFAULT NULL,
+  `p5` tinyint(2) DEFAULT NULL,
+  `p6` tinyint(2) DEFAULT NULL,
+  `libero` tinyint(2) DEFAULT NULL,
+  `start` tinyint(1) DEFAULT NULL,
+  `type` tinyint(2) DEFAULT NULL,
+  `quality` tinyint(2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `eventId` (`eventId`, `numero`, `userId`),
+  KEY `position` (`p1`, `p2`, `p3`, `p4`, `p5`, `p6`, `libero`),
+  KEY `point` (`start`),
+  KEY `type` (`type`, `quality`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

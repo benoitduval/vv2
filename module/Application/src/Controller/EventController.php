@@ -473,6 +473,7 @@ class EventController extends AbstractController
             $users      = $this->userTable->getAllByEventId($event->id);
             $config     = $this->get('config');
             $stats      = $this->statsTable->fetchOne(['eventId' => $eventId], 'id DESC');
+            $numero     = 1;
             $scoreUs    = 0;
             $scoreThem  = 0;
             $set        = 1;
@@ -489,38 +490,45 @@ class EventController extends AbstractController
                     $scoreThem = $stats->scoreThem;
                 }
                 $deleteLink = $config['baseUrl'] . '/event/delete-stats/' . $stats->id;
+                $numero = $stat->numero++;
             }
+
+            $game = $this->gameTable->fetchOne(['eventId' => $eventId, 'numero' => $numero], 'id DESC');
 
             $request = $this->getRequest();
             if ($request->isPost()) {
                 $result = [];
                 $post = $request->getPost()->toArray();
-                if (isset($post['post']) && isset($post['post'])) {
-                    $reason = $post['post'] . $post['zone'];
+                if ($post['form-name'] == 'positions') {
+                    $data = $post;
+                    $data['numero'] = $numero;
+                    $data['eventId'] = $eventId;
+                    $this->gameTable->save($data);
                 } else {
-                    $reason = $post['reason'];
-                }
-                if ($post['point-for'] == Model\Stats::POINT_US) {
-                    $post['score-us']++;
-                } else {
-                    $post['score-them']++;
-                }
+                    if (isset($post['post']) && isset($post['post'])) {
+                        $reason = $post['post'] . $post['zone'];
+                    } else {
+                        $reason = $post['reason'];
+                    }
+                    if ($post['point-for'] == Model\Stats::POINT_US) {
+                        $post['score-us']++;
+                    } else {
+                        $post['score-them']++;
+                    }
 
-                $data['scoreUs']     = $post['score-us'];
-                $data['scoreThem']   = $post['score-them'];
-                $data['pointFor']    = $post['point-for'];
-                $data['userId']      = $post['userId'];
-                $data['fromZone']    = $post['from-zone'];
-                $data['toZone']      = $post['to-zone'];
-                $data['reason']      = $reason;
-                $data['eventId']     = $eventId;
-                $data['groupId']     = $event->groupId;
-                $data['set']         = $set;
-                $data['blockUs']     = isset($post['block-us']) ? $post['block-us'] : 0;
-                $data['blockThem']   = isset($post['block-them']) ? $post['block-them'] : 0;
-                $data['defenceUs']   = isset($post['defence-us']) ? $post['defence-us'] : 0;
-                $data['defenceThem'] = isset($post['defence-them']) ? $post['defence-them'] : 0;
-                $stats = $this->statsTable->save($data);
+                    $data['scoreUs']     = $post['score-us'];
+                    $data['scoreThem']   = $post['score-them'];
+                    $data['pointFor']    = $post['point-for'];
+                    $data['userId']      = $post['userId'];
+                    $data['fromZone']    = $post['from-zone'];
+                    $data['toZone']      = $post['to-zone'];
+                    $data['reason']      = $reason;
+                    $data['eventId']     = $eventId;
+                    $data['groupId']     = $event->groupId;
+                    $data['set']         = $set;
+                    $data['numero']      = $numero;
+                    $stats = $this->statsTable->save($data);
+                }
 
                 $this->flashMessenger()->addSuccessMessage('Point enregistré.');
                 $this->redirect()->toRoute('event', ['action' => 'live-stats', 'id' => $eventId]);

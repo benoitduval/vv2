@@ -7,6 +7,9 @@ class Stats extends AbstractModel
     const POINT_US            = 1;
     const POINT_THEM          = 2;
 
+    const SERVICE            = 1;
+    const RECEPTION          = 2;
+
     const POINT_SERVE         = 1;
     const POINT_ATTACK        = 2;
     const POINT_BLOCK         = 3;

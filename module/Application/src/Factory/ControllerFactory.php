@@ -29,6 +29,7 @@ class ControllerFactory implements AbstractFactoryInterface
             'comment'       => $container->get(TableGateway\Comment::class),
             'notif'         => $container->get(TableGateway\Notification::class),
             'stats'         => $container->get(TableGateway\Stats::class),
+            'game'         => $container->get(TableGateway\Game::class),
         ];
 
         return new $requestedName($container, $tables, $user);

@@ -283,7 +283,6 @@
 <div class="modal fade" id="positions" aria-hidden="true" data-keyboard="<?= $keyboard ?>" data-backdrop="<?= $backdrop ?>" aria-labelledby="positions"
   role="dialog" tabindex="-1" data-show="<?= $newSet ?>">
   <div class="modal-dialog modal-simple">
-    <form id="positions-form" method="POST" action="/">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Make Your Selection</h4>
@@ -294,14 +293,32 @@
           <?php endif ?>
         </div>
         <div class="modal-body row">
+        <form id="positions-form" name="positions-form" method="POST">
           <?php if ($newSet == 'true'): ?>
             <div class="col-12 mt-10">
               <h5>Start set with</h5>
-              <select class="form-control" id="first-point" required>
-                <option selected="selected" value="" disabled>First Point</option>
-                  <option value="1">Reception</option>
-                  <option value="2">Service</option>
-              </select>
+              <div class="btn-group btn-group-justified">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-default btn-outline">
+                    <span class="text-uppercase">
+                      <div class="radio-custom radio-default">
+                        <input type="radio" id="start-service" value="<?= \Application\Model\Stats::SERVICE ?>" name="start" required />
+                        <label for="start-service">Service</label>
+                      </div>
+                    </span>
+                  </button>
+                </div>
+                <div class="btn-group" role="group">
+                 <button type="button" class="btn btn-default btn-outline">
+                   <span class="text-uppercase">
+                     <div class="radio-custom radio-default">
+                       <input type="radio" id="start-reception" value="<?= \Application\Model\Stats::SERVICE ?>" name="start" required />
+                       <label for="start-reception">Reception</label>
+                     </div>
+                   </span>
+                 </button>
+                </div>
+              </div>
             </div>
           <?php endif ?>
 
@@ -312,7 +329,7 @@
                 <td class="court-outside" width="40px" rowspan="5"></td>
                 <td class="court-outside" height="40px" colspan="2">
                   <div class="col-8 mt-10">
-                    <select class="form-control user-select" required id="libero">
+                    <select name="libero" class="form-control user-select" id="libero">
                       <option selected="selected" value="" disabled>Libero</option>
                       <?php foreach ($users as $user): ?>
                         <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
@@ -327,7 +344,7 @@
                 <!-- attack P5 -->
                 <td height="70px" class="court-inside court-border-top court-border-left court-border-right attack text-center" data-attack="5">
                   <div class="col-12">
-                    <select class="form-control user-select" required id="select-P5">
+                    <select class="form-control user-select"  name="p5" id="select-P5">
                       <option selected="selected" value="" disabled>P5</option>
                       <?php foreach ($users as $user): ?>
                         <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
@@ -338,7 +355,7 @@
                 <!-- attack P4 -->
                 <td height="70px" class="court-inside court-border-top front attack text-center" data-attack="4">
                   <div class="col-12">
-                    <select class="form-control user-select" required id="select-P4">
+                    <select class="form-control user-select"  name="p4" id="select-P4">
                       <option selected="selected" value="" disabled>P4</option>
                       <?php foreach ($users as $user): ?>
                         <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
@@ -351,7 +368,7 @@
                 <!-- attack P6 -->
                 <td height="70px" class="court-inside court-border-left court-border-right attack text-center" data-attack="6">
                   <div class="col-12">
-                    <select class="form-control user-select" required id="select-P6">
+                    <select class="form-control user-select"  name="p6" id="select-P6">
                       <option selected="selected" value="" disabled>P6</option>
                       <?php foreach ($users as $user): ?>
                         <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
@@ -362,7 +379,7 @@
                 <!-- attack P3 -->
                 <td height="70px" class="court-inside front attack text-center" data-attack="3">
                   <div class="col-12">
-                    <select class="form-control user-select" required id="select-P3">
+                    <select class="form-control user-select"  name="p3" id="select-P3">
                       <option selected="selected" value="" disabled>P3</option>
                       <?php foreach ($users as $user): ?>
                         <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
@@ -375,7 +392,7 @@
                 <!-- attack P1 -->
                 <td height="70px" class="court-inside court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">
                   <div class="col-12">
-                    <select class="form-control user-select" required id="select-P1">
+                    <select class="form-control user-select"  name="p1" id="select-P1">
                       <option selected="selected" value="" disabled>P1</option>
                       <?php foreach ($users as $user): ?>
                         <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
@@ -386,7 +403,7 @@
                 <!-- attack P2 -->
                 <td height="70px" class="court-inside court-border-bottom front attack text-center" data-attack="2">
                   <div class="col-12">
-                    <select class="form-control user-select" required id="select-P2">
+                    <select class="form-control user-select" name="p2" id="select-P2">
                       <option selected="selected" value="" disabled>P2</option>
                       <?php foreach ($users as $user): ?>
                         <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
@@ -402,7 +419,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success btn-outline" id="submit-point" href="#" role="button">Submit</button>
+          <input type="hidden" name="form-name" value="positions"/>
+          <button type="submit" class="btn btn-success btn-outline" form="positions-form" value="Submit" href="#" role="button">Submit</button>
         </div>
       </div>
     </form>
