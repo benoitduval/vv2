@@ -275,7 +275,7 @@
 </div>
 
 <?php
-  $newSet   = (!$scoreUs && !$scorethem) ? 'true': 'false';
+  $newSet   = (!$scoreUs && !$scorethem && !$game) ? 'true': 'false';
   $keyboard = ($newSet == 'true') ? 'false' : 'true';
   $backdrop = ($keyboard == 'true') ? 'dark' : 'static';
 ?>
@@ -332,7 +332,7 @@
                     <select name="libero" class="form-control user-select" id="libero">
                       <option selected="selected" value="" disabled>Libero</option>
                       <?php foreach ($users as $user): ?>
-                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>" <?= ($game->libero == $user->id) ? 'selected="selected"':''; ?>><?= $user->getFullname() ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -347,7 +347,7 @@
                     <select class="form-control user-select"  name="p5" id="select-P5">
                       <option selected="selected" value="" disabled>P5</option>
                       <?php foreach ($users as $user): ?>
-                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>" <?= ($game->p5 == $user->id) ? 'selected="selected"':''; ?>><?= $user->getFullname() ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -358,7 +358,7 @@
                     <select class="form-control user-select"  name="p4" id="select-P4">
                       <option selected="selected" value="" disabled>P4</option>
                       <?php foreach ($users as $user): ?>
-                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>" <?= ($game->p4 == $user->id) ? 'selected="selected"':''; ?>><?= $user->getFullname() ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -371,7 +371,7 @@
                     <select class="form-control user-select"  name="p6" id="select-P6">
                       <option selected="selected" value="" disabled>P6</option>
                       <?php foreach ($users as $user): ?>
-                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>" <?= ($game->p6 == $user->id) ? 'selected="selected"':''; ?>><?= $user->getFullname() ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -382,7 +382,7 @@
                     <select class="form-control user-select"  name="p3" id="select-P3">
                       <option selected="selected" value="" disabled>P3</option>
                       <?php foreach ($users as $user): ?>
-                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>" <?= ($game->p3 == $user->id) ? 'selected="selected"':''; ?>><?= $user->getFullname() ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -395,7 +395,7 @@
                     <select class="form-control user-select"  name="p1" id="select-P1">
                       <option selected="selected" value="" disabled>P1</option>
                       <?php foreach ($users as $user): ?>
-                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>" <?= ($game->p1 == $user->id) ? 'selected="selected"':''; ?>><?= $user->getFullname() ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -406,7 +406,7 @@
                     <select class="form-control user-select" name="p2" id="select-P2">
                       <option selected="selected" value="" disabled>P2</option>
                       <?php foreach ($users as $user): ?>
-                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>"><?= $user->getFullname() ?></option>
+                        <option class="user-<?= $user->id ?>" value="<?= $user->id ?>" <?= ($game->p2 == $user->id) ? 'selected="selected"':''; ?>><?= $user->getFullname() ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>

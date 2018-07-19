@@ -58,14 +58,19 @@ class Stats extends AbstractModel
     protected $_pointFor    = null;
     protected $_set         = null;
     protected $_reason      = null;
-    protected $_blockUs     = null;
-    protected $_blockThem   = null;
-    protected $_defenceUs   = null;
-    protected $_defenceThem = null;
     protected $_userId      = null;
     protected $_fromZone    = null;
     protected $_toZone      = null;
     protected $_groupId     = null;
+    protected $_numero      = null;
+    protected $_p1          = null;
+    protected $_p2          = null;
+    protected $_p3          = null;
+    protected $_p4          = null;
+    protected $_p5          = null;
+    protected $_p6          = null;
+    protected $_libero      = null;
+    protected $_start       = null;
 
     public static $attackUs = [
         self::POINT_ATTACK,
@@ -134,4 +139,16 @@ class Stats extends AbstractModel
         self::FAULT_SERVE => 'Faute au Service',
     ];
 
+    public function rotate() {
+        $tmp = $this->p1;
+        $result['p1'] = $this->p2;
+        $result['p2'] = $this->p3;
+        $result['p3'] = $this->p4;
+        $result['p4'] = $this->p5;
+        $result['p5'] = $this->p6;
+        $result['libero'] = $this->libero;
+        $result['p6'] = $tmp;
+
+        return $result;
+    }
 }

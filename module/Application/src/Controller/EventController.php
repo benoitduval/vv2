@@ -473,6 +473,7 @@ class EventController extends AbstractController
             $users      = $this->userTable->getAllByEventId($event->id);
             $config     = $this->get('config');
             $stats      = $this->statsTable->fetchOne(['eventId' => $eventId], 'id DESC');
+
             $numero     = 1;
             $scoreUs    = 0;
             $scoreThem  = 0;
@@ -485,15 +486,13 @@ class EventController extends AbstractController
                     $scoreUs = 0;
                     $scoreThem = 0;
                 } else {
-                    $set = $stats->set;
+                    $set       = $stats->set;
                     $scoreUs   = $stats->scoreUs;
                     $scoreThem = $stats->scoreThem;
                 }
                 $deleteLink = $config['baseUrl'] . '/event/delete-stats/' . $stats->id;
-                $numero = $stat->numero++;
+                $numero = $stats->numero++;
             }
-
-            $game = $this->gameTable->fetchOne(['eventId' => $eventId, 'numero' => $numero], 'id DESC');
 
             $request = $this->getRequest();
             if ($request->isPost()) {
@@ -516,18 +515,36 @@ class EventController extends AbstractController
                         $post['score-them']++;
                     }
 
-                    $data['scoreUs']     = $post['score-us'];
-                    $data['scoreThem']   = $post['score-them'];
-                    $data['pointFor']    = $post['point-for'];
-                    $data['userId']      = $post['userId'];
-                    $data['fromZone']    = $post['from-zone'];
-                    $data['toZone']      = $post['to-zone'];
-                    $data['reason']      = $reason;
-                    $data['eventId']     = $eventId;
-                    $data['groupId']     = $event->groupId;
-                    $data['set']         = $set;
-                    $data['numero']      = $numero;
+                    $data['scoreUs']   = $post['score-us'];
+                    $data['scoreThem'] = $post['score-them'];
+                    $data['pointFor']  = $post['point-for'];
+                    $data['userId']    = $post['userId'];
+                    $data['fromZone']  = $post['from-zone'];
+                    $data['toZone']    = $post['to-zone'];
+                    $data['reason']    = $reason;
+                    $data['eventId']   = $eventId;
+                    $data['groupId']   = $event->groupId;
+                    $data['set']       = $set;
+                    $data['numero']    = $numero;
                     $stats = $this->statsTable->save($data);
+
+                    $next = [];
+                    if ($stats->pointFor == Model\Stats::POINT_US) {
+                        if ($game->start == Model\Stats::RECEPTION) {
+                            $next = $game->rotate();
+                        } else {
+                            $next = $game->toArray();
+                        }
+                    } else {
+                        $next = [
+                            'start'   => Model\Stats::RECEPTION,
+                            'numero'  => $stats->numero++,
+                            'eventId' => $stats->eventId,
+                        ];
+                        $next = array_merge($next, $game->rotate());
+                    }
+                    $next['numero']++;
+                    $nextGame = $this->gameTable->save($next);
                 }
 
                 $this->flashMessenger()->addSuccessMessage('Point enregistré.');
@@ -542,6 +559,7 @@ class EventController extends AbstractController
                 'users'         => $users,
                 'scoreUs'       => $scoreUs,
                 'scoreThem'     => $scoreThem,
+                'game'          => $game,
             ]);
         } else {
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
