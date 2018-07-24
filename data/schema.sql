@@ -1,4 +1,4 @@
-:--
+--
 -- Table structure for table `comment`
 --
 DROP TABLE IF EXISTS `comment`;
@@ -197,5 +197,5 @@ CREATE TABLE `game` (
   PRIMARY KEY (`id`),
   KEY `eventId` (`eventId`, `userId`),
   KEY `type` (`type`, `quality`),
-  KEY `type` (`numero`)
+  KEY `numero` (`numero`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

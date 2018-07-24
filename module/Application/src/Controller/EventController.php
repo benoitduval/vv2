@@ -479,6 +479,8 @@ class EventController extends AbstractController
             $scoreThem  = 0;
             $set        = 1;
             $deleteLink = null;
+            $game       = null;
+            $positions  = [];
             if ($stats) {
                 if (($stats->scoreUs >= 25 || $stats->scoreThem >= 25) && (abs(
                 $stats->scoreThem - $stats->scoreUs) >= 2)) {
@@ -494,15 +496,19 @@ class EventController extends AbstractController
                 $numero = $stats->numero++;
             }
 
+            $key = 'position.' . $eventId . '.numero.' . $numero;
+            $positions = $this->get('memcached')->getItem($key);
+
             $request = $this->getRequest();
             if ($request->isPost()) {
                 $result = [];
                 $post = $request->getPost()->toArray();
-                if ($post['form-name'] == 'positions') {
+                if (isset($post['form-name']) && $post['form-name'] == 'positions') {
                     $data = $post;
                     $data['numero'] = $numero;
                     $data['eventId'] = $eventId;
-                    $this->gameTable->save($data);
+                    $key = 'position.' . $eventId . '.numero.' . $numero;
+                    $this->get('memcached')->setItem($key, $data);
                 } else {
                     if (isset($post['post']) && isset($post['post'])) {
                         $reason = $post['post'] . $post['zone'];
@@ -514,7 +520,14 @@ class EventController extends AbstractController
                     } else {
                         $post['score-them']++;
                     }
-
+                    $data['p1']        = ($post['p1']) ? $post['p1'] : null;
+                    $data['p2']        = ($post['p2']) ? $post['p2'] : null;
+                    $data['p3']        = ($post['p3']) ? $post['p3'] : null;
+                    $data['p4']        = ($post['p4']) ? $post['p4'] : null;
+                    $data['p5']        = ($post['p5']) ? $post['p5'] : null;
+                    $data['p6']        = ($post['p6']) ? $post['p6'] : null;
+                    $data['libero']    = ($post['libero']) ? $post['libero'] : null;
+                    $data['start']     = ($post['start']) ? $post['start'] : null;
                     $data['scoreUs']   = $post['score-us'];
                     $data['scoreThem'] = $post['score-them'];
                     $data['pointFor']  = $post['point-for'];
@@ -530,21 +543,30 @@ class EventController extends AbstractController
 
                     $next = [];
                     if ($stats->pointFor == Model\Stats::POINT_US) {
-                        if ($game->start == Model\Stats::RECEPTION) {
-                            $next = $game->rotate();
+                        if ($stats->start == Model\Stats::RECEPTION) {
+                            $next = $stats->rotate();
                         } else {
-                            $next = $game->toArray();
+                            $next = $stats->toArray();
                         }
+                        $next['start']   = Model\Stats::SERVICE;
+                        $next['numero']  = $stats->numero++;
+                        $next['eventId'] = $stats->eventId;
                     } else {
                         $next = [
                             'start'   => Model\Stats::RECEPTION,
                             'numero'  => $stats->numero++,
                             'eventId' => $stats->eventId,
+                            'p1'      => $stats->p1,
+                            'p2'      => $stats->p2,
+                            'p3'      => $stats->p3,
+                            'p4'      => $stats->p4,
+                            'p5'      => $stats->p5,
+                            'p6'      => $stats->p6,
+                            'libero'  => $stats->libero,
                         ];
-                        $next = array_merge($next, $game->rotate());
                     }
-                    $next['numero']++;
-                    $nextGame = $this->gameTable->save($next);
+                    $key = 'position.' . $eventId . '.numero.' . $numero;
+                    $this->get('memcached')->setItem($key, $next);
                 }
 
                 $this->flashMessenger()->addSuccessMessage('Point enregistré.');
@@ -560,6 +582,7 @@ class EventController extends AbstractController
                 'scoreUs'       => $scoreUs,
                 'scoreThem'     => $scoreThem,
                 'game'          => $game,
+                'positions'     => $positions,
             ]);
         } else {
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
