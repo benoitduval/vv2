@@ -5,6 +5,18 @@ namespace Application\Model;
 class AbstractModel
 {
 
+    protected $_container;
+
+    public function __construct($container)
+    {
+        $this->_container = $container;
+    }
+
+    public function getContainer()
+    {
+        return $this->_container;
+    }
+
     public function __call($name, $arguments)
     {
         if (preg_match('/^(g|s)et(\w+)$/', $name, $matches)) {

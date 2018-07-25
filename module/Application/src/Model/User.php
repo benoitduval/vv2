@@ -26,10 +26,8 @@ class User extends AbstractModel
     protected $_email       = null;
     protected $_password    = null;
     protected $_status      = null;
-    protected $_display     = null;
-    protected $_phone       = null;
-    protected $_licence     = null;
     protected $_position    = null;
+    protected $_numero      = null;
 
     public static $position = [
         self::POSITION_SETTER         => 'setter',
@@ -57,6 +55,12 @@ class User extends AbstractModel
 
     public function getAvatarPath()
     {
-        return '/img/avatars/' . md5($this->getFullname() . $this->id) . '.png';
+        $config = $this->getContainer()->get('config');
+        $avatar = '/img/avatars/' . md5($this->getFullname() . $this->id) . '.png';
+        $numero = '/img/' . $this->numero . '.png';
+        $result = '/img/default-avatar.png';
+        if ($this->numero) $result = $numero;
+        if (file_exists($config['publicPath'] . $avatar)) $result = $avatar;
+        return $result;
     }
 }

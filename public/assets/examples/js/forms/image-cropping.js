@@ -31,23 +31,12 @@
   // Example Cropper Full
   // --------------------
   (function () {
-    var $exampleFullCropper = (0, _jquery2.default)("#exampleFullCropper img"),
-        $inputDataX = (0, _jquery2.default)("#inputDataX"),
-        $inputDataY = (0, _jquery2.default)("#inputDataY"),
-        $inputDataHeight = (0, _jquery2.default)("#inputDataHeight"),
-        $inputDataWidth = (0, _jquery2.default)("#inputDataWidth");
+    var $exampleFullCropper = (0, _jquery2.default)("#exampleFullCropper img");
 
     var options = {
-      aspectRatio: 16 / 9,
+      aspectRatio: 1 / 1,
       preview: "#exampleFullCropperPreview > .img-preview",
-      responsive: true,
-      crop: function crop() {
-        var data = (0, _jquery2.default)(this).data('cropper').getCropBoxData();
-        $inputDataX.val(Math.round(data.left));
-        $inputDataY.val(Math.round(data.top));
-        $inputDataHeight.val(Math.round(data.height));
-        $inputDataWidth.val(Math.round(data.width));
-      }
+      responsive: true
     };
     // set up cropper
     $exampleFullCropper.cropper(options);
@@ -66,7 +55,7 @@
       }
     });
 
-    // deal wtih uploading
+    // deal with uploading
     var $inputImage = (0, _jquery2.default)("#inputImage");
 
     if (window.FileReader) {
@@ -95,15 +84,27 @@
       $inputImage.addClass("hide");
     }
 
-    // set data
-    (0, _jquery2.default)("#setCropperData").click(function () {
-      var data = {
-        left: parseInt($inputDataX.val()),
-        top: parseInt($inputDataY.val()),
-        width: parseInt($inputDataWidth.val()),
-        height: parseInt($inputDataHeight.val())
-      };
-      $exampleFullCropper.cropper("setCropBoxData", data);
+    // upload to server
+    (0, _jquery2.default)("#uploadCropperData").click(function () {
+      $exampleFullCropper.cropper('getCroppedCanvas').toBlob(function (blob) {
+
+        var formData = new FormData();
+
+        formData.append('croppedImage', blob);
+
+        $.ajax('/api/user/upload', {
+          method: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function () {
+            console.log('Upload success');
+          },
+          error: function () {
+            console.log('Upload error');
+          }
+        });
+      });
     });
   })();
 });

@@ -85,9 +85,6 @@
       <!-- Disponibility card -->
       <div class="card card-shadow">
           <div class="card-block">
-
-
-
               <div class="example-wrap mt-20 mb-0">
                 <div class="nav-tabs-horizontal" data-plugin="tabs">
                   <ul class="nav nav-tabs" role="tablist">
@@ -298,7 +295,7 @@
               <tr>
                 <td>
                   <div class="avatar avatar-md">
-                    <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                    <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = <?= $user->numero ? '/img/' . $user->numero . '.png' : '/img/default-avatar.png' ?>" alt="<?= $user->getFullname() ?>">
                   </div>
                 </td>
                 <td><?= $user->getFullname() ?></td>

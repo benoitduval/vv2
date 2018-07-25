@@ -76,21 +76,22 @@ class Stats extends AbstractTableGateway
             }
 
             switch ($stat->toZone) {
-                case Statistics::FROM_P1:
+                case Statistics::TO_P1:
                     $labelTo = 'toP1';
-                case Statistics::FROM_P2:
+                    break;
+                case Statistics::TO_P2:
                     $labelTo = 'toP2';
                     break;
-                case Statistics::FROM_P3:
+                case Statistics::TO_P3:
                     $labelTo = 'toP3';
                     break;
-                case Statistics::FROM_P4:
+                case Statistics::TO_P4:
                     $labelTo = 'toP4';
                     break;
-                case Statistics::FROM_P5:
+                case Statistics::TO_P5:
                     $labelTo = 'toP5';
                     break;
-                case Statistics::FROM_P6:
+                case Statistics::TO_P6:
                     $labelTo = 'toP6';
                     break;
             }

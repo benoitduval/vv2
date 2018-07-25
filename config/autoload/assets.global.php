@@ -376,9 +376,11 @@ return [
                 '/global/js/Plugin/dropify.js',
                 '/global/js/Plugin/animate-list.js',
                 '/global/js/Plugin/panel.js',
-                '/global/js/Plugin/matchheight.js',
+                '/global/js/Plugin/matchheight.js',                                
                 '/global/js/Plugin/bootstrap-datepicker.js',
+                '/global/vendor/cropper/cropper.min.js',
                 '/assets/examples/js/forms/uploads.js',
+                '/assets/examples/js/forms/image-cropping.js',
             ],
             'css' => [
                 '/global/vendor/animsition/animsition.css',
@@ -393,6 +395,8 @@ return [
                 '/global/vendor/dropify/dropify.css',
                 '/global/vendor/plyr/plyr.css',
                 '/global/vendor/bootstrap-datepicker/bootstrap-datepicker.css',
+                '/global/vendor/cropper/cropper.css',
+                '/assets/examples/css/forms/image-cropping.css',
                 '/assets/examples/css/dashboard/team.css',
                 '/global/vendor/asscrollable/asScrollable.css',
             ]

@@ -460,6 +460,9 @@ class EventController extends AbstractController
         if ($stats && ($event = $this->eventTable->find($stats->eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
             $eventId = $stats->eventId;
             $this->statsTable->delete(['id' => $statsId]);
+            $key = 'position.' . $eventId . '.numero.' . $stats->numero;
+            $this->get('memcached')->removeItem($key);
+
             $this->flashMessenger()->addSuccessMessage('Point supprimé.');
         }
         $this->redirect()->toUrl('/event/live-stats/' . $eventId);
@@ -481,7 +484,10 @@ class EventController extends AbstractController
             $deleteLink = null;
             $game       = null;
             $positions  = [];
+
             if ($stats) {
+                $key = 'position.' . $eventId . '.numero.' . $stats->numero;
+                $positions = $this->get('memcached')->getItem($key);
                 if (($stats->scoreUs >= 25 || $stats->scoreThem >= 25) && (abs(
                 $stats->scoreThem - $stats->scoreUs) >= 2)) {
                     $set = $stats->set + 1;
@@ -493,11 +499,11 @@ class EventController extends AbstractController
                     $scoreThem = $stats->scoreThem;
                 }
                 $deleteLink = $config['baseUrl'] . '/event/delete-stats/' . $stats->id;
-                $numero = $stats->numero++;
+                $numero = (int) $stats->numero + 1;
+            } else {
+                $key = 'position.' . $eventId . '.numero.' . $numero;
+                $positions = $this->get('memcached')->getItem($key);
             }
-
-            $key = 'position.' . $eventId . '.numero.' . $numero;
-            $positions = $this->get('memcached')->getItem($key);
 
             $request = $this->getRequest();
             if ($request->isPost()) {
@@ -505,7 +511,7 @@ class EventController extends AbstractController
                 $post = $request->getPost()->toArray();
                 if (isset($post['form-name']) && $post['form-name'] == 'positions') {
                     $data = $post;
-                    $data['numero'] = $numero;
+                    $data['numero']  = $numero;
                     $data['eventId'] = $eventId;
                     $key = 'position.' . $eventId . '.numero.' . $numero;
                     $this->get('memcached')->setItem($key, $data);
@@ -520,14 +526,15 @@ class EventController extends AbstractController
                     } else {
                         $post['score-them']++;
                     }
-                    $data['p1']        = ($post['p1']) ? $post['p1'] : null;
-                    $data['p2']        = ($post['p2']) ? $post['p2'] : null;
-                    $data['p3']        = ($post['p3']) ? $post['p3'] : null;
-                    $data['p4']        = ($post['p4']) ? $post['p4'] : null;
-                    $data['p5']        = ($post['p5']) ? $post['p5'] : null;
-                    $data['p6']        = ($post['p6']) ? $post['p6'] : null;
-                    $data['libero']    = ($post['libero']) ? $post['libero'] : null;
-                    $data['start']     = ($post['start']) ? $post['start'] : null;
+
+                    $data['p1']        = $post['p1'] ? $post['p1'] : null;
+                    $data['p2']        = $post['p2'] ? $post['p2'] : null;
+                    $data['p3']        = $post['p3'] ? $post['p3'] : null;
+                    $data['p4']        = $post['p4'] ? $post['p4'] : null;
+                    $data['p5']        = $post['p5'] ? $post['p5'] : null;
+                    $data['p6']        = $post['p6'] ? $post['p6'] : null;
+                    $data['libero']    = $post['libero'] ? $post['libero'] : null;
+                    $data['start']     = $post['start'] ? $post['start'] : null;
                     $data['scoreUs']   = $post['score-us'];
                     $data['scoreThem'] = $post['score-them'];
                     $data['pointFor']  = $post['point-for'];
@@ -539,9 +546,9 @@ class EventController extends AbstractController
                     $data['groupId']   = $event->groupId;
                     $data['set']       = $set;
                     $data['numero']    = $numero;
-                    $stats = $this->statsTable->save($data);
+                    $stats             = $this->statsTable->save($data);
 
-                    $next = [];
+                    $next              = [];
                     if ($stats->pointFor == Model\Stats::POINT_US) {
                         if ($stats->start == Model\Stats::RECEPTION) {
                             $next = $stats->rotate();
@@ -554,7 +561,7 @@ class EventController extends AbstractController
                     } else {
                         $next = [
                             'start'   => Model\Stats::RECEPTION,
-                            'numero'  => $stats->numero++,
+                            'numero'  => (int) $stats->numero + 1,
                             'eventId' => $stats->eventId,
                             'p1'      => $stats->p1,
                             'p2'      => $stats->p2,
@@ -573,16 +580,21 @@ class EventController extends AbstractController
                 $this->redirect()->toRoute('event', ['action' => 'live-stats', 'id' => $eventId]);
             }
 
+            $playersOnField = $positions;
+            unset($playersOnField['start'], $playersOnField['form-name'], $playersOnField['numero'], $playersOnField['eventId']);
+            $playersOnField = array_values($playersOnField);
+
             return new ViewModel([
-                'deleteLink'    => $deleteLink,
-                'event'         => $event,
-                'user'          => $this->getUser(),
-                'set'           => (int) $set,
-                'users'         => $users,
-                'scoreUs'       => $scoreUs,
-                'scoreThem'     => $scoreThem,
-                'game'          => $game,
-                'positions'     => $positions,
+                'deleteLink'     => $deleteLink,
+                'event'          => $event,
+                'user'           => $this->getUser(),
+                'set'            => (int) $set,
+                'users'          => $users,
+                'scoreUs'        => $scoreUs,
+                'scoreThem'      => $scoreThem,
+                'game'           => $game,
+                'positions'      => $positions,
+                'playersOnField' => $playersOnField,
             ]);
         } else {
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');

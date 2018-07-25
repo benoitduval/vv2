@@ -11,6 +11,87 @@ use Application\TableGateway;
 class UserController extends AbstractController
 {
 
+    public function uploadAction()
+    {
+        if($_FILES) { 
+
+            try {
+                
+                // Undefined | Multiple Files | $_FILES Corruption Attack
+                // If this request falls under any of them, treat it invalid.
+                if (
+                    !isset($_FILES['croppedImage']['error']) ||
+                    is_array($_FILES['croppedImage']['error'])
+                ) {
+                    throw new RuntimeException('Invalid parameters.');
+                }
+
+                // Check $_FILES['croppedImage']['error'] value.
+                switch ($_FILES['croppedImage']['error']) {
+                    case UPLOAD_ERR_OK:
+                        break;
+                    case UPLOAD_ERR_NO_FILE:
+                        throw new RuntimeException('No file sent.');
+                    case UPLOAD_ERR_INI_SIZE:
+                    case UPLOAD_ERR_FORM_SIZE:
+                        throw new RuntimeException('Exceeded filesize limit.');
+                    default:
+                        throw new RuntimeException('Unknown errors.');
+                }
+
+                // You should also check filesize here. 
+                if ($_FILES['croppedImage']['size'] > 1000000) {
+                    throw new RuntimeException('Exceeded filesize limit.');
+                }
+
+                // DO NOT TRUST $_FILES['croppedImage']['mime'] VALUE !!
+                // Check MIME Type by yourself.
+                $finfo = new \finfo(FILEINFO_MIME_TYPE);
+                if (false === $ext = array_search(
+                    $finfo->file($_FILES['croppedImage']['tmp_name']),
+                    array(
+                        'jpg' => 'image/jpeg',
+                        'png' => 'image/png',
+                        'gif' => 'image/gif',
+                    ),
+                    true
+                )) {
+                    throw new RuntimeException('Invalid file format.');
+                }
+
+                // You should name it uniquely.
+                // DO NOT USE $_FILES['croppedImage']['name'] WITHOUT ANY VALIDATION !!
+                // On this example, obtain safe unique name from its binary data.
+                if (!move_uploaded_file(
+                    $_FILES['croppedImage']['tmp_name'],
+                    sprintf(getcwd() . '/public/img/avatars/%s.%s',
+                        md5($this->getUser()->getFullname() . $this->getUser()->id),
+                        'png'
+                    )
+                )) {
+                    throw new RuntimeException('Failed to move uploaded file.');
+                }
+
+                echo 'File is uploaded successfully.';
+
+            } catch (RuntimeException $e) {
+
+                echo $e->getMessage();
+
+            }
+
+            $view = new ViewModel(array(
+                'result'   => [
+                    'success'  => true
+                ]
+            ));
+
+            $view->setTerminal(true);
+            $view->setTemplate('api/default/json.phtml');
+            return $view;
+        }
+    }
+
     public function grantAction()
     {
         $userId  = $this->params('userId', null);

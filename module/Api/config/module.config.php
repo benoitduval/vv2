@@ -25,6 +25,16 @@ return [
                     ],
                 ],
             ],
+            'upload-user' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/api/user/upload',
+                    'defaults' => [
+                        'controller'    => Controller\UserController::class,
+                        'action'        => 'upload',
+                    ],
+                ],
+            ],
             'get-all-events' => [
                 'type'    => Segment::class,
                 'options' => [

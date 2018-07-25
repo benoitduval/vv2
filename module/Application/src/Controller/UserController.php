@@ -13,6 +13,8 @@ class UserController extends AbstractController
     public function profileAction()
     {
         $user = $this->getUser();
+        
+
         $form = new Form\Profile('uploader', ['entity' => $user->getFullname() . $user->id]);
         $tempFile = null;
 
