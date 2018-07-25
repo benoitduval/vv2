@@ -23,24 +23,32 @@ class UserController extends AbstractController
                     !isset($_FILES['croppedImage']['error']) ||
                     is_array($_FILES['croppedImage']['error'])
                 ) {
+                    error_log('Invalid parameters.');
                     throw new RuntimeException('Invalid parameters.');
                 }
+
+                error_log($_FILES['croppedImage']['size']);
 
                 // Check $_FILES['croppedImage']['error'] value.
                 switch ($_FILES['croppedImage']['error']) {
                     case UPLOAD_ERR_OK:
                         break;
                     case UPLOAD_ERR_NO_FILE:
+                        error_log('No file sent.');
                         throw new RuntimeException('No file sent.');
                     case UPLOAD_ERR_INI_SIZE:
                     case UPLOAD_ERR_FORM_SIZE:
+                        error_log('Exceeded filesize limit.');
                         throw new RuntimeException('Exceeded filesize limit.');
                     default:
+                        error_log('Unknown errors.');
                         throw new RuntimeException('Unknown errors.');
                 }
 
-                // You should also check filesize here. 
-                if ($_FILES['croppedImage']['size'] > 1000000) {
+                // You should also check filesize here.
+                if ($_FILES['croppedImage']['size'] > 5000000) {
+                    error_log($_FILES['croppedImage']['size']);
+                    error_log('Exceeded filesize limit.');
                     throw new RuntimeException('Exceeded filesize limit.');
                 }
 
@@ -69,13 +77,14 @@ class UserController extends AbstractController
                         'png'
                     )
                 )) {
+                error_log('Failed to move uploaded file.');
                     throw new RuntimeException('Failed to move uploaded file.');
                 }
 
                 echo 'File is uploaded successfully.';
 
             } catch (RuntimeException $e) {
-
+                error_log($e->getMessage());
                 echo $e->getMessage();
 
             }
