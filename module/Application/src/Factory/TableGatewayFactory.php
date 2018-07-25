@@ -18,7 +18,7 @@ class TableGatewayFactory implements AbstractFactoryInterface
         $dbAdapter          = $container->get(AdapterInterface::class);
         $resultSetPrototype = new ResultSet();
         $model = '\\Application\\Model\\' . $name;
-        $resultSetPrototype->setArrayObjectPrototype(new $model($container));
+        $resultSetPrototype->setArrayObjectPrototype(new $model());
         $tableGateway = new TableGateway(lcfirst($name), $dbAdapter, null, $resultSetPrototype);
         return new $requestedName($tableGateway, $container);
     }

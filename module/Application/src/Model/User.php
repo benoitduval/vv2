@@ -55,12 +55,11 @@ class User extends AbstractModel
 
     public function getAvatarPath()
     {
-        $config = $this->getContainer()->get('config');
-        $avatar = '/img/avatars/' . md5($this->getFullname() . $this->id) . '.png';
-        $numero = '/img/' . $this->numero . '.png';
         $result = '/img/default-avatar.png';
+        $numero = '/img/' . $this->numero . '.png';
         if ($this->numero) $result = $numero;
-        if (file_exists($config['publicPath'] . $avatar)) $result = $avatar;
+        $avatar = getcwd() . '/public/img/avatars/' . md5($this->getFullname() . $this->id) . '.png';
+        if (file_exists(getcwd() . '/public/img/avatars/' . md5($this->getFullname() . $this->id) . '.png')) $result = '/img/avatars/' . md5($this->getFullname() . $this->id) . '.png';
         return $result;
     }
 }
