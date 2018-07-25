@@ -47,7 +47,6 @@ class UserController extends AbstractController
 
                 // You should also check filesize here.
                 if ($_FILES['croppedImage']['size'] > 5000000) {
-                    error_log($_FILES['croppedImage']['size']);
                     error_log('Exceeded filesize limit.');
                     throw new RuntimeException('Exceeded filesize limit.');
                 }

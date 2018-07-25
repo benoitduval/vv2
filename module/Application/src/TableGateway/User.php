@@ -39,7 +39,10 @@ class User extends AbstractTableGateway
         foreach ($disponibilities as $disponibility) {
             $userIds[] = $disponibility->userId;
         }
-
-        return $this->fetchAll(['id' => $userIds]);
+        $users = $this->fetchAll(['id' => $userIds]);
+        foreach ($users as $user) {
+            $result[$user->id] = $user;
+        }
+        return $result;
     }
 }

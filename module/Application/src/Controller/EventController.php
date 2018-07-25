@@ -484,7 +484,6 @@ class EventController extends AbstractController
             $deleteLink = null;
             $game       = null;
             $positions  = [];
-
             if ($stats) {
                 $key = 'position.' . $eventId . '.numero.' . $stats->numero;
                 $positions = $this->get('memcached')->getItem($key);
@@ -511,9 +510,14 @@ class EventController extends AbstractController
                 $post = $request->getPost()->toArray();
                 if (isset($post['form-name']) && $post['form-name'] == 'positions') {
                     $data = $post;
-                    $data['numero']  = $numero;
+                    if ($stats) {
+                        $cacheNumero = $stats->numero;
+                    } else {
+                        $cacheNumero = $numero;
+                    }
                     $data['eventId'] = $eventId;
-                    $key = 'position.' . $eventId . '.numero.' . $numero;
+
+                    $key = 'position.' . $eventId . '.numero.' . $cacheNumero;
                     $this->get('memcached')->setItem($key, $data);
                 } else {
                     if (isset($post['post']) && isset($post['post'])) {
@@ -580,9 +584,14 @@ class EventController extends AbstractController
                 $this->redirect()->toRoute('event', ['action' => 'live-stats', 'id' => $eventId]);
             }
 
-            $playersOnField = $positions;
-            unset($playersOnField['start'], $playersOnField['form-name'], $playersOnField['numero'], $playersOnField['eventId']);
-            $playersOnField = array_values($playersOnField);
+            $server = null;
+            $playersOnField = [];
+            if ($positions) {
+                $server = $users[$positions['p1']];
+                $playersOnField = $positions;
+                unset($playersOnField['start'], $playersOnField['form-name'], $playersOnField['numero'], $playersOnField['eventId']);
+                $playersOnField = array_values($playersOnField);
+            }
 
             return new ViewModel([
                 'deleteLink'     => $deleteLink,
@@ -595,6 +604,7 @@ class EventController extends AbstractController
                 'game'           => $game,
                 'positions'      => $positions,
                 'playersOnField' => $playersOnField,
+                'server'         => $server,
             ]);
         } else {
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');

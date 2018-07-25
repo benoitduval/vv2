@@ -13,7 +13,7 @@
           <div class="wizard-pane active" role="tabpanel">
             <div class="row <?= $serviceShow ? '' : 'hidden';?>" id="slide-up-service">
               <div class="col-12 text-center mb-10">
-                <img class="avatar avatar-100" src="/img/avatars/2cbab098cd318b3ef269c68d06464066.png" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                <img class="avatar avatar-100" src="<?= $server ? $server->getAvatarPath()  : '' ?>">
               </div>
               <h4 class="col-12 text-center">Service Quality</h4>
               <div class="col-12 mb-10">
@@ -207,6 +207,7 @@
                 <h4>Select Player</h4>
                 <div id="user-selection" class="col-12 text-center">
                     <?php foreach ($users as $user): ?>
+                        <?php if (!in_array($user->id, $playersOnField)) continue; ?>
                         <label class="btn-avatar" data-user-id="<?= $user->id ?>">
                           <img class="avatar avatar-md" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
                         </label>

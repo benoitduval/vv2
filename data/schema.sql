@@ -160,7 +160,7 @@ CREATE TABLE `stats` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `eventId` int(11) unsigned NOT NULL,
   `groupId` int(11) unsigned NOT NULL,
-  `userId` int(11) unsigned NOT NULL,
+  `userId` int(11) unsigned DEFAULT NULL,
   `pointFor` tinyint(1) DEFAULT NULL,
   `scoreUs` tinyint(2) DEFAULT NULL,
   `scoreThem` tinyint(2) DEFAULT NULL,
