@@ -477,14 +477,13 @@ class EventController extends AbstractController
             $config     = $this->get('config');
             $stats      = $this->statsTable->fetchOne(['eventId' => $eventId], 'id DESC');
 
-            $numero     = 1;
             $scoreUs    = 0;
             $scoreThem  = 0;
             $set        = 1;
             $deleteLink = null;
-            $game       = null;
             $positions  = [];
             if ($stats) {
+                $numero = $stats->numero;
                 $key = 'position.' . $eventId . '.numero.' . $stats->numero;
                 $positions = $this->get('memcached')->getItem($key);
                 if (($stats->scoreUs >= 25 || $stats->scoreThem >= 25) && (abs(
@@ -498,84 +497,48 @@ class EventController extends AbstractController
                     $scoreThem = $stats->scoreThem;
                 }
                 $deleteLink = $config['baseUrl'] . '/event/delete-stats/' . $stats->id;
-                $numero = (int) $stats->numero + 1;
             } else {
+                $numero = 1;
                 $key = 'position.' . $eventId . '.numero.' . $numero;
                 $positions = $this->get('memcached')->getItem($key);
             }
 
             $request = $this->getRequest();
             if ($request->isPost()) {
-                $result = [];
                 $post = $request->getPost()->toArray();
                 if (isset($post['form-name']) && $post['form-name'] == 'positions') {
-                    $data = $post;
-                    if ($stats) {
-                        $cacheNumero = $stats->numero;
-                    } else {
-                        $cacheNumero = $numero;
-                    }
-                    $data['eventId'] = $eventId;
-
-                    $key = 'position.' . $eventId . '.numero.' . $cacheNumero;
-                    $this->get('memcached')->setItem($key, $data);
+                    $positions = $post;
+                    unset($positions['form-name']);
+                    $key = 'position.' . $eventId . '.numero.' . $numero;
+                    $this->get('memcached')->setItem($key, $positions);
                 } else {
-                    if (isset($post['post']) && isset($post['post'])) {
-                        $reason = $post['post'] . $post['zone'];
+                    $numero = $numero + 1;
+                    if ($post['pointFor'] == Model\Stats::POINT_US) {
+                        $post['scoreUs']++;
                     } else {
-                        $reason = $post['reason'];
-                    }
-                    if ($post['point-for'] == Model\Stats::POINT_US) {
-                        $post['score-us']++;
-                    } else {
-                        $post['score-them']++;
+                        $post['scoreThem']++;
                     }
 
-                    $data['p1']        = $post['p1'] ? $post['p1'] : null;
-                    $data['p2']        = $post['p2'] ? $post['p2'] : null;
-                    $data['p3']        = $post['p3'] ? $post['p3'] : null;
-                    $data['p4']        = $post['p4'] ? $post['p4'] : null;
-                    $data['p5']        = $post['p5'] ? $post['p5'] : null;
-                    $data['p6']        = $post['p6'] ? $post['p6'] : null;
-                    $data['libero']    = $post['libero'] ? $post['libero'] : null;
-                    $data['start']     = $post['start'] ? $post['start'] : null;
-                    $data['scoreUs']   = $post['score-us'];
-                    $data['scoreThem'] = $post['score-them'];
-                    $data['pointFor']  = $post['point-for'];
-                    $data['userId']    = $post['userId'];
-                    $data['fromZone']  = $post['from-zone'];
-                    $data['toZone']    = $post['to-zone'];
-                    $data['reason']    = $reason;
-                    $data['eventId']   = $eventId;
-                    $data['groupId']   = $event->groupId;
-                    $data['set']       = $set;
-                    $data['numero']    = $numero;
-                    $stats             = $this->statsTable->save($data);
+                    $post['eventId']   = $eventId;
+                    $post['groupId']   = $event->groupId;
+                    $post['userId']    = $post['userId'] ? $post['userId'] : null;
+                    $post['set']       = $set;
+                    $post['numero']    = $numero;
 
+                    $stats             = $this->statsTable->save($post);
                     $next              = [];
                     if ($stats->pointFor == Model\Stats::POINT_US) {
                         if ($stats->start == Model\Stats::RECEPTION) {
                             $next = $stats->rotate();
                         } else {
-                            $next = $stats->toArray();
+                            $next = $stats->mark();
                         }
                         $next['start']   = Model\Stats::SERVICE;
-                        $next['numero']  = $stats->numero++;
-                        $next['eventId'] = $stats->eventId;
                     } else {
-                        $next = [
-                            'start'   => Model\Stats::RECEPTION,
-                            'numero'  => (int) $stats->numero + 1,
-                            'eventId' => $stats->eventId,
-                            'p1'      => $stats->p1,
-                            'p2'      => $stats->p2,
-                            'p3'      => $stats->p3,
-                            'p4'      => $stats->p4,
-                            'p5'      => $stats->p5,
-                            'p6'      => $stats->p6,
-                            'libero'  => $stats->libero,
-                        ];
+                        $next = $stats->mark();
+                        $next['start']   = Model\Stats::RECEPTION;
                     }
+                    $next['numero']  = $stats->numero;
                     $key = 'position.' . $eventId . '.numero.' . $numero;
                     $this->get('memcached')->setItem($key, $next);
                 }
@@ -601,7 +564,6 @@ class EventController extends AbstractController
                 'users'          => $users,
                 'scoreUs'        => $scoreUs,
                 'scoreThem'      => $scoreThem,
-                'game'           => $game,
                 'positions'      => $positions,
                 'playersOnField' => $playersOnField,
                 'server'         => $server,

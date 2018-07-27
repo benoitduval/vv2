@@ -31,7 +31,7 @@ foreach ($setsLastScore as $set => $scores) {
                 <div class="card-content">
                     <div class="numbers-center">
                         <p>Nous</p>
-                        <span class="score-us"><?= $lastUs ?></span>
+                        <span class="scoreUs"><?= $lastUs ?></span>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@ foreach ($setsLastScore as $set => $scores) {
                 <div class="card-content">
                     <div class="numbers-center">
                         <p>Eux</p>
-                        <span class="score-them"><?= $lastThem ?></span>
+                        <span class="scoreThem"><?= $lastThem ?></span>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@ foreach ($setsLastScore as $set => $scores) {
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Set <?= $set ?> <span class="category">(Nous <span class="score-us"><?= $setsLastScore[$set][0] ?></span> - <span class="score-them"><?= $setsLastScore[$set][1] ?></span> Eux)</span></h4>
+                        <h4 class="card-title">Set <?= $set ?> <span class="category">(Nous <span class="scoreUs"><?= $setsLastScore[$set][0] ?></span> - <span class="scoreThem"><?= $setsLastScore[$set][1] ?></span> Eux)</span></h4>
                     </div>
                     <div class="card-content">
                         <div class="table-score" style="max-height:346px; overflow-y:scroll">

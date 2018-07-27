@@ -1328,10 +1328,10 @@ demo = {
                                     var classThem = '';
                                     if (value.pointFor == "1") {
                                         classUs = 'success';
-                                        $('.score-us').html(value.us);
+                                        $('.scoreUs').html(value.us);
                                     } else {
                                         classThem = 'danger';
-                                        $('.score-them').html(value.them);
+                                        $('.scoreThem').html(value.them);
                                     }
 
                                     $('#history tr:first').before('<tr>'

@@ -133,9 +133,9 @@
         });
 
         $('#point-them').on('click', function() {
-            $('#point-for').val($(this).attr('data-value'));
+            $('#pointFor').val($(this).attr('data-value'));
             $('#attack-them').removeClass('hidden');
-            $('#attack-fault-us').removeClass('hidden');
+            $('#attack-fault-us').removeClass('hidden');  
             $('#service-fault-us').removeClass('hidden');
             $('#service-point-them').removeClass('hidden');
             $('#defensive-fault').removeClass('hidden');
@@ -143,7 +143,7 @@
         });
 
         $('#point-us').on('click', function() {
-            $('#point-for').val($(this).attr('data-value'));
+            $('#pointFor').val($(this).attr('data-value'));
             $('#attack-us').removeClass('hidden');
             $('#attack-fault-them').removeClass('hidden');
             $('#service-point-us').removeClass('hidden');
@@ -164,14 +164,14 @@
 
             $('.attack.active').on('click', function () {
               $('#table-title').html('Target Zone ?');
-              $('#from-zone').val($(this).attr('data-attack'));
+              $('#fromZone').val($(this).attr('data-attack'));
               $('.attack.active').removeClass('selected');
               $(this).addClass('selected');
               $('.target').each(function () {
                 $(this).removeClass('inactive');
                 $(this).addClass('active');
                 $('.target.active').on('click', function() {
-                    $('#to-zone').val($(this).attr('data-target'));
+                    $('#toZone').val($(this).attr('data-target'));
                     $('.target.active').removeClass('selected');
                     $(this).addClass('selected');
                     $('#submit-point').removeClass('disabled');
@@ -196,14 +196,14 @@
 
               $('.attack.active').on('click', function () {
                 $('#table-title').html('Fault Zone ?');
-                $('#from-zone').val($(this).attr('data-attack'));
+                $('#fromZone').val($(this).attr('data-attack'));
                 $('.attack.active').removeClass('selected');
                 $(this).addClass('selected');
                 $('.out').each(function () {
                   $(this).removeClass('inactive');
                   $(this).addClass('active');
                   $('.out.active').on('click', function() {
-                      $('#to-zone').val($(this).attr('data-target'));
+                      $('#toZone').val($(this).attr('data-target'));
                       $('.out.active').removeClass('selected');
                       $(this).addClass('selected');
                       $('#submit-point').removeClass('disabled');
@@ -229,7 +229,7 @@
               });
 
               $('.attack.front.active').on('click', function () {
-                $('#from-zone').val($(this).attr('data-target'));
+                $('#fromZone').val($(this).attr('data-target'));
                 $('.attack.front.active').removeClass('selected');
                 $(this).addClass('selected');
                 $('#submit-point').removeClass('disabled');
@@ -252,7 +252,7 @@
               });
 
               $('.attack.front.active').on('click', function () {
-                $('#from-zone').val($(this).attr('data-target'));
+                $('#fromZone').val($(this).attr('data-target'));
                 $('.attack.front.active').removeClass('selected-error');
                 $(this).addClass('selected-error');
                 $('#submit-point').removeClass('disabled');
@@ -286,6 +286,9 @@
           $('#table-title').html('Target Zone ?');
           $('#user-selection').hide();
           $("#statsWizard").wizard('goTo', 2);
+          $('#pointFor').val($(this).attr('data-value'));
+          $('#reason').val(1); // point service
+
 
           $('#userId').val($(this).attr('data-user-id'));
           var input = $(this).find('input');
@@ -296,7 +299,7 @@
           });
 
           $('.target.active').on('click', function () {
-            $('#to-zone').val($(this).attr('data-target'));
+            $('#toZone').val($(this).attr('data-target'));
             $('.target.active').removeClass('selected');
             $(this).addClass('selected');
             $('#submit-point').removeClass('disabled');
@@ -310,6 +313,8 @@
           $('#table-title').html('Fault Zone ?');
           $("#statsWizard").wizard('goTo', 2);
           $('#user-selection').hide();
+          $('#pointFor').val($(this).attr('data-value'));
+          $('#reason').val(4); // fault service
 
           $('#userId').val($(this).attr('data-user-id'));
           var input = $(this).find('input');
@@ -320,7 +325,7 @@
           });
 
           $('.out.active').on('click', function () {
-            $('#to-zone').val($(this).attr('data-target'));
+            $('#toZone').val($(this).attr('data-target'));
             $('.out.active').removeClass('selected');
             $(this).addClass('selected');
             $('#submit-point').removeClass('disabled');

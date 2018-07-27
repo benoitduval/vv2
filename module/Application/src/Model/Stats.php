@@ -151,4 +151,16 @@ class Stats extends AbstractModel
 
         return $result;
     }
+
+    public function mark() {
+        $result['p1'] = $this->p1;
+        $result['p2'] = $this->p2;
+        $result['p3'] = $this->p3;
+        $result['p4'] = $this->p4;
+        $result['p5'] = $this->p5;
+        $result['p6'] = $this->p6;
+        $result['libero'] = $this->libero;
+
+        return $result;
+    }
 }

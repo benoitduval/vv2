@@ -80,6 +80,7 @@ class AbstractTableGateway
             if (!property_exists($obj, $property)) {
                 unset($data[$key]);
             }
+            if (!$value) $data[$key] = null;
         }
 
         $id = isset($data['id']) ? $data['id'] : 0;
