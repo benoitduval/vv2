@@ -80,7 +80,10 @@ class AbstractTableGateway
             if (!property_exists($obj, $property)) {
                 unset($data[$key]);
             }
-            if (!$value) $data[$key] = null;
+
+            if (!$value) {
+                if ($value != '0') $data[$key] = null;
+            }
         }
 
         $id = isset($data['id']) ? $data['id'] : 0;
@@ -93,7 +96,7 @@ class AbstractTableGateway
 
         if (!$this->find($id)) {
             throw new RuntimeException(sprintf(
-                'Cannot update album with identifier %d; does not exist',
+                'Cannot update table with identifier %d; does not exist',
                 $id
             ));
         }

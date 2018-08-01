@@ -567,6 +567,7 @@ class EventController extends AbstractController
                 'positions'      => $positions,
                 'playersOnField' => $playersOnField,
                 'server'         => $server,
+                'numero'         => $numero,
             ]);
         } else {
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
@@ -579,19 +580,18 @@ class EventController extends AbstractController
         $eventId   = $this->params('id');
         $eventName = $this->params('name');
         $event     = $this->eventTable->find($eventId);
-        if ($event && Service\Strings::toSlug($event->name) == $eventName) {
-
-            $setsHistory   = $this->statsTable->getSetsHistory($eventId);
-            $setsLastScore = $this->statsTable->setsLastScore($eventId);
+        // if ($event && Service\Strings::toSlug($event->name) == $eventName) {
+        if ($event) {
 
             $config     = $this->get('config');
             $baseUrl    = $config['baseUrl'];
 
-            return new ViewModel([
-                'setsHistory'   => $setsHistory,
-                'setsLastScore' => $setsLastScore,
-                'event'         => $event,
-            ]);
+            $result = [];
+
+            $view = new ViewModel(['result' => $result]);
+            $view->setTerminal(true);
+            
+            return $view;
         } else {
             $this->redirect()->toRoute('home');
         }

@@ -2,7 +2,7 @@
 <div class="row" data-plugin="matchHeight" data-by-row="true">
   <div class="col-12">
     <!-- Panel Wizard Pager -->
-    <div class="panel" id="statsWizard" style="min-height: calc(100% - 44px);">
+    <div class="panel" id="statsWizard" data-event-id="<?= $event->id ?>" data-numero="<?= $numero ?>" style="min-height: calc(100% - 44px);">
       <div class="panel-heading">
         <h3 class="panel-title"></h3>
         <div class="panel-actions panel-actions-keep">
@@ -10,62 +10,64 @@
       </div>
       <div class="panel-body">
         <div class="wizard-content">
-          <div class="wizard-pane active" role="tabpanel">
-            <div class="row <?= $serviceShow ? '' : 'hidden';?> mt-20" id="slide-up-service">
-              <h4 class="col-12 text-center">Service Quality</h4>
-              <div class="col-12 text-center mb-10">
-                <img class="avatar avatar-100" src="<?= $server ? $server->getAvatarPath()  : '' ?>">
-              </div>
-              <div class="col-12 text-center text-uppercase mb-10">
-                <?= $server->firstname ?>
-              </div>
-              <div class="col-12 mb-10">
-                <div class="btn-group btn-group-justified">
-                  <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-danger btn-outline slide-up">
-                      <span class="text-uppercase">Easy</span>
-                    </button>
+          <div class="wizard-pane active" role="tabpanel">    
+            <?php if ($server): ?>
+              <div class="row <?= $serviceShow ? '' : 'hidden';?> mt-20" id="slide-up-service">
+                <h4 class="col-12 text-center">Service Quality</h4>
+                <div class="col-12 text-center mb-10">
+                  <img class="avatar avatar-100" src="<?= $server ? $server->getAvatarPath()  : '' ?>">
+                </div>
+                <div class="col-12 text-center text-uppercase mb-10">
+                  <?= $server->firstname ?>
+                </div>
+                <div class="col-12 mb-10">
+                  <div class="btn-group btn-group-justified">
+                    <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-danger btn-outline slide-up btn-game-play" data-quality="<?= \Application\Model\Stats::QUALITY_BAD ?>" data-type="<?= \Application\Model\Stats::SERVICE ?>">
+                        <span class="text-uppercase">Bad</span>
+                      </button>
+                    </div>
+                    <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-warning btn-outline slide-up btn-game-play" data-quality="<?= \Application\Model\Stats::QUALITY_MEDIUM ?>" data-type="<?= \Application\Model\Stats::SERVICE ?>">
+                        <span class="text-uppercase">Medium</span>
+                      </button>
+                    </div>
+                    <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-success btn-outline slide-up btn-game-play" data-quality="<?= \Application\Model\Stats::QUALITY_GOOD ?>" data-type="<?= \Application\Model\Stats::SERVICE ?>">
+                        <span class="text-uppercase">Good</span>
+                      </button>
+                    </div>
                   </div>
-                  <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-warning btn-outline slide-up">
-                      <span class="text-uppercase">Medium</span>
-                    </button>
-                  </div>
-                  <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-success btn-outline slide-up">
-                      <span class="text-uppercase">Hard</span>
-                    </button>
+                </div>
+                <div class="col-12 mt-10">
+                <h4 class="col-12 text-center">OR</h4>
+                  <div class="btn-group btn-group-justified">
+                    <div class="btn-group" role="group">
+                      <button id="service-fault-us" data-user-id="<?= isset($p1) ? $p1 : ''; ?>" type="button" class="btn btn-danger btn-last" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
+                        <span class="text-uppercase">Fault</span>
+                      </button>
+                    </div>
+                    <div class="btn-group" role="group">
+                      <button id="service-point-us" type="button" data-user-id="<?= isset($p1) ? $p1 : ''; ?>" class="btn btn-success btn-last" data-value="<?= \Application\Model\Stats::POINT_US ?>">
+                        <span class="text-uppercase">Ace</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="col-12 mt-10">
-              <h4 class="col-12 text-center">OR</h4>
-                <div class="btn-group btn-group-justified">
-                  <div class="btn-group" role="group">
-                    <button id="service-fault-us" data-user-id="<?= isset($p1) ? $p1 : ''; ?>" type="button" class="btn btn-danger btn-last" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
-                      <span class="text-uppercase">Fault</span>
-                    </button>
-                  </div>
-                  <div class="btn-group" role="group">
-                    <button id="service-point-us" type="button" data-user-id="<?= isset($p1) ? $p1 : ''; ?>" class="btn btn-success btn-last" data-value="<?= \Application\Model\Stats::POINT_US ?>">
-                      <span class="text-uppercase">Ace</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <?php endif; ?>
 
             <div class="row <?= !$serviceShow ? '' : 'hidden';?>" id="slide-up-reception">
               <h4 class="col-12 text-center">Reception Quality</h4>
-              <div class="row text-center mb-10">
+              <div class="row col-12 text-center mb-10">
                 <?php $i = 0 ?>
                 <?php foreach ($users as $user): ?>
                     <?php if (!in_array($user->id, $playersOnField)) continue; ?>
                     <?php $size = ($i == 6) ? 12 : 4; ?>
                     <?php $i++ ?>
                     <div class="col-<?= $size ?> mt-10 text-center">
-                      <label class="btn-avatar" data-user-id="<?= $user->id ?>">
-                        <img class="avatar avatar-lg avatar-reception" src="<?= $user->getAvatarPath() ?>">
+                      <label class="btn-avatar">
+                        <img class="avatar avatar-lg avatar-reception" data-user-id="<?= $user->id ?>" src="<?= $user->getAvatarPath() ?>">
                       </label>
                       <br>
                       <span class="text-uppercase"><?= $user->firstname ?></span>
@@ -76,17 +78,17 @@
               <div class="col-12 mb-10">
                 <div class="btn-group btn-group-justified">
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-danger btn-reception-quality btn-outline slide-up" disabled>
+                    <button type="button" class="btn btn-danger btn-reception-quality btn-outline btn-game-play slide-up" disabled data-quality="<?= \Application\Model\Stats::QUALITY_BAD ?>" data-type="<?= \Application\Model\Stats::RECEPTION ?>">
                       <span class="text-uppercase">Bad</span>
                     </button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-warning btn-reception-quality btn-outline slide-up" disabled>
+                    <button type="button" class="btn btn-warning btn-reception-quality btn-outline btn-game-play slide-up" disabled data-quality="<?= \Application\Model\Stats::QUALITY_MEDIUM ?>" data-type="<?= \Application\Model\Stats::RECEPTION ?>">
                       <span class="text-uppercase">Medium</span>
                     </button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-success btn-reception-quality btn-outline slide-up" disabled>
+                    <button type="button" class="btn btn-success btn-reception-quality btn-outline btn-game-play slide-up" disabled data-quality="<?= \Application\Model\Stats::QUALITY_GOOD ?>" data-type="<?= \Application\Model\Stats::RECEPTION ?>">
                       <span class="text-uppercase">Good</span>
                     </button>
                   </div>
@@ -97,13 +99,13 @@
               <div class="col-12 mb-10">
                 <div class="btn-group btn-group-justified">
                   <div class="btn-group" role="group">
-                    <button id="service-point-us" type="button" class="btn btn-success btn-last" data-value="<?= \Application\Model\Stats::POINT_US ?>" name="reason">
-                      <span class="text-uppercase">Fault</span>
+                    <button id="service-point-them" type="button" class="btn btn-danger btn-last" data-value="<?= \Application\Model\Stats::POINT_THEM ?>" name="reason">
+                      <span class="text-uppercase">Ace</span>
                     </button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button id="service-point-them" type="button" class="btn btn-danger btn-last" data-value="<?= \Application\Model\Stats::POINT_THEM ?>" name="reason">
-                      <span class="text-uppercase">Ace</span>
+                    <button id="service-point-us" type="button" class="btn btn-success btn-last" data-value="<?= \Application\Model\Stats::POINT_US ?>" name="reason">
+                      <span class="text-uppercase">Fault</span>
                     </button>
                   </div>
                 </div>
@@ -138,8 +140,8 @@
                       <?php $size = ($i == 6) ? 12 : 4; ?>
                       <?php $i++ ?>
                       <div class="col-<?= $size ?> mt-10 text-center">
-                        <label class="btn-avatar" data-user-id="<?= $user->id ?>">
-                          <img class="avatar avatar-lg avatar-dig" src="<?= $user->getAvatarPath() ?>">
+                        <label class="btn-avatar">
+                          <img class="avatar avatar-lg avatar-dig" data-user-id="<?= $user->id ?>" src="<?= $user->getAvatarPath() ?>">
                         </label>
                         <br>
                         <span class="text-uppercase"><?= $user->firstname ?></span>
@@ -150,17 +152,17 @@
               <div class="col-12 mb-10">
                 <div class="btn-group btn-group-justified">
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-danger btn-dig-quality btn-outline" disabled>
+                    <button type="button" class="btn btn-danger btn-dig-quality btn-outline btn-game-play" disabled data-quality="<?= \Application\Model\Stats::QUALITY_BAD ?>" data-type="<?= \Application\Model\Stats::DIG ?>">
                       <span class="text-uppercase">Bad</span>
                     </button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-warning btn-dig-quality btn-outline" disabled>
+                    <button type="button" class="btn btn-warning btn-dig-quality btn-outline btn-game-play" disabled data-quality="<?= \Application\Model\Stats::QUALITY_MEDIUM ?>" data-type="<?= \Application\Model\Stats::DIG ?>">
                       <span class="text-uppercase">Medium</span>
                     </button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-success btn-dig-quality btn-outline" disabled>
+                    <button type="button" class="btn btn-success btn-dig-quality btn-outline btn-game-play" disabled data-quality="<?= \Application\Model\Stats::QUALITY_GOOD ?>" data-type="<?= \Application\Model\Stats::DIG ?>">
                       <span class="text-uppercase">Good</span>
                     </button>
                   </div>
@@ -313,6 +315,14 @@
         <input type="hidden" id="scoreUs" name="scoreUs" value="<?= $scoreUs ?>"/>
         <input type="hidden" id="scoreThem" name="scoreThem" value="<?= $scoreThem ?>"/>
     </form>
+
+    <form id="game" method="POST" class="hidden">
+        <input type="hidden" id="game-eventId" name="eventId" value="<?= $event->id ?>"/>
+        <input type="hidden" id="game-numero" name="numero" value="<?= $numero ?>"/>
+        <input type="hidden" id="game-userId" name="userId" value="<?= $server ? $server->id : '' ?>"/>
+        <input type="hidden" id="game-type" name="type" value=""/>
+        <input type="hidden" id="game-quality" name="quality" value=""/>
+    </form>
   </div>
 </div>
 
@@ -338,7 +348,7 @@
         <form id="positions-form" name="positions-form" method="POST">
 
           <div class="col-12 mt-10">
-            <h5>Start set with</h5>
+            <h5>Start with</h5>
             <div class="btn-group btn-group-justified">
               <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default btn-outline">

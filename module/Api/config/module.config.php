@@ -10,6 +10,16 @@ use Api\Controller;
 return [
     'router' => [
         'routes' => [
+            'game-add' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/api/game/add',
+                    'defaults' => [
+                        'controller'    => Controller\GameController::class,
+                        'action'        => 'add',
+                    ],
+                ],
+            ],
             'grant-user' => [
                 'type'    => Segment::class,
                 'options' => [

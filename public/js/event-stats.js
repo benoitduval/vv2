@@ -60,6 +60,32 @@
 
    // --------------------------
    (function () {
+
+    $('button[data-toggle="slidePanel"]').on('click', function() {
+        $.slidePanel.show({
+          useCssTransforms3d: true,
+          useCssTransforms: true,
+          useCssTransitions: true,
+
+          dragTolerance: 150,
+
+          mouseDragHandler: null,
+          mouseDrag: true,
+          touchDrag: true,
+          pointerDrag: true,
+          url: '/live/680/test',
+          settings: {
+            method: 'GET'
+          }
+        }, {
+          loading: {
+            template: function(options) {
+              return '<div class="' + options.classes.loading + '"><div class="spinner"></div></div>';
+            }
+          }
+        });
+      });
+
       var percentColors = [
           { pct: 0.0, color: { r: 56, g: 246, b: 255 } },
           { pct: 0.25, color: { r: 48, g: 232, b: 188 } },

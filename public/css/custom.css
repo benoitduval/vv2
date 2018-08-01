@@ -181,3 +181,13 @@
 .site-menu-icon.menu-img {
   min-width: 25px;
 }
+
+.slidePanel-content {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+}

@@ -20,6 +20,8 @@ return [
                 '/global/vendor/jquery-ui/jquery-ui.min.js',
                 '/global/vendor/moment/moment.min.js',
                 '/global/vendor/bootstrap-sweetalert/sweetalert.js',
+                'http://malsup.github.com/jquery.form.js',
+                '/global/vendor/slidepanel/jquery-slidePanel.js',
             ],
             'css' => [
                 '/global/css/bootstrap.min.css',
@@ -27,6 +29,7 @@ return [
                 '/assets/css/site.min.css',
                 '/css/custom.css',
                 '/global/vendor/bootstrap-sweetalert/sweetalert.css',
+                '/global/vendor/slidepanel/slidePanel.css',
             ],
             'fonts' => [
                 '/global/fonts/web-icons/web-icons.min.css',

@@ -43,7 +43,7 @@
         this.handleModal();
         this.handleSelect();
         this.handleSlideUp();
-        this.handleDig();
+        this.handleGamePlay();
         // this.handlePlusOne();
       }
     }, {
@@ -60,17 +60,28 @@
           });
         }
     }, {
-        key: 'handleDig',
-        value: function handleDig() {
-            $('.avatar-dig').on('click', function() {
-              $('.btn-dig-quality').removeAttr('disabled');
-            });
+        key: 'handleGamePlay',
+        value: function handleGamePlay() {
+          $('.avatar-dig, .avatar-reception').on('click', function() {
+            var userId = $('#game-userId').val($(this).attr('data-user-id'));
+            $('.btn-dig-quality').removeAttr('disabled');
+          });
 
-            $(".btn-dig-quality").click(function() {
-              $(".btn-dig-quality").attr('disabled', 'disabled');
-              $("#confirm-dig").toggle();
-              $("#confirm-dig").fadeToggle(2000);
+          $(".btn-game-play").click(function() {
+            var quality = $('#game-quality').val($(this).attr('data-quality'));
+            var type = $('#game-type').val($(this).attr('data-type'));
+            
+            $("#game").ajaxSubmit({
+              url: '/api/game/add',
+              type: 'post',
+              success: function () {
+                console.log('Upload success');
+              },
+              error: function () {
+                console.log('Upload error');
+              }
             });
+          });
         }
     }, {
         key: 'handleModal',
