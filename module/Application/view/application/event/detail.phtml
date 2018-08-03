@@ -1,7 +1,29 @@
 <?php $eventDate   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date); ?>
-<button data-url="panel.tpl" data-toggle="slidePanel" type="button" class="btn btn-outline btn-success ">Achievements</button>
-<div class="row">
 
+<!-- Link trigger modal -->
+<a href="/live/<?= $event->id ?>/test" data-remote="false" data-toggle="modal" data-target="#historyModal" class="btn btn-default">
+    Launch Modal
+</a>
+
+<!-- Default bootstrap modal example -->
+<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
     <!-- Left Side -->
     <div class="col-sm-4">
         <div class="card mb-20">

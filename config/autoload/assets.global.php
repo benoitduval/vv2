@@ -93,8 +93,9 @@ return [
                 '/global/js/Plugin/selectable.js',
 
                 '/assets/js/Site.js',
-                '/assets/js/App/Calendar.js',
-                '/js/event-stats.js',
+                '/assets/js/BaseApp.js',
+                '/js/event-stats.js'
+
             ],
             'css' => [
                 '/global/vendor/animsition/animsition.css',

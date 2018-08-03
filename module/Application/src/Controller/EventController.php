@@ -582,13 +582,27 @@ class EventController extends AbstractController
         $event     = $this->eventTable->find($eventId);
         // if ($event && Service\Strings::toSlug($event->name) == $eventName) {
         if ($event) {
+            $users      = $this->userTable->getAllByEventId($event->id);
 
             $config     = $this->get('config');
             $baseUrl    = $config['baseUrl'];
 
-            $result = [];
+            $stats = $this->statsTable->fetchAll(['eventId' => $eventId], 'id DESC');
+            $games = $this->gameTable->fetchAll(['eventId' => $eventId]);
 
-            $view = new ViewModel(['result' => $result]);
+            $result = [];
+            foreach ($stats as $stat) {
+                $result[$stat->set][$stat->numero]['ending'] = $stat;
+                $result[$stat->set][$stat->numero]['during'] = [];
+                foreach ($games as $key => $game) {
+                    if ($game->numero != $stat->numero) continue;
+                    $result[$stat->set][$stat->numero]['during'][] = $game;
+                }
+            }
+            $view = new ViewModel([
+                'result' => $result,
+                'users' => $users, 
+            ]);
             $view->setTerminal(true);
             
             return $view;

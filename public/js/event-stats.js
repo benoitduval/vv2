@@ -61,29 +61,9 @@
    // --------------------------
    (function () {
 
-    $('button[data-toggle="slidePanel"]').on('click', function() {
-        $.slidePanel.show({
-          useCssTransforms3d: true,
-          useCssTransforms: true,
-          useCssTransitions: true,
-
-          dragTolerance: 150,
-
-          mouseDragHandler: null,
-          mouseDrag: true,
-          touchDrag: true,
-          pointerDrag: true,
-          url: '/live/680/test',
-          settings: {
-            method: 'GET'
-          }
-        }, {
-          loading: {
-            template: function(options) {
-              return '<div class="' + options.classes.loading + '"><div class="spinner"></div></div>';
-            }
-          }
-        });
+      $("#historyModal").on("show.bs.modal", function(e) {
+          var link = $(e.relatedTarget);
+          $(this).find(".modal-body").load(link.attr("href"));
       });
 
       var percentColors = [

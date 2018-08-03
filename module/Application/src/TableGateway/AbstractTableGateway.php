@@ -30,10 +30,11 @@ class AbstractTableGateway
         return $this->_tableGateway;
     }
 
-    public function fetchAll($where = [], $orderBy = 'id DESC')
+    public function fetchAll($where = [], $orderBy = 'id DESC', $groupBy = null)
     {
-        $result = $this->getTableGateway()->select(function($select) use ($orderBy, $where) {
+        $result = $this->getTableGateway()->select(function($select) use ($groupBy, $orderBy, $where) {
             $select->where($where)->order($orderBy);
+            if ($groupBy) $select->group($groupBy);
         });
         $result->buffer();
         return $result;

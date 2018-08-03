@@ -36,6 +36,15 @@ class Stats extends AbstractModel
     const TO_P5          = 5;
     const TO_P6          = 6;
 
+    public static $literalReason = [
+        self::POINT_SERVE   => 'Service Point',
+        self::POINT_ATTACK  => 'Attack Point',
+        self::POINT_BLOCK   => 'Block Point',
+        self::FAULT_SERVE   => 'Service Fault',
+        self::FAULT_ATTACK  => 'Attack Fault',
+        self::FAULT_DEFENCE => 'Defensive Fault',
+    ];
+
     protected $_id        = null;
     protected $_eventId   = null;
     protected $_scoreUs   = null;
