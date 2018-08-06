@@ -19,4 +19,10 @@ class Game extends AbstractModel
     protected $_numero  = null;
     protected $_type    = null;
     protected $_quality = null;
+
+    public static $literalReason = [
+        self::SERVICE   => 'Service',
+        self::RECEPTION => 'Reception',
+        self::DIG   	=> 'Dig',
+    ];
 }

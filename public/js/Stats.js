@@ -38,7 +38,6 @@
       key: 'process',
       value: function process() {
         babelHelpers.get(AppStats.prototype.__proto__ || Object.getPrototypeOf(AppStats.prototype), 'process', this).call(this);
-
         this.handleWizard();
         this.handleModal();
         this.handleSelect();

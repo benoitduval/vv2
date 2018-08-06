@@ -64,18 +64,14 @@ return [
                 '/global/vendor/aspieprogress/jquery-asPieProgress.js',
                 'https://code.highcharts.com/highcharts.js',
                 'http://github.highcharts.com/master/modules/drilldown.js',
-                // 'https://cdnjs.cloudflare.com/ajax/libs/highcharts/6.0.7/highcharts-more.js',
-
                 '/global/js/Component.js',
                 '/global/js/Plugin.js',
                 '/global/js/Base.js',
                 '/global/js/Config.js',
-
                 '/assets/js/Section/Menubar.js',
                 '/assets/js/Section/GridMenu.js',
                 '/assets/js/Section/Sidebar.js',
                 '/assets/js/Section/PageAside.js',
-
                 '/assets/js/Plugin/menu.js',
                 '/global/js/Plugin/asscrollable.js',
                 '/global/js/Plugin/bootstrap-touchspin.js',
