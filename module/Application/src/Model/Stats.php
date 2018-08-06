@@ -7,14 +7,6 @@ class Stats extends AbstractModel
     const POINT_US       = 1;
     const POINT_THEM     = 2;
 
-    const SERVICE        = 1;
-    const RECEPTION      = 2;
-    const DIG            = 3;
-
-    const QUALITY_BAD    = 1;
-    const QUALITY_MEDIUM = 2;
-    const QUALITY_GOOD   = 3;
-
     const POINT_SERVE    = 1;
     const POINT_ATTACK   = 2;
     const POINT_BLOCK    = 3;
@@ -35,9 +27,13 @@ class Stats extends AbstractModel
     const TO_P4          = 4;
     const TO_P5          = 5;
     const TO_P6          = 6;
+    const TO_OUT_NET     = 7;
+    const TO_OUT_LEFT    = 8;
+    const TO_OUT_LONG    = 9;
+    const TO_OUT_RIGHT   = 10;
 
     public static $literalReason = [
-        self::POINT_SERVE   => 'Service Point',
+        self::POINT_SERVE   => 'Ace Serve',
         self::POINT_ATTACK  => 'Attack Point',
         self::POINT_BLOCK   => 'Block Point',
         self::FAULT_SERVE   => 'Service Fault',

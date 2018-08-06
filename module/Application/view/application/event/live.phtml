@@ -1,321 +1,161 @@
 <!-- Timeline -->
-<div class="scrollable-container">
-  <ul class="timeline timeline-icon ml-20 mr-20 scrollable-content">
-
-    <?php foreach ($result as $set => $values): ?>
-        <li class="timeline-period">SET <?= $set ?></li>
-        <?php foreach ($values as $numero => $data): ?>
-          <?php $stat = $data['ending'] ?>
-          <li class="timeline-item <?= ($stat->pointFor == \Application\Model\Stats::POINT_US) ? '' : 'timeline-reverse'; ?>">
-            <div class="timeline-dot bg-green-500">
-              <i class="icon wb-file" aria-hidden="true"></i>
+<ul class="timeline timeline-icon ml-20 mr-20">
+  <?php foreach ($result as $set => $values): ?>
+      <li class="timeline-period">SET <?= $set ?></li>
+      <?php $i=0; ?>
+      <?php foreach ($values as $numero => $data): ?>
+        <?php $stat = $data['ending'] ?>       
+          <li class="timeline-item <?= ($i % 2) ? '' : 'timeline-reverse'; ?>">
+            <div class="timeline-dot <?= ($stat->pointFor == \Application\Model\Stats::POINT_US) ? 'bg-green-300' : 'bg-red-600'; ?>">
+              <i class="wb-quote-right"></i>
             </div>
-            <div class="timeline-info">
-              <time><?= $stat->scoreUs ?> / <?= $stat->scoreThem ?></time>
+            <div class="timeline-info mb-0">
+              <time><b><?= $stat->scoreUs ?></b> / <?= $stat->scoreThem ?></time>
             </div>
             <div class="timeline-content">
-              <div class="card card-article card-shadow">
-                <div class="card-block">
-                  <?php if ($stat->userId): ?>
-                    <img class="avatar avatar-lg" src="<?= $users[$stat->userId]->getAvatarPath() ?>">
+              <div class="card card-shadow">
+                <div class="card-block pt-10">
+                  <h3 class="card-title mb-10">
+                    <?php if ($stat->userId): ?>
+                      <img class="avatar avatar-sm" src="<?= $users[$stat->userId]->getAvatarPath() ?>">
+                    <?php endif ?> 
+                    <?= \Application\Model\Stats::$literalReason[$stat->reason] ?>
+                  </h3>
+                  <p class="card-text">
+                    <small>Setter position : P1</small>
+                  </p>
+                  <?php if ($stat->fromZone || $stat->toZone): ?>                  
+                    <table class="table">
+                      <tr>
+                        <td class="court-outside inactive" width="2%" rowspan="5"></td>
+                        <td class="court-outside inactive" height="10px" colspan="2"></td>
+                        <!-- NET -->
+                        <td rowspan="5" width="2%" class="court-net <?= ($stat->toZone == \Application\Model\Stats::TO_OUT_NET) ? 'active selected' : 'inactive' ?> out" data-target="7"></td>
+                        <td class="court-outside <?= ($stat->toZone == \Application\Model\Stats::TO_OUT_LEFT) ? 'active selected' : 'inactive' ?> out" height="10px" colspan="2" style="border: none; color:#FFF;" data-target="8"></td>
+                        <td class="court-outside <?= ($stat->toZone == \Application\Model\Stats::TO_OUT_LONG) ? 'active selected' : 'inactive' ?> out" width="2%" rowspan="5" data-target="9"></td>
+                      </tr>
+                      <tr class="col-12">
+                        <!-- attack P5 -->
+                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P5) ? 'active selected' : 'inactive' ?> court-border-top court-border-left court-border-right attack text-center" data-attack="5">P5</td>
+                        <!-- attack P4 -->
+                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P4) ? 'active selected' : 'inactive' ?> court-border-top front attack text-center" data-attack="4">P4</td>
+                        <!-- target P2 -->
+                        <td height="40px" class="court-inside <?= ($stat->toZone == \Application\Model\Stats::TO_P2) ? 'active selected' : 'inactive' ?>  court-border-top front target text-center" data-target="2">P2</td>
+                        <!-- target P1 -->
+                        <td height="40px" class="court-inside <?= ($stat->toZone == \Application\Model\Stats::TO_P1) ? 'active selected' : 'inactive' ?> court-border-top court-border-left court-border-right target text-center" data-target="1">P1</td>
+                      </tr>
+                      <tr class="col-12">
+                        <!-- attack P6 -->
+                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P6) ? 'active selected' : 'inactive' ?> court-border-left court-border-right attack text-center" data-attack="6">P6</td>
+                        <!-- attack P3 -->
+                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P3) ? 'active selected' : 'inactive' ?> front attack text-center" data-attack="3">P3</td>
+                        <!-- target P3 -->
+                        <td height="40px" class="court-inside <?= ($stat->toZone == \Application\Model\Stats::TO_P3) ? 'active selected' : 'inactive' ?> front target text-center" data-target="3">P3</td>
+                        <!-- target P6 -->
+                        <td height="40px" class="court-inside <?= ($stat->toZone == \Application\Model\Stats::TO_P6) ? 'active selected' : 'inactive' ?> court-border-left court-border-right target text-center" data-target="6">P6</td>
+                      </tr>
+                      <tr class="col-12">
+                        <!-- attack P1 -->
+                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P1) ? 'active selected' : 'inactive' ?> court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">P1</td>
+                        <!-- attack P2 -->
+                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P2) ? 'active selected' : 'inactive' ?> court-border-bottom front attack text-center" data-attack="2">P2</td>
+                        <!-- target P4 -->
+                        <td height="40px" class="court-inside <?= ($stat->toZone == \Application\Model\Stats::TO_P4) ? 'active selected' : 'inactive' ?> court-border-bottom front target text-center" data-target="4">P4</td>
+                        <!-- target P5 -->
+                        <td height="40px" class="court-inside <?= ($stat->toZone == \Application\Model\Stats::TO_P5) ? 'active selected' : 'inactive' ?> court-border-bottom court-border-left court-border-right target text-center" data-target="5">P5</td>
+                      </tr>
+                      <tr>
+                        <td class="court-outside inactive" height="10px" colspan="2"></td>
+                        <td class="court-outside <?= ($stat->toZone == \Application\Model\Stats::TO_OUT_RIGHT) ? 'active selected' : 'inactive' ?> out" height="10px" colspan="2" data-target="10"></td>
+                      </tr>
+                    </table>
+
+                    <?php $games = $data['during'] ?>
+                    <?php if ($games): ?>
+                      <?php foreach ($games as $game): ?>
+                          <table class="table">
+                            <?php if ($stat->start == \Application\Model\Game::SERVICE): ?>
+                               <tr>
+                                 <td><img class="avatar avatar-sm" src="<?= $users[$game->userId]->getAvatarPath() ?>"></td>
+                                 <td><?= $game->type ?></td>
+                                 <td>
+                                    <?= $game->quality ?>
+                                 </td>
+                               </tr> 
+                            <?php endif ?>
+                          </table>
+                      <?php endforeach ?>
+                    <?php endif ?>
                   <?php endif ?>
-                  <?= \Application\Model\Stats::$literalReason[$stat->reason] ?>
                 </div>
-                <p>Novum formidines congressus atomorum nam permulta alterum delectatio
-                  gaudeat statim. Necessariae dicturam perspexit utrum modo amicitiae
-                  malum summumque, multis ante iudicia desiderat, civitas iudicare
-                  attingere, amori perpaulum mediocrium, dicere notae litteras
-                  plusque appareat, remotis fama futurove quandam assentiar integre
-                  poenis. </p>
+                <div class="card-block">
+                  <a class="btn btn-primary btn-outline card-link" href="javascript:void(0)">
+                    See Positions
+                  </a>
+                </div>
+              </div>
             </div>
           </li>
-        <?php endforeach ?>
-    <?php endforeach ?>
+          <?php $i++ ?>
+      <?php endforeach ?>
+  <?php endforeach ?>
+</ul>
 
-    <li class="timeline-item timeline-reverse">
-      <div class="timeline-dot bg-green-500">
-        <i class="icon wb-file" aria-hidden="true"></i>
-      </div>
-      <div class="timeline-info">
-        <time datetime="2017-05-15">2 Days ago</time>
-      </div>
-      <div class="timeline-content">
-        <div class="card card-article card-shadow">
-          <div class="card-img-top cover">
-            <img class="cover-image" src="/assets/photos/placeholder.png" alt="...">
-          </div>
-          <div class="card-block">
-            <h3 class="card-title">Lorem Ipsum Dolor</h3>
-            <p class="card-text">
-              <small>MAY 15, 2017</small>
-            </p>
-            <p>Novum formidines congressus atomorum nam permulta alterum delectatio
-              gaudeat statim. Necessariae dicturam perspexit utrum modo amicitiae
-              malum summumque, multis ante iudicia desiderat, civitas iudicare
-              attingere, amori perpaulum mediocrium, dicere notae litteras
-              plusque appareat, remotis fama futurove quandam assentiar integre
-              poenis. </p>
-          </div>
-          <div class="card-block">
-            <div class="card-actions float-right">
-              <a href="javascript:void(0)">
-            <i class="icon wb-chat-working" aria-hidden="true"></i>
-            <span>2500</span>
-          </a>
-              <a href="javascript:void(0)">
-            <i class="icon wb-heart" aria-hidden="true"></i>
-            <span>20</span>
-          </a>
-            </div>
-            <a class="btn btn-primary btn-outline card-link" href="javascript:void(0)">Read More</a>
-          </div>
-        </div>
-      </div>
-    </li>
-    <li class="timeline-item timeline-reverse">
-      <div class="timeline-dot bg-green-500">
-        <i class="icon wb-file" aria-hidden="true"></i>
-      </div>
-      <div class="timeline-info">
-        <time datetime="2017-05-15">2 Days ago</time>
-      </div>
-      <div class="timeline-content">
-        <div class="card card-article card-shadow">
-          <div class="card-img-top cover">
-            <img class="cover-image" src="/assets/photos/placeholder.png" alt="...">
-          </div>
-          <div class="card-block">
-            <h3 class="card-title">Lorem Ipsum Dolor</h3>
-            <p class="card-text">
-              <small>MAY 15, 2017</small>
-            </p>
-            <p>Novum formidines congressus atomorum nam permulta alterum delectatio
-              gaudeat statim. Necessariae dicturam perspexit utrum modo amicitiae
-              malum summumque, multis ante iudicia desiderat, civitas iudicare
-              attingere, amori perpaulum mediocrium, dicere notae litteras
-              plusque appareat, remotis fama futurove quandam assentiar integre
-              poenis. </p>
-          </div>
-          <div class="card-block">
-            <div class="card-actions float-right">
-              <a href="javascript:void(0)">
-            <i class="icon wb-chat-working" aria-hidden="true"></i>
-            <span>2500</span>
-          </a>
-              <a href="javascript:void(0)">
-            <i class="icon wb-heart" aria-hidden="true"></i>
-            <span>20</span>
-          </a>
-            </div>
-            <a class="btn btn-primary btn-outline card-link" href="javascript:void(0)">Read More</a>
-          </div>
-        </div>
-      </div>
-    </li>
-    <li class="timeline-item timeline-reverse">
-      <div class="timeline-dot bg-green-500">
-        <i class="icon wb-file" aria-hidden="true"></i>
-      </div>
-      <div class="timeline-info">
-        <time datetime="2017-05-15">2 Days ago</time>
-      </div>
-      <div class="timeline-content">
-        <div class="card card-article card-shadow">
-          <div class="card-img-top cover">
-            <img class="cover-image" src="/assets/photos/placeholder.png" alt="...">
-          </div>
-          <div class="card-block">
-            <h3 class="card-title">Lorem Ipsum Dolor</h3>
-            <p class="card-text">
-              <small>MAY 15, 2017</small>
-            </p>
-            <p>Novum formidines congressus atomorum nam permulta alterum delectatio
-              gaudeat statim. Necessariae dicturam perspexit utrum modo amicitiae
-              malum summumque, multis ante iudicia desiderat, civitas iudicare
-              attingere, amori perpaulum mediocrium, dicere notae litteras
-              plusque appareat, remotis fama futurove quandam assentiar integre
-              poenis. </p>
-          </div>
-          <div class="card-block">
-            <div class="card-actions float-right">
-              <a href="javascript:void(0)">
-            <i class="icon wb-chat-working" aria-hidden="true"></i>
-            <span>2500</span>
-          </a>
-              <a href="javascript:void(0)">
-            <i class="icon wb-heart" aria-hidden="true"></i>
-            <span>20</span>
-          </a>
-            </div>
-            <a class="btn btn-primary btn-outline card-link" href="javascript:void(0)">Read More</a>
-          </div>
-        </div>
-      </div>
-    </li>
-    <li class="timeline-item timeline-reverse">
-      <div class="timeline-dot bg-green-500">
-        <i class="icon wb-file" aria-hidden="true"></i>
-      </div>
-      <div class="timeline-info">
-        <time datetime="2017-05-15">2 Days ago</time>
-      </div>
-      <div class="timeline-content">
-        <div class="card card-article card-shadow">
-          <div class="card-img-top cover">
-            <img class="cover-image" src="/assets/photos/placeholder.png" alt="...">
-          </div>
-          <div class="card-block">
-            <h3 class="card-title">Lorem Ipsum Dolor</h3>
-            <p class="card-text">
-              <small>MAY 15, 2017</small>
-            </p>
-            <p>Novum formidines congressus atomorum nam permulta alterum delectatio
-              gaudeat statim. Necessariae dicturam perspexit utrum modo amicitiae
-              malum summumque, multis ante iudicia desiderat, civitas iudicare
-              attingere, amori perpaulum mediocrium, dicere notae litteras
-              plusque appareat, remotis fama futurove quandam assentiar integre
-              poenis. </p>
-          </div>
-          <div class="card-block">
-            <div class="card-actions float-right">
-              <a href="javascript:void(0)">
-            <i class="icon wb-chat-working" aria-hidden="true"></i>
-            <span>2500</span>
-          </a>
-              <a href="javascript:void(0)">
-            <i class="icon wb-heart" aria-hidden="true"></i>
-            <span>20</span>
-          </a>
-            </div>
-            <a class="btn btn-primary btn-outline card-link" href="javascript:void(0)">Read More</a>
-          </div>
-        </div>
-      </div>
-    </li>
-    <li class="timeline-item timeline-reverse">
-      <div class="timeline-dot bg-green-500">
-        <i class="icon wb-file" aria-hidden="true"></i>
-      </div>
-      <div class="timeline-info">
-        <time datetime="2017-05-15">2 Days ago</time>
-      </div>
-      <div class="timeline-content">
-        <div class="card card-article card-shadow">
-          <div class="card-img-top cover">
-            <img class="cover-image" src="/assets/photos/placeholder.png" alt="...">
-          </div>
-          <div class="card-block">
-            <h3 class="card-title">Lorem Ipsum Dolor</h3>
-            <p class="card-text">
-              <small>MAY 15, 2017</small>
-            </p>
-            <p>Novum formidines congressus atomorum nam permulta alterum delectatio
-              gaudeat statim. Necessariae dicturam perspexit utrum modo amicitiae
-              malum summumque, multis ante iudicia desiderat, civitas iudicare
-              attingere, amori perpaulum mediocrium, dicere notae litteras
-              plusque appareat, remotis fama futurove quandam assentiar integre
-              poenis. </p>
-          </div>
-          <div class="card-block">
-            <div class="card-actions float-right">
-              <a href="javascript:void(0)">
-            <i class="icon wb-chat-working" aria-hidden="true"></i>
-            <span>2500</span>
-          </a>
-              <a href="javascript:void(0)">
-            <i class="icon wb-heart" aria-hidden="true"></i>
-            <span>20</span>
-          </a>
-            </div>
-            <a class="btn btn-primary btn-outline card-link" href="javascript:void(0)">Read More</a>
-          </div>
-        </div>
-      </div>
-    </li>
 
-    <li class="timeline-item">
-      <div class="timeline-dot bg-orange-500">
-        <i class="wb-quote-right"></i>
+<table class="table">
+  <tr>
+    <td class="court-outside" width="40px" rowspan="5"></td>
+    <td class="court-outside" height="40px" colspan="2">
+      <div class="col-8 mt-10">
+        
       </div>
-      <div class="timeline-info">
-        <time datetime="2017-05-08">9 Days ago</time>
+    </td>
+    <!-- NET -->
+    <td rowspan="5" width="2%" class="court-net inactive out" data-target="7"></td>
+  </tr>
+  <tr class="col-12">
+    <!-- attack P5 -->
+    <td height="40px" class="court-inside court-border-top court-border-left court-border-right attack text-center" data-attack="5">
+      <div class="col-12">
+        
       </div>
-      <div class="timeline-content">
-        <div class="card card-shadow">
-          <div class="card-header cover">
-            <div class="cover-background p-30" style="background-image: url('/assets/photos/placeholder.png')">
-              <blockquote class="blockquote cover-quote white card-blockquote">Asperner solvantur fere queo meam videtur temperantiam. Timorem
-                asperner. Hortensio delicatissimi nihilo disserunt, contemnit
-                mi amentur doctrinis logikh triario, appetendi utamur fames.
-                </blockquote>
-            </div>
-          </div>
-        </div>
+    </td>
+    <!-- attack P4 -->
+    <td height="40px" class="court-inside court-border-top front attack text-center" data-attack="4">
+      <div class="col-12">
+        
       </div>
-    </li>
-
-    <li class="timeline-period">Apr 2017</li>
-    <li class="timeline-item">
-      <div class="timeline-dot bg-green-500">
-        <i class="icon wb-file" aria-hidden="true"></i>
+    </td>
+  </tr>
+  <tr class="col-12">
+    <!-- attack P6 -->
+    <td height="40px" class="court-inside court-border-left court-border-right attack text-center" data-attack="6">
+      <div class="col-12">
+        
       </div>
-      <div class="timeline-info">
-        <time datetime="2017-04-08">1 Month ago</time>
+    </td>
+    <!-- attack P3 -->
+    <td height="40px" class="court-inside front attack text-center" data-attack="3">
+      <div class="col-12">
+        
       </div>
-      <div class="timeline-content">
-        <div class="card card-shadow">
-          <div class="card-img-top cover">
-            <img class="cover-image" src="/assets/photos/placeholder.png" alt="...">
-          </div>
-          <div class="card-block">
-            <h3 class="card-title">Lorem Ipsum Dolor</h3>
-            <p class="card-text">
-              <small>MAY 08, 2017</small>
-            </p>
-            <p>Signiferumque dixit, arbitrium iudicia nominis, potione aeterno
-              genus conducunt deinde incidunt horrent forte voluptate pericula,
-              mortis deleniti, circumcisaque mala sentit iucundius pedalis.
-              Claudicare inanium fugiat contenta dixisset animumque iure
-              quoquo dicturam, defendit militaris sollicitudines, verear,
-              amicorum manum discedere indignae loqui. </p>
-          </div>
-          <div class="card-block">
-            <div class="card-actions float-right">
-              <a href="javascript:void(0)">
-            <i class="icon wb-chat-working" aria-hidden="true"></i>
-            <span>2500</span>
-          </a>
-              <a href="javascript:void(0)">
-            <i class="icon wb-heart" aria-hidden="true"></i>
-            <span>20</span>
-          </a>
-            </div>
-            <a class="btn btn-primary btn-outline card-link" href="javascript:void(0)">Read More</a>
-          </div>
-        </div>
+    </td>
+  </tr>
+  <tr class="col-12">
+    <!-- attack P1 -->
+    <td height="40px" class="court-inside court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">
+      <div class="col-12">
+        
       </div>
-    </li>
-
-    <li class="timeline-item timeline-reverse">
-      <div class="timeline-dot bg-orange-600">
-        <i class="wb-quote-right"></i>
+    </td>
+    <!-- attack P2 -->
+    <td height="40px" class="court-inside court-border-bottom front attack text-center" data-attack="2">
+      <div class="col-12">
+        
       </div>
-      <div class="timeline-info">
-        <time datetime="2017-04-08">1 Month ago</time>
-      </div>
-      <div class="timeline-content">
-        <div class="card card-shadow">
-          <div class="card-header cover">
-            <div class="cover-background p-30" style="background-image: url('/assets/photos/placeholder.png')">
-              <blockquote class="blockquote cover-quote white card-blockquote">Ostendis peccandi pertinaces disputandum primus arare morbos
-                noster, privamur alios perpetiuntur nulla est, effecerit
-                corpora doctrina sentiunt hinc quasi, tradere perveniri erigimur.
-                </blockquote>
-            </div>
-          </div>
-        </div>
-      </div>
-    </li>
-  </ul>
-  <!-- End Timeline -->
-</div>
+    </td>
+  </tr>
+  <tr>
+    <td class="court-outside" height="40px" colspan="2"></td>
+  </tr>
+</table>

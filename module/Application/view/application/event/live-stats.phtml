@@ -1,4 +1,4 @@
-<?php $serviceShow = (isset($positions['start']) && $positions['start'] == \Application\Model\Stats::SERVICE); ?>
+<?php $serviceShow = (isset($positions['start']) && $positions['start'] == \Application\Model\Game::SERVICE); ?>
 <div class="row" data-plugin="matchHeight" data-by-row="true">
   <div class="col-12">
     <!-- Panel Wizard Pager -->
@@ -23,17 +23,17 @@
                 <div class="col-12 mb-10">
                   <div class="btn-group btn-group-justified">
                     <div class="btn-group" role="group">
-                      <button type="button" class="btn btn-danger btn-outline slide-up btn-game-play" data-quality="<?= \Application\Model\Stats::QUALITY_BAD ?>" data-type="<?= \Application\Model\Stats::SERVICE ?>">
+                      <button type="button" class="btn btn-danger btn-outline slide-up btn-game-play" data-quality="<?= \Application\Model\Game::QUALITY_BAD ?>" data-type="<?= \Application\Model\Game::SERVICE ?>">
                         <span class="text-uppercase">Bad</span>
                       </button>
                     </div>
                     <div class="btn-group" role="group">
-                      <button type="button" class="btn btn-warning btn-outline slide-up btn-game-play" data-quality="<?= \Application\Model\Stats::QUALITY_MEDIUM ?>" data-type="<?= \Application\Model\Stats::SERVICE ?>">
+                      <button type="button" class="btn btn-warning btn-outline slide-up btn-game-play" data-quality="<?= \Application\Model\Game::QUALITY_MEDIUM ?>" data-type="<?= \Application\Model\Game::SERVICE ?>">
                         <span class="text-uppercase">Medium</span>
                       </button>
                     </div>
                     <div class="btn-group" role="group">
-                      <button type="button" class="btn btn-success btn-outline slide-up btn-game-play" data-quality="<?= \Application\Model\Stats::QUALITY_GOOD ?>" data-type="<?= \Application\Model\Stats::SERVICE ?>">
+                      <button type="button" class="btn btn-success btn-outline slide-up btn-game-play" data-quality="<?= \Application\Model\Game::QUALITY_GOOD ?>" data-type="<?= \Application\Model\Game::SERVICE ?>">
                         <span class="text-uppercase">Good</span>
                       </button>
                     </div>
@@ -78,17 +78,17 @@
               <div class="col-12 mb-10">
                 <div class="btn-group btn-group-justified">
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-danger btn-reception-quality btn-outline btn-game-play slide-up" disabled data-quality="<?= \Application\Model\Stats::QUALITY_BAD ?>" data-type="<?= \Application\Model\Stats::RECEPTION ?>">
+                    <button type="button" class="btn btn-danger btn-reception-quality btn-outline btn-game-play slide-up" disabled data-quality="<?= \Application\Model\Game::QUALITY_BAD ?>" data-type="<?= \Application\Model\Game::RECEPTION ?>">
                       <span class="text-uppercase">Bad</span>
                     </button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-warning btn-reception-quality btn-outline btn-game-play slide-up" disabled data-quality="<?= \Application\Model\Stats::QUALITY_MEDIUM ?>" data-type="<?= \Application\Model\Stats::RECEPTION ?>">
+                    <button type="button" class="btn btn-warning btn-reception-quality btn-outline btn-game-play slide-up" disabled data-quality="<?= \Application\Model\Game::QUALITY_MEDIUM ?>" data-type="<?= \Application\Model\Game::RECEPTION ?>">
                       <span class="text-uppercase">Medium</span>
                     </button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-success btn-reception-quality btn-outline btn-game-play slide-up" disabled data-quality="<?= \Application\Model\Stats::QUALITY_GOOD ?>" data-type="<?= \Application\Model\Stats::RECEPTION ?>">
+                    <button type="button" class="btn btn-success btn-reception-quality btn-outline btn-game-play slide-up" disabled data-quality="<?= \Application\Model\Game::QUALITY_GOOD ?>" data-type="<?= \Application\Model\Game::RECEPTION ?>">
                       <span class="text-uppercase">Good</span>
                     </button>
                   </div>
@@ -152,17 +152,17 @@
               <div class="col-12 mb-10">
                 <div class="btn-group btn-group-justified">
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-danger btn-dig-quality btn-outline btn-game-play" disabled data-quality="<?= \Application\Model\Stats::QUALITY_BAD ?>" data-type="<?= \Application\Model\Stats::DIG ?>">
+                    <button type="button" class="btn btn-danger btn-dig-quality btn-outline btn-game-play" disabled data-quality="<?= \Application\Model\Game::QUALITY_BAD ?>" data-type="<?= \Application\Model\Game::DIG ?>">
                       <span class="text-uppercase">Bad</span>
                     </button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-warning btn-dig-quality btn-outline btn-game-play" disabled data-quality="<?= \Application\Model\Stats::QUALITY_MEDIUM ?>" data-type="<?= \Application\Model\Stats::DIG ?>">
+                    <button type="button" class="btn btn-warning btn-dig-quality btn-outline btn-game-play" disabled data-quality="<?= \Application\Model\Game::QUALITY_MEDIUM ?>" data-type="<?= \Application\Model\Game::DIG ?>">
                       <span class="text-uppercase">Medium</span>
                     </button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-success btn-dig-quality btn-outline btn-game-play" disabled data-quality="<?= \Application\Model\Stats::QUALITY_GOOD ?>" data-type="<?= \Application\Model\Stats::DIG ?>">
+                    <button type="button" class="btn btn-success btn-dig-quality btn-outline btn-game-play" disabled data-quality="<?= \Application\Model\Game::QUALITY_GOOD ?>" data-type="<?= \Application\Model\Game::DIG ?>">
                       <span class="text-uppercase">Good</span>
                     </button>
                   </div>
@@ -251,43 +251,43 @@
                     <td class="court-outside inactive" width="2%" rowspan="5"></td>
                     <td class="court-outside inactive" height="40px" colspan="2"></td>
                     <!-- NET -->
-                    <td rowspan="5" width="2%" class="court-net inactive out" data-target="7"></td>
-                    <td class="court-outside inactive out" height="40px" colspan="2" style="border: none; color:#FFF;" data-target="8"></td>
-                    <td class="court-outside inactive out" width="40px" rowspan="5" data-target="9"></td>
+                    <td rowspan="5" width="2%" class="court-net inactive out" data-target="<?= \Application\Model\Stats::TO_OUT_NET ?>"></td>
+                    <td class="court-outside inactive out" height="40px" colspan="2" style="border: none; color:#FFF;" data-target="<?= \Application\Model\Stats::TO_OUT_LEFT ?>"></td>
+                    <td class="court-outside inactive out" width="40px" rowspan="5" data-target="<?= \Application\Model\Stats::TO_OUT_LONG ?>"></td>
                   </tr>
                   <tr class="col-12">
                     <!-- attack P5 -->
-                    <td height="70px" class="court-inside inactive court-border-top court-border-left court-border-right attack text-center" data-attack="5">P5</td>
+                    <td height="70px" class="court-inside inactive court-border-top court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P5 ?>">P5</td>
                     <!-- attack P4 -->
-                    <td height="70px" class="court-inside inactive court-border-top front attack text-center" data-attack="4">P4</td>
+                    <td height="70px" class="court-inside inactive court-border-top front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P4 ?>">P4</td>
                     <!-- target P2 -->
-                    <td height="70px" class="court-inside inactive court-border-top front target text-center" data-target="2">P2</td>
+                    <td height="70px" class="court-inside inactive court-border-top front target text-center" data-target="<?= \Application\Model\Stats::TO_P2 ?>">P2</td>
                     <!-- target P1 -->
-                    <td height="70px" class="court-inside inactive court-border-top court-border-left court-border-right target text-center" data-target="1">P1</td>
+                    <td height="70px" class="court-inside inactive court-border-top court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P1 ?>">P1</td>
                   </tr>
                   <tr class="col-12">
                     <!-- attack P6 -->
-                    <td height="70px" class="court-inside inactive court-border-left court-border-right attack text-center" data-attack="6">P6</td>
+                    <td height="70px" class="court-inside inactive court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P6 ?>">P6</td>
                     <!-- attack P3 -->
-                    <td height="70px" class="court-inside inactive front attack text-center" data-attack="3">P3</td>
+                    <td height="70px" class="court-inside inactive front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P3 ?>">P3</td>
                     <!-- target P3 -->
-                    <td height="70px" class="court-inside inactive front target text-center" data-target="3">P3</td>
+                    <td height="70px" class="court-inside inactive front target text-center" data-target="<?= \Application\Model\Stats::TO_P3 ?>">P3</td>
                     <!-- target P6 -->
-                    <td height="70px" class="court-inside inactive court-border-left court-border-right target text-center" data-target="6">P6</td>
+                    <td height="70px" class="court-inside inactive court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P6 ?>">P6</td>
                   </tr>
                   <tr class="col-12">
                     <!-- attack P1 -->
-                    <td height="70px" class="court-inside inactive court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">P1</td>
+                    <td height="70px" class="court-inside inactive court-border-bottom court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P1 ?>">P1</td>
                     <!-- attack P2 -->
-                    <td height="70px" class="court-inside inactive court-border-bottom front attack text-center" data-attack="2">P2</td>
+                    <td height="70px" class="court-inside inactive court-border-bottom front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P2 ?>">P2</td>
                     <!-- target P4 -->
-                    <td height="70px" class="court-inside inactive court-border-bottom front target text-center" data-target="4">P4</td>
+                    <td height="70px" class="court-inside inactive court-border-bottom front target text-center" data-target="<?= \Application\Model\Stats::TO_P4 ?>">P4</td>
                     <!-- target P5 -->
-                    <td height="70px" class="court-inside inactive court-border-bottom court-border-left court-border-right target text-center" data-target="5">P5</td>
+                    <td height="70px" class="court-inside inactive court-border-bottom court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P5 ?>">P5</td>
                   </tr>
                   <tr>
                     <td class="court-outside inactive" height="40px" colspan="2"></td>
-                    <td class="court-outside inactive out" height="40px" colspan="2" data-target="10"></td>
+                    <td class="court-outside inactive out" height="40px" colspan="2" data-target="<?= \Application\Model\Stats::TO_OUT_RIGHT ?>"></td>
                   </tr>
                 </table>
             </div>
@@ -354,7 +354,7 @@
                 <button type="button" class="btn btn-default btn-outline">
                   <span class="text-uppercase">
                     <div class="radio-custom radio-default">
-                      <input type="radio" id="start-service" value="<?= \Application\Model\Stats::SERVICE ?>" <?= $positions['start'] == \Application\Model\Stats::SERVICE ? 'checked="checked"' : ''; ?> name="start" required />
+                      <input type="radio" id="start-service" value="<?= \Application\Model\Game::SERVICE ?>" <?= $positions['start'] == \Application\Model\Game::SERVICE ? 'checked="checked"' : ''; ?> name="start" required />
                       <label for="start-service">Service</label>
                     </div>
                   </span>
@@ -364,7 +364,7 @@
                <button type="button" class="btn btn-default btn-outline">
                  <span class="text-uppercase">
                    <div class="radio-custom radio-default">
-                     <input type="radio" id="start-reception" value="<?= \Application\Model\Stats::RECEPTION ?>" <?= $positions['start'] == \Application\Model\Stats::RECEPTION ? 'checked="checked"' : ''; ?> name="start" required />
+                     <input type="radio" id="start-reception" value="<?= \Application\Model\Game::RECEPTION ?>" <?= $positions['start'] == \Application\Model\Game::RECEPTION ? 'checked="checked"' : ''; ?> name="start" required />
                      <label for="start-reception">Reception</label>
                    </div>
                  </span>
@@ -389,11 +389,11 @@
                   </div>
                 </td>
                 <!-- NET -->
-                <td rowspan="5" width="2%" class="court-net inactive out" data-target="7"></td>
+                <td rowspan="5" width="2%" class="court-net inactive out" data-target="<?= \Application\Model\Stats::TO_OUT_NET ?>"></td>
               </tr>
               <tr class="col-12">
                 <!-- attack P5 -->
-                <td height="70px" class="court-inside court-border-top court-border-left court-border-right attack text-center" data-attack="5">
+                <td height="70px" class="court-inside court-border-top court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P5 ?>">
                   <div class="col-12">
                     <select class="form-control user-select"  name="p5" id="select-P5">
                       <option selected="selected" value="" disabled>P5</option>
@@ -404,7 +404,7 @@
                   </div>
                 </td>
                 <!-- attack P4 -->
-                <td height="70px" class="court-inside court-border-top front attack text-center" data-attack="4">
+                <td height="70px" class="court-inside court-border-top front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P4 ?>">
                   <div class="col-12">
                     <select class="form-control user-select"  name="p4" id="select-P4">
                       <option selected="selected" value="" disabled>P4</option>
@@ -417,7 +417,7 @@
               </tr>
               <tr class="col-12">
                 <!-- attack P6 -->
-                <td height="70px" class="court-inside court-border-left court-border-right attack text-center" data-attack="6">
+                <td height="70px" class="court-inside court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P6 ?>">
                   <div class="col-12">
                     <select class="form-control user-select"  name="p6" id="select-P6">
                       <option selected="selected" value="" disabled>P6</option>
@@ -428,7 +428,7 @@
                   </div>
                 </td>
                 <!-- attack P3 -->
-                <td height="70px" class="court-inside front attack text-center" data-attack="3">
+                <td height="70px" class="court-inside front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P3 ?>">
                   <div class="col-12">
                     <select class="form-control user-select"  name="p3" id="select-P3">
                       <option selected="selected" value="" disabled>P3</option>
@@ -441,7 +441,7 @@
               </tr>
               <tr class="col-12">
                 <!-- attack P1 -->
-                <td height="70px" class="court-inside court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">
+                <td height="70px" class="court-inside court-border-bottom court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P1 ?>">
                   <div class="col-12">
                     <select class="form-control user-select"  name="p1" id="select-P1">
                       <option selected="selected" value="" disabled>P1</option>
@@ -452,7 +452,7 @@
                   </div>
                 </td>
                 <!-- attack P2 -->
-                <td height="70px" class="court-inside court-border-bottom front attack text-center" data-attack="2">
+                <td height="70px" class="court-inside court-border-bottom front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P2 ?>">
                   <div class="col-12">
                     <select class="form-control user-select" name="p2" id="select-P2">
                       <option selected="selected" value="" disabled>P2</option>
