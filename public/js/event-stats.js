@@ -27,7 +27,7 @@
 
       // var percentColors = [
       //     { pct: 0, color: { r: 255, g: 198, b: 58 } },
-      //     { pct: 0.35, color: { r: 232, g: 149, b: 36 } },
+      //     { pct: 0.25, color: { r: 232, g: 149, b: 36 } },
       //     { pct: 0.5, color: { r: 255, g: 123, b: 33 } },
       //     { pct: 0.75, color: { r: 232, g: 77, b: 31 } },
       //     { pct: 1.0, color: { r: 255, g: 50, b: 37 } }];

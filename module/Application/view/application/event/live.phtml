@@ -106,19 +106,17 @@
                   <?php if ($games = $data['during']): ?>
                     <table class="table">
                       <?php foreach ($games as $game): ?>
-                        <?php if ($stat->start == \Application\Model\Game::SERVICE): ?>
-                           <tr>
-                             <td><img class="avatar avatar-sm" src="<?= $users[$game->userId]->getAvatarPath() ?>"></td>
-                             <td class="row">
-                                <div class="col-sm-6 col-12">
-                                  <?= \Application\Model\Game::$literalReason[$game->type] ?>
-                                </div>
-                                <div class="col-sm-6 col-12">
-                                  <div class="rating" data-score="<?= $game->quality ?>" data-number="5"></div>
-                                </div>
-                             </td>
-                           </tr> 
-                        <?php endif ?>
+                         <tr>
+                           <td><img class="avatar avatar-sm" src="<?= $users[$game->userId]->getAvatarPath() ?>"></td>
+                           <td class="row">
+                              <div class="col-sm-6 col-12">
+                                <?= \Application\Model\Game::$literalReason[$game->type] ?>
+                              </div>
+                              <div class="col-sm-6 col-12">
+                                <div class="rating" data-score="<?= $game->quality ?>" data-number="5"></div>
+                              </div>
+                           </td>
+                         </tr> 
                       <?php endforeach ?>
                     </table>
                   <?php endif ?>

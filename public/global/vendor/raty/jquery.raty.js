@@ -206,7 +206,7 @@
 
         methods._apply.call(that, score);
         methods._target.call(that, score, evt);
-        methods._resetTitle.call(that);
+        // methods._resetTitle.call(that);
 
         if (that.opt.mouseout) {
           that.opt.mouseout.call(that, score, evt);
@@ -245,7 +245,7 @@
 
         if (that.opt.half) {
           methods._roundStars.call(that, score, evt);
-          methods._setTitle.call(that, score, evt);
+          // methods._setTitle.call(that, score, evt);
 
           that.self.data('score', score);
         }
@@ -289,7 +289,7 @@
 
     _createCancel: function() {
       var icon   = this.opt.path + this.opt.cancelOff,
-          cancel = $('<' + this.opt.starType + ' />', { title: this.opt.cancelHint, 'class': this.opt.cancelClass });
+          cancel = $('<' + this.opt.starType + ' />', {'class': this.opt.cancelClass });
 
       if (this.opt.starType === 'img') {
         cancel.attr({ src: icon, alt: 'x' });
@@ -463,7 +463,7 @@
 
     _resetTitle: function(star) {
       for (var i = 0; i < this.opt.number; i++) {
-        this.stars[i].title = methods._getHint.call(this, i + 1);
+        // this.stars[i].title = methods._getHint.call(this, i + 1);
       }
     },
 
@@ -526,7 +526,7 @@
           integer = parseInt(Math.ceil(score), 10),
           star    = this.stars[integer - 1];
 
-        star.title = methods._getHint.call(this, score, evt);
+        // star.title = methods._getHint.call(this, score, evt);
       }
     },
 

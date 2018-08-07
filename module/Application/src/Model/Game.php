@@ -9,10 +9,6 @@ class Game extends AbstractModel
 	const RECEPTION      = 2;
 	const DIG            = 3;
 
-	const QUALITY_BAD    = 1;
-	const QUALITY_MEDIUM = 2;
-	const QUALITY_GOOD   = 3;
-
     protected $_id      = null;
     protected $_eventId = null;
     protected $_userId  = null;

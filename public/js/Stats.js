@@ -90,7 +90,11 @@
                           url: '/api/game/add',
                           type: 'post',
                           success: function () {
-                            console.log('Upload success');
+                              $('#confirm-dig').show();
+                              $('#confirm-dig').delay(300).fadeToggle()
+                              $('.btn-avatar').removeClass('avatar-checked');
+                              thisRating.raty('cancel');
+                              $('.rating-stats').slideUp();
                           },
                           error: function () {
                             console.log('Upload error');
