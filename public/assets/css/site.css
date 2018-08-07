@@ -7206,6 +7206,9 @@ ul.panel-actions {
 .rating-lg .icon {
   font-size: 1.286rem; }
 
+.rating-stats .icon {
+  font-size: 2.5rem; }
+
 .ribbon {
   position: absolute;
   top: -3px;

@@ -69,6 +69,7 @@
         this.setupMegaNavbar();
         this.setupTour();
         this.setupNavbarCollpase();
+        this.stopLoading();
         // Dropdown menu setup ===================
         this.$el.on('click', '.dropdown-menu-media', function (e) {
           e.stopPropagation();
@@ -328,6 +329,14 @@
           loadingInner: '\n      <div class="loader-content">\n        <div class="loader-index">\n          <div></div>\n          <div></div>\n          <div></div>\n          <div></div>\n          <div></div>\n          <div></div>\n        </div>\n      </div>',
           onLoadEvent: true
         });
+      }
+    }, {
+      key: 'stopLoading',
+      value: function stopLoading() {
+        if (typeof _jquery2.default.fn.animsition === 'undefined') {
+          return false;
+        }
+        $('.loader-overlay').remove();
       }
     }, {
       key: 'setupTour',

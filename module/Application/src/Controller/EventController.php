@@ -528,15 +528,15 @@ class EventController extends AbstractController
                     $stats             = $this->statsTable->save($post);
                     $next              = [];
                     if ($stats->pointFor == Model\Stats::POINT_US) {
-                        if ($stats->start == Model\Stats::RECEPTION) {
+                        if ($stats->start == Model\Game::RECEPTION) {
                             $next = $stats->rotate();
                         } else {
                             $next = $stats->mark();
                         }
-                        $next['start']   = Model\Stats::SERVICE;
+                        $next['start']   = Model\Game::SERVICE;
                     } else {
                         $next = $stats->mark();
-                        $next['start']   = Model\Stats::RECEPTION;
+                        $next['start']   = Model\Game::RECEPTION;
                     }
                     $next['numero']  = $stats->numero;
                     $key = 'position.' . $eventId . '.numero.' . $numero;

@@ -63,23 +63,42 @@
         value: function handleGamePlay() {
           $('.avatar-dig, .avatar-reception').on('click', function() {
             var userId = $('#game-userId').val($(this).attr('data-user-id'));
-            $('.btn-dig-quality').removeAttr('disabled');
+            var target = $(this).attr('data-target');
+            $('.slide-down-rating[data-type="' + target + '"]').slideDown();
           });
 
-          $(".btn-game-play").click(function() {
-            var quality = $('#game-quality').val($(this).attr('data-quality'));
-            var type = $('#game-type').val($(this).attr('data-type'));
-            
-            $("#game").ajaxSubmit({
-              url: '/api/game/add',
-              type: 'post',
-              success: function () {
-                console.log('Upload success');
-              },
-              error: function () {
-                console.log('Upload error');
-              }
-            });
+          $('.rating').each(function(i) {
+              var thisRating = $(this);
+              thisRating.raty({
+                  targetKeep: true,
+                  icon: 'font',
+                  starType: 'i',
+                  hints: ['', '', '', '', ''],
+                  starOff: 'icon wb-star',
+                  starOn: 'icon wb-star orange-600',
+                  cancelOff: 'icon wb-minus-circle',
+                  cancelOn: 'icon wb-minus-circle orange-600',
+                  starHalf: 'icon wb-star-half orange-500',
+                  score: function () {
+                      return $(this).data('score');
+                  },
+                  click: function (quality, evt) {
+                      $('#game-type').val($(this).attr('data-type'));
+                      $('#game-quality').val(quality);
+
+                      $("#game").ajaxSubmit({
+                          url: '/api/game/add',
+                          type: 'post',
+                          success: function () {
+                            console.log('Upload success');
+                          },
+                          error: function () {
+                            console.log('Upload error');
+                          }
+                        });
+                      return false;
+                  }
+              });
           });
         }
     }, {
