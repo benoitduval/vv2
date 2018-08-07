@@ -73,7 +73,7 @@
                   targetKeep: true,
                   icon: 'font',
                   starType: 'i',
-                  hints: ['', '', '', '', ''],
+                  hints: false,
                   starOff: 'icon wb-star',
                   starOn: 'icon wb-star orange-600',
                   cancelOff: 'icon wb-minus-circle',

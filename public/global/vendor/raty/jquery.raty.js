@@ -45,7 +45,7 @@
 
         methods._createScore.call(this);
         methods._apply.call(this, this.opt.score);
-        methods._setTitle.call(this, this.opt.score);
+        // methods._setTitle.call(this, this.opt.score);
         methods._target.call(this, this.opt.score);
 
         if (this.opt.readOnly) {
@@ -323,7 +323,7 @@
           attrs = { 'data-alt': i, 'class': attrs.src }; // TODO: use $.data.
         }
 
-        attrs.title = methods._getHint.call(this, i);
+        // attrs.title = methods._getHint.call(this, i);
 
         $('<' + this.opt.starType + ' />', attrs).appendTo(this);
 
@@ -448,7 +448,7 @@
       this.title        = hint;
 
       this.score.prop('readonly', true);
-      this.stars.prop('title', hint);
+      // this.stars.prop('title', hint);
 
       if (this.cancel) {
         this.cancel.hide();
@@ -730,7 +730,7 @@
     click        : undefined,
     half         : false,
     halfShow     : true,
-    hints        : ['bad', 'poor', 'regular', 'good', 'gorgeous'],
+    hints        : ['', '', '', '', ''],
     iconRange    : undefined,
     mouseout     : undefined,
     mouseover    : undefined,
