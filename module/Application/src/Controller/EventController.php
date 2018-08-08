@@ -475,44 +475,37 @@ class EventController extends AbstractController
 
             $users      = $this->userTable->getAllByEventId($event->id);
             $config     = $this->get('config');
-            $stats      = $this->statsTable->fetchOne(['eventId' => $eventId], 'id DESC');
-
-            $scoreUs    = 0;
-            $scoreThem  = 0;
-            $set        = 1;
             $deleteLink = null;
-            $positions  = [];
-            if ($stats) {
-                $numero = $stats->numero;
-                $key = 'position.' . $eventId . '.numero.' . $stats->numero;
-                $positions = $this->get('memcached')->getItem($key);
-                if (($stats->scoreUs >= 25 || $stats->scoreThem >= 25) && (abs(
-                $stats->scoreThem - $stats->scoreUs) >= 2)) {
-                    $set = $stats->set + 1;
-                    $scoreUs = 0;
-                    $scoreThem = 0;
-                } else {
-                    $set       = $stats->set;
-                    $scoreUs   = $stats->scoreUs;
-                    $scoreThem = $stats->scoreThem;
-                }
+            $data       = [            
+                'scoreUs'    => 0,
+                'scoreThem'  => 0,
+                'set'        => 1,
+                'numero'     => 1,
+                'start'      => null,
+                'positions'  => [],
+            ];
+
+            if ($stats = $this->statsTable->fetchOne(['eventId' => $eventId], 'id DESC')) {
+                $data = $stats->getMatchData();
                 $deleteLink = $config['baseUrl'] . '/event/delete-stats/' . $stats->id;
-            } else {
-                $numero = 1;
-                $key = 'position.' . $eventId . '.numero.' . $numero;
-                $positions = $this->get('memcached')->getItem($key);
-            }
+            } 
+
+            // Check for a new position
+            $key = 'position.' . $eventId . '.numero.' . $data['numero'];
+            if ($newPos = $this->get('memcached')->getItem($key)) $data['positions'] = $newPos;
 
             $request = $this->getRequest();
             if ($request->isPost()) {
                 $post = $request->getPost()->toArray();
+
+                // Create a new position
                 if (isset($post['form-name']) && $post['form-name'] == 'positions') {
                     $positions = $post;
-                    unset($positions['form-name']);
-                    $key = 'position.' . $eventId . '.numero.' . $numero;
+                    $key = 'position.' . $eventId . '.numero.' . $data['numero'];
                     $this->get('memcached')->setItem($key, $positions);
+
+                // Point Validation
                 } else {
-                    $numero = $numero + 1;
                     if ($post['pointFor'] == Model\Stats::POINT_US) {
                         $post['scoreUs']++;
                     } else {
@@ -522,52 +515,27 @@ class EventController extends AbstractController
                     $post['eventId']   = $eventId;
                     $post['groupId']   = $event->groupId;
                     $post['userId']    = $post['userId'] ? $post['userId'] : null;
-                    $post['set']       = $set;
-                    $post['numero']    = $numero;
-
+                    $post['set']       = $data['set'];
+                    $post['numero']    = (!$stats) ? $data['numero'] : $stats->numero + 1;
                     $stats             = $this->statsTable->save($post);
-                    $next              = [];
-                    if ($stats->pointFor == Model\Stats::POINT_US) {
-                        if ($stats->start == Model\Game::RECEPTION) {
-                            $next = $stats->rotate();
-                        } else {
-                            $next = $stats->mark();
-                        }
-                        $next['start']   = Model\Game::SERVICE;
-                    } else {
-                        $next = $stats->mark();
-                        $next['start']   = Model\Game::RECEPTION;
-                    }
-                    $next['numero']  = $stats->numero;
-                    $key = 'position.' . $eventId . '.numero.' . $numero;
-                    $this->get('memcached')->setItem($key, $next);
                 }
 
-                $this->flashMessenger()->addSuccessMessage('Point enregistré.');
                 $this->redirect()->toRoute('event', ['action' => 'live-stats', 'id' => $eventId]);
             }
-
-            $server = null;
-            $playersOnField = [];
-            if ($positions) {
-                $server = $users[$positions['p1']];
-                $playersOnField = $positions;
-                unset($playersOnField['start'], $playersOnField['form-name'], $playersOnField['numero'], $playersOnField['eventId']);
-                $playersOnField = array_values($playersOnField);
-            }
-
+            unset($data['positions']['start'], $data['positions']['form-name']);
             return new ViewModel([
                 'deleteLink'     => $deleteLink,
+                'data'           => $data,
                 'event'          => $event,
                 'user'           => $this->getUser(),
-                'set'            => (int) $set,
                 'users'          => $users,
-                'scoreUs'        => $scoreUs,
-                'scoreThem'      => $scoreThem,
-                'positions'      => $positions,
-                'playersOnField' => $playersOnField,
-                'server'         => $server,
-                'numero'         => $numero,
+                'server'         => ($data['positions']) ? $users[$data['positions']['p1']] : null,
+                'scoreUs'        => $data['scoreUs'],
+                'scoreThem'      => $data['scoreThem'],
+                'positions'      => $data['positions'],
+                'numero'         => $data['numero'],
+                'set'            => $data['set'],
+                'start'          => $data['start'],
             ]);
         } else {
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');

@@ -1,9 +1,9 @@
-<?php $serviceShow = (isset($positions['start']) && $positions['start'] == \Application\Model\Game::SERVICE); ?>
+<?php $serviceShow = (isset($start) && $start == \Application\Model\Game::SERVICE); ?>
 
 <div class="row" data-plugin="matchHeight" data-by-row="true">
   <div class="col-12">
     <!-- Panel Wizard Pager -->
-    <div class="panel" id="statsWizard" data-event-id="<?= $event->id ?>" data-numero="<?= $numero ?>" style="min-height: calc(100% - 44px);">
+    <div class="panel" id="statsWizard" data-event-id="<?= $event->id ?>" data-numero="<?= $numero ?>">
       <div class="panel-heading">
         <h3 class="panel-title"></h3>
         <div class="panel-actions panel-actions-keep">
@@ -48,16 +48,19 @@
             <h4 class="col-12 mt-30 text-center">Reception Quality</h4>
               <div class="row text-center mb-10">
                 <?php $i = 0 ?>
-                <?php foreach ($users as $user): ?>
-                    <?php if (!in_array($user->id, $playersOnField)) continue; ?>
-                    <?php $size = ($i == 6) ? 12 : 4; ?>
-                    <?php $i++ ?>
+                <?php foreach ($positions as $userId): ?>
+                    <?php
+                      $currentUser = $users[$userId] ? $users[$userId] : null; 
+                      if (!$currentUser) continue;
+                      $size = ($i == 6) ? 12 : 4;
+                      $i++
+                    ?>
                     <div class="col-<?= $size ?> mt-10 text-center">
                       <label class="btn-avatar">
-                        <img class="avatar avatar-lg avatar-reception" data-target="<?= \Application\Model\Game::RECEPTION ?>" data-user-id="<?= $user->id ?>" src="<?= $user->getAvatarPath() ?>">
+                        <img class="avatar avatar-lg avatar-reception" data-target="<?= \Application\Model\Game::RECEPTION ?>" data-user-id="<?= $currentUser->id ?>" src="<?= $currentUser->getAvatarPath() ?>">
                       </label>
                       <br>
-                      <span class="text-uppercase"><?= $user->firstname ?></span>
+                      <span class="text-uppercase"><?= $currentUser->firstname ?></span>
                     </div>
                 <?php endforeach ?>
               </div>
@@ -105,16 +108,19 @@
               <div class="col-12 text-center mb-10">
                 <div class="row text-center mb-10">
                   <?php $i = 0 ?>
-                  <?php foreach ($users as $user): ?>
-                      <?php if (!in_array($user->id, $playersOnField)) continue; ?>
-                      <?php $size = ($i == 6) ? 12 : 4; ?>
-                      <?php $i++ ?>
+                  <?php foreach ($positions as $userId): ?>
+                      <?php 
+                        $currentUser = $users[$userId] ? $users[$userId] : null; 
+                        if (!$currentUser) continue;
+                        $size = ($i == 6) ? 12 : 4;
+                        $i++
+                      ?>
                       <div class="col-<?= $size ?> mt-10 text-center">
                         <label class="btn-avatar">
-                          <img class="avatar avatar-lg avatar-dig" data-target="<?= \Application\Model\Game::DIG ?>" data-user-id="<?= $user->id ?>" src="<?= $user->getAvatarPath() ?>">
+                          <img class="avatar avatar-lg avatar-dig" data-target="<?= \Application\Model\Game::DIG ?>" data-user-id="<?= $currentUser->id ?>" src="<?= $currentUser->getAvatarPath() ?>">
                         </label>
                         <br>
-                        <span class="text-uppercase"><?= $user->firstname ?></span>
+                        <span class="text-uppercase"><?= $currentUser->firstname ?></span>
                       </div>
                   <?php endforeach ?>
                 </div>
@@ -125,8 +131,8 @@
                 </div>  
               </div>
             </div>
-
           </div>
+
           <div class="wizard-pane" role="tabpanel">
             <h4>Reason ?</h4>
             <div class="btn-group btn-group-justified mb-10">
@@ -180,23 +186,28 @@
               </div>
             </div>
           </div>
+
           <div class="wizard-pane" role="tabpanel">
             <div class="row">
-                <h4>Select Player</h4>
+                <h4 class="col-12 text-center">Scorer ?</h4>
                 <div id="user-selection" class="col-12 text-center">
                   <div class="row text-center mb-10">
                     <?php $i = 0 ?>
-                    <?php foreach ($users as $user): ?>
-                        <?php if (!in_array($user->id, $playersOnField)) continue; ?>
-                        <?php $size = ($i == 6) ? 12 : 4; ?>
-                        <?php $i++ ?>
-                        <div class="col-<?= $size ?> mt-10 text-center">
-                          <label class="btn-avatar" data-user-id="<?= $user->id ?>">
-                            <img class="avatar avatar-lg" src="<?= $user->getAvatarPath() ?>">
-                          </label>
-                          <br>
-                          <span class="text-uppercase"><?= $user->firstname ?></span>
-                        </div>
+                    <?php foreach (['p4', 'p3', 'p2', 'p1', 'p5', 'p6', 'libero'] as $pos): ?>
+                      <?php
+                        if (!isset($positions[$pos])) continue;
+                        $currentUser = isset($users[$positions[$pos]]) ? $users[$positions[$pos]] : null;
+                        if (!$currentUser) continue;
+                        $size = ($i == 6) ? 12 : 4;
+                        $i++
+                      ?>
+                      <div class="col-<?= $size ?> mt-10 text-center">
+                        <label class="btn-avatar" data-user-id="<?= $currentUser->id ?>">
+                          <img class="avatar avatar-lg" src="<?= $currentUser->getAvatarPath() ?>">
+                        </label>
+                        <br>
+                        <span class="text-uppercase"><?= $currentUser->firstname ?></span>
+                      </div>
                     <?php endforeach ?>
                   </div>
                 </div>
@@ -248,20 +259,21 @@
                 </table>
             </div>
           </div>
+
         </div>
       </div>
     </div>
     <!-- End Panel Wizard Pager -->
 
     <form id="game-stats" method="POST" class="hidden">
-        <input type="hidden" id="p1" name="p1" value="<?= $positions['p1'] ?>"/>
-        <input type="hidden" id="p2" name="p2" value="<?= $positions['p2'] ?>"/>
-        <input type="hidden" id="p3" name="p3" value="<?= $positions['p3'] ?>"/>
-        <input type="hidden" id="p4" name="p4" value="<?= $positions['p4'] ?>"/>
-        <input type="hidden" id="p5" name="p5" value="<?= $positions['p5'] ?>"/>
-        <input type="hidden" id="p6" name="p6" value="<?= $positions['p6'] ?>"/>
-        <input type="hidden" id="libero" name="libero" value="<?= $positions['libero'] ?>"/>
-        <input type="hidden" id="start" name="start" value="<?= $positions['start'] ?>"/>
+        <input type="hidden" id="p1" name="p1" value="<?= isset($positions['p1']) ? $positions['p1'] : null; ?>"/>
+        <input type="hidden" id="p2" name="p2" value="<?= isset($positions['p2']) ? $positions['p2'] : null; ?>"/>
+        <input type="hidden" id="p3" name="p3" value="<?= isset($positions['p3']) ? $positions['p3'] : null; ?>"/>
+        <input type="hidden" id="p4" name="p4" value="<?= isset($positions['p4']) ? $positions['p4'] : null; ?>"/>
+        <input type="hidden" id="p5" name="p5" value="<?= isset($positions['p5']) ? $positions['p5'] : null; ?>"/>
+        <input type="hidden" id="p6" name="p6" value="<?= isset($positions['p6']) ? $positions['p6'] : null; ?>"/>
+        <input type="hidden" id="libero" name="libero" value="<?= isset($positions['libero']) ? $positions['libero'] : null; ?>"/>
+        <input type="hidden" id="start" name="start" value="<?= $start ?>"/>
 
         <input type="hidden" id="pointFor" name="pointFor" value=""/>
         <input type="hidden" id="reason" name="reason" value=""/>
@@ -274,6 +286,7 @@
 
     <form id="game" method="POST" class="hidden">
         <input type="hidden" id="game-eventId" name="eventId" value="<?= $event->id ?>"/>
+        <?php if (!($set == 1 && ($scoreUs == 0 && $scoreThem == 0))) $numero = $numero + 1; ?>
         <input type="hidden" id="game-numero" name="numero" value="<?= $numero ?>"/>
         <input type="hidden" id="game-userId" name="userId" value="<?= $server ? $server->id : '' ?>"/>
         <input type="hidden" id="game-type" name="type" value=""/>
@@ -310,7 +323,7 @@
                 <button type="button" class="btn btn-default btn-outline">
                   <span class="text-uppercase">
                     <div class="radio-custom radio-default">
-                      <input type="radio" id="start-service" value="<?= \Application\Model\Game::SERVICE ?>" <?= $positions['start'] == \Application\Model\Game::SERVICE ? 'checked="checked"' : ''; ?> name="start" required />
+                      <input type="radio" id="start-service" value="<?= \Application\Model\Game::SERVICE ?>" <?= $start == \Application\Model\Game::SERVICE ? 'checked="checked"' : ''; ?> name="start" required />
                       <label for="start-service">Service</label>
                     </div>
                   </span>
@@ -320,7 +333,7 @@
                <button type="button" class="btn btn-default btn-outline">
                  <span class="text-uppercase">
                    <div class="radio-custom radio-default">
-                     <input type="radio" id="start-reception" value="<?= \Application\Model\Game::RECEPTION ?>" <?= $positions['start'] == \Application\Model\Game::RECEPTION ? 'checked="checked"' : ''; ?> name="start" required />
+                     <input type="radio" id="start-reception" value="<?= \Application\Model\Game::RECEPTION ?>" <?= $start == \Application\Model\Game::RECEPTION ? 'checked="checked"' : ''; ?> name="start" required />
                      <label for="start-reception">Reception</label>
                    </div>
                  </span>

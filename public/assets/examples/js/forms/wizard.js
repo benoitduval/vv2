@@ -19,9 +19,183 @@
     (0, _Site.run)();
   });
 
+  // Example Wizard Form
+  // -------------------
   (function () {
+    // set up formvalidation
+    (0, _jquery2.default)('#exampleAccountForm').formValidation({
+      framework: 'bootstrap',
+      fields: {
+        username: {
+          validators: {
+            notEmpty: {
+              message: 'The username is required'
+            },
+            stringLength: {
+              min: 6,
+              max: 30,
+              message: 'The username must be more than 6 and less than 30 characters long'
+            },
+            regexp: {
+              regexp: /^[a-zA-Z0-9_\.]+$/,
+              message: 'The username can only consist of alphabetical, number, dot and underscore'
+            }
+          }
+        },
+        password: {
+          validators: {
+            notEmpty: {
+              message: 'The password is required'
+            },
+            different: {
+              field: 'username',
+              message: 'The password cannot be the same as username'
+            }
+          }
+        }
+      },
+      err: {
+        clazz: 'text-help'
+      },
+      row: {
+        invalid: 'has-danger'
+      }
+    });
 
-  }),
+    (0, _jquery2.default)("#exampleBillingForm").formValidation({
+      framework: 'bootstrap',
+      fields: {
+        number: {
+          validators: {
+            notEmpty: {
+              message: 'The credit card number is required'
+              // creditCard: {
+              //   message: 'The credit card number is not valid'
+              // }
+            } }
+        },
+        cvv: {
+          validators: {
+            notEmpty: {
+              message: 'The CVV number is required'
+              // cvv: {
+              //   creditCardField: 'number',
+              //   message: 'The CVV number is not valid'
+              // }
+            } }
+        }
+      },
+      err: {
+        clazz: 'text-help'
+      },
+      row: {
+        invalid: 'has-danger'
+      }
+    });
+
+    // init the wizard
+    var defaults = Plugin.getDefaults("wizard");
+    var options = _jquery2.default.extend(true, {}, defaults, {
+      buttonsAppendTo: '.panel-body'
+    });
+
+    var wizard = (0, _jquery2.default)("#exampleWizardForm").wizard(options).data('wizard');
+
+    // setup validator
+    // http://formvalidation.io/api/#is-valid
+    wizard.get("#exampleAccount").setValidator(function () {
+      var fv = (0, _jquery2.default)("#exampleAccountForm").data('formValidation');
+      fv.validate();
+
+      if (!fv.isValid()) {
+        return false;
+      }
+
+      return true;
+    });
+
+    wizard.get("#exampleBilling").setValidator(function () {
+      var fv = (0, _jquery2.default)("#exampleBillingForm").data('formValidation');
+      fv.validate();
+
+      if (!fv.isValid()) {
+        return false;
+      }
+
+      return true;
+    });
+  })();
+
+  // Example Wizard Form Container
+  // -----------------------------
+  // http://formvalidation.io/api/#is-valid-container
+  (function () {
+    var defaults = Plugin.getDefaults("wizard");
+    var options = _jquery2.default.extend(true, {}, defaults, {
+      onInit: function onInit() {
+        (0, _jquery2.default)('#exampleFormContainer').formValidation({
+          framework: 'bootstrap',
+          fields: {
+            username: {
+              validators: {
+                notEmpty: {
+                  message: 'The username is required'
+                }
+              }
+            },
+            password: {
+              validators: {
+                notEmpty: {
+                  message: 'The password is required'
+                }
+              }
+            },
+            number: {
+              validators: {
+                notEmpty: {
+                  message: 'The credit card number is not valid'
+                }
+              }
+            },
+            cvv: {
+              validators: {
+                notEmpty: {
+                  message: 'The CVV number is required'
+                }
+              }
+            }
+          },
+          err: {
+            clazz: 'text-help'
+          },
+          row: {
+            invalid: 'has-danger'
+          }
+        });
+      },
+      validator: function validator() {
+        var fv = (0, _jquery2.default)('#exampleFormContainer').data('formValidation');
+
+        var $this = (0, _jquery2.default)(this);
+
+        // Validate the container
+        fv.validateContainer($this);
+
+        var isValidStep = fv.isValidContainer($this);
+        if (isValidStep === false || isValidStep === null) {
+          return false;
+        }
+
+        return true;
+      },
+      onFinish: function onFinish() {
+        // $('#exampleFormContainer').submit();
+      },
+      buttonsAppendTo: '.panel-body'
+    });
+
+    (0, _jquery2.default)("#exampleWizardFormContainer").wizard(options);
+  })();
 
   // Example Wizard Pager
   // --------------------------
@@ -33,238 +207,109 @@
       templates: {
         buttons: function buttons() {
           var options = this.options;
-          var html = '<div class="btn-group btn-group-sm">' + '<a id="reset" class="btn btn-default btn-outline" href="#' + this.id + '" role="button">' + options.buttonLabels.back + '</a><a id="warning-confirm" data-url="<?= $deleteLink ?>" class="btn btn-danger btn-outline" href="#" role="button"><i class="icon wb-trash"></i> Last Point</a><a class="btn btn-success btn-outline disabled" id="submit-point" href="#' + this.id + '" data-wizard="finish" role="button">' + options.buttonLabels.finish + '</a></div>';
+          var html = '<div class="btn-group btn-group-sm">' + '<a class="btn btn-default btn-outline" href="#' + this.id + '" data-wizard="back" role="button">' + options.buttonLabels.back + '</a>' + '<a class="btn btn-success btn-outline float-right" href="#' + this.id + '" data-wizard="finish" role="button">' + options.buttonLabels.finish + '</a>' + '<a class="btn btn-default btn-outline float-right" href="#' + this.id + '" data-wizard="next" role="button">' + options.buttonLabels.next + '</a>' + '</div>';
           return html;
         }
       },
       buttonLabels: {
         next: '<i class="icon wb-chevron-right" aria-hidden="true"></i>',
-        back: '<i class="icon wb-refresh" aria-hidden="true"></i> Cancel',
-        finish: '<i class="icon wb-check" aria-hidden="true"></i> Submit'
+        back: '<i class="icon wb-chevron-left" aria-hidden="true"></i>',
+        finish: '<i class="icon wb-check" aria-hidden="true"></i>'
       },
 
       buttonsAppendTo: '.panel-actions'
     });
 
-    $('.btn-counter').each(function () {
-        $(this).on('click', function() {
-            var input = $($(this).attr('data-input-target'));
-            var value = input.val();
-            value = parseInt(value) + 1;
-            input.val(value);
-            var counter = $(this).find('.counter');
-            counter.html(value);
-        });
+    (0, _jquery2.default)("#exampleWizardPager").wizard(options);
+  })();
+
+  // Example Wizard Progressbar
+  // --------------------------
+  (function () {
+    var defaults = Plugin.getDefaults("wizard");
+
+    var options = _jquery2.default.extend(true, {}, defaults, {
+      step: '.wizard-pane',
+      onInit: function onInit() {
+        this.$progressbar = this.$element.find('.progress-bar').addClass('progress-bar-striped');
+      },
+      onBeforeShow: function onBeforeShow(step) {
+        step.$element.tab('show');
+      },
+      onFinish: function onFinish() {
+        this.$progressbar.removeClass('progress-bar-striped').addClass('progress-bar-success');
+      },
+      onAfterChange: function onAfterChange(prev, step) {
+        var total = this.length();
+        var current = step.index + 1;
+        var percent = current / total * 100;
+
+        this.$progressbar.css({
+          width: percent + '%'
+        }).find('.sr-only').text(current + '/' + total);
+      },
+      buttonsAppendTo: '.panel-body'
     });
 
-    $('#point-them').on('click', function() {
-        $('#pointFor').val($(this).attr('data-value'));
-        $('#attack-them').removeClass('hidden');
-        $('#attack-fault-us').removeClass('hidden');
-        $('#service-fault-us').removeClass('hidden');
-        $('#service-point-them').removeClass('hidden');
-        $('#defensive-fault').removeClass('hidden');
-        $('#block-point-them').removeClass('hidden');
+    (0, _jquery2.default)("#exampleWizardProgressbar").wizard(options);
+  })();
+
+  // Example Wizard Tabs
+  // -------------------
+  (function () {
+    var defaults = Plugin.getDefaults("wizard");
+    var options = _jquery2.default.extend(true, {}, defaults, {
+      step: '> .nav > li > a',
+      onBeforeShow: function onBeforeShow(step) {
+        step.$element.tab('show');
+      },
+      classes: {
+        step: {
+          //done: 'color-done',
+          error: 'color-error'
+        }
+      },
+      onFinish: function onFinish() {
+        alert('finish');
+      },
+      buttonsAppendTo: '.tab-content'
     });
 
-    $('#point-us').on('click', function() {
-        $('#pointFor').val($(this).attr('data-value'));
-        $('#attack-us').removeClass('hidden');
-        $('#attack-fault-them').removeClass('hidden');
-        $('#service-point-us').removeClass('hidden');
-        $('#service-fault-them').removeClass('hidden');
-        $('#defensive-fault').removeClass('hidden');
-        $('#block-point-us').removeClass('hidden');
+    (0, _jquery2.default)("#exampleWizardTabs").wizard(options);
+  })();
+
+  // Example Wizard Accordion
+  // ------------------------
+  (function () {
+    var defaults = Plugin.getDefaults("wizard");
+    var options = _jquery2.default.extend(true, {}, defaults, {
+      step: '.panel-title[data-toggle="collapse"]',
+      classes: {
+        step: {
+          //done: 'color-done',
+          error: 'color-error'
+        }
+      },
+      templates: {
+        buttons: function buttons() {
+          return '<div class="panel-footer">' + defaults.templates.buttons.call(this) + '</div>';
+        }
+      },
+      onBeforeShow: function onBeforeShow(step) {
+        step.$pane.collapse('show');
+      },
+
+      onBeforeHide: function onBeforeHide(step) {
+        step.$pane.collapse('hide');
+      },
+
+      onFinish: function onFinish() {
+        alert('finish');
+      },
+
+      buttonsAppendTo: '.panel-collapse'
     });
 
-    $('#attack-us').on('click', function() {
-      $('.btn-avatar').on('click', function() {
-        $('#userId').val($(this).attr('data-user-id'));
-        var input = $(this).find('input');
-
-        $('.attack').each(function () {
-          $(this).removeClass('inactive');
-          $(this).addClass('active');
-        });
-
-        $('.attack.active').on('click', function () {
-          $('#fromZone').val($(this).attr('data-attack'));
-          $('.attack.active').removeClass('selected');
-          $(this).addClass('selected');
-          $('.target').each(function () {
-            $(this).removeClass('inactive');
-            $(this).addClass('active');
-            $('.target.active').on('click', function() {
-                $('#toZone').val($(this).attr('data-target'));
-                $('.target.active').removeClass('selected');
-                $(this).addClass('selected');
-                $('#submit-point').removeClass('disabled');
-                $('#submit-point').on('click', function() {
-                    $('#game-stats').submit();
-                });
-            });
-          });
-        });
-      });
-    });
-
-    $('#attack-fault-us').on('click', function() {
-      $('.btn-avatar').on('click', function() {
-          $('#userId').val($(this).attr('data-user-id'));
-          var input = $(this).find('input');
-
-          $('.attack').each(function () {
-            $(this).removeClass('inactive');
-            $(this).addClass('active');
-          });
-
-          $('.attack.active').on('click', function () {
-            $('#fromZone').val($(this).attr('data-attack'));
-            $('.attack.active').removeClass('selected');
-            $(this).addClass('selected');
-            $('.out').each(function () {
-              $(this).removeClass('inactive');
-              $(this).addClass('active');
-              $('.out.active').on('click', function() {
-                  $('#toZone').val($(this).attr('data-target'));
-                  $('.out.active').removeClass('selected');
-                  $(this).addClass('selected');
-                  $('#submit-point').removeClass('disabled');
-                  $('#submit-point').on('click', function() {
-                      $('#game-stats').submit();
-                  });
-              });
-            });
-          });
-      });
-    });
-
-    $('#service-point-us').on('click', function() {
-      $('.btn-avatar').on('click', function() {
-          $('#userId').val($(this).attr('data-user-id'));
-          var input = $(this).find('input');
-
-          $('.target').each(function () {
-            $(this).removeClass('inactive');
-            $(this).addClass('active');
-          });
-
-          $('.target.active').on('click', function () {
-            $('#toZone').val($(this).attr('data-target'));
-            $('.target.active').removeClass('selected');
-            $(this).addClass('selected');
-            $('#submit-point').removeClass('disabled');
-            $('#submit-point').on('click', function() {
-                $('#game-stats').submit();
-            });
-          });
-      });
-    });
-
-    $('#service-fault-us').on('click', function() {
-      $('.btn-avatar').on('click', function() {
-          $('#userId').val($(this).attr('data-user-id'));
-          var input = $(this).find('input');
-
-          $('.out').each(function () {
-            $(this).removeClass('inactive');
-            $(this).addClass('active');
-          });
-
-          $('.out.active').on('click', function () {
-            $('#toZone').val($(this).attr('data-target'));
-            $('.out.active').removeClass('selected');
-            $(this).addClass('selected');
-            $('#submit-point').removeClass('disabled');
-            $('#submit-point').on('click', function() {
-                $('#game-stats').submit();
-            });
-          });
-      });
-    });
-
-    $('#block-point-us').on('click', function() {
-      $('.btn-avatar').on('click', function() {
-          $('#userId').val($(this).attr('data-user-id'));
-          var input = $(this).find('input');
-
-          $('.attack.front').each(function () {
-            $(this).removeClass('inactive');
-            $(this).addClass('active');
-          });
-
-          $('.attack.front.active').on('click', function () {
-            $('#fromZone').val($(this).attr('data-target'));
-            $('.attack.front.active').removeClass('selected');
-            $(this).addClass('selected');
-            $('#submit-point').removeClass('disabled');
-            $('#submit-point').on('click', function() {
-                $('#game-stats').submit();
-            });
-          });
-      });
-    });
-
-    $('#block-point-them').on('click', function() {
-      $('.btn-avatar').on('click', function() {
-          $('#userId').val($(this).attr('data-user-id'));
-          var input = $(this).find('input');
-
-          $('.attack.front').each(function () {
-            $(this).removeClass('inactive');
-            $(this).addClass('active');
-          });
-
-          $('.attack.front.active').on('click', function () {
-            $('#fromZone').val($(this).attr('data-target'));
-            $('.attack.front.active').removeClass('selected-error');
-            $(this).addClass('selected-error');
-            $('#submit-point').removeClass('disabled');
-            $('#submit-point').on('click', function() {
-                $('#game-stats').submit();
-            });
-          });
-      });
-    });
-
-    $("button[name=reason]").each(function () {
-        $(this).on('click', function() {
-          $('#reason').val($(this).attr('value'));
-          if (jQuery.inArray($(this).prop('id'), ['defensive-fault', 'service-point-them', 'service-fault-them', 'attack-them', 'attack-fault-them']) !== -1) {
-            $('#game-stats').submit();
-          }
-        });
-    });
-
-    $('.btn-avatar').on('click', function() {
-        $('.btn-avatar').removeClass('avatar-checked');
-        $(this).addClass('avatar-checked');
-    });
-
-    (0, _jquery2.default)("#statsWizard").wizard(options);
-    $('.btn-next').on('click', function() {
-      (0, _jquery2.default)("#statsWizard").wizard('next');
-    });
-
-    $("#reset").on('click', function (event) {
-      window.location.reload();
-    });
-
-    var deleteLink = $("svg").attr('data-delete-link');
-    (0, _jquery2.default)('#warning-confirm').on("click", function () {
-      var elem = $(this);
-      swal({
-        title: "Are you sure?",
-        text: "You last point will be delete",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: "btn-warning",
-        confirmButtonText: 'Yes, delete it!',
-        closeOnConfirm: false
-        //closeOnCancel: false
-      }, function () {
-        window.location.href = deleteLink;
-      });
-    });
+    (0, _jquery2.default)("#exampleWizardAccordion").wizard(options);
   })();
 });

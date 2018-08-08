@@ -9,7 +9,7 @@
             <div class="timeline-dot <?= ($stat->pointFor == \Application\Model\Stats::POINT_US) ? 'bg-green-300' : 'bg-red-600'; ?>">
             </div>
             <div class="timeline-info mb-0">
-              <time><b><?= $stat->scoreUs ?></b> / <?= $stat->scoreThem ?></time>
+              <time><b>(us) <?= $stat->scoreUs ?></b> / <?= $stat->scoreThem ?> (them)</time>
             </div>
             <div class="timeline-content">
               <div class="card card-shadow">

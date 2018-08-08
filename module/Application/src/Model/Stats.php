@@ -86,4 +86,44 @@ class Stats extends AbstractModel
 
         return $result;
     }
+
+    public function getMatchData()
+    {
+        $positions = [];
+        if (($this->scoreUs >= 25 || $this->scoreThem >= 25) && (abs(
+        $this->scoreThem - $this->scoreUs) >= 2)) {
+            $set = ($this->set) ? $this->set + 1 : 1;
+            $scoreUs   = 0;
+            $scoreThem = 0;
+            $start     = null;
+        } else {
+            $set       = $this->set;
+            $scoreUs   = $this->scoreUs;
+            $scoreThem = $this->scoreThem;
+            $start     = $this->start;
+        }
+        
+        if ($this->pointFor == self::POINT_US) {
+            if ($this->start == \Application\Model\Game::RECEPTION) {
+                $positions = $this->rotate();
+            } else {
+                $positions = $this->mark();
+            }
+            $start = \Application\Model\Game::SERVICE;
+        } else {
+            $positions = $this->mark();
+            $start     = \Application\Model\Game::RECEPTION;
+        }
+
+        $numero = $this->numero;
+
+        return [
+            'scoreUs'   => $scoreUs,
+            'scoreThem' => $scoreThem,
+            'set'       => $set,
+            'positions' => $positions,
+            'numero'    => $numero,
+            'start'     => $start,
+        ];
+    }
 }
