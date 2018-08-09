@@ -1,6 +1,6 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define('/App/Calendar', ['exports', 'Site', 'Config'], factory);
+    define('/App/Stats', ['exports', 'Site', 'Config'], factory);
   } else if (typeof exports !== "undefined") {
     factory(exports, require('Site'), require('Config'));
   } else {
@@ -41,27 +41,27 @@
         this.handleWizard();
         this.handleModal();
         this.handleSelect();
-        this.handleSlideUp();
-        this.handleGamePlay();
-        // this.handlePlusOne();
+        this.handleRating();
+        this.handleNavigation();
       }
     }, {
-        key: 'handleSlideUp',
-        value: function handleSlideUp() {
-          $('.slide-up').on('click', function() {
-            $('#slide-up-service').slideUp();
-            $('#slide-up-reception').slideUp();
-            $('#slide-down-point').slideDown();
+        key: 'handleNavigation',
+        value: function handleNavigation() {
+          $('.btn-next').on('click', function(i) {
+              var slideUp = $(this).attr('data-hide');
+              if (slideUp) $(slideUp).slideUp();
+              var slideDown = $(this).attr('data-show');
+              if (slideDown) $(slideDown).slideDown();
+              var title = $(this).attr('data-next-title');
+              $('h3.panel-title').html(title);
+              var hideUser =  $(this).attr('data-hide-users');
+              if (hideUser) $('#user-selection').hide();
           });
-
-          $('.avatar-reception').on('click', function() {
-            $('.btn-reception-quality').removeAttr('disabled');
-          });
-        }
+        }      
     }, {
-        key: 'handleGamePlay',
-        value: function handleGamePlay() {
-          $('.avatar-dig, .avatar-reception').on('click', function() {
+        key: 'handleRating',
+        value: function handleRating() {
+          $('.avatar-dig, .avatar-reception, .avatar-set').on('click', function() {
             var userId = $('#game-userId').val($(this).attr('data-user-id'));
             var target = $(this).attr('data-target');
             $('.slide-down-rating[data-type="' + target + '"]').slideDown();
@@ -83,9 +83,16 @@
                       return $(this).data('score');
                   },
                   click: function (quality, evt) {
+                      
+                      var slideUp = thisRating.attr('data-hide');
+                      if (slideUp) $(slideUp).slideUp();
+                      var slideDown = thisRating.attr('data-show');
+                      if (slideDown) $(slideDown).slideDown();
+                      var title = thisRating.attr('data-next-title');
+                      $('h3.panel-title').html(title);
+
                       $('#game-type').val($(this).attr('data-type'));
                       $('#game-quality').val(quality);
-
                       $("#game").ajaxSubmit({
                           url: '/api/game/add',
                           type: 'post',
@@ -129,41 +136,8 @@
         });
       }
     }, {
-      key: 'handlePlusOne',
-      value: function handlePlusOne() {
-        $('.btn-counter').each(function () {
-            $(this).on('click', function() {
-                var input = $($(this).attr('data-input-target'));
-                var value = input.val();
-                value = parseInt(value) + 1;
-                input.val(value);
-                var counter = $(this).find('.counter');
-                counter.html(value);
-            });
-        });
-      }
-    }, {
       key: 'handleWizard',
       value: function handleWizard() {
-        var defaults = Plugin.getDefaults("wizard");
-
-        var options = $.extend(true, {}, defaults, {
-          step: '.wizard-pane',
-          templates: {
-            buttons: function buttons() {
-              var options = this.options;
-              var html = '<div class="btn-group btn-group-sm">' + '<a id="reset" class="btn btn-default btn-outline" href="#' + this.id + '" role="button">' + options.buttonLabels.back + '</a><a id="warning-confirm" data-url="<?= $deleteLink ?>" class="btn btn-danger btn-outline" href="#" role="button"><i class="icon wb-trash"></i> <span class="hidden-sm-down">Last Point</span></a><a class="btn btn-primary btn-outline" href="#" role="button"  data-toggle="modal" data-target="#positions"><i class="icon wb-random" aria-hidden="true"></i> Switch</a><a class="btn btn-success btn-outline disabled" id="submit-point" href="#' + this.id + '" data-wizard="finish" role="button">' + options.buttonLabels.finish + '</a></div>';
-              return html;
-            }
-          },
-          buttonLabels: {
-            next: '<i class="icon wb-chevron-right" aria-hidden="true"></i>',
-            back: '<i class="icon wb-refresh" aria-hidden="true"></i> <span class="hidden-sm-down">Cancel</span>',
-            finish: '<i class="icon wb-check" aria-hidden="true"></i> Submit'
-          },
-
-          buttonsAppendTo: '.panel-actions'
-        });
 
         $('#point-them').on('click', function() {
             $('#pointFor').val($(this).attr('data-value'));
@@ -310,15 +284,14 @@
             $(this).addClass('avatar-checked');
         });
 
-        $("#statsWizard").wizard(options);
-        $('.btn-next').on('click', function() {
-          $("#statsWizard").wizard('next');
-        });
+        $('#service-them-point-us, #service-them-point-them').on('click', function() {
+          $('#pointFor').val($(this).attr('data-value'));
+          $('#reason').val($(this).attr('data-reason'));
+          $('#reason').val(4); // fault service
+          $('#game-stats').submit();
+        });     
 
-        $('#service-point-us').on('click', function() {
-          $('#table-title').html('Target Zone ?');
-          $('#user-selection').hide();
-          $("#statsWizard").wizard('goTo', 2);
+        $('#service-us-point-us').on('click', function() {
           $('#pointFor').val($(this).attr('data-value'));
           $('#reason').val(1); // point service
 
@@ -342,7 +315,7 @@
           });
         });
 
-        $('#service-fault-us').on('click', function() {
+        $('#service-us-fault-us').on('click', function() {
           $('#table-title').html('Fault Zone ?');
           $("#statsWizard").wizard('goTo', 2);
           $('#user-selection').hide();

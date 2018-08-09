@@ -1,51 +1,66 @@
 <?php $serviceShow = (isset($start) && $start == \Application\Model\Game::SERVICE); ?>
 
 <div class="row" data-plugin="matchHeight" data-by-row="true">
-  <div class="col-12">
-    <!-- Panel Wizard Pager -->
-    <div class="panel" id="statsWizard" data-event-id="<?= $event->id ?>" data-numero="<?= $numero ?>">
-      <div class="panel-heading">
-        <h3 class="panel-title"></h3>
-        <div class="panel-actions panel-actions-keep">
+    <div class="col-12">
+
+      <!-- ----------- -->
+      <!-- START POINT -->
+      <!-- ----------- -->
+      <div class="panel">
+        <div class="panel-heading">
+          <h3 class="panel-title text-uppercase"><?= $serviceShow ? 'Service' : 'Reception'; ?></h3>
+          <div class="panel-actions panel-actions-keep">
+            <a id="warning-confirm" data-url="<?= $deleteLink ?>" class="btn btn-danger btn-outline btn-sm" href="#" role="button">
+              <i class="icon wb-trash"></i> <span class="hidden-sm-down">Last Point</span>
+            </a>
+            <a id="reset" class="btn btn-default btn-outline btn-sm" role="button">
+              <i class="icon wb-refresh" aria-hidden="true"></i> <span class="hidden-sm-down">Cancel</span>
+            </a>
+            <a class="btn btn-primary btn-outline btn-sm" href="#" role="button"  data-toggle="modal" data-target="#positions">
+              <i class="icon wb-random" aria-hidden="true"></i> Switch
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="panel-body">
-        <div class="wizard-content">
-          <div class="wizard-pane active" role="tabpanel">    
-            <?php if ($server): ?>
-              <div class="row <?= $serviceShow ? '' : 'hidden';?> mt-20" id="slide-up-service">
-                <h4 class="col-12 text-center">Service Quality</h4>
-                <div class="col-12 text-center mb-10">
-                  <img class="avatar avatar-100" src="<?= $server ? $server->getAvatarPath()  : '' ?>">
-                </div>
-                <div class="col-12 text-center text-uppercase mb-10">
-                  <?= $server->firstname ?>
-                </div>
-                <div class="col-12 mb-10 text-center">
+        <div class="panel-body">
+          <?php if ($serviceShow): ?>
 
-                <div class="rating rating-stats slide-up" data-number="5" data-plugin="rating" data-type="<?= \Application\Model\Game::SERVICE ?>"></div>
+            <!-- ----------- -->
+            <!-- SERVICE     -->
+            <!-- ----------- -->
+            <div class="row mt-20" id="service">
+              <div class="col-12 text-center mb-10">
+                <img class="avatar avatar-100" src="<?= $server ? $server->getAvatarPath()  : '' ?>">
+              </div>
+              <div class="col-12 text-center text-uppercase mb-10">
+                <?= $server->firstname ?>
+              </div>
+              <div class="col-12 mb-10 text-center">
 
-                </div>
-                <div class="col-12 mt-10">
-                <h4 class="col-12 text-center">OR</h4>
-                  <div class="btn-group btn-group-justified">
-                    <div class="btn-group" role="group">
-                      <button id="service-fault-us" data-user-id="<?= isset($p1) ? $p1 : ''; ?>" type="button" class="btn btn-danger btn-last" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
-                        <span class="text-uppercase">Fault</span>
-                      </button>
-                    </div>
-                    <div class="btn-group" role="group">
-                      <button id="service-point-us" type="button" data-user-id="<?= isset($p1) ? $p1 : ''; ?>" class="btn btn-success btn-last" data-value="<?= \Application\Model\Stats::POINT_US ?>">
-                        <span class="text-uppercase">Ace</span>
-                      </button>
-                    </div>
+              <div class="rating rating-stats slide-up" data-number="5" data-plugin="rating" data-type="<?= \Application\Model\Game::SERVICE ?>" data-show="#dig-score" data-hide="#service" data-next-title="Who Scores ?"></div>
+
+              </div>
+              <div class="col-12 mt-10">
+              <h4 class="col-12 text-center">OR</h4>
+                <div class="btn-group btn-group-justified">
+                  <div class="btn-group" role="group">
+                    <button id="service-us-fault-us" data-user-id="<?= isset($p1) ? $p1 : ''; ?>" type="button" class="btn btn-danger btn-toggle btn-next" data-next-title="Service Fault" data-value="<?= \Application\Model\Stats::POINT_THEM ?>" data-hide="#service" data-show="#end-point" data-hide-users="true">
+                      <span class="text-uppercase">Fault</span>
+                    </button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button id="service-us-point-us" type="button" data-user-id="<?= isset($p1) ? $p1 : ''; ?>" class="btn btn-success btn-toggle btn-next" data-next-title="Service Ace" data-value="<?= \Application\Model\Stats::POINT_US ?>" data-hide="#service" data-show="#end-point" data-hide-users="true">
+                      <span class="text-uppercase">Ace</span>
+                    </button>
                   </div>
                 </div>
               </div>
-            <?php endif; ?>
+            </div>
+          <?php else: ?>
 
-            <div class="col-12 text-center mb-10 <?= !$serviceShow ? '' : 'hidden';?>" id="slide-up-reception">
-            <h4 class="col-12 mt-30 text-center">Reception Quality</h4>
+            <!-- ----------- -->
+            <!-- RECEPTION   -->
+            <!-- ----------- -->
+            <div class="row mt-20" id="reception">
               <div class="row text-center mb-10">
                 <?php $i = 0 ?>
                 <?php foreach ($positions as $userId): ?>
@@ -65,46 +80,58 @@
                 <?php endforeach ?>
               </div>
               <div class="col-12 mb-10 text-center">
-                <div class="rating rating-stats slide-up slide-down-rating" data-number="5" data-plugin="rating" data-type="<?= \Application\Model\Game::RECEPTION ?>"  style="display: none;"></div>
+                <div class="rating rating-stats slide-up slide-down-rating" data-number="5" data-plugin="rating" data-type="<?= \Application\Model\Game::RECEPTION ?>"  style="display: none;" data-show="#dig-score" data-hide="#reception" data-next-title="Who Scores ?"></div>
               </div>
 
               <h4 class="col-12 text-center">Or Service</h4>
               <div class="col-12 mb-10">
                 <div class="btn-group btn-group-justified">
                   <div class="btn-group" role="group">
-                    <button id="service-point-them" type="button" class="btn btn-danger btn-last" data-value="<?= \Application\Model\Stats::POINT_THEM ?>" name="reason">
+                    <button id="service-them-point-them" type="button" class="btn btn-danger btn-last" data-value="<?= \Application\Model\Stats::POINT_THEM ?>" name="reason">
                       <span class="text-uppercase">Ace</span>
                     </button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button id="service-point-us" type="button" class="btn btn-success btn-last" data-value="<?= \Application\Model\Stats::POINT_US ?>" name="reason">
+                    <button id="service-them-point-us" type="button" class="btn btn-success btn-last" data-value="<?= \Application\Model\Stats::POINT_US ?>" name="reason">
                       <span class="text-uppercase">Fault</span>
                     </button>
                   </div>
                 </div>
               </div>
             </div>
+          <?php endif; ?>
 
-            <div class="row" id="slide-down-point" style="display: none;">
-              <h4 class="col-12 text-center">Who Scores ?</h4>
-              <div class="btn-group btn-group-justified">
-                <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-success btn-next" id="point-us" data-value="<?= \Application\Model\Stats::POINT_US ?>">
-                    <span class="counter font-size-30"><?= $scoreUs ?></span>
-                    <br>
-                    <span class="text-uppercase">Us</span>
-                  </button>
-                </div>
-                <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-danger btn-next" id="point-them" data-value="<?= \Application\Model\Stats::POINT_THEM ?>">
-                    <span class="counter font-size-30"><?= $scoreThem ?></span>
-                    <br>
-                    <span class="text-uppercase">Them</span>
-                  </button>
-                </div>
+          <!-- ----------- -->
+          <!-- WHO SCORES  -->
+          <!-- ----------- -->
+          <div class="row mt-20" id="dig-score" style="display: none;">
+            <div class="btn-group btn-group-justified mb-20">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-success btn-next" id="point-us" data-value="<?= \Application\Model\Stats::POINT_US ?>" data-hide="#dig-score" data-next-title="What Reason ?" data-show="#reason-score">
+                  <span class="counter font-size-30"><?= $scoreUs ?></span>
+                  <br>
+                  <span class="text-uppercase">Us</span>
+                </button>
               </div>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-danger btn-next" id="point-them" data-value="<?= \Application\Model\Stats::POINT_THEM ?>" data-hide="#dig-score" data-next-title="What Reason ?" data-show="#reason-score">
+                  <span class="counter font-size-30"><?= $scoreThem ?></span>
+                  <br>
+                  <span class="text-uppercase">Them</span>
+                </button>
+              </div>
+            </div>
 
-              <h4 class="col-12 mt-30 text-center">Dig ! <span id="confirm-dig" class="badge badge-success" style="display: none;">Saved</span></h4>
+            <div class="btn-group btn-group-justified" id="dig-button">
+              <div class="btn-group" role="group">
+                <button name="reason" class="btn btn-default btn-outline btn-next" data-show="#dig-selection" data-hide="#dig-button" data-next-title="Define The Dig">
+                  <span class="counter font-size-24">Dig</span>
+                </button>
+              </div>
+            </div>
+
+            <div id="dig-selection" style="display: none;">            
+              <span id="confirm-dig" class="badge badge-success" style="display: none;">Saved</span>
               <div class="col-12 text-center mb-10">
                 <div class="row text-center mb-10">
                   <?php $i = 0 ?>
@@ -113,7 +140,7 @@
                         $currentUser = $users[$userId] ? $users[$userId] : null; 
                         if (!$currentUser) continue;
                         $size = ($i == 6) ? 12 : 4;
-                        $i++
+                        $i++;
                       ?>
                       <div class="col-<?= $size ?> mt-10 text-center">
                         <label class="btn-avatar">
@@ -127,17 +154,19 @@
               </div>
               <div class="col-12 mb-10">
                 <div class="col-12 mb-10 text-center">
-                  <div class="rating rating-stats slide-up slide-down-rating" data-number="5" data-plugin="rating" data-type="<?= \Application\Model\Game::DIG ?>"  style="display: none;"></div>
+                  <div class="rating rating-stats slide-up slide-down-rating btn-next" data-number="5" data-plugin="rating" data-next-title="Who Scores ?" data-show="#dig-button" data-hide="#dig-selection" data-type="<?= \Application\Model\Game::DIG ?>"  style="display: none;"></div>
                 </div>  
               </div>
             </div>
           </div>
 
-          <div class="wizard-pane" role="tabpanel">
-            <h4>Reason ?</h4>
-            <div class="btn-group btn-group-justified mb-10">
+          <!-- -----------  -->
+          <!-- REASON SCORE -->
+          <!-- -----------  -->
+          <div class="row mt-20" id="reason-score">
+            <div class="btn-group btn-group-justified mb-20">
               <div class="btn-group" role="group">
-                <button id="attack-us" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success btn-outline btn-next hidden">
+                <button id="attack-us" value="<?= \Application\Model\Stats::POINT_ATTACK ?>" name="reason" class="btn btn-success btn-outline btn-next hidden" data-show="#set" data-hide="#reason-score" data-next-title="Set Quality">
                   <span class="counter font-size-24">Attack</span>
                   <br>
                   <span class="text-uppercase">Point</span>
@@ -148,14 +177,15 @@
                   <span class="text-uppercase">Point</span>
                 </button>
               </div>
-
+            </div>
+            <div class="btn-group btn-group-justified mb-20">
               <div class="btn-group" role="group">
                 <button id="attack-fault-them" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger btn-outline hidden">
                   <span class="counter font-size-24">Attack</span>
                   <br>
                   <span class="text-uppercase">Fault</span>
                 </button>
-                <button id="attack-fault-us" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger btn-outline btn-next hidden">
+                <button id="attack-fault-us" value="<?= \Application\Model\Stats::FAULT_ATTACK ?>" name="reason" class="btn btn-danger btn-outline btn-next hidden" data-show="#set" data-hide="#reason-score" data-next-title="Set Quality">
                   <span class="counter font-size-24">Attack</span>
                   <br>
                   <span class="text-uppercase">Fault</span>
@@ -163,14 +193,14 @@
               </div>
             </div>
 
-            <div class="btn-group btn-group-justified mb-10">
+            <div class="btn-group btn-group-justified mb-20">
               <div class="btn-group" role="group">
-                <button id="block-point-us" value="<?= \Application\Model\Stats::POINT_BLOCK ?>" name="reason" class="btn btn-success btn-outline hidden btn-next">
+                <button id="block-point-us" value="<?= \Application\Model\Stats::POINT_BLOCK ?>" name="reason" class="btn btn-default btn-outline hidden btn-next" data-show="#end-point" data-hide="#reason-score" data-next-title="Ending Point">
                   <span class="counter font-size-24">Block</span>
                   <br>
                   <span class="text-uppercase">Point</span>
                 </button>
-                <button id="block-point-them" value="<?= \Application\Model\Stats::POINT_BLOCK ?>" name="reason" class="btn btn-success btn-outline hidden btn-next">
+                <button id="block-point-them" value="<?= \Application\Model\Stats::POINT_BLOCK ?>" name="reason" class="btn btn-default btn-outline hidden btn-next" data-show="#set" data-hide="#reason-score" data-next-title="Set Quality">
                   <span class="counter font-size-24">Block</span>
                   <br>
                   <span class="text-uppercase">Point</span>
@@ -178,7 +208,7 @@
               </div>
 
               <div class="btn-group" role="group">
-                <button id="defensive-fault" value="<?= \Application\Model\Stats::FAULT_DEFENCE ?>" name="reason" class="btn btn-danger btn-outline hidden">
+                <button id="defensive-fault" value="<?= \Application\Model\Stats::FAULT_DEFENCE ?>" name="reason" class="btn btn-default btn-outline hidden">
                   <span class="counter font-size-24">Defence</span>
                   <br>
                   <span class="text-uppercase">Fault</span>
@@ -187,113 +217,166 @@
             </div>
           </div>
 
-          <div class="wizard-pane" role="tabpanel">
-            <div class="row">
-                <h4 class="col-12 text-center">Scorer ?</h4>
-                <div id="user-selection" class="col-12 text-center">
-                  <div class="row text-center mb-10">
-                    <?php $i = 0 ?>
-                    <?php foreach (['p4', 'p3', 'p2', 'p1', 'p5', 'p6', 'libero'] as $pos): ?>
-                      <?php
-                        if (!isset($positions[$pos])) continue;
-                        $currentUser = isset($users[$positions[$pos]]) ? $users[$positions[$pos]] : null;
-                        if (!$currentUser) continue;
-                        $size = ($i == 6) ? 12 : 4;
-                        $i++
+          <!-- ----------- -->
+          <!-- SET         -->
+          <!-- ----------- -->
+          <div class="row" id="set" style="display: none;">
+            <div class="col-12 text-center">
+              <div class="col-12 text-center mb-10">
+                <div class="row text-center mb-10">
+                  <?php if ($setter): ?>
+                    <div class="col-12 mt-10 text-center">
+                      <label class="btn-avatar avatar-selected">
+                        <img class="avatar avatar-set avatar-100" data-target="<?= \Application\Model\Game::SET ?>" data-user-id="<?= $setter->id ?>" src="<?= $setter->getAvatarPath() ?>">
+                      </label>
+                      <br>
+                      <span class="text-uppercase"><?= $setter->firstname ?></span>
+                    </div>
+                  <?php endif ?>
+                  <?php foreach ($positions as $userId): ?>
+                      <?php 
+                        $currentUser = $users[$userId] ? $users[$userId] : null; 
+                        if (!$currentUser || ($setter && $setter->id == $userId)) continue;
                       ?>
-                      <div class="col-<?= $size ?> mt-10 text-center">
-                        <label class="btn-avatar" data-user-id="<?= $currentUser->id ?>">
-                          <img class="avatar avatar-lg" src="<?= $currentUser->getAvatarPath() ?>">
+                      <div class="col-4 mt-10 text-center">
+                        <label class="btn-avatar">
+                          <img class="avatar avatar-lg avatar-set" data-target="<?= \Application\Model\Game::SET ?>" data-user-id="<?= $currentUser->id ?>" src="<?= $currentUser->getAvatarPath() ?>">
                         </label>
                         <br>
                         <span class="text-uppercase"><?= $currentUser->firstname ?></span>
                       </div>
-                    <?php endforeach ?>
-                  </div>
+                  <?php endforeach ?>
                 </div>
+              </div>
+              <div class="col-12 mb-10">
+                <div class="col-12 mb-10 text-center">
+                  <div class="rating rating-stats slide-up slide-down-rating open-court" data-number="5" data-plugin="rating" data-type="<?= \Application\Model\Game::SET ?>" data-show="#end-point" data-hide="#set" data-next-title="Ending Point" style="display: none;"></div>
+                </div>  
+              </div>
+            </div>
 
-                <h4 id="table-title">Attack From ?</h4>
-                <table class="table" data-delete-link="<?= $deleteLink ?>">
-                  <tr>
-                    <td class="court-outside inactive" width="2%" rowspan="5"></td>
-                    <td class="court-outside inactive" height="40px" colspan="2"></td>
-                    <!-- NET -->
-                    <td rowspan="5" width="2%" class="court-net inactive out" data-target="<?= \Application\Model\Stats::TO_OUT_NET ?>"></td>
-                    <td class="court-outside inactive out" height="40px" colspan="2" style="border: none; color:#FFF;" data-target="<?= \Application\Model\Stats::TO_OUT_LEFT ?>"></td>
-                    <td class="court-outside inactive out" width="40px" rowspan="5" data-target="<?= \Application\Model\Stats::TO_OUT_LONG ?>"></td>
-                  </tr>
-                  <tr class="col-12">
-                    <!-- attack P5 -->
-                    <td height="70px" class="court-inside inactive court-border-top court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P5 ?>">P5</td>
-                    <!-- attack P4 -->
-                    <td height="70px" class="court-inside inactive court-border-top front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P4 ?>">P4</td>
-                    <!-- target P2 -->
-                    <td height="70px" class="court-inside inactive court-border-top front target text-center" data-target="<?= \Application\Model\Stats::TO_P2 ?>">P2</td>
-                    <!-- target P1 -->
-                    <td height="70px" class="court-inside inactive court-border-top court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P1 ?>">P1</td>
-                  </tr>
-                  <tr class="col-12">
-                    <!-- attack P6 -->
-                    <td height="70px" class="court-inside inactive court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P6 ?>">P6</td>
-                    <!-- attack P3 -->
-                    <td height="70px" class="court-inside inactive front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P3 ?>">P3</td>
-                    <!-- target P3 -->
-                    <td height="70px" class="court-inside inactive front target text-center" data-target="<?= \Application\Model\Stats::TO_P3 ?>">P3</td>
-                    <!-- target P6 -->
-                    <td height="70px" class="court-inside inactive court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P6 ?>">P6</td>
-                  </tr>
-                  <tr class="col-12">
-                    <!-- attack P1 -->
-                    <td height="70px" class="court-inside inactive court-border-bottom court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P1 ?>">P1</td>
-                    <!-- attack P2 -->
-                    <td height="70px" class="court-inside inactive court-border-bottom front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P2 ?>">P2</td>
-                    <!-- target P4 -->
-                    <td height="70px" class="court-inside inactive court-border-bottom front target text-center" data-target="<?= \Application\Model\Stats::TO_P4 ?>">P4</td>
-                    <!-- target P5 -->
-                    <td height="70px" class="court-inside inactive court-border-bottom court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P5 ?>">P5</td>
-                  </tr>
-                  <tr>
-                    <td class="court-outside inactive" height="40px" colspan="2"></td>
-                    <td class="court-outside inactive out" height="40px" colspan="2" data-target="<?= \Application\Model\Stats::TO_OUT_RIGHT ?>"></td>
-                  </tr>
-                </table>
+            <div class="col-12">
+              <button class="btn btn-default btn-outline btn-next pull-right" data-show="#end-point" data-hide="#set" data-next-title="Ending Point">
+                <span class="counter">Skip</span>
+              </button>
             </div>
           </div>
 
+
+          <!-- ----------- -->
+          <!-- END POINT   -->
+          <!-- ----------- -->
+          <div class="row" id="end-point" style="display: none;">
+            <div id="user-selection" class="col-12 text-center">
+              <div class="row text-center mb-10">
+                <?php $i = 0 ?>
+                <?php foreach (['p4', 'p3', 'p2', 'p1', 'p6', 'p5', 'libero'] as $pos): ?>
+                  <?php
+                    if (!isset($positions[$pos])) continue;
+                    $currentUser = isset($users[$positions[$pos]]) ? $users[$positions[$pos]] : null;
+                    if (!$currentUser) continue;
+                    $size = ($i == 6) ? 12 : 4;
+                    $i++;
+                  ?>
+                  <div class="col-<?= $size ?> mt-10 text-center">
+                    <label class="btn-avatar" data-user-id="<?= $currentUser->id ?>">
+                      <img class="avatar avatar-lg" src="<?= $currentUser->getAvatarPath() ?>">
+                    </label>
+                    <br>
+                    <span class="text-uppercase"><?= $currentUser->firstname ?></span>
+                  </div>
+                <?php endforeach ?>
+              </div>
+            </div>
+
+            <table class="table" data-delete-link="<?= $deleteLink ?>">
+              <tr>
+                <td class="court-outside inactive" width="2%" rowspan="5"></td>
+                <td class="court-outside inactive" height="40px" colspan="2"></td>
+                <!-- NET -->
+                <td rowspan="5" width="2%" class="court-net inactive out" data-target="<?= \Application\Model\Stats::TO_OUT_NET ?>"></td>
+                <td class="court-outside inactive out" height="40px" colspan="2" style="border: none; color:#FFF;" data-target="<?= \Application\Model\Stats::TO_OUT_LEFT ?>"></td>
+                <td class="court-outside inactive out" width="2%" rowspan="5" data-target="<?= \Application\Model\Stats::TO_OUT_LONG ?>"></td>
+              </tr>
+              <tr class="col-12">
+                <!-- attack P5 -->
+                <td height="70px" class="court-inside inactive court-border-top court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P5 ?>">P5</td>
+                <!-- attack P4 -->
+                <td height="70px" class="court-inside inactive court-border-top front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P4 ?>">P4</td>
+                <!-- target P2 -->
+                <td height="70px" class="court-inside inactive court-border-top front target text-center" data-target="<?= \Application\Model\Stats::TO_P2 ?>">P2</td>
+                <!-- target P1 -->
+                <td height="70px" class="court-inside inactive court-border-top court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P1 ?>">P1</td>
+              </tr>
+              <tr class="col-12">
+                <!-- attack P6 -->
+                <td height="70px" class="court-inside inactive court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P6 ?>">P6</td>
+                <!-- attack P3 -->
+                <td height="70px" class="court-inside inactive front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P3 ?>">P3</td>
+                <!-- target P3 -->
+                <td height="70px" class="court-inside inactive front target text-center" data-target="<?= \Application\Model\Stats::TO_P3 ?>">P3</td>
+                <!-- target P6 -->
+                <td height="70px" class="court-inside inactive court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P6 ?>">P6</td>
+              </tr>
+              <tr class="col-12">
+                <!-- attack P1 -->
+                <td height="70px" class="court-inside inactive court-border-bottom court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P1 ?>">P1</td>
+                <!-- attack P2 -->
+                <td height="70px" class="court-inside inactive court-border-bottom front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P2 ?>">P2</td>
+                <!-- target P4 -->
+                <td height="70px" class="court-inside inactive court-border-bottom front target text-center" data-target="<?= \Application\Model\Stats::TO_P4 ?>">P4</td>
+                <!-- target P5 -->
+                <td height="70px" class="court-inside inactive court-border-bottom court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P5 ?>">P5</td>
+              </tr>
+              <tr>
+                <td class="court-outside inactive" height="40px" colspan="2"></td>
+                <td class="court-outside inactive out" height="40px" colspan="2" data-target="<?= \Application\Model\Stats::TO_OUT_RIGHT ?>"></td>
+              </tr>
+            </table>
+
+            <div class="col-12">
+              <button class="btn btn-success btn-outline disabled pull-right" id="submit-point"><i class="icon wb-check" aria-hidden="true"></i> Submit</button>
+            </div>
+
+          </div>
+
+        </div> <!-- CLOSE PANEL-BODY -->
+
+        <div class="panel-footer">
         </div>
+
       </div>
     </div>
-    <!-- End Panel Wizard Pager -->
-
-    <form id="game-stats" method="POST" class="hidden">
-        <input type="hidden" id="p1" name="p1" value="<?= isset($positions['p1']) ? $positions['p1'] : null; ?>"/>
-        <input type="hidden" id="p2" name="p2" value="<?= isset($positions['p2']) ? $positions['p2'] : null; ?>"/>
-        <input type="hidden" id="p3" name="p3" value="<?= isset($positions['p3']) ? $positions['p3'] : null; ?>"/>
-        <input type="hidden" id="p4" name="p4" value="<?= isset($positions['p4']) ? $positions['p4'] : null; ?>"/>
-        <input type="hidden" id="p5" name="p5" value="<?= isset($positions['p5']) ? $positions['p5'] : null; ?>"/>
-        <input type="hidden" id="p6" name="p6" value="<?= isset($positions['p6']) ? $positions['p6'] : null; ?>"/>
-        <input type="hidden" id="libero" name="libero" value="<?= isset($positions['libero']) ? $positions['libero'] : null; ?>"/>
-        <input type="hidden" id="start" name="start" value="<?= $start ?>"/>
-
-        <input type="hidden" id="pointFor" name="pointFor" value=""/>
-        <input type="hidden" id="reason" name="reason" value=""/>
-        <input type="hidden" id="userId" name="userId" value=""/>
-        <input type="hidden" id="fromZone" name="fromZone" value=""/>
-        <input type="hidden" id="toZone" name="toZone" value=""/>
-        <input type="hidden" id="scoreUs" name="scoreUs" value="<?= $scoreUs ?>"/>
-        <input type="hidden" id="scoreThem" name="scoreThem" value="<?= $scoreThem ?>"/>
-    </form>
-
-    <form id="game" method="POST" class="hidden">
-        <input type="hidden" id="game-eventId" name="eventId" value="<?= $event->id ?>"/>
-        <?php if (!($set == 1 && ($scoreUs == 0 && $scoreThem == 0))) $numero = $numero + 1; ?>
-        <input type="hidden" id="game-numero" name="numero" value="<?= $numero ?>"/>
-        <input type="hidden" id="game-userId" name="userId" value="<?= $server ? $server->id : '' ?>"/>
-        <input type="hidden" id="game-type" name="type" value=""/>
-        <input type="hidden" id="game-quality" name="quality" value=""/>
-    </form>
-  </div>
 </div>
+
+<form id="game-stats" method="POST" class="hidden">
+    <input type="hidden" id="p1" name="p1" value="<?= isset($positions['p1']) ? $positions['p1'] : null; ?>"/>
+    <input type="hidden" id="p2" name="p2" value="<?= isset($positions['p2']) ? $positions['p2'] : null; ?>"/>
+    <input type="hidden" id="p3" name="p3" value="<?= isset($positions['p3']) ? $positions['p3'] : null; ?>"/>
+    <input type="hidden" id="p4" name="p4" value="<?= isset($positions['p4']) ? $positions['p4'] : null; ?>"/>
+    <input type="hidden" id="p5" name="p5" value="<?= isset($positions['p5']) ? $positions['p5'] : null; ?>"/>
+    <input type="hidden" id="p6" name="p6" value="<?= isset($positions['p6']) ? $positions['p6'] : null; ?>"/>
+    <input type="hidden" id="libero" name="libero" value="<?= isset($positions['libero']) ? $positions['libero'] : null; ?>"/>
+    <input type="hidden" id="start" name="start" value="<?= $start ?>"/>
+
+    <input type="hidden" id="pointFor" name="pointFor" value=""/>
+    <input type="hidden" id="reason" name="reason" value=""/>
+    <input type="hidden" id="userId" name="userId" value=""/>
+    <input type="hidden" id="fromZone" name="fromZone" value=""/>
+    <input type="hidden" id="toZone" name="toZone" value=""/>
+    <input type="hidden" id="scoreUs" name="scoreUs" value="<?= $scoreUs ?>"/>
+    <input type="hidden" id="scoreThem" name="scoreThem" value="<?= $scoreThem ?>"/>
+</form>
+
+<form id="game" method="POST" class="hidden">
+    <input type="hidden" id="game-eventId" name="eventId" value="<?= $event->id ?>"/>
+    <?php if (!($set == 1 && ($scoreUs == 0 && $scoreThem == 0))) $numero = $numero + 1; ?>
+    <input type="hidden" id="game-numero" name="numero" value="<?= $numero ?>"/>
+    <input type="hidden" id="game-userId" name="userId" value="<?= $server ? $server->id : '' ?>"/>
+    <input type="hidden" id="game-type" name="type" value=""/>
+    <input type="hidden" id="game-quality" name="quality" value=""/>
+</form>
+
 
 <?php
   $newSet   = (!$positions) ? 'true': 'false';

@@ -523,6 +523,13 @@ class EventController extends AbstractController
                 $this->redirect()->toRoute('event', ['action' => 'live-stats', 'id' => $eventId]);
             }
             unset($data['positions']['start'], $data['positions']['form-name']);
+
+            $setter = null;
+            foreach ($data['positions'] as $userId) {
+                if ($users[$userId]->position != \Application\Model\User::POSITION_SETTER) continue;
+                $setter = $users[$userId];
+                break;
+            }
             return new ViewModel([
                 'deleteLink'     => $deleteLink,
                 'data'           => $data,
@@ -536,6 +543,7 @@ class EventController extends AbstractController
                 'numero'         => $data['numero'],
                 'set'            => $data['set'],
                 'start'          => $data['start'],
+                'setter'         => $setter,
             ]);
         } else {
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
