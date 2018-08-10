@@ -270,10 +270,9 @@
             <div id="user-selection" class="col-12 text-center">
               <div class="row text-center mb-10">
                 <?php $i = 0 ?>
-                <?php foreach (['p4', 'p3', 'p2', 'p1', 'p6', 'p5', 'libero'] as $pos): ?>
+                <?php foreach ($positions as $userId): ?>
                   <?php
-                    if (!isset($positions[$pos])) continue;
-                    $currentUser = isset($users[$positions[$pos]]) ? $users[$positions[$pos]] : null;
+                    $currentUser = $users[$userId] ? $users[$userId] : null; 
                     if (!$currentUser) continue;
                     $size = ($i == 6) ? 12 : 4;
                     $i++;

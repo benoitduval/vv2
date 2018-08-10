@@ -116,6 +116,7 @@ class Stats extends AbstractModel
         }
 
         $numero = $this->numero;
+        asort($positions);
 
         return [
             'scoreUs'   => $scoreUs,

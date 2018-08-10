@@ -530,6 +530,7 @@ class EventController extends AbstractController
                 $setter = $users[$userId];
                 break;
             }
+
             return new ViewModel([
                 'deleteLink'     => $deleteLink,
                 'data'           => $data,

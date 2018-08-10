@@ -9,13 +9,6 @@
                 <span class="site-menu-title">Calendar</span>
               </a>
             </li>
-            <li class="site-menu-item menu-img">
-              <a href="/user/profile" class="pl-20">
-                <!-- <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i> -->
-                <i class="site-menu-icon menu-img"><img class="avatar avatar-md" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-group-avatar.png') this.src = '/img/default-group-avatar.png';"></i>
-                <span class="site-menu-title">Profile</span>
-              </a>
-            </li>
             <li class="site-menu-item">
               <a href="/group/create">
                 <i class="site-menu-icon wb-plus" aria-hidden="true"></i>
@@ -31,13 +24,6 @@
                 </a>
               </li>
             <?php endforeach ?>
-            <li class="divider"></li>
-            <li class="site-menu-item">
-              <a href="/auth/signout">
-                <i class="site-menu-icon wb-power" aria-hidden="true"></i>
-                <span class="site-menu-title">logout</span>
-              </a>
-            </li>
           </ul>
           <?php endif ?>
       </div>

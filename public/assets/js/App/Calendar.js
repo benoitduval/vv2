@@ -63,7 +63,7 @@
               type: 'GET',
               data: function() { // a function that returns an object
                   return {
-                      dynamic_value: Math.random(),
+                      // dynamic_value: Math.random(),
                       groupId: groupId
                   };
               }

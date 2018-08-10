@@ -64,6 +64,19 @@
           </div>
         </li>
         <li class="nav-item dropdown">
+          <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
+            data-animation="scale-up" role="button">
+            <span class="avatar">
+              <img src="<?= $user->getAvatarPath() ?>">
+            </span>
+          </a>
+          <div class="dropdown-menu" role="menu">
+            <a class="dropdown-item" href="/user/profile" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Profile</a>
+            <div class="dropdown-divider" role="presentation"></div>
+            <a class="dropdown-item" href="/auth/signout" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)"
             aria-expanded="false" data-animation="scale-up" role="button">
             <i class="icon wb-bell" aria-hidden="true"></i>
