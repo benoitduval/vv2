@@ -143,8 +143,7 @@ class EventController extends AbstractController
             }
             $percents = $this->statsTable->getZonePercent([
                 'eventId'  => $eventId,
-                'pointFor' => Model\Stats::POINT_US,
-                'reason'   => Model\Stats::POINT_ATTACK,
+                'reason' => [Model\Stats::POINT_ATTACK, Model\Stats::FAULT_ATTACK]
             ]);
 
             foreach (['allFrom', 'allTo'] as $index) {
@@ -300,6 +299,11 @@ class EventController extends AbstractController
                 'toP4'            => $toP4,
                 'toP5'            => $toP5,
                 'toP6'            => $toP6,
+                'toOutLong'       => $toOutLong,
+                'toOutLeft'       => $toOutLeft,
+                'toOutRight'      => $toOutRight,
+                'toOutRight'      => $toOutRight,
+                'toOutNet'        => $toOutNet,
                 'counters'        => $counters,
                 'comments'        => $result,
                 'event'           => $event,

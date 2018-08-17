@@ -44,13 +44,27 @@ class StatsController extends AbstractController
     {
         $eventId = $this->params('eventId', null);
         $userIds = json_decode($this->params()->fromQuery('userIds', null));
+        $reason = json_decode($this->params()->fromQuery('type', null));
+        $setter = $this->params()->fromQuery('setter', null);
 
-        $result = $this->statsTable->getZonePercent([
+        $settersId = [];
+        if ($setter != "all" && $event = $this->eventTable->find($eventId)) {
+            $event = $this->eventTable->find($eventId);
+            $users = $this->userTable->getAllByGroupId($event->groupId);
+            foreach ($users as $userId => $user) {
+                if ($user->position == \Application\Model\User::POSITION_SETTER) $settersId[] = $userId;
+            }
+        }
+
+        $params = [
             'eventId'  => $eventId,
             'userId'   => $userIds,
-            'pointFor' => Stats::POINT_US,
-            'reason'   => Stats::POINT_ATTACK,
-        ]);
+            'reason'   => $reason,
+        ];
+
+        if ($settersId) $params[$setter] = $settersId;
+
+        $result = $this->statsTable->getZonePercent($params);
 
         $view = new ViewModel(['result' => $result]);
         $view->setTerminal(true);

@@ -108,6 +108,20 @@ return [
                     ],
                 ],
             ],
+            'user-stats-by-event' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/stats/event/:eventId/user/:userId',
+                    'constraints' => [
+                        'userId'  => '[0-9]+',
+                        'eventId' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller'    => Controller\StatsController::class,
+                        'action'        => 'userStatsByEvent',
+                    ],
+                ],
+            ],
             'disponibility' => [
                 'type'    => Segment::class,
                 'options' => [

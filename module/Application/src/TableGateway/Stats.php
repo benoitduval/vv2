@@ -39,22 +39,27 @@ class Stats extends AbstractTableGateway
 
         $result = [
             'allFrom' => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
-            'allTo'   => [ 'toP1' => 0, 'toP2' => 0, 'toP3' => 0, 'toP4' => 0, 'toP5' => 0, 'toP6' => 0],
-            'fromP1'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0],
-            'fromP2'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0],
-            'fromP3'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0],
-            'fromP4'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0],
-            'fromP5'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0],
-            'fromP6'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0],
+            'allTo'   => [ 'toP1' => 0, 'toP2' => 0, 'toP3' => 0, 'toP4' => 0, 'toP5' => 0, 'toP6' => 0, 'toOutNet' => 0, 'toOutLeft' => 0, 'toOutRight' => 0, 'toOutLong' => 0],
+            'fromP1'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0, 'toOutNet' => 0, 'toOutLeft' => 0, 'toOutRight' => 0, 'toOutLong' => 0],
+            'fromP2'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0, 'toOutNet' => 0, 'toOutLeft' => 0, 'toOutRight' => 0, 'toOutLong' => 0],
+            'fromP3'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0, 'toOutNet' => 0, 'toOutLeft' => 0, 'toOutRight' => 0, 'toOutLong' => 0],
+            'fromP4'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0, 'toOutNet' => 0, 'toOutLeft' => 0, 'toOutRight' => 0, 'toOutLong' => 0],
+            'fromP5'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0, 'toOutNet' => 0, 'toOutLeft' => 0, 'toOutRight' => 0, 'toOutLong' => 0],
+            'fromP6'  => ['toP1' => 0,'toP2' => 0,'toP3' => 0,'toP4' => 0,'toP5' => 0,'toP6' => 0, 'toOutNet' => 0, 'toOutLeft' => 0, 'toOutRight' => 0, 'toOutLong' => 0],
             'toP1'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
             'toP2'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
             'toP3'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
             'toP4'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
             'toP5'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
-            'toP6'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0]
+            'toP6'    => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
+            'toOutNet' => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
+            'toOutLeft' => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
+            'toOutRight' => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
+            'toOutLong' => ['fromP1' => 0,'fromP2' => 0,'fromP3' => 0,'fromP4' => 0,'fromP5' => 0,'fromP6' => 0],
         ];
 
         foreach ($stats as $stat) {
+            if (($stat->pointFor == Statistics::POINT_US && $stat->reason == Statistics::FAULT_ATTACK) || ($stat->pointFor == Statistics::POINT_THEM && $stat->reason == Statistics::POINT_ATTACK)) continue;
             switch ($stat->fromZone) {
                 case Statistics::FROM_P1:
                     $labelFrom = 'fromP1';
@@ -94,6 +99,19 @@ class Stats extends AbstractTableGateway
                 case Statistics::TO_P6:
                     $labelTo = 'toP6';
                     break;
+                case Statistics::TO_OUT_NET:
+                    $labelTo = 'toOutNet';
+                    break;
+                case Statistics::TO_OUT_LEFT:
+                    $labelTo = 'toOutLeft';
+                    break;
+                case Statistics::TO_OUT_RIGHT:
+                    $labelTo = 'toOutRight';
+                    break;
+                case Statistics::TO_OUT_LONG:
+                    $labelTo = 'toOutLong';
+                    break;
+
             }
 
             $result['allFrom'][$labelFrom] ++;
@@ -287,6 +305,28 @@ class Stats extends AbstractTableGateway
             ];
         }
         return $data;
+    }
+
+    private function _getQuality($eventId, $set)
+    {
+        if (!$this->fetchOne(['eventId' => $eventId, 'set' => $set])) return null;
+
+        $fault = $this->count([
+            'eventId'  => $eventId,
+            'set' => $set,
+            'pointFor' => Statistics::POINT_THEM,
+            'reason'   => Statistics::$faultUs
+        ]);
+
+        if (!$fault) return null;
+
+        $attack = $this->count([
+            'eventId'  => $eventId,
+            'set' => $set,
+            'pointFor' => Statistics::POINT_US,
+            'reason'   => Statistics::$attackUs,
+        ]);
+        return (float) sprintf('%0.2f', $attack / $fault);
     }
 
     private function _getRatio($eventId, $set)
