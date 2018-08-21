@@ -21,10 +21,14 @@ class IndexController extends AbstractController
     {
         if ($this->getUser()) {
 
-            $userId     = $this->getUser()->id;
-            $groups     = $this->getUserGroups();
+            $userId      = $this->getUser()->id;
+            $groups      = $this->getUserGroups();
+            $adminGroups = [];
             if ($groups) {
                 foreach ($groups as $group) {
+                    if ($this->userGroupTable->isAdmin($userId, $group->id)) {
+                        $adminGroups[] = $group;
+                    }
                     $count[$group->id] = $this->eventTable->count(['groupId' => $group->id]);
                 }
             }
@@ -35,6 +39,7 @@ class IndexController extends AbstractController
 
             return new ViewModel([
                 'user'   => $this->getUser(),
+                'adminGroups'   => $adminGroups,
             ]);
         } else {
             return $this->redirect()->toUrl('/welcome');

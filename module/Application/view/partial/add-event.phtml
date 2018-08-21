@@ -1,180 +1,93 @@
 <!--AddEvent Dialog -->
+<?php if ($adminGroups): ?>
   <div class="modal fade" id="addNewEvent" aria-hidden="true" aria-labelledby="addNewEvent"
   role="dialog" tabindex="-1">
-  <div class="modal-dialog modal-simple">
-    <form class="modal-content form-horizontal" action="#" method="post" role="form">
-      <div class="modal-header">
-        <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
-        <h4 class="modal-title">New Event</h4>
-      </div>
-      <div class="modal-body">
-
-        <div class="row row-lg">
-          <div class="col-xl-12">
-            <!-- Example Tabs Line -->
-            <div class="example-wrap m-xl-0">
-              <div class="nav-tabs-horizontal" data-plugin="tabs">
-                <ul class="nav nav-tabs nav-tabs-line" role="tablist">
-                  <li class="nav-item" role="presentation"><a class="nav-link active" data-toggle="tab" href="#training"
-                    aria-controls="training" role="tab">Training</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#match"
-                      aria-controls="match" role="tab">Match</a></li>
-                    </ul>
-                    <div class="tab-content pt-20">
-                      <div class="tab-pane active" id="training" role="tabpanel">
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="inputTime">Group</label>
-                          <div class="col-10">
-                            <div class="input-group">
-                              <select data-plugin="selectpicker">
-                                <option disabled="disabled" selected>Choose your group</option>
-                                <option>Mustard</option>
-                                <option>Ketchup</option>
-                                <option>Relish</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="ename">Name</label>
-                          <div class="col-10">
-                            <input type="text" class="form-control" id="ename" name="ename" placeholder="Training Tuesday">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="starts">Date</label>
-                          <div class="col-5 col-lg-7">
-                            <div class="input-group">
-                              <input type="text" class="form-control" data-date-format="yyyy-mm-dd" data-start-date="" id="starts" data-container="#addNewEvent"
-                              data-plugin="datepicker">
-                              <div class="input-group-append">
-                                <span class="input-group-text">
-                                  <i class="icon wb-calendar" aria-hidden="true"></i>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-5 col-lg-3">
-                            <div class="input-group">
-                              <input type="text" class="form-control" id="inputTime" data-plugin="formatter" data-pattern="[[99]]:[[99]]">
-                              <div class="hidden-xs input-group-append">
-                                <span class="input-group-text">
-                                  <i class="icon wb-time" aria-hidden="true"></i>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="place">Place</label>
-                          <div class="col-10">
-                            <input type="text" class="form-control" id="place" name="place" placeholder="Gymnasium Dunois">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="address">Address</label>
-                          <div class="col-10">
-                            <input type="text" class="form-control" id="address" name="address" placeholder="70 rue de Dunois">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="zipcode">Zipcode</label>
-                          <div class="col-10">
-                            <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Paris">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="city">City</label>
-                          <div class="col-10">
-                            <input type="text" class="form-control" id="city" name="city" placeholder="Paris">
-                          </div>
-                        </div>
-                      </div>
-                      <!-- MATCH -->
-                      <div class="tab-pane" id="match" role="tabpanel">
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="inputTime">Group</label>
-                          <div class="col-10">
-                            <div class="input-group">
-                              <select data-plugin="selectpicker">
-                                <option disabled="disabled" selected>Choose your group</option>
-                                <option>Mustard</option>
-                                <option>Ketchup</option>
-                                <option>Relish</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="opponent">Opponent</label>
-                          <div class="col-10">
-                            <input type="text" class="form-control" id="opponent" name="opponent" placeholder="Volley 6">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="starts">Date</label>
-                          <div class="col-5 col-lg-7">
-                            <div class="input-group">
-                              <input type="text" class="form-control" id="starts" data-container="#addNewEvent"
-                              data-plugin="datepicker">
-                              <div class="input-group-append">
-                                <span class="input-group-text">
-                                  <i class="icon wb-calendar" aria-hidden="true"></i>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-5 col-lg-3">
-                            <div class="input-group">
-                              <input type="text" class="form-control" id="inputTime" data-plugin="formatter" data-pattern="[[99]]:[[99]]">
-                              <div class="input-group-append">
-                                <span class="input-group-text">
-                                  <i class="icon wb-time" aria-hidden="true"></i>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="place">Place</label>
-                          <div class="col-10">
-                            <input type="text" class="form-control" id="place" name="place" placeholder="Gymnasium Dunois">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="address">Address</label>
-                          <div class="col-10">
-                            <input type="text" class="form-control" id="address" name="address" placeholder="70 rue de Dunois">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="zipcode">Zipcode</label>
-                          <div class="col-10">
-                            <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Paris">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-2 form-control-label" for="address">City</label>
-                          <div class="col-10">
-                            <input type="text" class="form-control" id="city" name="city" placeholder="Paris">
-                          </div>
-                        </div>
-                      </div>
+    <div class="modal-dialog modal-simple">
+      <form class="modal-content form-horizontal" action="#" method="post" role="form">
+        <div class="modal-header">
+          <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+          <h4 class="modal-title">New Event</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row row-lg">
+            <div class="col-xl-12">
+              <div class="form-group row">
+                <label class="col-2 form-control-label" for="inputTime">Group</label>
+                <div class="col-10">
+                  <div class="input-group">
+                    <select class="form-control">
+                      <option disabled="disabled" selected>Choose your group</option>
+                      <?php foreach ($adminGroups as $group): ?>
+                        <option value="<?= $group->id ?>"><?= $group->name ?></option>
+                      <?php endforeach ?>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 form-control-label" for="ename">Name</label>
+                <div class="col-10">
+                  <input type="text" class="form-control" id="ename" name="ename" placeholder="Training Tuesday">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 form-control-label" for="starts">Date</label>
+                <div class="col-5 col-lg-7">
+                  <div class="input-group">
+                    <input type="text" class="form-control" data-date-format="yyyy-mm-dd" data-start-date="" id="starts" data-container="#addNewEvent"
+                    data-plugin="datepicker">
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <i class="icon wb-calendar" aria-hidden="true"></i>
+                      </span>
                     </div>
                   </div>
                 </div>
-                <!-- End Example Tabs Line -->
+                <div class="col-5 col-lg-3">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="inputTime" data-plugin="formatter" data-pattern="[[99]]:[[99]]">
+                    <div class="hidden-xs input-group-append">
+                      <span class="input-group-text">
+                        <i class="icon wb-time" aria-hidden="true"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 form-control-label" for="place">Place</label>
+                <div class="col-10">
+                  <input type="text" class="form-control" id="place" name="place" placeholder="Gymnasium Dunois">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 form-control-label" for="address">Address</label>
+                <div class="col-10">
+                  <input type="text" class="form-control" id="address" name="address" placeholder="70 rue de Dunois">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 form-control-label" for="zipcode">Zipcode</label>
+                <div class="col-10">
+                  <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Paris">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 form-control-label" for="city">City</label>
+                <div class="col-10">
+                  <input type="text" class="form-control" id="city" name="city" placeholder="Paris">
+                </div>
               </div>
             </div>
-
           </div>
-          <div class="modal-footer">
-            <div class="form-actions">
-              <button class="btn btn-primary" data-dismiss="modal" type="button">Add this event</button>
-              <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
-            </div>
+        </div>
+        <div class="modal-footer">
+          <div class="form-actions">
+            <button class="btn btn-primary" data-dismiss="modal" type="button">Add this event</button>
+            <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
-    <!-- End AddEvent Dialog -->
+  </div>
+<?php endif ?>

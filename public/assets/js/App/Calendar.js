@@ -87,12 +87,14 @@
           selectable: true,
           selectHelper: true,
           select: function select(date) {
-            var eventDate = new Date(date);
-            var now = new Date();
-            now.setHours(0,0,0,0);
-            if ( eventDate.getTime() >= now.getTime()) {
-              $('#addNewEvent').modal('show');
-              $("#starts").datepicker("update", new Date(date));
+            if ($('#addNewEvent').lenght !== 'undefined') {            
+              var eventDate = new Date(date);
+              var now = new Date();
+              now.setHours(0,0,0,0);
+              if ( eventDate.getTime() >= now.getTime()) {
+                $('#addNewEvent').modal('show');
+                $("#starts").datepicker("update", new Date(date));
+              }
             }
           },
           editable: true,
