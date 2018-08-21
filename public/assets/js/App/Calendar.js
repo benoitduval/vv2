@@ -56,6 +56,7 @@
         var groupId = $('#calendar').attr('data-groupId');
 
         var myOptions = {
+          selectLongPressDelay: 10,
           lazyFetching: true,
           events: {
               url: '/api/event/get/all',
