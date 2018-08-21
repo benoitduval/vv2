@@ -1,149 +1,74 @@
-  <div class="row" data-plugin="matchHeight" data-by-row="true">
-    <!-- Personal -->
+  <div class="row">
+
     <div class="col-md-6 col-12">
-      <div id="personalCompletedWidget" class="card card-shadow pb-20">
-        <div class="card-header card-header-transparent cover overlay">
-          <img class="cover-image" src="/global/photos/placeholder.png">
-          <div class="overlay-panel overlay-background vertical-align">
-            <div class="vertical-align-middle">
-              <a class="avatar" href="javascript:void(0)" data-toggle="modal" data-target="#editGroup">
-                <img alt="" src="<?= $group->getAvatarPath() ?>">
-              </a>
-              <div class="font-size-20 mt-10"><?= $group->name ?></div>
-              <div class="font-size-14">70 rue de Dunois, 75013 Paris</div>
+      <div class="row">
+        <div class="col-12">
+          <div id="personalCompletedWidget" class="user-info card card-shadow text-center pb-20">
+            <div class="user-base card-block">
+              <span class="avatar img-bordered avatar-100" href="javascript:void(0)">
+                <img src="<?= $group->getAvatarPath() ?>">
+              </span>
+              <h4 class="user-name"><?= $group->name; ?></h4>
             </div>
           </div>
         </div>
-        <div class="card-block">
-          <div class="row text-center mb-20">
-            <div class="col-4">
-              <div class="counter">
-                <div class="counter-label total-completed">Events</div>
-                <div class="counter-number red-600"><?= $eventsCount ?></div>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="counter">
-                <div class="counter-label">Matchs</div>
-                <div class="counter-number blue-600"><?= $matchCount ?></div>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="counter">
-                <div class="counter-label">People</div>
-                <div class="counter-number green-600"><?= count($users) ?></div>
+
+        <div class="col-4">
+          <div class="card card-shadow card-completed-options">
+            <div class="card-block p-30">
+              <div class="row">
+                <div class="counter col-12 text-center blue-grey-700">
+                  <div class="counter-label mt-10">Events
+                  </div>
+                  <div class="counter-number font-size-40 mt-10 red-600">
+                    <?= $eventsCount ?>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="table-responsive">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td>
-                    <span class="badge badge-outline badge-warning badge-lg">Outside Hitter</span>
-                  </td>
-                  <td>
-                    <div class="progress progress-xs mb-0">
-                      <div class="progress-bar progress-bar-warning bg-orange-600" role="progressbar" aria-valuenow="90"
-                        aria-valuemin="0" aria-valuemax="100" style="width: 90%">
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    90%
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="badge badge-outline badge-success badge-lg">Opposite</span>
-                  </td>
-                  <td>
-                    <div class="progress progress-xs mb-0">
-                      <div class="progress-bar progress-bar-success bg-green-600" role="progressbar" aria-valuenow="86"
-                        aria-valuemin="0" aria-valuemax="100" style="width: 86%">
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    86%
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="badge badge-outline badge-danger badge-lg">Setter</span>
-                  </td>
-                  <td>
-                    <div class="progress progress-xs mb-0">
-                      <div class="progress-bar progress-bar-danger bg-red-600" role="progressbar" aria-valuenow="68"
-                        aria-valuemin="0" aria-valuemax="100" style="width: 68%">
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    68%
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="badge badge-outline badge-info badge-lg">Middle Blocker</span>
-                  </td>
-                  <td>
-                    <div class="progress progress-xs mb-0">
-                      <div class="progress-bar progress-bar-info bg-blue-600" role="progressbar" aria-valuenow="68"
-                        aria-valuemin="0" aria-valuemax="100" style="width: 68%">
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    68%
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="badge badge-outline badge-dark badge-lg">Libero</span>
-                  </td>
-                  <td>
-                    <div class="progress progress-xs mb-0">
-                      <div class="progress-bar progress-bar-dark bg-grey-800" role="progressbar" aria-valuenow="68"
-                        aria-valuemin="0" aria-valuemax="100" style="width: 68%">
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    68%
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="badge badge-outline badge-default badge-lg">Others</span>
-                  </td>
-                  <td>
-                    <div class="progress progress-xs mb-0">
-                      <div class="progress-bar progress-bar-default bg-grey-600" role="progressbar" aria-valuenow="68"
-                        aria-valuemin="0" aria-valuemax="100" style="width: 68%">
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    68%
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        </div>
+
+        <div class="col-4">
+          <div class="card card-shadow card-completed-options">
+            <div class="card-block p-30">
+              <div class="row">
+                <div class="counter col-12 text-center blue-grey-700">
+                  <div class="counter-label mt-10">People
+                  </div>
+                  <div class="counter-number font-size-40 mt-10 green-600">
+                    <?= count($users) ?>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-12">
-      <div class="card card-shadow card-completed-options">
-        <div class="card-header card-header-transparent">
-          <h4 class="card-title">
-            <i class="icon wb-users"></i> Your team
-          </h4>
+
+        <div class="col-4">
+          <div class="card card-shadow card-completed-options">
+            <div class="card-block p-30">
+              <div class="row">
+                <div class="counter col-12 text-center blue-grey-700">
+                  <div class="counter-label mt-10">Matchs
+                  </div>
+                  <div class="counter-number font-size-40 mt-10 blue-600">
+                   <?= $matchCount ?>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card-block p-30">
-          <div class="row">
-            <div class="col-12">
+
+        <div class="col-12">
+          <div id="recentActivityWidget" class="card card-shadow card-lg pb-20">
+            <div class="card-header card-header-transparent pb-10">
+              <h5 class="card-title">
+                Team
+              </h5>
+            </div>
+            <div class="card-block">
               <div class="table-responsive">
                 <table class="table">
                   <tbody id="table-resp-ok">
@@ -152,16 +77,19 @@
                     <?php else: ?>
                       <?php foreach ($users as $user) : ?>
                           <tr>
-                              <td class="avatar avatar-md pt-10" style="border: none; padding:2px;">
-                                <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                              <td>
+                                <div class="avatar avatar-md">
+                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>">
+                                </div>
                               </td>
-                              <td><?= $user->firstname ?></td>
-                              <td><?= $user->lastname ?></td>
-                              <td><span class="badge badge-outline badge-warning float-right">Outside Hitter</span></td>
+                              <td><?= $user->getFullname() ?></td>
+                              <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
                               <?php if ($isAdmin): ?>
                                 <td>
-                                  <a href="#" class='btn btn-danger btn-xs float-right'><i class="icon wb-trash"></i></a>
-                                  <a href="#" class='btn btn-info btn-xs float-right'><i class="icon wb-pencil"></i></a>
+                                  <a href="#" class='btn btn-danger btn-xs btn-outline float-right'>  <i class="icon wb-trash"></i>
+                                  </a>
+                                  <a href="#" class='btn btn-info btn-xs btn-outline float-right mr-5'>
+                                    <i class="icon wb-pencil"></i></a>
                                 </td>
                               <?php endif ?>
                           </tr>
@@ -175,14 +103,10 @@
         </div>
       </div>
     </div>
-    <!-- End Personal -->
-  </div>
 
-  <div class="row" data-plugin="matchHeight" data-by-row="true">
-    <!-- First Row -->
-    <!-- Completed Options Pie Widgets -->
-    <div class="col-lg-6">
-      <div class="row h-full" data-plugin="matchHeight">
+
+    <div class="col-md-6 col-12">
+      <div class="row">
         <div class="col-12 col-md-6">
           <div class="card card-shadow card-completed-options">
             <div class="card-block p-30">
@@ -209,6 +133,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-12 col-md-6">
           <div class="card card-shadow card-completed-options">
             <div class="card-block p-30">
@@ -277,15 +202,7 @@
         </div>
       </div>
     </div>
-
-    <div class="col-lg-6">
-      <div id="teamCompletedWidget" class="card card-shadow example-responsive">
-        <div class="card-block p-20 pb-25">
-          <div class="ct-chart" id="ratiokillsPerFaults" data-ratio-point="<?= $attackRatio ?>" data-ratio-fault="<?= $faultRatio ?>" data-labels='<?= $labels ?>'></div>
-        </div>
-      </div>
-    </div>
-    <!-- End Completed Options Pie Widgets -->
+    <!-- End Personal -->
   </div>
 
   <div class="modal fade" id="editGroup" aria-hidden="true" aria-labelledby="editGroup"
@@ -295,7 +212,7 @@
         <div class="modal-body">
           <div class="col-12 text-center mb-20">
             <span class="avatar img-bordered avatar-100" href="javascript:void(0)">
-              <img alt="" src="<?= $group->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+              <img alt="" src="<?= $group->getAvatarPath() ?>">
             </span>
           </div>
           <?php $form->prepare(); // The correct enctype is set here ?>
