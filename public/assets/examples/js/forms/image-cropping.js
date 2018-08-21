@@ -98,7 +98,7 @@
           processData: false,
           contentType: false,
           success: function () {
-            console.log('Upload success');
+            location.reload(true);
           },
           error: function () {
             console.log('Upload error');

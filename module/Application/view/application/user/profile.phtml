@@ -4,9 +4,9 @@
       <div id="personalCompletedWidget" class="user-info card card-shadow text-center pb-20">
         <div class="user-base card-block ribbon-bookmark ribbon-warning">
           <span class="ribbon-inner">Outside Hitter</span>
-          <a class="avatar img-bordered avatar-100" href="javascript:void(0)">
-            <img alt="" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-          </a>
+          <span class="avatar img-bordered avatar-100" href="javascript:void(0)">
+            <img src="<?= $user->getAvatarPath() ?>">
+          </span>
           <h4 class="user-name"><?= $user->getFullname(); ?></h4>
         </div>
         <div class="card-block">
@@ -65,294 +65,168 @@
 
   <div class="col-lg-4">
     <div class="card">
+      <div class="card-header card-header-transparent">
+        <h4 class="card-title">
+          Edit Your Profile
+        </h4>
+      </div>
+      <div class="card-block">
+        <form method="post" name="submit-profile">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" name="firstname" placeholder="First Name"
+                autocomplete="off" value="<?= $user->firstname ?>" required/>
+            </div>
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" name="lastname" placeholder="Last Name"
+                autocomplete="off" value="<?= $user->lastname ?>" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control" name="email" placeholder="Email Address"
+              autocomplete="off" disabled value="<?= $user->email ?>" />
+          </div>
+          <div class="row">
+            <div class="col-7">
+              <div class="input-group">
+                <select name="position" class="col-12 form-control">
+                  <option disabled="disabled" <?= (!$user->position) ? ' selected' :''; ?>>Role</option>
+                  <option <?= ($user->position == 4) ? ' selected' :''; ?> value="4">Outside Hitter</option>
+                  <option <?= ($user->position == 2) ? ' selected' :''; ?> value="2">Opposite</option>
+                  <option <?= ($user->position == 3) ? ' selected' :''; ?> value="3">Middle Blocker</option>
+                  <option <?= ($user->position == 1) ? ' selected' :''; ?> value="1">Setter</option>
+                  <option <?= ($user->position == 5) ? ' selected' :''; ?> value="5">Libero</option>
+                  <option <?= ($user->position == 6) ? ' selected' :''; ?> value="6">Coach</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-5">
+              <div class="input-group">
+                <select class="col-12 form-control" name="numero">
+                  <option disabled="disabled"  <?= (!$user->numero) ? ' selected' :''; ?>>Number</option>
+                  <?php for ($i = 1; $i <= 22 ; $i++) : ?>
+                    <option  <?= ($user->numero == $i) ? ' selected' :''; ?> value="<?= $i ?>"># <?= $i ?></option>
+                  <?php endfor; ?>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mt-10 float-right">
+            <button type="submit" class="btn btn-success btn-outline" name="submit-profile">
+              <i class="icon wb-check"></i> Submit
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
       <div class="card-header card-header-transparent pb-0">
         <h4 class="card-title">
           <i class="icon wb-heart"></i>My Holidays
         </h4>
       </div>
       <div class="card-block mb-0 pt-10">
-        <div class="input-daterange" data-plugin="datepicker">
-          <div class="input-group col-5 p-0">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="icon wb-calendar" aria-hidden="true"></i>
-              </span>
+        <form method="post" name="submit-holiday">
+          <div class="input-daterange" data-plugin="datepicker" data-date-format="yyyy-mm-dd" data-start-date="now">
+            <div class="input-group col-5 p-0">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="icon wb-calendar" aria-hidden="true"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control m-0" name="start" required />
             </div>
-            <input type="text" class="form-control m-0" name="start" />
-          </div>
-          <div class="input-group col-5 p-0">
-            <div class="input-group-prepend">
-              <span class="input-group-text">to</span>
+            <div class="input-group col-5 p-0">
+              <div class="input-group-prepend">
+                <span class="input-group-text">to</span>
+              </div>
+              <input type="text" class="form-control m-0" name="end"  required/>
             </div>
-            <input type="text" class="form-control m-0" name="end" />
+            <button type="submit" name="submit-holiday" class="btn btn-primary btn-outline col-2 m-0"><i class="icon wb-plus-circle"></i></button>
           </div>
-          <button type="button" class="btn btn-primary col-2 m-0"><i class="icon wb-plus-circle"></i></button>
+        </form>
+      </div>
+
+      <?php if ($holidays): ?>        
+        <div class="card-block">
+          <div class="table-responsive">
+            <table class="table text-center">
+              <tbody>
+                <?php foreach ($holidays as $holiday): ?>            
+                  <tr class="p-20">
+                    <td>
+                      <?php
+                        $from = \DateTime::createFromFormat('Y-m-d H:i:s', $holiday->from);
+                        echo $from->format('Y-m-d');
+                      ?>
+                    </td>
+                    <td>
+                      <i class="icon wb-arrow-right"></i>
+                    </td>
+                    <td>
+                      <?php
+                        $to = \DateTime::createFromFormat('Y-m-d H:i:s', $holiday->to);
+                        echo $to->format('Y-m-d');
+                      ?>
+                    </td>
+                    <td class="text-right">
+                      <a href="javascript:void(0)" class="delete-holiday" data-id="<?= $holiday->id ?>">
+                        <i class="icon wb-trash text-danger"></i>
+                      </a>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-
-      <div class="table-responsive">
-        <table class="table text-center">
-          <tbody>
-            <tr class="p-20">
-              <td>
-                July 20th, 2017
-              </td>
-              <td>
-                <i class="icon wb-arrow-right"></i>
-              </td>
-              <td>
-                July 26th, 2017
-              </td>
-              <td class="text-right">
-                <i class="icon wb-trash"></i>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Last comments -->
-    <div class="panel" id="messge">
-      <div class="panel-heading">
-        <h3 class="panel-title">Last comments</h3>
-      </div>
-      <div class="panel-body pr-0 pl-10">
-        <ul class="list-group list-group-full flow-y" style="max-height: 250px">
-          <li class="list-group-item">
-            <div class="media">
-              <div class="pr-20">
-                <span class="avatar">
-                  <img src="../../../global/portraits/1.jpg" alt="">
-                </span>
-              </div>
-              <div class="media-body col-12">
-                <h5 class="list-group-item-heading mt-0 mb-5">
-                  <small class="float-right">3 days ago</small>
-                  Herman Beck
-                </h5>
-                <p class="list-group-item-text">Cogitemus tempora tibique probabo...</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item">
-            <div class="media">
-              <div class="pr-20">
-                <span class="avatar">
-                  <img src="../../../global/portraits/2.jpg" alt="">
-                </span>
-              </div>
-              <div class="media-body col-12">
-                <h5 class="list-group-item-heading mt-0 mb-5">
-                  <small class="float-right">3 days ago</small>
-                  Mary Adams
-                </h5>
-                <p class="list-group-item-text">Praeter ingenii illa novum...</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item">
-            <div class="media">
-              <div class="pr-20">
-                <span class="avatar">
-                  <img src="../../../global/portraits/3.jpg" alt="">
-                </span>
-              </div>
-              <div class="media-body col-12">
-                <h5 class="list-group-item-heading mt-0 mb-5">
-                  <small class="float-right">3 days ago</small>
-                  Caleb Richards
-                </h5>
-                <p class="list-group-item-text">Exquisitis officii tantalo etsi...</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item">
-            <div class="media">
-              <div class="pr-20">
-                <span class="avatar">
-                  <img src="../../../global/portraits/4.jpg" alt="">
-                </span>
-              </div>
-              <div class="media-body col-12">
-                <h5 class="list-group-item-heading mt-0 mb-5">
-                  <small class="float-right">3 days ago</small>
-                  June Lane
-                </h5>
-                <p class="list-group-item-text">Artes adamare deorum obiecta...</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item">
-            <div class="media">
-              <div class="pr-20">
-                <span class="avatar">
-                  <img src="../../../global/portraits/1.jpg" alt="">
-                </span>
-              </div>
-              <div class="media-body col-12">
-                <h5 class="list-group-item-heading mt-0 mb-5">
-                  <small class="float-right">3 days ago</small>
-                  Herman Beck
-                </h5>
-                <p class="list-group-item-text">Cogitemus tempora tibique probabo...</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item">
-            <div class="media">
-              <div class="pr-20">
-                <span class="avatar">
-                  <img src="../../../global/portraits/2.jpg" alt="">
-                </span>
-              </div>
-              <div class="media-body col-12">
-                <h5 class="list-group-item-heading mt-0 mb-5">
-                  <small class="float-right">3 days ago</small>
-                  Mary Adams
-                </h5>
-                <p class="list-group-item-text">Praeter ingenii illa novum...</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item">
-            <div class="media">
-              <div class="pr-20">
-                <span class="avatar">
-                  <img src="../../../global/portraits/3.jpg" alt="">
-                </span>
-              </div>
-              <div class="media-body col-12">
-                <h5 class="list-group-item-heading mt-0 mb-5">
-                  <small class="float-right">3 days ago</small>
-                  Caleb Richards
-                </h5>
-                <p class="list-group-item-text">Exquisitis officii tantalo etsi...</p>
-              </div>
-            </div>
-          </li>
-          <li class="list-group-item">
-            <div class="media">
-              <div class="pr-20">
-                <span class="avatar">
-                  <img src="../../../global/portraits/4.jpg" alt="">
-                </span>
-              </div>
-              <div class="media-body col-12">
-                <h5 class="list-group-item-heading mt-0 mb-5">
-                  <small class="float-right">3 days ago</small>
-                  June Lane
-                </h5>
-                <p class="list-group-item-text">Artes adamare deorum obiecta...</p>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <?php endif ?>
     </div>
   </div>
 
   <div class="col-lg-4">
-    <div class="card">
-    <div class="card-header card-header-transparent">
-      <h4 class="card-title">
-        Edit Your Profile
-      </h4>
-    </div>
-    <div class="card-block">
-      <?php $form->prepare(); // The correct enctype is set here ?>
-      <?= $this->form()->openTag($form); ?>
-        <div class="row">
-          <div class="form-group col-md-6">
-            <input type="text" class="form-control" name="firstname" placeholder="First Name"
-              autocomplete="off" value="<?= $user->firstname ?>"/>
-          </div>
-          <div class="form-group col-md-6">
-            <input type="text" class="form-control" name="lastname" placeholder="Last Name"
-              autocomplete="off" value="<?= $user->lastname ?>"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <input type="email" class="form-control" name="email" placeholder="Email Address"
-            autocomplete="off" disabled value="<?= $user->email ?>" />
-        </div>
-        <div class="row">
-          <div class="col-7">
-            <div class="input-group">
-              <select data-plugin="selectpicker" class="col-12 p-0">
-                <option disabled="disabled" selected>Role</option>
-                <option value="4">Outside Hitter</option>
-                <option value="2">Opposite</option>
-                <option value="2">Middle Blocker</option>
-                <option value="1">Setter</option>
-                <option value="5">Libero</option>
-                <option value="6">Other</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-5">
-            <div class="input-group">
-              <select data-plugin="selectpicker" class="col-12 p-0">
-                <option disabled="disabled" selected>Number</option>
-                <?php for ($i = 1; $i <= 22 ; $i++) : ?>
-                  <option>#<?= $i ?></option>
-                <?php endfor; ?>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="form-element mt-20">
-            <?php $fileElement = $form->get('image-file'); ?>
-            <?= $this->formFile($fileElement); ?>
-        </div>
-        <div class="form-group mt-10 float-right">
-          <input type="submit" class="btn btn-primary" value  ="Submit">
-        </div>
-      <?= $this->form()->closeTag(); ?>
-    </div>
-    </div>
-  </div>
-</div>
-
-<div class="panel">
-  <div class="panel-heading">
-    <h3 class="panel-title">Full Demo (16:9)</h3>
-  </div>
-  <div class="panel-body container-fluid">
-    <div class="row">
-      <div class="col-lg-8">
-        <div class="cropper text-center" id="exampleFullCropper">
-          <img src="../../../global/photos/placeholder.png" alt="...">
-        </div>
-        <div class="cropper-toolbar text-center">
-          <div class="btn-group mb-20">
-            <button type="button" class="btn btn-primary" data-cropper-method="clear" data-toggle="tooltip"
-              data-container="body">
-              <span class="cropper-tooltip">
-                <i class="icon wb-close" aria-hidden="true"></i>
-              </span>
-            </button>
-            <label class="btn btn-primary mb-0" data-toggle="tooltip" for="inputImage" data-container="body"
-              title="Upload File">
-              <input type="file" class="hidden-xs-up" id="inputImage" name="file" accept="image/*">
-              <span class="cropper-tooltip" title="Import image with FileReader">
-                <i class="icon wb-folder" aria-hidden="true"></i>
-              </span>
-            </label>
-            <button type="button" id="uploadCropperData" class="btn btn-success" data-toggle="tooltip"
-              data-container="body">
-              <span class="cropper-tooltip">
-                <i class="icon wb-download" aria-hidden="true"></i>
-              </span>
-            </button>
-          </div>
-        </div>
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Avatar</h3>
       </div>
+      <div class="panel-body container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="cropper text-center" id="exampleFullCropper">
+              <img src="/img/default-avatar.png" alt="...">
+            </div>
+            <div class="cropper-toolbar text-center">
+              <div class="btn-group mb-20">
+                <button type="button" class="btn btn-default btn-outline" data-cropper-method="clear" data-toggle="tooltip"
+                  data-container="body">
+                  <span class="cropper-tooltip">
+                    <i class="icon wb-close" aria-hidden="true"></i> Clear
+                  </span>
+                </button>
+                <label class="btn btn-primary mb-0 btn-outline" data-toggle="tooltip" for="inputImage" data-container="body">
+                  <input type="file" class="hidden-xs-up" id="inputImage" name="file" accept="image/*">
+                  <span class="cropper-tooltip">
+                    <i class="icon wb-folder" aria-hidden="true"></i> Choose
+                  </span>
+                </label>
+                <button type="button" id="uploadCropperData" class="btn btn-success btn-outline" data-toggle="tooltip"
+                  data-container="body">
+                  <span class="cropper-tooltip">
+                    <i class="icon wb-download" aria-hidden="true"></i> Upload
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
 
-      <div class="col-lg-4">
-        <div class="cropper-preview clearfix" id="exampleFullCropperPreview">
+          <div class="col-lg-12">
+            <div class="cropper-preview clearfix" id="exampleFullCropperPreview">
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
 </div>

@@ -14,29 +14,32 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         
-
         $form = new Form\Profile('uploader', ['entity' => $user->getFullname() . $user->id]);
-        $tempFile = null;
 
-        $prg = $this->fileprg($form);
-        if ($prg instanceof \Zend\Http\PhpEnvironment\Response) {
-            return $prg; // Return PRG redirect response
-        } elseif (is_array($prg)) {
-            if ($form->isValid()) {
-                $data = $form->getData();
-                // Form is valid, save the form!
-            } else {
-                // Form not valid, but file uploads might be valid...
-                // Get the temporary file information to show the user in the view
-                $fileErrors = $form->get('image-file')->getMessages();
-                if (empty($fileErrors)) {
-                    $tempFile = $form->get('image-file')->getValue();
-                }
+        $holidays = $this->holidayTable->fetchAll([
+            'userId' => $user->id,
+            '`to` > ?' => date('Y-m-d H:i:s', time())
+        ]);
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $post = $request->getPost()->toArray();
+            if (isset($post['submit-profile'])) {
+                unset($post['submit-profile']);
+                $post['id'] = $user->id;
+                $user = $this->userTable->save($post);
+            } else if (isset($post['submit-holiday'])) {
+                $from = \DateTime::createFromFormat('Y-m-d', $post['start']);
+                $to   = \DateTime::createFromFormat('Y-m-d', $post['end']);
+                $holiday = $this->holidayTable->save([
+                    'from'   => $from->format('Y-m-d 00:00:00'),
+                    'to'     => $to->format('Y-m-d 23:59:59'),
+                    'userId' => $user->id
+                ]);
+                $this->_updateEvents($from, $to);
             }
+            $this->redirect()->toUrl('/user/profile');
         }
-
-        $groupTable = $this->get(TableGateway\Group::class);
-        $groups     = $this->getUserGroups();
 
         $count['total'] = $this->disponibilityTable->count(['userId' => $user->id]);
         $eventsOk = $this->disponibilityTable->fetchAll(['userId' => $user->id, 'response' => \Application\Model\Disponibility::RESP_OK]);
@@ -54,6 +57,37 @@ class UserController extends AbstractController
             'user'  => $this->getUser(),
             'form'  => $form,
             'count' => $count,
+            'holidays' => $holidays,
         ]);
+    }
+
+    protected function _updateEvents($from, $to)
+    {
+        // update all event between theses dates
+        $groupIds   = [];
+        foreach ($this->getUserGroups() as $group) {
+            $groupIds[] = $group->id;
+        }
+
+        if ($groupIds) {
+            $events = $this->eventTable->fetchAll([
+                'date > ?' => $from->format('Y-m-d 00:00:00'),
+                'date < ?' => $to->format('Y-m-d 23:59:59'),
+                'groupId'  => $groupIds
+            ]);
+
+            foreach ($events as $event) {
+                $disponibility = $this->disponibilityTable->fetchOne([
+                    'userId'  => $this->getUser()->id,
+                    'eventId' => $event->id,
+                    'response <> ?' => Model\Disponibility::RESP_NO
+                ]);
+
+                if ($disponibility) {
+                    $disponibility->response = Model\Disponibility::RESP_NO;
+                    $this->disponibilityTable->save($disponibility);
+                }
+            }
+        }
     }
 }

@@ -45,6 +45,19 @@ return [
                     ],
                 ],
             ],
+            'delete-holiday' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/api/user/delete-holiday/:id',
+                    'constraints' => [
+                        'id' => '[0-9]*',
+                    ],
+                    'defaults' => [
+                        'controller'    => Controller\UserController::class,
+                        'action'        => 'delete-holiday',
+                    ],
+                ],
+            ],
             'get-all-events' => [
                 'type'    => Segment::class,
                 'options' => [

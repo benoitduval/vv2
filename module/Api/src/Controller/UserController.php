@@ -72,7 +72,7 @@ class UserController extends AbstractController
                 if (!move_uploaded_file(
                     $_FILES['croppedImage']['tmp_name'],
                     sprintf(getcwd() . '/public/img/avatars/%s.%s',
-                        md5($this->getUser()->getFullname() . $this->getUser()->id),
+                        md5($this->getUser()->email . $this->getUser()->id),
                         'png'
                     )
                 )) {
@@ -98,6 +98,28 @@ class UserController extends AbstractController
             $view->setTemplate('api/default/json.phtml');
             return $view;
         }
+    }
+
+    public function deleteHolidayAction()
+    {
+        $id = $this->params('id', null);
+        $holiday = $this->holidayTable->find($id);
+        $result = false;
+        if (($holiday = $this->holidayTable->find($id)) && $holiday->userId == $this->getUser()->id) {
+            $holiday = $this->holidayTable->find($id);
+            $this->holidayTable->delete($holiday);
+            $result = true;
+        }
+
+        $view = new ViewModel(array(
+            'result'   => [
+                'success'  => $result
+            ]
+        ));
+
+        $view->setTerminal(true);
+        $view->setTemplate('api/default/json.phtml');
+        return $view;
     }
 
     public function grantAction()
