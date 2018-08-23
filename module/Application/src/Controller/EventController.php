@@ -11,122 +11,6 @@ use Application\Service\OneSignalService;
 
 class EventController extends AbstractController
 {
-    public function createAction()
-    {
-        $groupId = $this->params('id', null);
-
-        $isAdmin = $this->userGroupTable->isAdmin($this->getUser()->id, $groupId);
-        if (($group = $this->groupTable->find($groupId)) && $isAdmin) {
-            $form = new Form\Event();
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-                $post  = $request->getPost();
-                $match = isset($post->match);
-                if ($match) unset($post->match);
-
-                $form->setData($post);
-                if ($form->isValid()) {
-
-                    $data = $form->getData();
-                    $date = \DateTime::createFromFormat('d/m/Y H:i', $data['date']);
-
-                    $data['date']    = $date->format('Y-m-d H:i:s');
-                    $data['groupId'] = $groupId;
-                    $event = $this->eventTable->save($data);
-
-                    if ($match) {
-                        $this->matchTable->save([
-                            'eventId' => $event->id
-                        ]);
-                    }
-
-                    // Create disponibility for this new event
-                    $emails = [];
-                    // $userGroups = $this->userGroupTable->fetchAll(['groupId' => $group->id]);
-                    $users = $this->userTable->getAllByGroupId($groupId);
-                    foreach ($users as $user) {
-                        $absent = $this->holidayTable->fetchOne([
-                            '`from` < ?' => $date->format('Y-m-d H:i:s'),
-                            '`to` > ?'   => $date->format('Y-m-d H:i:s'),
-                            'userId = ?' => $user->id
-                        ]);
-
-                        if ($absent) {
-                            $response = Model\Disponibility::RESP_NO;
-                        } else {
-                            $response = Model\Disponibility::RESP_NO_ANSWER;
-                            if ($this->notifTable->isAllowed(Model\Notification::EVENT_SIMPLE, $user->id)) {
-                                $emails[] = $user->email;
-                            }
-                        }
-
-                        $this->disponibilityTable->save([
-                            'eventId'  => $event->id,
-                            'userId'   => $user->id,
-                            'response' => $response,
-                            'groupId'  => $groupId,
-                        ]);
-                    }
-
-                    // send emails
-                    $config = $this->get('config');
-                    $oneSignal = $this->get(OneSignalService::class);
-                    $oneSignal->setData([
-                        'header'   => 'Nouvel événement !',
-                        'content'  => $event->name,
-                        'subtitle' => \Application\Service\Date::toFr($date->format('l d F \à H\hi')),
-                        'url'      => $config['baseUrl'] . '/event/detail/' . $event->id,
-                    ]);
-                    foreach ($emails as $email) {
-                        $oneSignal->sendTo($email);
-                    }
-
-                    if ($config['mail']['allowed']) {
-
-                        $view       = new \Zend\View\Renderer\PhpRenderer();
-                        $resolver   = new \Zend\View\Resolver\TemplateMapResolver();
-                        $resolver->setMap([
-                            'event' => __DIR__ . '/../../view/mail/event.phtml'
-                        ]);
-                        $view->setResolver($resolver);
-
-                        $viewModel  = new ViewModel();
-                        $viewModel->setTemplate('event')->setVariables(array(
-                            'event'     => $event,
-                            'group'     => $group,
-                            'date'      => $date,
-                            'baseUrl'   => $config['baseUrl']
-                        ));
-
-                        $mail = $this->get(MailService::class);
-                        // $mail->addIcalEvent($event);
-                        $mail->addBcc($emails);
-                        $mail->setSubject('[' . $group->name . '] ' . $event->name . ' - ' . \Application\Service\Date::toFr($date->format('l d F \à H\hi')));
-                        $mail->setBody($view->render($viewModel));
-                        try {
-                            $mail->send();
-                        } catch (\Exception $e) {
-                        }
-                    }
-
-                    $this->flashMessenger()->addSuccessMessage('Votre évènement a bien été créé. Les notifications ont été envoyés aux membres du groupe.');
-                    $this->redirect()->toRoute('home');
-                }
-            }
-
-            $this->layout()->user = $this->getUser();
-            return new ViewModel([
-                'group'   => $group,
-                'form'    => $form,
-                'user'    => $this->getUser(),
-                'isAdmin' => $isAdmin
-            ]);
-        } else {
-            $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
-            $this->redirect()->toRoute('home');
-        }
-    }
-
     public function detailAction()
     {
         $eventId = $this->params('id');
@@ -282,8 +166,7 @@ class EventController extends AbstractController
                 }
             }
 
-            // $this->layout()->setTemplate('layout/titled.phtml');
-            return new ViewModel([
+            $view = new ViewModel([
                 'stats'           => $stats,
                 'percents'        => $percents,
                 'attackScorer'    => $attackScorer,
@@ -319,6 +202,9 @@ class EventController extends AbstractController
                 'disponibilities' => json_encode(array_values($counters)),
                 'liveScoreUrl'    => $baseUrl . '/live/' . $event->id . '/' . \Application\Service\Strings::toSlug($event->name)
             ]);
+            $view->setTerminal(true);
+            
+            return $view;
         } else {
             $this->redirect()->toRoute('home');
         }

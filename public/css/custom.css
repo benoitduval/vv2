@@ -2,6 +2,18 @@
     background-color: #e6eaff;
 }
 
+.fc-future:hover {
+  cursor:copy;
+}
+
+.fc-AddButton-button {
+  outline: none;
+  box-shadow: none;
+  background-image: none;
+  background-color: transparent;
+  border: 0px solid transparent;
+}
+
 .text-present {
     color: #d5e5a3;
 }
@@ -68,6 +80,7 @@
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
     background-color: #fff;
+    color:#37474f;
 }
 
 .flow-y {

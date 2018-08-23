@@ -16,631 +16,311 @@
   </div>
 </div>
 
-<div class="modal fade" id="userStats" tabindex="-1" role="dialog" aria-labelledby="userStats%odal" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="userStats%odal">User Stats</h4>
-      </div>
-      <div class="modal-body">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="example-wrap mb-0">
+  <div class="nav-tabs-horizontal" data-plugin="tabs">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active show" data-toggle="tab" href="#eventDetails" aria-controls="eventDetails" role="tab" aria-selected="true">
+          <span>
+            <i class="icon wb-eye"></i> Details
+          </span>
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" data-toggle="tab" href="#eventComments" aria-controls="eventComments" role="tab" aria-selected="false">
+          <span>
+            <i class="icon wb-chat-text"></i> Comments
+            <span class="badge badge-pill up badge-info ml-5">
+              <?php if ($comments): ?>
+                <?= count($comments); ?>
+              <?php else: ?>
+                0
+              <?php endif ?>
+            </span>
+          </span>
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active show" id="eventDetails" role="tabpanel">
+        <div class="row">
 
-<div class="row">
-    <!-- Left Side -->
-    <div class="col-sm-4">
-        <div class="card mb-20">
-          <div class="card-block text-center vertical-align">
-            <div class="vertical-align-middle">
-              <div class="card-text card-divider col-12">
-                <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border:1px solid #cccccc;border-collapse:collapse;margin:auto;">
-                  <tbody>
-                    <tr>
-                      <td align="center" style="padding:5px" valign="top" width="160">
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+          <!-- TOP -->
+          <div class="col-12 mt-20">
+            <div class="card card-shadow">
+              <div class="btn-group btn-group-justified mt-0 mb-0">
+                <div class="btn-group" role="group">
+                  <a href="javascript:void(0)" class="event-response btn btn-present" data-response="<?= Application\Model\Disponibility::RESP_OK ?>">
+                    <i class="icon wb-check-circle" aria-hidden="true"></i>
+                    <br>
+                    <span class="text-uppercase">In</span>
+                  </a>
+                </div>
+                <div class="btn-group" role="group">
+                  <a href="javascript:void(0)" data-response="<?= Application\Model\Disponibility::RESP_NO ?>" class="btn btn-absent event-response">
+                    <i class="icon wb-minus-circle" aria-hidden="true"></i>
+                    <br>
+                    <span class="text-uppercase">Out</span>
+                  </a>
+                </div>
+                <div class="btn-group mt-40" role="group">
+                  <a href="javascript:void(0)" data-response="<?= Application\Model\Disponibility::RESP_UNCERTAIN ?>" class="btn btn-uncertain event-response">
+                    <i class="icon wb-help-circle" aria-hidden="true"></i>
+                    <br>
+                    <span class="text-uppercase">Uncertain</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <!-- Left Side -->
+            <div class="col-sm-6">
+                <div class="card mb-20">
+                  <div class="card-block text-center vertical-align">
+                    <div class="vertical-align-middle">
+                      <div class="card-text card-divider col-12">
+                        <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border:1px solid #cccccc;border-collapse:collapse;margin:auto;">
                           <tbody>
                             <tr>
-                              <td align="center" style="background-color:#fd9f1b;color:#ffffff;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:bold;padding-top:10px;padding-bottom:10px;text-align:center" valign="top"><?= \Application\Service\Date::toFr($date->format('F')) ?></td>
+                              <td align="center" style="padding:5px" valign="top" width="160">
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                                  <tbody>
+                                    <tr>
+                                      <td align="center" style="background-color:#fd9f1b;color:#ffffff;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:bold;padding-top:10px;padding-bottom:10px;text-align:center" valign="top"><?= \Application\Service\Date::toFr($date->format('F')) ?></td>
+                                    </tr>
+                                    <tr>
+                                      <td align="center" style="color:#000;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:100%;padding-top:5px;padding-bottom:5px;text-align:center" valign="top"><?= \Application\Service\Date::toFr($date->format('l')) ?></td>
+                                    </tr>
+                                    <tr>
+                                      <td align="center" style="color:#fd9f1b;font-family:Helvetica,Arial,sans-serif;font-size:60px;font-weight:bold;line-height:100%;text-align:center" valign="top"><?= \Application\Service\Date::toFr($date->format('d')) ?></td>
+                                    </tr>
+                                    <tr>
+                                      <td align="center" style="color:#000;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:100%;padding-top:5px;padding-bottom:5px;text-align:center" valign="top"><?= \Application\Service\Date::toFr($date->format('H\:i')) ?></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
                             </tr>
-                            <tr>
-                              <td align="center" style="color:#000;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:100%;padding-top:5px;padding-bottom:5px;text-align:center" valign="top"><?= \Application\Service\Date::toFr($date->format('l')) ?></td>
-                            </tr>
-                            <tr>
-                              <td align="center" style="color:#fd9f1b;font-family:Helvetica,Arial,sans-serif;font-size:60px;font-weight:bold;line-height:100%;text-align:center" valign="top"><?= \Application\Service\Date::toFr($date->format('d')) ?></td>
-                            </tr>
-                            <tr>
-                              <td align="center" style="color:#000;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:100%;padding-top:5px;padding-bottom:5px;text-align:center" valign="top"><?= \Application\Service\Date::toFr($date->format('H\:i')) ?></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <h3 class="card-title mb-20"><?= $event->name ?></h3>
-              <p><span class="card-title mb-10"><?= $event->address ?>, <?= $event->zipCode ?> <?= $event->city ?></span></p>
-              <div class="btn-group btn-group-justified mt-20 mb-20">
-                <div class="btn-group" role="group">
-                  <a href="/live/<?= $event->id ?>/test" data-remote="false" data-toggle="modal" data-target="#historyModal" class="btn btn-outline btn-default">
-                    <i class="icon wb-camera" aria-hidden="true"></i>
-                    <br>
-                    <span class="text-uppercase">Live Score</span>
-                  </a>
-                </div>
-                <div class="btn-group" role="group">
-                  <a href="/event/live-stats/<?= $event->id ?>" class="btn btn-outline btn-primary">
-                    <i class="icon wb-stats-bars" aria-hidden="true"></i>
-                    <br>
-                    <span class="text-uppercase">Take Stats</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <div class="col-sm-4">
-      <div class="card card-shadow">
-        <div class="btn-group btn-group-justified mt-0 mb-0">
-          <div class="btn-group" role="group">
-            <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_OK ?>" class="btn btn-present">
-              <i class="icon wb-check-circle" aria-hidden="true"></i>
-              <br>
-              <span class="text-uppercase">In</span>
-            </a>
-          </div>
-          <div class="btn-group" role="group">
-            <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_NO ?>" class="btn btn-absent">
-              <i class="icon wb-minus-circle" aria-hidden="true"></i>
-              <br>
-              <span class="text-uppercase">Out</span>
-            </a>
-          </div>
-          <div class="btn-group mt-40" role="group">
-            <a href="/disponibility/response/<?= $event->id ?>/<?= Application\Model\Disponibility::RESP_UNCERTAIN ?>" class="btn btn-uncertain">
-              <i class="icon wb-help-circle" aria-hidden="true"></i>
-              <br>
-              <span class="text-uppercase">Uncertain</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Disponibility card -->
-      <div class="card card-shadow">
-          <div class="card-block">
-              <div class="example-wrap mt-20 mb-0">
-                <div class="nav-tabs-horizontal" data-plugin="tabs">
-                  <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                      <a class="nav-link active show" data-toggle="tab" href="#exampleTabsIconOne" aria-controls="exampleTabsIconOne" role="tab" aria-selected="true">
-                        <span>
-                          <i class="icon wb-check-circle text-present" style="font-size:24px;" aria-hidden="true"></i>
-                          <span class="badge badge-pill up badge-info" id="event-count-ok">
-                              <?= $counters[Application\Model\Disponibility::RESP_OK] ?>
-                          </span>
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <a class="nav-link" data-toggle="tab" href="#exampleTabsIconTwo" aria-controls="exampleTabsIconTwo" role="tab" aria-selected="false">
-                        <span>
-                          <i class="icon wb-minus-circle text-absent" style="font-size:24px;" aria-hidden="true"></i>
-                          <span class="badge badge-pill up badge-info" id="event-count-no">
-                            <?= $counters[Application\Model\Disponibility::RESP_NO] ?>
-                          </span>
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <a class="nav-link" data-toggle="tab" href="#exampleTabsIconThree" aria-controls="exampleTabsIconThree" role="tab" aria-selected="false">
-                        <span>
-                          <i class="icon wb-help-circle text-uncertain" style="font-size:24px;" aria-hidden="true"></i>
-                          <span class="badge badge-pill up badge-info" id="event-count-uncertain">
-                            <?= $counters[Application\Model\Disponibility::RESP_UNCERTAIN] ?>
-                          </span>
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <a class="nav-link" data-toggle="tab" href="#exampleTabsIconFour" aria-controls="exampleTabsIconFour" role="tab">
-                        <span>
-                          <i class="icon wb-alert-circle text-no-answer" style="font-size:24px;" aria-hidden="true"></i>
-                          <span class="badge badge-pill up badge-info" id="event-count-no-answer">
-                            <?= $counters[Application\Model\Disponibility::RESP_NO_ANSWER] ?>
-                          </span>
-                        </span>
-                      </a>
-                    </li>
-                  </ul>
-                  <div class="tab-content">
-                    <div class="tab-pane active show" id="exampleTabsIconOne" role="tabpanel">
-                      <div class="table-responsive">
-                        <table class="table">
-                          <tbody id="table-resp-ok">
-                            <?php if (!$availabilities[Application\Model\Disponibility::RESP_OK]): ?>
-                              <tr><td class="text-center">No one here !</td></tr>
-                            <?php else: ?>
-                              <?php foreach ($availabilities[Application\Model\Disponibility::RESP_OK] as $user) : ?>
-                                  <tr>
-                                      <td>
-                                        <div class="avatar avatar-md">
-                                          <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                                        </div>
-                                      </td>
-                                      <td><?= $user->firstname ?></td>
-                                      <td><?= $user->lastname ?></td>
-                                      <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
-                                  </tr>
-                              <?php endforeach; ?>
-                            <?php endif ?>
                           </tbody>
                         </table>
                       </div>
-                    </div>
-                    <div class="tab-pane" id="exampleTabsIconTwo" role="tabpanel">
-                      <div class="table-responsive">
-                        <table class="table">
-                          <tbody id="table-resp-no">
-                            <?php if (!$availabilities[Application\Model\Disponibility::RESP_NO]): ?>
-                              <tr><td class="text-center">No one here !</td></tr>
-                            <?php else: ?>
-                              <?php foreach ($availabilities[Application\Model\Disponibility::RESP_NO] as $user) : ?>
-                                  <tr>
-                                      <td>
-                                        <div class="avatar avatar-md">
-                                          <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                                        </div>
-                                      </td>
-                                      <td><?= $user->firstname ?></td>
-                                      <td><?= $user->lastname ?></td>
-                                      <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
-                                  </tr>
-                              <?php endforeach; ?>
-                            <?php endif ?>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <div class="tab-pane" id="exampleTabsIconThree" role="tabpanel">
-                      <div class="table-responsive">
-                        <table class="table">
-                          <tbody id="table-resp-uncertain">
-                            <?php if (!$availabilities[Application\Model\Disponibility::RESP_UNCERTAIN]): ?>
-                              <tr><td class="text-center">No one here !</td></tr>
-                            <?php else: ?>
-                              <?php foreach ($availabilities[Application\Model\Disponibility::RESP_UNCERTAIN] as $user) : ?>
-                                  <tr>
-                                      <td>
-                                        <div class="avatar avatar-md">
-                                          <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                                        </div>
-                                      </td>
-                                      <td><?= $user->firstname ?></td>
-                                      <td><?= $user->lastname ?></td>
-                                      <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
-                                  </tr>
-                              <?php endforeach; ?>
-                            <?php endif ?>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <div class="tab-pane" id="exampleTabsIconFour" role="tabpanel">
-                      <div class="table-responsive">
-                        <table class="table">
-                          <tbody id="table-resp-no-answer">
-                            <?php if (!$availabilities[Application\Model\Disponibility::RESP_NO_ANSWER]): ?>
-                              <tr><td class="text-center">No one here !</td></tr>
-                            <?php else: ?>
-                              <?php foreach ($availabilities[Application\Model\Disponibility::RESP_NO_ANSWER] as $user) : ?>
-                                  <tr>
-                                      <td>
-                                        <div class="avatar avatar-md">
-                                          <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                                        </div>
-                                      </td>
-                                      <td><?= $user->firstname ?></td>
-                                      <td><?= $user->lastname ?></td>
-                                      <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
-                                  </tr>
-                              <?php endforeach; ?>
-                            <?php endif ?>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-      </div>
-    </div>
-
-    <!-- Right Side -->
-    <div class="col-sm-4">
-        <!-- Last comments -->
-        <div class="panel" id="messge">
-          <div class="panel-heading">
-            <h3 class="panel-title"><i class="panel-title-icon icon wb-chat-group" aria-hidden="true"></i> Comments</h3>
-          </div>
-          <div class="panel-body pr-0 pl-10">
-            <ul class="list-group list-group-full flow-y" style="max-height: 250px">
-              <?php foreach ($comments as $comment): ?>
-              <li class="list-group-item">
-                <div class="media">
-                  <div class="pr-20">
-                    <span class="avatar">
-                      <img alt="" src="<?= $comment['author']->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                    </span>
-                  </div>
-                  <div class="media-body col-12">
-                    <h5 class="list-group-item-heading mt-0 mb-5">
-                      <small class="float-right"><?= \Application\Service\Date::getInterval($comment['date']) ?> ago</small>
-                      <?= isset($comment['author']) ? $comment['author']->getFullName() : 'Deleted User'; ?>
-                    </h5>
-                    <p class="list-group-item-text"><?= nl2br($comment['comment']); ?></p>
-                  </div>
-                </div>
-              </li>
-              <?php endforeach ?>
-            </ul>
-          </div>
-          <div class="panel-footer">
-            <form>
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Say something">
-                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button">Send</button>
-                </span>
-              </div>
-            </form>
-          </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-  <div class="card card-shadow col-12">
-      <div class="card-block">
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>Points</th>
-                <th>Faults</th>
-                <th>Blocks</th>
-                <th>Aces</th>
-              </tr>
-            </thead>
-            <?php foreach ($attackScorer as $userId): ?>
-              <tr>
-                <td>
-                  <div class="avatar avatar-md">
-                    <img class="img-fluid" src="<?= $users[$userId]->getAvatarPath() ?>">
-                  </div>
-                </td>
-                <td><?= $users[$userId]->getFullname() ?></td>
-                <td>
-                  <a href="/stats/event/<?= $event->id ?>/user/<?= $users[$userId]->id ?>" data-remote="false" data-toggle="modal" data-target="#userStats" class="btn btn-sm btn-outline btn-primary">
-                    <span class="text-uppercase"><i class="icon wb-stats-bars"></i></span>
-                  </a>
-                </td>
-                <td width="50px" height="50px" class="p-10">
-                  <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
-                    data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="3"
-                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
-                    <span class="pie-progress-number">15</span>
-                  </div>
-                </td>
-                <td width="50px" height="50px" class="p-10">
-                  <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
-                    data-valuemin="0" data-barcolor="#F00" data-size="60" data-barsize="3"
-                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
-                    <span class="pie-progress-number">5</span>
-                  </div>
-                </td>
-                <td width="50px" height="50px" class="p-10">
-                  <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
-                    data-valuemin="0" data-barcolor="#0F0" data-size="60" data-barsize="3"
-                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
-                    <span class="pie-progress-number">2</span>
-                  </div>
-                </td>
-                <td width="50px" height="50px">
-                  <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
-                    data-valuemin="0" data-barcolor="#00F" data-size="60" data-barsize="3"
-                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
-                    <span class="pie-progress-number">2</span>
-                  </div>
-                </td>
-              </tr>
-            <?php endforeach ?>
-          </table>
-        </div>
-      </div>
-  </div>
-</div>
-
-<div class="row" data-plugin="matchHeight" data-by-row="true">
-  <div class="col-md-6">
-    <div class="card card-shadow example-responsive">
-      <div class="card-block">
-        <h4 class="card-title">Filter</h4>
-        <form id="user-selection" data-event-id="<?= $event->id ?>">
-            <div class="row">
-              <div class="col-12 col-lg-5">
-                <h5 class="card-title mb-5">Select Setter Position</h5>
-                <select class="form-control setter-position">
-                  <option value="all" selected="">All</option>
-                  <option value="p1">P1</option>
-                  <option value="p2">P2</option>
-                  <option value="p3">P3</option>
-                  <option value="p4">P4</option>
-                  <option value="p5">P5</option>
-                  <option value="p6">P6</option>
-                </select>
-
-                <h5 class="card-title mb-5">Select Attack Type</h5>
-                <table class="table is-indent mt-20"  data-plugin="selectable" data-row-selectable="true">
-                  <tr>
-                    <td>
-                      <span class="checkbox-custom checkbox-primary checkbox-lg text-left">
-                        <input class="selectable-item type" type="checkbox" name='type[]' checked="checked" id="kills" value="<?= \Application\Model\Stats::POINT_ATTACK?>"/>
-                        <label for="kills"></label>
-                      </span>
-                    </td>
-                    <td class="w-300 text-left">
-                      Kills
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span class="checkbox-custom checkbox-primary checkbox-lg text-left">
-                        <input class="selectable-item type" type="checkbox" name='type[]' checked="checked" id="fault" value="<?= \Application\Model\Stats::FAULT_ATTACK?>"/>
-                        <label for="fault"> </label>
-                      </span>
-                    </td>
-                    <td class="w-20 text-left">
-                      Faults
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            
-              <div class="col-12 col-lg-7">
-                <h5 class="card-title mb-5">Select Player Post</h5>
-                <select class="form-control post-selection">
-                  <option value="all" selected>All</option>
-                  <option value="none">None</option>
-                  <option value="outside-hitter">Outside Hitter</option>
-                  <option value="opposite">Opposite</option>
-                  <option value="middle-blocker">Middle Blocker</option>
-                  <option value="setter">Setter</option>
-                  <option value="libero">Libero</option>
-                </select>
-                  
-                <table class="table is-indent"  data-plugin="selectable" data-row-selectable="true">
-                  <?php foreach ($attackScorer as $userId): ?>
-                    <tr>
-                      <td class="w-20">
-                        <span class="checkbox-custom checkbox-primary checkbox-lg">
-                          <input class="selectable-item user-checkbox <?= \Application\Model\User::$position[$users[$userId]->position] ?>" type="checkbox" name='users[]' checked="checked" id="<?= $users[$userId]->id ?>" value="<?= $users[$userId]->id ?>"/>
-                          <label for="<?= $users[$userId]->id ?>"></label>
-                        </span>
-                      </td>
-                      <td class="w-20">
-                        <div class="avatar avatar-md">
-                          <img class="img-fluid" src="<?= $users[$userId]->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                      <h3 class="card-title mb-20"><?= $event->name ?></h3>
+                      <p><span class="card-title mb-10"><?= $event->address ?>, <?= $event->zipCode ?> <?= $event->city ?></span></p>
+                      <div class="btn-group btn-group-justified mt-20 mb-20">
+                        <div class="btn-group" role="group">
+                          <a href="/live/<?= $event->id ?>/test" data-remote="false" data-toggle="modal" data-target="#historyModal" class="btn btn-outline btn-default">
+                            <i class="icon wb-camera" aria-hidden="true"></i>
+                            <br>
+                            <span class="text-uppercase">Live Score</span>
+                          </a>
                         </div>
-                      </td>
-                      <td class="text-left"><?= $users[$userId]->getFullname() ?></td>
-                    </tr>
-                  <?php endforeach ?>
-                </table>
-                <button type="button" id="stats-filter-submit" class="pull-right btn btn-success btn-outline"><i class="icon wb-check"></i>Filter</button>
+                        <div class="btn-group" role="group">
+                          <a href="/event/live-stats/<?= $event->id ?>" class="btn btn-outline btn-primary">
+                            <i class="icon wb-stats-bars" aria-hidden="true"></i>
+                            <br>
+                            <span class="text-uppercase">Take Stats</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+              <!-- Disponibility card -->
+              <div class="card card-shadow">
+                  <div class="card-block">
+                      <div class="example-wrap mt-20 mb-0">
+                        <div class="nav-tabs-horizontal" data-plugin="tabs">
+                          <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                              <a class="nav-link active show" data-toggle="tab" href="#exampleTabsIconOne" aria-controls="exampleTabsIconOne" role="tab" aria-selected="true">
+                                <span>
+                                  <i class="icon wb-check-circle text-present" style="font-size:24px;" aria-hidden="true"></i>
+                                  <span class="badge badge-pill up badge-info" id="event-count-ok">
+                                      <?= $counters[Application\Model\Disponibility::RESP_OK] ?>
+                                  </span>
+                                </span>
+                              </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <a class="nav-link" data-toggle="tab" href="#exampleTabsIconTwo" aria-controls="exampleTabsIconTwo" role="tab" aria-selected="false">
+                                <span>
+                                  <i class="icon wb-minus-circle text-absent" style="font-size:24px;" aria-hidden="true"></i>
+                                  <span class="badge badge-pill up badge-info" id="event-count-no">
+                                    <?= $counters[Application\Model\Disponibility::RESP_NO] ?>
+                                  </span>
+                                </span>
+                              </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <a class="nav-link" data-toggle="tab" href="#exampleTabsIconThree" aria-controls="exampleTabsIconThree" role="tab" aria-selected="false">
+                                <span>
+                                  <i class="icon wb-help-circle text-uncertain" style="font-size:24px;" aria-hidden="true"></i>
+                                  <span class="badge badge-pill up badge-info" id="event-count-uncertain">
+                                    <?= $counters[Application\Model\Disponibility::RESP_UNCERTAIN] ?>
+                                  </span>
+                                </span>
+                              </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <a class="nav-link" data-toggle="tab" href="#exampleTabsIconFour" aria-controls="exampleTabsIconFour" role="tab">
+                                <span>
+                                  <i class="icon wb-alert-circle text-no-answer" style="font-size:24px;" aria-hidden="true"></i>
+                                  <span class="badge badge-pill up badge-info" id="event-count-no-answer">
+                                    <?= $counters[Application\Model\Disponibility::RESP_NO_ANSWER] ?>
+                                  </span>
+                                </span>
+                              </a>
+                            </li>
+                          </ul>
+                          <div class="tab-content">
+                            <div class="tab-pane active show" id="exampleTabsIconOne" role="tabpanel">
+                              <div class="table-responsive">
+                                <table class="table">
+                                  <tbody id="table-resp-ok">
+                                    <?php if (!$availabilities[Application\Model\Disponibility::RESP_OK]): ?>
+                                      <tr><td class="text-center">No one here !</td></tr>
+                                    <?php else: ?>
+                                      <?php foreach ($availabilities[Application\Model\Disponibility::RESP_OK] as $user) : ?>
+                                          <tr>
+                                              <td>
+                                                <div class="avatar avatar-md">
+                                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                                </div>
+                                              </td>
+                                              <td><?= $user->firstname ?></td>
+                                              <td><?= $user->lastname ?></td>
+                                              <td class="hidden-md-down"><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                                          </tr>
+                                      <?php endforeach; ?>
+                                    <?php endif ?>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="tab-pane" id="exampleTabsIconTwo" role="tabpanel">
+                              <div class="table-responsive">
+                                <table class="table">
+                                  <tbody id="table-resp-no">
+                                    <?php if (!$availabilities[Application\Model\Disponibility::RESP_NO]): ?>
+                                      <tr><td class="text-center">No one here !</td></tr>
+                                    <?php else: ?>
+                                      <?php foreach ($availabilities[Application\Model\Disponibility::RESP_NO] as $user) : ?>
+                                          <tr>
+                                              <td>
+                                                <div class="avatar avatar-md">
+                                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                                </div>
+                                              </td>
+                                              <td><?= $user->firstname ?></td>
+                                              <td><?= $user->lastname ?></td>
+                                              <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                                          </tr>
+                                      <?php endforeach; ?>
+                                    <?php endif ?>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="tab-pane" id="exampleTabsIconThree" role="tabpanel">
+                              <div class="table-responsive">
+                                <table class="table">
+                                  <tbody id="table-resp-uncertain">
+                                    <?php if (!$availabilities[Application\Model\Disponibility::RESP_UNCERTAIN]): ?>
+                                      <tr><td class="text-center">No one here !</td></tr>
+                                    <?php else: ?>
+                                      <?php foreach ($availabilities[Application\Model\Disponibility::RESP_UNCERTAIN] as $user) : ?>
+                                          <tr>
+                                              <td>
+                                                <div class="avatar avatar-md">
+                                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                                </div>
+                                              </td>
+                                              <td><?= $user->firstname ?></td>
+                                              <td><?= $user->lastname ?></td>
+                                              <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                                          </tr>
+                                      <?php endforeach; ?>
+                                    <?php endif ?>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="tab-pane" id="exampleTabsIconFour" role="tabpanel">
+                              <div class="table-responsive">
+                                <table class="table">
+                                  <tbody id="table-resp-no-answer">
+                                    <?php if (!$availabilities[Application\Model\Disponibility::RESP_NO_ANSWER]): ?>
+                                      <tr><td class="text-center">No one here !</td></tr>
+                                    <?php else: ?>
+                                      <?php foreach ($availabilities[Application\Model\Disponibility::RESP_NO_ANSWER] as $user) : ?>
+                                          <tr>
+                                              <td>
+                                                <div class="avatar avatar-md">
+                                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                                </div>
+                                              </td>
+                                              <td><?= $user->firstname ?></td>
+                                              <td><?= $user->lastname ?></td>
+                                              <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                                          </tr>
+                                      <?php endforeach; ?>
+                                    <?php endif ?>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
               </div>
             </div>
-        </form>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="card card-shadow ">
-      <div class="card-block">
-        <h4 class="card-title">Select Attack or Target zone</h4>
-        <table class="table" id="stats-repartition" data-stats='<?= $percents ?>'>
-          <tr>
-            <td class="court-outside" width="2%" rowspan="5"></td>
-            <td class="court-outside text-center" height="40px" colspan="2"></td>
-            <!-- NET -->
-            <td rowspan="5" width="9%" class="court-net out" data-target="<?= \Application\Model\Stats::TO_OUT_NET ?>">
-              <div id="toOutNet" class="hidden-md-down zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="50" data-barsize="3" data-goal="0" aria-valuenow="<?= $toOutNet ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $toOutNet ?>%</div>
+      <div class="tab-pane" id="eventComments" role="tabpanel">
+        <div class="row">
+          <div class="col-12">
+              <!-- Last comments -->
+              <div class="panel">
+                <div class="panel-body pr-0 pl-10">
+                  <ul class="list-group list-group-full">
+                    <?php foreach ($comments as $comment): ?>
+                    <li class="list-group-item">
+                      <div class="media">
+                        <div class="pr-20">
+                          <span class="avatar">
+                            <img alt="" src="<?= $comment['author']->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                          </span>
+                        </div>
+                        <div class="media-body col-12">
+                          <h5 class="list-group-item-heading mt-0 mb-5">
+                            <small class="float-right"><?= \Application\Service\Date::getInterval($comment['date']) ?> ago</small>
+                            <?= isset($comment['author']) ? $comment['author']->getFullName() : 'Deleted User'; ?>
+                          </h5>
+                          <p class="list-group-item-text"><?= nl2br($comment['comment']); ?></p>
+                        </div>
+                      </div>
+                    </li>
+                    <?php endforeach ?>
+                  </ul>
+                </div>
+                <div class="panel-footer">
+                  <form>
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Say something">
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button">Send</button>
+                      </span>
+                    </div>
+                  </form>
                 </div>
               </div>
-            </td>
-            <td class="court-outside out text-center" height="20px" colspan="2" data-target="<?= \Application\Model\Stats::TO_OUT_LEFT ?>">
-              <div id="toOutLeft" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toOutLeft ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $toOutLeft ?>%</div>
-                </div>
-              </div>
-            </td>
-            <td class="court-outside out" width="9%" rowspan="5" data-target="<?= \Application\Model\Stats::TO_OUT_LONG ?>">
-              <div id="toOutLong" class="hidden-md-down zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="50" data-barsize="3" data-goal="0" aria-valuenow="<?= $toOutLong ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $toOutLong ?>%</div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr class="col-12">
-            <!-- attack P5 -->
-            <td height="70px" width="20%" class="court-inside court-border-top court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P5 ?>">
-              <div id="fromP5" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $fromP5 ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $fromP5 ?>%</div>
-                </div>
-              </div>
-            </td>
-            <!-- attack P4 -->
-            <td height="70px" width="20%" class="court-inside court-border-top front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P4 ?>">
-              <div id="fromP4" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $fromP4 ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $fromP4 ?>%</div>
-                </div>
-            </td>
-            <!-- target P2 -->
-            <td height="70px" width="20%" class="court-inside court-border-top front target text-center" data-target="<?= \Application\Model\Stats::TO_P2 ?>">
-              <div id="toP2" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toP2 ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $toP2 ?>%</div>
-                </div>
-            </td>
-            <!-- target P1 -->
-            <td height="70px" width="20%" class="court-inside court-border-top court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P1 ?>">
-              <div id="toP1" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toP1 ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $toP1 ?>%</div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr class="col-12">
-            <!-- attack P6 -->
-            <td height="70px" width="20%" class="court-inside court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P6 ?>">
-              <div id="fromP6" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $fromP6 ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $fromP6 ?>%</div>
-                </div>
-              </div>
-            </td>
-            <!-- attack P3 -->
-            <td height="70px" width="20%" class="court-inside front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P3 ?>">
-              <div id="fromP3" height="33%" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
-                data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="3"
-                data-goal="0" aria-valuenow="<?= $fromP3 ?>" role="progressbar">
-                <span class="pie-progress-number"><?= $fromP3 ?>%</span>
-              </div>
-            </td>
-            <!-- target P3 -->
-            <td height="70px" width="20%" class="court-inside front target text-center" data-target="<?= \Application\Model\Stats::TO_P3 ?>">
-              <div id="toP3" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toP3 ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $toP3 ?>%</div>
-                </div>
-              </div>
-            </td>
-            <!-- target P6 -->
-            <td height="70px" width="20%" class="court-inside court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P6 ?>">
-              <div id="toP6" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toP6 ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $toP6 ?>%</div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr class="col-12">
-            <!-- attack P1 -->
-            <td height="70px" width="20%" class="court-inside court-border-bottom court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P1 ?>">
-              <div id="fromP1" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $fromP1 ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $fromP1 ?>%</div>
-                </div>
-              </div>
-            </td>
-            <!-- attack P2 -->
-            <td height="70px" width="20%" class="court-inside court-border-bottom front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P2 ?>">
-              <div id="fromP2" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $fromP2 ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $fromP2 ?>%</div>
-                </div>
-              </div>
-            </td>
-            <!-- target P4 -->
-            <td height="70px" width="20%" class="court-inside court-border-bottom front target text-center" data-target="<?= \Application\Model\Stats::TO_P4 ?>">
-              <div id="toP4" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toP4 ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $toP4 ?>%</div>
-                </div>
-              </div>
-            </td>
-            <!-- target P5 -->
-            <td height="70px" width="20%" class="court-inside court-border-bottom court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P5 ?>">
-              <div id="toP5" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toP5 ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $toP5 ?>%</div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="court-outside" height="20px" colspan="2"></td>
-            <td class="court-outside out text-center" height="20px" colspan="2" data-target="<?= \Application\Model\Stats::TO_OUT_RIGHT ?>">
-              <div id="toOutRight" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toOutRight ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $toOutRight ?>%</div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr class="hidden-sm-up">
-            <td colspan="5" class="">
-              Attack Fault : Too Long 
-            </td>
-            <td colspan="1">
-              <div id="toOutLong" class="zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="50" data-barsize="3" data-goal="0" aria-valuenow="<?= $toOutLong ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $toOutLong ?>%</div>
-                </div>
-              </div>
-            </td>
-            <td></td>
-          </tr>
-          <tr class="hidden-sm-up">
-            <td colspan="5" class="">
-              Attack Fault : Net
-            </td>
-            <td colspan="1">
-              <div id="toOutNet" class="zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toOutNet ?>"
-                  role="progressbar">
-                  <div class="pie-progress-number"><?= $toOutNet ?>%</div>
-                </div>
-              </div>
-            </td>
-            <td></td>
-          </tr>
-        </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -75,7 +75,24 @@
 
       $("#historyModal, #userStats").on("show.bs.modal", function(e) {
           var link = $(e.relatedTarget);
-          $(this).find(".modal-body").load(link.attr("href"));
+          $(this).find(".modal-body").load(link.attr("href"), function() {
+            $('.rating').each(function() {
+              $(this).raty({
+                targetKeep: true,
+                score: $(this).attr('data-score'),
+                number: $(this).attr('data-number'),
+                hints: ['', '', '', '', ''],
+                readOnly: true,
+                icon: 'font',
+                starType: 'i',
+                starOff: 'icon wb-star',
+                starOn: 'icon wb-star orange-600',
+                cancelOff: 'icon wb-minus-circle',
+                cancelOn: 'icon wb-minus-circle orange-600',
+                starHalf: 'icon wb-star-half orange-500'
+              });
+            });
+          });
       });
 
       var percentColors = [

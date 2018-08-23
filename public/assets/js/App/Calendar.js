@@ -44,7 +44,7 @@
         babelHelpers.get(AppCalendar.prototype.__proto__ || Object.getPrototypeOf(AppCalendar.prototype), 'process', this).call(this);
 
         this.handleFullcalendar();
-        this.handleEventList();
+        // this.handleEventList();
       }
     }, {
       key: 'handleFullcalendar',
@@ -98,119 +98,35 @@
             }
           },
           editable: true,
-          eventClick:  function(event, jsEvent, view) {
+          eventClick:  function(event, jsEvent, view) { 
             jsEvent.preventDefault();
-            var calendarModal = $('#editNewEvent');
+
             var myEvent = event;
-
-            var url = '/api/event/' + myEvent.id;
-            var request = $.ajax({
-                type: "GET",
-                url: url
-            }).done(function(resp) {
-                resp = JSON.parse(resp);
-                $('#table-resp-ok').empty();
-                if (resp.count.ok) {
-                  $.each(resp.team.ok, function( index, user ) {
-                    $('#table-resp-ok').append('<tr class="text-center"><td><div class="avatar avatar-md"><img class="img-fluid" src="' + user.avatarUrl + '" onerror="if (this.src != \'/img/default-avatar.png\') this.src = \'/img/default-avatar.png\';"></div></td><td>' + user.firstname + '</td><td>' + user.lastname + '</td></tr>');
+            
+            var calendarModal = $('#editNewEvent');
+            $("#editNewEvent").off('show.bs.modal').on("show.bs.modal", function(e) {
+                $(this).find(".modal-body").load('/event/detail/' + myEvent.id, function() {
+                  var url = '/api/guest/response/' + myEvent.id ;
+                  $('.event-response').off('click').on('click', function(e, state) {
+                      var response  = $(this).attr('data-response');
+                      url = url + '/' +response;
+                      var request = $.ajax({
+                          type: "GET",
+                          url: url
+                      }).done(function(resp) {
+                          $('#editNewEvent').modal('hide');
+                      });
                   });
-                }
-
-                $('#table-resp-no').empty();
-                if (resp.count.no) {
-                  $.each(resp.team.no, function( index, user ) {
-                    $('#table-resp-no').append('<tr class="text-center"><td><div class="avatar avatar-md"><img class="img-fluid" src="' + user.avatarUrl + '" onerror="if (this.src != \'/img/default-avatar.png\') this.src = \'/img/default-avatar.png\';"></div></td><td>' + user.firstname + '</td><td>' + user.lastname + '</td></tr>');
-                  });
-                }
-
-                $('#table-resp-uncertain').empty();
-                if (resp.count.uncertain) {
-                  $.each(resp.team.uncertain, function( index, user ) {
-                    $('#table-resp-uncertain').append('<tr class="text-center"><td><div class="avatar avatar-md"><img class="img-fluid" src="' + user.avatarUrl + '" onerror="if (this.src != \'/img/default-avatar.png\') this.src = \'/img/default-avatar.png\';"></div></td><td>' + user.firstname + '</td><td>' + user.lastname + '</td></tr>');
-                  });
-                }
-
-                $('#table-resp-no-answer').empty();
-                if (resp.count.noanswer) {
-                  $.each(resp.team.noanswer, function( index, user ) {
-                    $('#table-resp-no-answer').append('<tr class="text-center"><td><div class="avatar avatar-md"><img class="img-fluid" src="' + user.avatarUrl + '" onerror="if (this.src != \'/img/default-avatar.png\') this.src = \'/img/default-avatar.png\';"></div></td><td>' + user.firstname + '</td><td>' + user.lastname + '</td></tr>');
-                  });
-                }
-
-                $('#event-count-ok').html(resp.count.ok);
-                $('#event-count-no').html(resp.count.no);
-                $('#event-count-uncertain').html(resp.count.uncertain);
-                $('#event-count-no-answer').html(resp.count.noanswer);
-            });
-
-            $('#modal-title').html(myEvent.title);
-            $('#modal-date').html(myEvent.date);
-            $('.event-url').attr('href', myEvent.url);
-            $('#modal-count').html(myEvent.count);
-            $('#modal-place').html(myEvent.place);
-            $('#modal-city').html(myEvent.city);
-            $('#modal-zipcode').html(myEvent.zipcode);
-            $('#modal-address').html(myEvent.address);
-            $('#modal-month').html(myEvent.month);
-            $('#modal-day').html(myEvent.day);
-            $('#modal-day-numeric').html(myEvent.dayNumeric);
-            $('#modal-time').html(myEvent.time);
-            $('#event-place-url').attr('href', 'https://maps.google.com/?q=' + myEvent.address + '+' + myEvent.city + '+' + myEvent.zipcode);
-            calendarModal.modal('show');
-
-            var url = '/api/guest/response/' + myEvent.id;
-            $('#event-url-ok').off('click').on('click', function(e, state) {
-                url = url + '/1';
-                var request = $.ajax({
-                    type: "GET",
-                    url: url
-                }).done(function(resp) {
-                    if (myEvent.className != 'event-green') {
-                        myEvent.count = myEvent.count + 1;
-                    }
-                    myEvent.className = ['event-green'];
-                    $('#calendar').fullCalendar('updateEvent', myEvent);
-                    calendarModal.modal('hide');
                 });
             });
 
-            $('#event-url-no').off('click').on('click', function(e, state) {
-                url = url + '/2';
-                var request = $.ajax({
-                    type: "GET",
-                    url: url
-                }).done(function(resp) {
-                    if (myEvent.className == 'event-green') {
-                        myEvent.count = myEvent.count - 1;
-                    }
-                    myEvent.className = ['event-red'];
-                    $('#calendar').fullCalendar('updateEvent', myEvent);
-                    calendarModal.modal('hide');
-                });
+            $("#editNewEvent").off('hide.bs.modal').on("hide.bs.modal", function(e) {
+              $('#calendar').fullCalendar('refetchEvents');
             });
 
-            $('#event-url-incertain').off('click').on('click', function(e, state) {
-                url = url + '/3';
-                var request = $.ajax({
-                    type: "GET",
-                    url: url
-                }).done(function(resp) {
-                    if (myEvent.className == 'event-green') {
-                        myEvent.count = myEvent.count - 1;
-                    }
-                    myEvent.className = ['event-azure'];
-                    $('#calendar').fullCalendar('updateEvent', myEvent);
-                    calendarModal.modal('hide');
-                });
-            });
+            $("#editNewEvent").modal('show');
           },
-          eventDragStart: function eventDragStart() {
-            $('.site-action').data('actionBtn').show();
-          },
-          eventDragStop: function eventDragStop() {
-            $('.site-action').data('actionBtn').hide();
-          },
-          droppable: true
+          droppable: false
         };
 
         var _options = void 0;

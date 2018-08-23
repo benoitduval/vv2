@@ -3,7 +3,7 @@
   <div class="modal fade" id="addNewEvent" aria-hidden="true" aria-labelledby="addNewEvent"
   role="dialog" tabindex="-1">
     <div class="modal-dialog modal-simple">
-      <form class="modal-content form-horizontal" action="#" method="post" role="form">
+      <form id="event-creation" class="modal-content form-horizontal" action="/" method="post" role="form">
         <div class="modal-header">
           <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
           <h4 class="modal-title">New Event</h4>
@@ -15,8 +15,8 @@
                 <label class="col-2 form-control-label" for="inputTime">Group</label>
                 <div class="col-10">
                   <div class="input-group">
-                    <select class="form-control">
-                      <option disabled="disabled" selected>Choose your group</option>
+                    <select class="form-control" name="group" required="required">
+                      <option disabled="disabled" value="" selected>Choose your group</option>
                       <?php foreach ($adminGroups as $group): ?>
                         <option value="<?= $group->id ?>"><?= $group->name ?></option>
                       <?php endforeach ?>
@@ -25,17 +25,17 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-2 form-control-label" for="ename">Name</label>
+                <label class="col-2 form-control-label" for="name" >Name</label>
                 <div class="col-10">
-                  <input type="text" class="form-control" id="ename" name="ename" placeholder="Training Tuesday">
+                  <input type="text" class="form-control" id="name" name="name" required="required" placeholder="Training Tuesday">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 form-control-label" for="starts">Date</label>
                 <div class="col-5 col-lg-7">
                   <div class="input-group">
-                    <input type="text" class="form-control" data-date-format="yyyy-mm-dd" data-start-date="" id="starts" data-container="#addNewEvent"
-                    data-plugin="datepicker">
+                    <input type="text" class="form-control" data-date-format="yyyy-mm-dd" data-start-date="" name="date" id="starts" data-container="#addNewEvent"
+                    data-plugin="datepicker" required="required">
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="icon wb-calendar" aria-hidden="true"></i>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-5 col-lg-3">
                   <div class="input-group">
-                    <input type="text" class="form-control" id="inputTime" data-plugin="formatter" data-pattern="[[99]]:[[99]]">
+                    <input type="text" pattern="\d*" name="time" class="form-control" id="inputTime" data-plugin="formatter" data-pattern="[[99]]:[[99]]" required="required">
                     <div class="hidden-xs input-group-append">
                       <span class="input-group-text">
                         <i class="icon wb-time" aria-hidden="true"></i>
@@ -57,25 +57,25 @@
               <div class="form-group row">
                 <label class="col-2 form-control-label" for="place">Place</label>
                 <div class="col-10">
-                  <input type="text" class="form-control" id="place" name="place" placeholder="Gymnasium Dunois">
+                  <input type="text" class="form-control" id="place" name="place" placeholder="Gymnasium Dunois" required="required">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 form-control-label" for="address">Address</label>
                 <div class="col-10">
-                  <input type="text" class="form-control" id="address" name="address" placeholder="70 rue de Dunois">
+                  <input type="text" class="form-control" id="address" name="address" placeholder="70 rue de Dunois" required="required">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 form-control-label" for="zipcode">Zipcode</label>
                 <div class="col-10">
-                  <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Paris">
+                  <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="75013" required="required">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 form-control-label" for="city">City</label>
                 <div class="col-10">
-                  <input type="text" class="form-control" id="city" name="city" placeholder="Paris">
+                  <input type="text" class="form-control" id="city" name="city" placeholder="Paris" required="required">
                 </div>
               </div>
             </div>
@@ -83,7 +83,7 @@
         </div>
         <div class="modal-footer">
           <div class="form-actions">
-            <button class="btn btn-primary" data-dismiss="modal" type="button">Add this event</button>
+            <button type="submit" class="btn btn-primary">Create event</button>
             <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
           </div>
         </div>
