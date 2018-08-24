@@ -46,28 +46,28 @@
                 <td width="50px" height="50px" class="p-10">
                   <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                     data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="3"
-                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
+                    data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP1'] ?>" role="progressbar">
                     <span class="pie-progress-number">15</span>
                   </div>
                 </td>
                 <td width="50px" height="50px" class="p-10">
                   <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                     data-valuemin="0" data-barcolor="#F00" data-size="60" data-barsize="3"
-                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
+                    data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP1'] ?>" role="progressbar">
                     <span class="pie-progress-number">5</span>
                   </div>
                 </td>
                 <td width="50px" height="50px" class="p-10">
                   <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                     data-valuemin="0" data-barcolor="#0F0" data-size="60" data-barsize="3"
-                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
+                    data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP1'] ?>" role="progressbar">
                     <span class="pie-progress-number">2</span>
                   </div>
                 </td>
                 <td width="50px" height="50px">
                   <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                     data-valuemin="0" data-barcolor="#00F" data-size="60" data-barsize="3"
-                    data-goal="0" aria-valuenow="<?= $fromP1 ?>" role="progressbar">
+                    data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP1'] ?>" role="progressbar">
                     <span class="pie-progress-number">2</span>
                   </div>
                 </td>
@@ -166,32 +166,32 @@
     <div class="card card-shadow ">
       <div class="card-block">
         <h4 class="card-title">Select Attack or Target zone</h4>
-        <table class="table" id="stats-repartition" data-stats='<?= $percents ?>'>
+        <table class="table" id="stats-repartition" data-stats='<?= json_encode($percents) ?>'>
           <tr>
             <td class="court-outside" width="2%" rowspan="5"></td>
             <td class="court-outside text-center" height="40px" colspan="2"></td>
             <!-- NET -->
             <td rowspan="5" width="9%" class="court-net out" data-target="<?= \Application\Model\Stats::TO_OUT_NET ?>">
               <div id="toOutNet" class="hidden-md-down zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="50" data-barsize="3" data-goal="0" aria-valuenow="<?= $toOutNet ?>"
+                  data-size="50" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toOutNet'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $toOutNet ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allTo']['toOutNet'] ?>%</div>
                 </div>
               </div>
             </td>
             <td class="court-outside out text-center" height="20px" colspan="2" data-target="<?= \Application\Model\Stats::TO_OUT_LEFT ?>">
               <div id="toOutLeft" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toOutLeft ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toOutLeft'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $toOutLeft ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allTo']['toOutLeft'] ?>%</div>
                 </div>
               </div>
             </td>
             <td class="court-outside out" width="9%" rowspan="5" data-target="<?= \Application\Model\Stats::TO_OUT_LONG ?>">
               <div id="toOutLong" class="hidden-md-down zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="50" data-barsize="3" data-goal="0" aria-valuenow="<?= $toOutLong ?>"
+                  data-size="50" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toOutLong'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $toOutLong ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allTo']['toOutLong'] ?>%</div>
                 </div>
               </div>
             </td>
@@ -200,34 +200,34 @@
             <!-- attack P5 -->
             <td height="70px" width="20%" class="court-inside court-border-top court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P5 ?>">
               <div id="fromP5" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $fromP5 ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP5'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $fromP5 ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allFrom']['fromP5'] ?>%</div>
                 </div>
               </div>
             </td>
             <!-- attack P4 -->
             <td height="70px" width="20%" class="court-inside court-border-top front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P4 ?>">
               <div id="fromP4" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $fromP4 ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP4'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $fromP4 ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allFrom']['fromP4'] ?>%</div>
                 </div>
             </td>
             <!-- target P2 -->
             <td height="70px" width="20%" class="court-inside court-border-top front target text-center" data-target="<?= \Application\Model\Stats::TO_P2 ?>">
               <div id="toP2" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toP2 ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toP2'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $toP2 ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allTo']['toP2'] ?>%</div>
                 </div>
             </td>
             <!-- target P1 -->
             <td height="70px" width="20%" class="court-inside court-border-top court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P1 ?>">
               <div id="toP1" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toP1 ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toP1'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $toP1 ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allTo']['toP1'] ?>%</div>
                 </div>
               </div>
             </td>
@@ -236,9 +236,9 @@
             <!-- attack P6 -->
             <td height="70px" width="20%" class="court-inside court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P6 ?>">
               <div id="fromP6" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $fromP6 ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP6'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $fromP6 ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allFrom']['fromP6'] ?>%</div>
                 </div>
               </div>
             </td>
@@ -246,25 +246,25 @@
             <td height="70px" width="20%" class="court-inside front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P3 ?>">
               <div id="fromP3" height="33%" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                 data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="3"
-                data-goal="0" aria-valuenow="<?= $fromP3 ?>" role="progressbar">
-                <span class="pie-progress-number"><?= $fromP3 ?>%</span>
+                data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP3'] ?>" role="progressbar">
+                <span class="pie-progress-number"><?= $percents['allFrom']['fromP3'] ?>%</span>
               </div>
             </td>
             <!-- target P3 -->
             <td height="70px" width="20%" class="court-inside front target text-center" data-target="<?= \Application\Model\Stats::TO_P3 ?>">
               <div id="toP3" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toP3 ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toP3'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $toP3 ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allTo']['toP3'] ?>%</div>
                 </div>
               </div>
             </td>
             <!-- target P6 -->
             <td height="70px" width="20%" class="court-inside court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P6 ?>">
               <div id="toP6" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toP6 ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toP6'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $toP6 ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allTo']['toP6'] ?>%</div>
                 </div>
               </div>
             </td>
@@ -273,36 +273,36 @@
             <!-- attack P1 -->
             <td height="70px" width="20%" class="court-inside court-border-bottom court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P1 ?>">
               <div id="fromP1" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $fromP1 ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP1'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $fromP1 ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allFrom']['fromP1'] ?>%</div>
                 </div>
               </div>
             </td>
             <!-- attack P2 -->
             <td height="70px" width="20%" class="court-inside court-border-bottom front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P2 ?>">
               <div id="fromP2" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $fromP2 ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP2'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $fromP2 ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allFrom']['fromP2'] ?>%</div>
                 </div>
               </div>
             </td>
             <!-- target P4 -->
             <td height="70px" width="20%" class="court-inside court-border-bottom front target text-center" data-target="<?= \Application\Model\Stats::TO_P4 ?>">
               <div id="toP4" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toP4 ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toP4'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $toP4 ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allTo']['toP4'] ?>%</div>
                 </div>
               </div>
             </td>
             <!-- target P5 -->
             <td height="70px" width="20%" class="court-inside court-border-bottom court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P5 ?>">
               <div id="toP5" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toP5 ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toP5'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $toP5 ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allTo']['toP5'] ?>%</div>
                 </div>
               </div>
             </td>
@@ -311,9 +311,9 @@
             <td class="court-outside" height="20px" colspan="2"></td>
             <td class="court-outside out text-center" height="20px" colspan="2" data-target="<?= \Application\Model\Stats::TO_OUT_RIGHT ?>">
               <div id="toOutRight" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toOutRight ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toOutRight'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $toOutRight ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allTo']['toOutRight'] ?>%</div>
                 </div>
               </div>
             </td>
@@ -324,9 +324,9 @@
             </td>
             <td colspan="1">
               <div id="toOutLong" class="zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="50" data-barsize="3" data-goal="0" aria-valuenow="<?= $toOutLong ?>"
+                  data-size="50" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toOutLong'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $toOutLong ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allTo']['toOutLong'] ?>%</div>
                 </div>
               </div>
             </td>
@@ -338,9 +338,9 @@
             </td>
             <td colspan="1">
               <div id="toOutNet" class="zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
-                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $toOutNet ?>"
+                  data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toOutNet'] ?>"
                   role="progressbar">
-                  <div class="pie-progress-number"><?= $toOutNet ?>%</div>
+                  <div class="pie-progress-number"><?= $percents['allTo']['toOutNet'] ?>%</div>
                 </div>
               </div>
             </td>

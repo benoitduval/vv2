@@ -19,6 +19,7 @@ return [
             Service\MailService::class           => Service\Factory\MailServiceFactory::class,
             Service\Map::class                   => Service\Factory\MapServiceFactory::class,
             Service\OneSignalService::class      => Service\Factory\OneSignalFactory::class,
+            Service\NotificationService::class   => Service\Factory\NotificationFactory::class,
         ],
 
         'abstract_factories' => [

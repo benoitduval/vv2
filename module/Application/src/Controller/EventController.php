@@ -16,29 +16,6 @@ class EventController extends AbstractController
         $eventId = $this->params('id');
         if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
 
-            $stats = $this->statsTable->fetchAll([
-                'eventId'  => $eventId,
-                'pointFor' => Model\Stats::POINT_US,
-                'reason'   => Model\Stats::POINT_ATTACK,
-            ]);
-            $attackScorer = [];
-            foreach ($stats as $stat) {
-                if (!in_array($stat->userId, $attackScorer) && $stat->userId) $attackScorer[] = $stat->userId;
-            }
-            $percents = $this->statsTable->getZonePercent([
-                'eventId'  => $eventId,
-                'reason' => [Model\Stats::POINT_ATTACK, Model\Stats::FAULT_ATTACK]
-            ]);
-
-            foreach (['allFrom', 'allTo'] as $index) {
-                foreach ($percents[$index] as $key => $value) {
-                    $$key = $value;
-                }
-            }
-            foreach ($percents['allFrom'] as $key => $value) {
-                $$key = $value;
-            }
-            $percents = json_encode($percents);
             $users = $this->userTable->getAllByGroupId($event->groupId);
 
             $comments  = $this->commentTable->fetchAll(['eventId' => $event->id]);
@@ -49,7 +26,6 @@ class EventController extends AbstractController
                 $isAdmin = $this->userGroupTable->isAdmin($this->getUser()->id, $group->id);
             }
 
-            $counters  = $this->disponibilityTable->getCounters($eventId);
             $disponibilities    = $this->disponibilityTable->fetchAll(['eventId' => $eventId]);
             $myGuest   = $this->disponibilityTable->fetchOne(['eventId' => $eventId, 'userId' => $this->getUser()->id]);
             $eventDate = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
@@ -91,7 +67,7 @@ class EventController extends AbstractController
                 $form->setData($request->getPost());
                 if ($form->isValid()) {
                     $data = $form->getData();
-                    $eventDate   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
+                    // $eventDate   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
                     $comment = $this->commentTable->save([
                         'date'    => date('Y-m-d H:i:s'),
                         'eventId' => $eventId,
@@ -100,66 +76,65 @@ class EventController extends AbstractController
                     ]);
 
                     $config = $this->get('config');
-                    if ($config['mail']['allowed']) {
-                        $users = $this->userTable->getAllByGroupId($group->id);
-                        $bcc   = [];
-                        foreach ($users as $user) {
-                            $email = true;
-                            $disponibility = $this->disponibilityTable->fetchOne(['userId' => $user->id, 'eventId' => $event->id]);
-                            if ($disponibility && $disponibility->response = Model\Disponibility::RESP_NO && !$this->notifTable->isAllowed(Model\Notification::COMMENT_ABSENT, $user->id)) {
-                                $email = false;
-                            } else if ($this->getUser()->id == $user->id && !$this->notifTable->isAllowed(Model\Notification::SELF_COMMENT, $user->id)) {
-                                $email = false;
-                            } else if (!$this->notifTable->isAllowed(Model\Notification::COMMENTS, $user->id)) {
-                                $email = false;
-                            }
+                    // if ($config['mail']['allowed']) {
+                    //     $users = $this->userTable->getAllByGroupId($group->id);
+                    //     $bcc   = [];
+                    //     foreach ($users as $user) {
+                    //         $email = true;
+                    //         $disponibility = $this->disponibilityTable->fetchOne(['userId' => $user->id, 'eventId' => $event->id]);
+                    //         if ($disponibility && $disponibility->response = Model\Disponibility::RESP_NO && !$this->notifTable->isAllowed(Model\Notification::COMMENT_ABSENT, $user->id)) {
+                    //             $email = false;
+                    //         } else if ($this->getUser()->id == $user->id && !$this->notifTable->isAllowed(Model\Notification::SELF_COMMENT, $user->id)) {
+                    //             $email = false;
+                    //         } else if (!$this->notifTable->isAllowed(Model\Notification::COMMENTS, $user->id)) {
+                    //             $email = false;
+                    //         }
 
-                            if ($email) $bcc[] = $user->email;
-                        }
+                    //         if ($email) $bcc[] = $user->email;
+                    //     }
 
-                        $config = $this->get('config');
-                        if ($config['mail']['allowed']) {
-                                $commentDate = \DateTime::createFromFormat('U', time());
-                                $date        = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
-                                $view       = new \Zend\View\Renderer\PhpRenderer();
-                                $resolver   = new \Zend\View\Resolver\TemplateMapResolver();
-                                $resolver->setMap([
-                                    'event' => __DIR__ . '/../../view/mail/comment.phtml'
-                                ]);
-                                $view->setResolver($resolver);
+                    //     if ($config['mail']['allowed']) {
+                    //             $commentDate = \DateTime::createFromFormat('U', time());
+                    //             $date        = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
+                    //             $view       = new \Zend\View\Renderer\PhpRenderer();
+                    //             $resolver   = new \Zend\View\Resolver\TemplateMapResolver();
+                    //             $resolver->setMap([
+                    //                 'event' => __DIR__ . '/../../view/mail/comment.phtml'
+                    //             ]);
+                    //             $view->setResolver($resolver);
 
-                                $viewModel  = new ViewModel();
-                                $viewModel->setTemplate('event')->setVariables(array(
-                                    'event'     => $event,
-                                    'group'     => $group,
-                                    'date'      => $date,
-                                    'user'      => $this->getUser(),
-                                    'comment'   => $comment,
-                                    'commentDate' => $commentDate,
-                                    'baseUrl'   => $config['baseUrl']
-                                ));
+                    //             $viewModel  = new ViewModel();
+                    //             $viewModel->setTemplate('event')->setVariables(array(
+                    //                 'event'     => $event,
+                    //                 'group'     => $group,
+                    //                 'date'      => $date,
+                    //                 'user'      => $this->getUser(),
+                    //                 'comment'   => $comment,
+                    //                 'commentDate' => $commentDate,
+                    //                 'baseUrl'   => $config['baseUrl']
+                    //             ));
 
-                                $oneSignal = $this->get(OneSignalService::class);
-                                $oneSignal->setData([
-                                    'header'   => 'Nouvel Commentaire !',
-                                    'content'  => $event->name,
-                                    'subtitle' => \Application\Service\Date::toFr($date->format('l d F \à H\hi')),
-                                    'url'      => $config['baseUrl'] . '/event/detail/' . $event->id,
-                                ]);
-                                foreach ($users as $user) {
-                                    $oneSignal->sendTo($user->email);
-                                }
+                    //             $oneSignal = $this->get(OneSignalService::class);
+                    //             $oneSignal->setData([
+                    //                 'header'   => 'Nouvel Commentaire !',
+                    //                 'content'  => $event->name,
+                    //                 'subtitle' => \Application\Service\Date::toFr($date->format('l d F \à H\hi')),
+                    //                 'url'      => $config['baseUrl'] . '/event/detail/' . $event->id,
+                    //             ]);
+                    //             foreach ($users as $user) {
+                    //                 $oneSignal->sendTo($user->email);
+                    //             }
 
-                                $mail = $this->get(MailService::class);
-                                $mail->addBcc($bcc);
-                                $mail->setSubject('[' . $group->name . '] ' . $event->name . ' - ' . \Application\Service\Date::toFr($date->format('l d F \à H\hi')));
-                                $mail->setBody($view->render($viewModel));
-                            try {
-                                $mail->send();
-                            } catch (\Exception $e) {
-                            }
-                        }
-                    }
+                    //             $mail = $this->get(MailService::class);
+                    //             $mail->addBcc($bcc);
+                    //             $mail->setSubject('[' . $group->name . '] ' . $event->name . ' - ' . \Application\Service\Date::toFr($date->format('l d F \à H\hi')));
+                    //             $mail->setBody($view->render($viewModel));
+                    //         try {
+                    //             $mail->send();
+                    //         } catch (\Exception $e) {
+                    //         }
+                    //     }
+                    // }
 
                     $this->flashMessenger()->addSuccessMessage('Commentaire enregistré');
                     $this->redirect()->toUrl('/event/detail/' . $event->id);
@@ -167,26 +142,6 @@ class EventController extends AbstractController
             }
 
             $view = new ViewModel([
-                'stats'           => $stats,
-                'percents'        => $percents,
-                'attackScorer'    => $attackScorer,
-                'fromP1'          => $fromP1,
-                'fromP2'          => $fromP2,
-                'fromP3'          => $fromP3,
-                'fromP4'          => $fromP4,
-                'fromP5'          => $fromP5,
-                'fromP6'          => $fromP6,
-                'toP1'            => $toP1,
-                'toP2'            => $toP2,
-                'toP3'            => $toP3,
-                'toP4'            => $toP4,
-                'toP5'            => $toP5,
-                'toP6'            => $toP6,
-                'toOutLong'       => $toOutLong,
-                'toOutLeft'       => $toOutLeft,
-                'toOutRight'      => $toOutRight,
-                'toOutRight'      => $toOutRight,
-                'toOutNet'        => $toOutNet,
                 'counters'        => $counters,
                 'comments'        => $result,
                 'event'           => $event,
@@ -205,6 +160,39 @@ class EventController extends AbstractController
             $view->setTerminal(true);
             
             return $view;
+        } else {
+            $this->redirect()->toRoute('home');
+        }
+    }
+
+    public function statsAction()
+    {
+        $eventId = $this->params('id');
+        if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
+            
+            $users = $this->userTable->getAllByGroupId($event->groupId);
+
+            $stats = $this->statsTable->fetchAll([
+                'eventId'  => $eventId,
+                'pointFor' => Model\Stats::POINT_US,
+                'reason'   => Model\Stats::POINT_ATTACK,
+            ]);
+            $attackScorer = [];
+            foreach ($stats as $stat) {
+                if (!in_array($stat->userId, $attackScorer) && $stat->userId) $attackScorer[] = $stat->userId;
+            }
+            $percents = $this->statsTable->getZonePercent([
+                'eventId'  => $eventId,
+                'reason' => [Model\Stats::POINT_ATTACK, Model\Stats::FAULT_ATTACK]
+            ]);
+
+            return new ViewModel([
+                'event'        => $event,
+                'users'        => $users,
+                'stats'        => $stats,
+                'percents'     => $percents,
+                'attackScorer' => $attackScorer,
+            ]);
         } else {
             $this->redirect()->toRoute('home');
         }

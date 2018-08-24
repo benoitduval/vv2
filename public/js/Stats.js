@@ -94,19 +94,19 @@
                       $('#game-type').val($(this).attr('data-type'));
                       $('#game-quality').val(quality);
                       $("#game").ajaxSubmit({
-                          url: '/api/game/add',
-                          type: 'post',
-                          success: function () {
-                              $('#confirm-dig').show();
-                              $('#confirm-dig').delay(300).fadeToggle()
-                              $('.btn-avatar').removeClass('avatar-checked');
-                              thisRating.raty('cancel');
-                              $('.rating-stats').slideUp();
-                          },
-                          error: function () {
-                            console.log('Upload error');
-                          }
-                        });
+                        url: '/api/game/add',
+                        type: 'post',
+                        success: function () {
+                            $('#confirm-dig').show();
+                            $('#confirm-dig').delay(300).fadeToggle()
+                            $('.btn-avatar').removeClass('avatar-checked');
+                            thisRating.raty('cancel');
+                            $('.rating-stats').slideUp();
+                        },
+                        error: function () {
+                          console.log('Upload error');
+                        }
+                      });
                       return false;
                   }
               });

@@ -8,6 +8,7 @@ use Application\Controller\AbstractController;
 use Application\Model;
 use Application\TableGateway;
 use Application\Model\Stats as Statistics;
+use Application\Service\NotificationService;
 
 class EventController extends AbstractController
 {
@@ -199,4 +200,43 @@ class EventController extends AbstractController
         return $view;
     }
 
+    public function commentAction()
+    {
+        $eventId    = $this->params()->fromPost('eventId', null);
+        $text    = $this->params()->fromPost('comment', null);
+
+        $event = $this->eventTable->find($eventId);
+        if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
+
+            $comment = $this->commentTable->save([
+                'date'    => date('Y-m-d H:i:s'),
+                'eventId' => $eventId,
+                'userId'  => $this->getUser()->id,
+                'comment' => $text,
+            ]);
+
+            $group = $this->groupTable->find($event->groupId);
+
+            $commentDate = \DateTime::createFromFormat('U', time());
+            $eventDate   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
+
+            $data = [
+                'event'       => $event,
+                'group'       => $group,
+                'date'        => $eventDate,
+                'user'        => $this->getUser(),
+                'comment'     => $comment,
+                'commentDate' => $commentDate,
+            ];
+
+            $notifService = $this->get(NotificationService::class);
+            $notifService->send(NotificationService::TYPE_COMMENT, $this->getUser()->id, $data);
+        }
+
+
+        $view = new ViewModel(['result' => true]);
+        $view->setTerminal(true);
+        $view->setTemplate('api/default/json.phtml');
+        return $view;
+    }
 }

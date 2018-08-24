@@ -102,6 +102,7 @@
             jsEvent.preventDefault();
 
             var myEvent = event;
+            var cal = $('#calendar');
             
             var calendarModal = $('#editNewEvent');
             $("#editNewEvent").off('show.bs.modal').on("show.bs.modal", function(e) {
@@ -109,19 +110,46 @@
                   var url = '/api/guest/response/' + myEvent.id ;
                   $('.event-response').off('click').on('click', function(e, state) {
                       var response  = $(this).attr('data-response');
-                      url = url + '/' +response;
+                      url = url + '/' + response;
                       var request = $.ajax({
                           type: "GET",
                           url: url
                       }).done(function(resp) {
+                          switch(response) {
+                              case '1':
+                                  myEvent.className = ['event-green'];
+                                  break;
+                              case '2':
+                                  myEvent.className = ['event-red'];
+                                  break;
+                              case '3':
+                                  myEvent.className = ['event-azure'];
+                                  break;
+                          }
+                          cal.fullCalendar('updateEvent', myEvent);
                           $('#editNewEvent').modal('hide');
                       });
                   });
-                });
-            });
 
-            $("#editNewEvent").off('hide.bs.modal').on("hide.bs.modal", function(e) {
-              $('#calendar').fullCalendar('refetchEvents');
+                  $('#submit-comment').off('click').on('click', function(e, state) {
+                    // apply nl2br + htmlentities
+                    var text = $('#comment-text').val().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/\n/g, '<br />');
+                    var avatar = $('#comment-text').attr('data-avatar');
+                    var html = '<li class="list-group-item"><div class="row"><div class="col-2"><span class="avatar"><img src="' + avatar + '";"></span></div><div class="media-body col-10"><h5 class="list-group-item-heading mt-0 mb-5"><small class="float-right">now</small> Benoit Duval</h5><p class="list-group-item-text">' + text + '</p></div></div></li>';
+                    $(html).hide().prependTo("#comments-list").fadeIn();
+                    $('#comment-text').val('');
+
+                    $('#form-comment').ajaxSubmit({
+                      url: '/api/event/comment',
+                      type: 'post',
+                      data: {
+                        'eventId': myEvent.id,
+                        'comment': text,
+                      }
+                    });
+                  });
+
+                });
             });
 
             $("#editNewEvent").modal('show');

@@ -68,16 +68,26 @@ return [
                     ],
                 ],
             ],
-            'get-event' => [
+            'event-comment' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/api/event/:id',
+                    'route'    => '/api/event/comment',
                     'defaults' => [
                         'controller'    => Controller\EventController::class,
-                        'action'        => 'getInfo',
+                        'action'        => 'comment',
                     ],
                 ],
             ],
+            // 'get-event' => [
+            //     'type'    => Segment::class,
+            //     'options' => [
+            //         'route'    => '/api/event/:id',
+            //         'defaults' => [
+            //             'controller'    => Controller\EventController::class,
+            //             'action'        => 'getInfo',
+            //         ],
+            //     ],
+            // ],
             'event-live' => [
                 'type'    => Segment::class,
                 'options' => [

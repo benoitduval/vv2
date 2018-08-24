@@ -16,6 +16,7 @@ use Application\Model;
 use Application\Form\SignIn;
 use Application\Service\MailService;
 use Application\Service\OneSignalService;
+use Application\Service\NotificationService;
 
 class IndexController extends AbstractController
 {
