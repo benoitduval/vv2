@@ -404,7 +404,7 @@ class EventController extends AbstractController
 
             $setter = null;
             foreach ($data['positions'] as $userId) {
-                if ($users[$userId]->position != \Application\Model\User::POSITION_SETTER) continue;
+                if (!isset($users[$userId]) || $users[$userId]->position != \Application\Model\User::POSITION_SETTER) continue;
                 $setter = $users[$userId];
                 break;
             }
@@ -423,7 +423,7 @@ class EventController extends AbstractController
                 'set'            => $data['set'],
                 'start'          => $data['start'],
                 'setter'         => $setter,
-            ]);
+            ]);     
         } else {
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
             $this->redirect()->toRoute('home');

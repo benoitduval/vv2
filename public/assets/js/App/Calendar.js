@@ -44,6 +44,7 @@
         babelHelpers.get(AppCalendar.prototype.__proto__ || Object.getPrototypeOf(AppCalendar.prototype), 'process', this).call(this);
 
         this.handleFullcalendar();
+        // this.handleEventShow();
         // this.handleEventList();
       }
     }, {
@@ -106,7 +107,8 @@
             
             var calendarModal = $('#editNewEvent');
             $("#editNewEvent").off('show.bs.modal').on("show.bs.modal", function(e) {
-                $(this).find(".modal-body").load('/event/detail/' + myEvent.id, function() {
+                var modalBody = $(this).find(".modal-body");
+                modalBody.load('/event/detail/' + myEvent.id, function() {
                   var url = '/api/guest/response/' + myEvent.id ;
                   $('.event-response').off('click').on('click', function(e, state) {
                       var response  = $(this).attr('data-response');
@@ -149,6 +151,10 @@
                     });
                   });
 
+                  $("#live-score").click(function(ev) {
+                      ev.preventDefault();
+                      modalBody.load($(this).attr("href"));
+                  });
                 });
             });
 
@@ -191,6 +197,20 @@
             }
           });
         });
+      }
+    }, {
+      key: 'handleEventShow',
+      value: function handleEventShow() {
+        var eventId = 698;
+        if(eventId) {
+          var calendarModal = $('#editNewEvent');
+          var modalBody = $(".modal-body");
+          modalBody.load('/event/detail/' + eventId);
+          
+          var item = $("#calendar").fullCalendar( 'clientEvents', 698 );
+          console.log(item);
+          calendarModal.modal('show');
+        }
       }
     }]);
     return AppCalendar;
