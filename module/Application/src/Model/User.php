@@ -67,8 +67,8 @@ class User extends AbstractModel
         $result = '/img/avatars/default-avatar.png';
         $numero = '/img/avatars/' . $this->numero . '.png';
         if ($this->numero) $result = $numero;
-        $avatar = getcwd() . '/public/img/avatars/' . md5($this->email . $this->id) . '.png';
-        if (file_exists(getcwd() . '/public/img/avatars/' . md5($this->email . $this->id) . '.png')) $result = '/img/avatars/' . md5($this->email . $this->id) . '.png';
+        $avatar = getcwd() . '/public/img/avatars/users/' . md5($this->email . $this->id) . '.png';
+        if (file_exists(getcwd() . '/public/img/avatars/users/' . md5($this->email . $this->id) . '.png')) $result = '/img/avatars/users/' . md5($this->email . $this->id) . '.png';
         return $result;
     }
 }

@@ -6,7 +6,7 @@ composer.phar
 config/autoload/*.local.php
 
 #avatars
-public/img/avatars/*
+public/img/avatars/users/*
 
 # Binary gettext files
 *.mo

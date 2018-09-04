@@ -71,7 +71,7 @@ class UserController extends AbstractController
                 // On this example, obtain safe unique name from its binary data.
                 if (!move_uploaded_file(
                     $_FILES['croppedImage']['tmp_name'],
-                    sprintf(getcwd() . '/public/img/avatars/%s.%s',
+                    sprintf(getcwd() . '/public/img/avatars/users/%s.%s',
                         md5($this->getUser()->email . $this->getUser()->id),
                         'png'
                     )
