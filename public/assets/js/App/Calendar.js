@@ -108,6 +108,9 @@
             var calendarModal = $('#editNewEvent');
             $("#editNewEvent").off('show.bs.modal').on("show.bs.modal", function(e) {
                 var modalBody = $(this).find(".modal-body");
+
+                modalBody.html('<div class="col-12"><div class="example-wrap mt-50px"><div class="example-loading vertical-align text-center pt-100"><div class="loader vertical-align-middle loader-tadpole"></div></div></div></div>')
+                
                 modalBody.load('/event/detail/' + myEvent.id, function() {
                   var url = '/api/guest/response/' + myEvent.id ;
                   $('.event-response').off('click').on('click', function(e, state) {
