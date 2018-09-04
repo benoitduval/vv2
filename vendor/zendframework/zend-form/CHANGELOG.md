@@ -2,6 +2,98 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 2.12.0 - 2018-05-16
+
+### Added
+
+- [#194](https://github.com/zendframework/zend-form/pull/194) adds the ability to whitelist additional HTML attributes for use with a view helper,
+  as well as attribute prefixes. These can be enabled via the following:
+  
+  ```php
+  $helper->addValidAttribute('attribute-name');
+  $helper->addValidAttributePrefix('prefix-');
+  ```
+
+- [#188](https://github.com/zendframework/zend-form/pull/188) adds a new method to the `FormElementErrors` view helper, `setTranslateMessages(bool $flag)`.
+  By default, the helper continues to translate error messages (if a translator
+  is present), as introduced in 2.11.0. However, using this method, you can
+  disable translation, which may be necessary to prevent double translation
+  and/or to reduce logs from missed translation lookups. Because the method
+  implements a fluent interface, you may do so in one line:
+  
+  ```php
+  echo $this->formElementErrors()->setTranslateMessages(false);
+  ```
+  
+  Note: you will need to reset the value afterwards if you want translations to occur
+  in later invocations.
+
+### Changed
+
+- [#193](https://github.com/zendframework/zend-form/pull/193) modifies how attributes are escaped. If zend-espaper raises an exception
+  for an invalid attribute value, helpers will now catch the exception, and use
+  a blank value for the attribute. This prevents 500 errors from being raised
+  for such pages.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
+## 2.11.0 - 2017-12-06
+
+### Added
+
+- [#104](https://github.com/zendframework/zend-form/pull/104) adds the ability
+  for the `FormElementErrors` view helper to translate validation error messages
+  using the composed translator and text domain instances.
+
+- [#171](https://github.com/zendframework/zend-form/pull/171),
+  [#186](https://github.com/zendframework/zend-form/pull/186), and
+  [#187](https://github.com/zendframework/zend-form/pull/187) add support for
+  PHP 7.2.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#171](https://github.com/zendframework/zend-form/pull/171) removes support
+  for HHVM.
+
+- [#186](https://github.com/zendframework/zend-form/pull/186) removes support
+  for PHP 5.5.
+
+### Fixed
+
+- [#162](https://github.com/zendframework/zend-form/pull/162) fixes an issue
+  with hydration when a form has called `setWrapElements(true)`, ensuring that
+  binding values in a fieldset will correctly identify the elements in the
+  provided data.
+
+- [#172](https://github.com/zendframework/zend-form/pull/172) fixes the
+  `DateTime` element such that it no longer attempts to use its
+  `DATETIME_FORMAT` constant, but, rather, the value of the `$format` property,
+  when representing the element; this change allows developers to override the
+  format, which was the original intention.
+
+- [#178](https://github.com/zendframework/zend-form/pull/178) loosens the checks
+  in `Zend\Form\Element\DateTime::getValue()` to check against PHP's `DateTimeInterface` (vs
+  `DateTime`) when retrieving the value; this fixes edge cases where it was
+  instead returning the format for `DateTimeImmutable` values.
+
 ## 2.10.2 - 2017-05-18
 
 ### Added
@@ -64,6 +156,28 @@ All notable changes to this project will be documented in this file, in reverse 
   previously, forms did not check if the element was in the target input filter
   composed in a `CollectionInputFilter`, leading to duplicate elements with
   varying behavior; now the inputs are correctly merged.
+
+## 2.10.0 - 2017-02-23
+
+### Added
+
+- [#115](https://github.com/zendframework/zend-form/pull/115) adds translatable
+  HTML attributes to the abstract view helper.
+- [#116](https://github.com/zendframework/zend-form/pull/116) adds the InputFilterFactory
+  dependency to the constructor.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#139](https://github.com/zendframework/zend-form/pull/139) adds support for 
+  ReCaptcha version 2 though zend-captcha 2.7.1.
 
 ## 2.10.0 - 2017-02-23
 

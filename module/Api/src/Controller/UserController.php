@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 use Application\Controller\AbstractController;
 use Application\Model;
 use Application\TableGateway;
+use \Gumlet\ImageResize;
 
 class UserController extends AbstractController
 {
@@ -69,16 +70,21 @@ class UserController extends AbstractController
                 // You should name it uniquely.
                 // DO NOT USE $_FILES['croppedImage']['name'] WITHOUT ANY VALIDATION !!
                 // On this example, obtain safe unique name from its binary data.
-                if (!move_uploaded_file(
-                    $_FILES['croppedImage']['tmp_name'],
-                    sprintf(getcwd() . '/public/img/avatars/users/%s.%s',
+                $name = sprintf(getcwd() . '/public/img/avatars/users/%s.%s',
                         md5($this->getUser()->email . $this->getUser()->id),
                         'png'
-                    )
+                    );
+                if (!move_uploaded_file(
+                    $_FILES['croppedImage']['tmp_name'],
+                    $name
                 )) {
                 error_log('Failed to move uploaded file.');
                     throw new RuntimeException('Failed to move uploaded file.');
                 }
+
+                $image = new ImageResize($name);
+                $image->crop(300, 300);
+                $image->save($name);
 
                 echo 'File is uploaded successfully.';
 

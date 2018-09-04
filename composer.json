@@ -29,7 +29,8 @@
         "zendframework/zend-servicemanager-di": "^1.0",
         "zendframework/zend-crypt": "^3.0",
         "zendframework/zend-mail": "^2.7",
-        "dropfan/onesignal-server-api": "^0.2.1"
+        "dropfan/onesignal-server-api": "^0.2.1",
+        "gumlet/php-image-resize": "1.9.*"
     },
     "autoload": {
         "psr-4": {
