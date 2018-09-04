@@ -203,7 +203,12 @@
                                               </td>
                                               <td><?= $user->firstname ?></td>
                                               <td><?= $user->lastname ?></td>
-                                              <td class="hidden-md-down"><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                                              <td class="hidden-md-down">
+                                                <?php if ($user->position): ?>
+                                                  <span class="badge badge-outline badge-<?= \Application\Model\User::$colors[$user->position] ?> float-right">
+                                                  <?= \Application\Model\User::$position[$user->position] ?></span>
+                                                <?php endif ?>
+                                              </td>
                                           </tr>
                                       <?php endforeach; ?>
                                     <?php endif ?>
@@ -227,7 +232,12 @@
                                               </td>
                                               <td><?= $user->firstname ?></td>
                                               <td><?= $user->lastname ?></td>
-                                              <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                                              <td class="hidden-md-down">
+                                                <?php if ($user->position): ?>
+                                                  <span class="badge badge-outline badge-<?= \Application\Model\User::$colors[$user->position] ?> float-right">
+                                                  <?= \Application\Model\User::$position[$user->position] ?></span>
+                                                <?php endif ?>
+                                              </td>
                                           </tr>
                                       <?php endforeach; ?>
                                     <?php endif ?>
@@ -251,7 +261,12 @@
                                               </td>
                                               <td><?= $user->firstname ?></td>
                                               <td><?= $user->lastname ?></td>
-                                              <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                                              <td class="hidden-md-down">
+                                                <?php if ($user->position): ?>
+                                                  <span class="badge badge-outline badge-<?= \Application\Model\User::$colors[$user->position] ?> float-right">
+                                                  <?= \Application\Model\User::$position[$user->position] ?></span>
+                                                <?php endif ?>
+                                              </td>
                                           </tr>
                                       <?php endforeach; ?>
                                     <?php endif ?>
@@ -275,7 +290,12 @@
                                               </td>
                                               <td><?= $user->firstname ?></td>
                                               <td><?= $user->lastname ?></td>
-                                              <td><span class="badge badge-outline badge-info float-right">Outside Hitter</span></td>
+                                              <td class="hidden-md-down">
+                                                <?php if ($user->position): ?>
+                                                  <span class="badge badge-outline badge-<?= \Application\Model\User::$colors[$user->position] ?> float-right">
+                                                  <?= \Application\Model\User::$position[$user->position] ?></span>
+                                                <?php endif ?>
+                                              </td>
                                           </tr>
                                       <?php endforeach; ?>
                                     <?php endif ?>

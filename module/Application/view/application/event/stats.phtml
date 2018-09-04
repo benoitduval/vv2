@@ -142,13 +142,13 @@
                     <tr>
                       <td class="w-20">
                         <span class="checkbox-custom checkbox-primary checkbox-lg">
-                          <input class="selectable-item user-checkbox <?= \Application\Model\User::$position[$users[$userId]->position] ?>" type="checkbox" name='users[]' checked="checked" id="<?= $users[$userId]->id ?>" value="<?= $users[$userId]->id ?>"/>
+                          <input class="selectable-item user-checkbox <?= \Application\Service\Strings::toSlug(\Application\Model\User::$position[$users[$userId]->position]) ?>" type="checkbox" name='users[]' checked="checked" id="<?= $users[$userId]->id ?>" value="<?= $users[$userId]->id ?>"/>
                           <label for="<?= $users[$userId]->id ?>"></label>
                         </span>
                       </td>
                       <td class="w-20">
                         <div class="avatar avatar-md">
-                          <img class="img-fluid" src="<?= $users[$userId]->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                          <img class="img-fluid" src="<?= $users[$userId]->getAvatarPath() ?>">
                         </div>
                       </td>
                       <td class="text-left"><?= $users[$userId]->getFullname() ?></td>

@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-lg-4">
-    <div class="card ribbon-bookmark ribbon-warning">
+    <div class="card ribbon-bookmark ribbon-<?= \Application\Model\User::$colors[$user->position] ?>">
       <div id="personalCompletedWidget" class="user-info card card-shadow text-center pb-20">
-        <div class="user-base card-block ribbon-bookmark ribbon-warning">
-          <span class="ribbon-inner">Outside Hitter</span>
+        <div class="user-base card-block ribbon-bookmark ribbon-<?= \Application\Model\User::$colors[$user->position] ?>">
+          <span class="ribbon-inner"><?= \Application\Model\User::$position[$user->position] ?></span>
           <span class="avatar img-bordered avatar-100" href="javascript:void(0)">
             <img src="<?= $user->getAvatarPath() ?>">
           </span>

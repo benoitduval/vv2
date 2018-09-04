@@ -30,12 +30,21 @@ class User extends AbstractModel
     protected $_numero      = null;
 
     public static $position = [
-        self::POSITION_SETTER         => 'setter',
-        self::POSITION_OPPOSITE       => 'opposite',
-        self::POSITION_MIDDLE_BLOCKER => 'middle-blocker',
-        self::POSITION_OUTSIDE_HITTER => 'outside-hitter',
-        self::POSITION_LIBERO         => 'libero',
-        self::POSITION_OTHER          => 'other',
+        self::POSITION_SETTER         => 'Setter',
+        self::POSITION_OPPOSITE       => 'Opposite',
+        self::POSITION_MIDDLE_BLOCKER => 'Middle Blocker',
+        self::POSITION_OUTSIDE_HITTER => 'Outside Hitter',
+        self::POSITION_LIBERO         => 'Libero',
+        self::POSITION_OTHER          => 'Coach',
+    ];
+
+    public static $colors = [
+        self::POSITION_SETTER         => 'info',
+        self::POSITION_OPPOSITE       => 'primary',
+        self::POSITION_MIDDLE_BLOCKER => 'warning',
+        self::POSITION_OUTSIDE_HITTER => 'success',
+        self::POSITION_LIBERO         => 'danger',
+        self::POSITION_OTHER          => 'default',
     ];
 
     public function getFullname()
