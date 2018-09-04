@@ -60,92 +60,37 @@ class EventController extends AbstractController
             $config  = $this->get('config');
             $baseUrl = $config['baseUrl'];
 
+            $hasStats = $this->statsTable->fetchOne(['eventId' => $eventId]);
+
             // User submit commment
-            $form = new Form\Comment();
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-                $form->setData($request->getPost());
-                if ($form->isValid()) {
-                    $data = $form->getData();
-                    // $eventDate   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
-                    $comment = $this->commentTable->save([
-                        'date'    => date('Y-m-d H:i:s'),
-                        'eventId' => $eventId,
-                        'userId'  => $this->getUser()->id,
-                        'comment' => $data['comment'],
-                    ]);
+            // $form = new Form\Comment();
+            // $request = $this->getRequest();
+            // if ($request->isPost()) {
+            //     $form->setData($request->getPost());
+            //     if ($form->isValid()) {
+            //         $data = $form->getData();
+            //         // $eventDate   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
+            //         $comment = $this->commentTable->save([
+            //             'date'    => date('Y-m-d H:i:s'),
+            //             'eventId' => $eventId,
+            //             'userId'  => $this->getUser()->id,
+            //             'comment' => $data['comment'],
+            //         ]);
 
-                    $config = $this->get('config');
-                    // if ($config['mail']['allowed']) {
-                    //     $users = $this->userTable->getAllByGroupId($group->id);
-                    //     $bcc   = [];
-                    //     foreach ($users as $user) {
-                    //         $email = true;
-                    //         $disponibility = $this->disponibilityTable->fetchOne(['userId' => $user->id, 'eventId' => $event->id]);
-                    //         if ($disponibility && $disponibility->response = Model\Disponibility::RESP_NO && !$this->notifTable->isAllowed(Model\Notification::COMMENT_ABSENT, $user->id)) {
-                    //             $email = false;
-                    //         } else if ($this->getUser()->id == $user->id && !$this->notifTable->isAllowed(Model\Notification::SELF_COMMENT, $user->id)) {
-                    //             $email = false;
-                    //         } else if (!$this->notifTable->isAllowed(Model\Notification::COMMENTS, $user->id)) {
-                    //             $email = false;
-                    //         }
+            //         $config = $this->get('config');
 
-                    //         if ($email) $bcc[] = $user->email;
-                    //     }
 
-                    //     if ($config['mail']['allowed']) {
-                    //             $commentDate = \DateTime::createFromFormat('U', time());
-                    //             $date        = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
-                    //             $view       = new \Zend\View\Renderer\PhpRenderer();
-                    //             $resolver   = new \Zend\View\Resolver\TemplateMapResolver();
-                    //             $resolver->setMap([
-                    //                 'event' => __DIR__ . '/../../view/mail/comment.phtml'
-                    //             ]);
-                    //             $view->setResolver($resolver);
-
-                    //             $viewModel  = new ViewModel();
-                    //             $viewModel->setTemplate('event')->setVariables(array(
-                    //                 'event'     => $event,
-                    //                 'group'     => $group,
-                    //                 'date'      => $date,
-                    //                 'user'      => $this->getUser(),
-                    //                 'comment'   => $comment,
-                    //                 'commentDate' => $commentDate,
-                    //                 'baseUrl'   => $config['baseUrl']
-                    //             ));
-
-                    //             $oneSignal = $this->get(OneSignalService::class);
-                    //             $oneSignal->setData([
-                    //                 'header'   => 'Nouvel Commentaire !',
-                    //                 'content'  => $event->name,
-                    //                 'subtitle' => \Application\Service\Date::toFr($date->format('l d F \à H\hi')),
-                    //                 'url'      => $config['baseUrl'] . '/event/detail/' . $event->id,
-                    //             ]);
-                    //             foreach ($users as $user) {
-                    //                 $oneSignal->sendTo($user->email);
-                    //             }
-
-                    //             $mail = $this->get(MailService::class);
-                    //             $mail->addBcc($bcc);
-                    //             $mail->setSubject('[' . $group->name . '] ' . $event->name . ' - ' . \Application\Service\Date::toFr($date->format('l d F \à H\hi')));
-                    //             $mail->setBody($view->render($viewModel));
-                    //         try {
-                    //             $mail->send();
-                    //         } catch (\Exception $e) {
-                    //         }
-                    //     }
-                    // }
-
-                    $this->flashMessenger()->addSuccessMessage('Commentaire enregistré');
-                    $this->redirect()->toUrl('/event/detail/' . $event->id);
-                }
-            }
+            //         $this->flashMessenger()->addSuccessMessage('Commentaire enregistré');
+            //         $this->redirect()->toUrl('/event/detail/' . $event->id);
+            //     }
+            // }
 
             $view = new ViewModel([
+                'hasStats'        => $hasStats,
                 'counters'        => $counters,
                 'comments'        => $result,
                 'event'           => $event,
-                'form'            => $form,
+                // 'form'            => $form,
                 'group'           => $group,
                 'users'           => $users,
                 'availabilities'  => $availabilities,

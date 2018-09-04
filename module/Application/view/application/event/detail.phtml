@@ -108,40 +108,33 @@
                       </div>
                       <h3 class="card-title mb-20"><?= $event->name ?></h3>
                       <p><span class="card-title mb-10"><?= $event->address ?>, <?= $event->zipCode ?> <?= $event->city ?></span></p>
-                      <div class="btn-group btn-group-justified mt-20 mb-40">
-                        <div class="btn-group" role="group">
-                          <a href="#" class="btn btn-outline btn-default" id="event-place-url" target="_blank">
-                            <i class="icon wb-map" aria-hidden="true"></i>
-                            <br>
-                            <span class="text-uppercase">go to map</span>
-                          </a>
-                        </div>
-                      </div>
-                      <?php if ($isAdmin): ?>                      
                         <div class="btn-group btn-group-justified mt-20 mb-20">
                           <div class="btn-group" role="group">
-                            <a href="/live/<?= $event->id ?>/test" id="live-score" class="btn btn-outline btn-default">
-                              <i class="icon wb-camera" aria-hidden="true"></i>
+                            <a href="#" class="btn btn-outline btn-default" id="event-place-url" target="_blank">
+                              <i class="icon wb-map" aria-hidden="true"></i>
                               <br>
-                              <span class="text-uppercase">Live Score</span>
+                              <span class="text-uppercase">go to map</span>
                             </a>
                           </div>
-                          <div class="btn-group" role="group">
-                            <a href="/event/stats/<?= $event->id ?>" class="btn btn-outline btn-default">
-                              <i class="icon wb-camera" aria-hidden="true"></i>
-                              <br>
-                              <span class="text-uppercase">See stats</span>
-                            </a>
-                          </div>
-                          <div class="btn-group" role="group">
-                            <a href="/event/live-stats/<?= $event->id ?>" class="btn btn-outline btn-primary">
-                              <i class="icon wb-stats-bars" aria-hidden="true"></i>
-                              <br>
-                              <span class="text-uppercase">Take Stats</span>
-                            </a>
-                          </div>
+                          <?php if ($hasStats): ?>                          
+                            <div class="btn-group" role="group">
+                              <a href="/event/stats/<?= $event->id ?>" class="btn btn-outline btn-default">
+                                <i class="icon wb-camera" aria-hidden="true"></i>
+                                <br>
+                                <span class="text-uppercase">See stats</span>
+                              </a>
+                            </div>
+                          <?php endif ?>
+                          <?php if ($isAdmin): ?>                      
+                            <div class="btn-group" role="group">
+                              <a href="/event/live-stats/<?= $event->id ?>" class="btn btn-outline btn-primary">
+                                <i class="icon wb-stats-bars" aria-hidden="true"></i>
+                                <br>
+                                <span class="text-uppercase">Take Stats</span>
+                              </a>
+                            </div>
+                          <?php endif ?>
                         </div>
-                      <?php endif ?>
                     </div>
                   </div>
                 </div>
