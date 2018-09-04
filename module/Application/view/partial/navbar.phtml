@@ -67,7 +67,7 @@
           <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
             data-animation="scale-up" role="button">
             <span class="avatar">
-              <img src="<?= $user->getAvatarPath() ?>">
+              <img src="<?= (isset($user)) ? $user->getAvatarPath() : '/img/avatars/default-avatar.png';?>">
             </span>
           </a>
           <div class="dropdown-menu" role="menu">

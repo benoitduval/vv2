@@ -108,6 +108,15 @@
                       </div>
                       <h3 class="card-title mb-20"><?= $event->name ?></h3>
                       <p><span class="card-title mb-10"><?= $event->address ?>, <?= $event->zipCode ?> <?= $event->city ?></span></p>
+                      <div class="btn-group btn-group-justified mt-20 mb-40">
+                        <div class="btn-group" role="group">
+                          <a href="#" class="btn btn-outline btn-default" id="event-place-url" target="_blank">
+                            <i class="icon wb-map" aria-hidden="true"></i>
+                            <br>
+                            <span class="text-uppercase">go to map</span>
+                          </a>
+                        </div>
+                      </div>
                       <?php if ($isAdmin): ?>                      
                         <div class="btn-group btn-group-justified mt-20 mb-20">
                           <div class="btn-group" role="group">
@@ -198,7 +207,7 @@
                                           <tr>
                                               <td>
                                                 <div class="avatar avatar-md">
-                                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>">
                                                 </div>
                                               </td>
                                               <td><?= $user->firstname ?></td>
@@ -227,7 +236,7 @@
                                           <tr>
                                               <td>
                                                 <div class="avatar avatar-md">
-                                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>">
                                                 </div>
                                               </td>
                                               <td><?= $user->firstname ?></td>
@@ -256,7 +265,7 @@
                                           <tr>
                                               <td>
                                                 <div class="avatar avatar-md">
-                                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>">
                                                 </div>
                                               </td>
                                               <td><?= $user->firstname ?></td>
@@ -285,7 +294,7 @@
                                           <tr>
                                               <td>
                                                 <div class="avatar avatar-md">
-                                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                                                  <img class="img-fluid" src="<?= $user->getAvatarPath() ?>">
                                                 </div>
                                               </td>
                                               <td><?= $user->firstname ?></td>
