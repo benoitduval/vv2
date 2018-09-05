@@ -44,7 +44,7 @@
         babelHelpers.get(AppCalendar.prototype.__proto__ || Object.getPrototypeOf(AppCalendar.prototype), 'process', this).call(this);
 
         this.handleFullcalendar();
-        // this.handleEventShow();
+        this.handleEventShow();
         // this.handleEventList();
       }
     }, {
@@ -96,7 +96,7 @@
           selectable: true,
           selectHelper: true,
           select: function select(date) {
-            if ($('#addNewEvent').lenght !== 'undefined') {            
+            if ($('#addNewEvent').lenght !== 'undefined') {
               var eventDate = new Date(date);
               var now = new Date();
               now.setHours(0,0,0,0);
@@ -212,14 +212,24 @@
     }, {
       key: 'handleEventShow',
       value: function handleEventShow() {
-        var eventId = 698;
+        var eventId = 687;
         if(eventId) {
           var calendarModal = $('#editNewEvent');
           var modalBody = $(".modal-body");
-          modalBody.load('/event/detail/' + eventId);
-          
-          var item = $("#calendar").fullCalendar( 'clientEvents', 698 );
-          console.log(item);
+          var url = '/api/guest/response/' + eventId ;
+          modalBody.load('/event/detail/' + eventId, function() {
+          $('.event-response').off('click').on('click', function(e, state) {
+              var response  = $(this).attr('data-response');
+              url = url + '/' + response;
+              var request = $.ajax({
+                  type: "GET",
+                  url: url
+              }).done(function(resp) {
+                  $('#calendar').fullCalendar('refetchEvents');
+                  $('#editNewEvent').modal('hide');
+              });
+          });
+          });
           calendarModal.modal('show');
         }
       }
