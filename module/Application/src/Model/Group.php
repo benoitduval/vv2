@@ -31,7 +31,7 @@ class Group extends AbstractModel
     {
         $result = '/img/default-group-avatar.png';
         $avatar = getcwd() . '/public/img/avatars/groups/' . md5($this->brand . $this->id) . '.png';
-        if (file_exists(getcwd() . '/public/img/avatars/groups/' . md5($this->brand . $this->id) . '.png')) $result = '/img/avatars/' . md5($this->brand . $this->id) . '.png';
+        if (file_exists(getcwd() . '/public/img/avatars/groups/' . md5($this->brand . $this->id) . '.png')) $result = '/img/avatars/groups/' . md5($this->brand . $this->id) . '.png';
         return $result;
     }
 }
