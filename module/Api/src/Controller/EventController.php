@@ -35,31 +35,6 @@ class EventController extends AbstractController
                     'eventId' => $event->id
                 ]);
 
-                $counters = $this->disponibilityTable->getCounters($event->id);
-                $count[Model\Disponibility::LABEL_RESP_OK] = $counters[Model\Disponibility::RESP_OK];
-                $count[Model\Disponibility::LABEL_RESP_NO] = $counters[Model\Disponibility::RESP_NO];
-                $count[Model\Disponibility::LABEL_RESP_UNCERTAIN] = $counters[Model\Disponibility::RESP_UNCERTAIN];
-                $count[Model\Disponibility::LABEL_RESP_NO_ANSWER] = $counters[Model\Disponibility::RESP_NO_ANSWER];
-
-                $disponibilities    = $this->disponibilityTable->fetchAll(['eventId' => $event->id]);
-                $users = [
-                    Model\Disponibility::RESP_NO_ANSWER => [],
-                    Model\Disponibility::RESP_OK        => [],
-                    Model\Disponibility::RESP_NO        => [],
-                    Model\Disponibility::RESP_UNCERTAIN => [],
-                ];
-                foreach ($disponibilities as $disp) {
-                    $user = $this->userTable->find($disp->userId);
-                    $users[$disp->response][] = [
-                        'firstname' => $user->firstname,
-                        'lastname' => $user->lastname
-                    ];
-                }
-                $team[Model\Disponibility::LABEL_RESP_NO_ANSWER] = $users[Model\Disponibility::RESP_NO_ANSWER];
-                $team[Model\Disponibility::LABEL_RESP_OK] = $users[Model\Disponibility::RESP_OK];
-                $team[Model\Disponibility::LABEL_RESP_NO] = $users[Model\Disponibility::RESP_NO];
-                $team[Model\Disponibility::LABEL_RESP_UNCERTAIN] = $users[Model\Disponibility::RESP_UNCERTAIN];
-
                 $className = 'event-default';
                 if ($disponibility) {
                     if ($disponibility->response == Model\Disponibility::RESP_OK) {
@@ -78,37 +53,7 @@ class EventController extends AbstractController
                     'start'        => $eventDate->format('Y-m-d H:i'),
                     'url'          => $config['baseUrl'] . '/event/detail/' . $event->id,
                     'className'    => $className,
-                    'count'        => $count,
-                    'place'        => $event->place,
-                    'address'      => $event->address,
-                    'zipcode'      => $event->zipCode,
-                    'city'         => $event->city,
-                    'team'         => $team,
-                    'date'         => $eventDate->format('l jS F \- g:ia'),
-                    'dayNumeric'   => $eventDate->format('d'),
-                    'day'          => $eventDate->format('l'),
-                    'time'         => $eventDate->format('g:ia'),
-                    'month'        => $eventDate->format('F'),
                 ];
-            }
-
-            if ($groupId) {
-                $users = $this->userTable->getAllByGroupId($groupId);
-                foreach ($users as $user) {
-                    $ids[] = $user->id;
-                    $data[$user->id] = $user;
-                }
-                $holidays = $this->holidayTable->fetchAll(['userId' => $ids]);
-                foreach ($holidays as $holiday) {
-                    $from =  \Datetime::createFromFormat('Y-m-d H:i:s', $holiday->from);
-                    $to   =  \Datetime::createFromFormat('Y-m-d H:i:s', $holiday->to);
-                    $result[] = [
-                        'title' => $data[$holiday->userId]->getFullname(),
-                        'start' => $from->format('Y-m-d'),
-                        'className' => 'event-absent',
-                        'end'   => $to->modify('+ 1day')->format('Y-m-d'),
-                    ];
-                }
             }
 
             $view = new ViewModel(['result' => $result]);
