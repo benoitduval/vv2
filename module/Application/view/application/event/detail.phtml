@@ -110,7 +110,7 @@
                       <p><span class="card-title mb-10"><?= $event->address ?>, <?= $event->zipCode ?> <?= $event->city ?></span></p>
                         <div class="btn-group btn-group-justified mt-20 mb-20">
                           <div class="btn-group" role="group">
-                            <a href="#" class="btn btn-outline btn-default" id="event-place-url" target="_blank">
+                            <a href="https://maps.google.com/?q=<?= $event->address . '+' . $event->city . '+' . $event->zipCode ?>" class="btn btn-outline btn-default" id="event-place-url" target="_blank">
                               <i class="icon wb-map" aria-hidden="true"></i>
                               <br>
                               <span class="text-uppercase">go to map</span>
