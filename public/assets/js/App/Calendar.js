@@ -70,6 +70,14 @@
                   };
               }
           },
+          loading: function( isLoading, view ) {
+              if(isLoading) {// isLoading gives boolean value
+                  $('#calendar-loading').show();
+                  
+              } else {
+                  $('#calendar-loading').hide();
+              }
+          },
           height: height,
           defaultDate: new Date(),
           views: {

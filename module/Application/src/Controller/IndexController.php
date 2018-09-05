@@ -99,46 +99,12 @@ class IndexController extends AbstractController
                 ]);
             }
 
-            // send emails
-            $config = $this->get('config');
-            // $oneSignal = $this->get(OneSignalService::class);
-            // $oneSignal->setData([
-            //     'header'   => 'Nouvel événement !',
-            //     'content'  => $event->name,
-            //     'subtitle' => \Application\Service\Date::toFr($date->format('l d F \à H\hi')),
-            //     'url'      => $config['baseUrl'] . '/event/detail/' . $event->id,
-            // ]);
-            // foreach ($emails as $email) {
-            //     $oneSignal->sendTo($email);
-            // }
-
-            if ($config['mail']['allowed']) {
-
-                $view       = new \Zend\View\Renderer\PhpRenderer();
-                $resolver   = new \Zend\View\Resolver\TemplateMapResolver();
-                $resolver->setMap([
-                    'event' => __DIR__ . '/../../view/mail/event.phtml'
-                ]);
-                $view->setResolver($resolver);
-
-                $viewModel  = new ViewModel();
-                $viewModel->setTemplate('event')->setVariables(array(
-                    'event'     => $event,
-                    'group'     => $group,
-                    'date'      => $date,
-                    'baseUrl'   => $config['baseUrl']
-                ));
-
-                $mail = $this->get(MailService::class);
-                // $mail->addIcalEvent($event);
-                $mail->addBcc($emails);
-                $mail->setSubject('[' . $group->name . '] ' . $event->name . ' - ' . \Application\Service\Date::toFr($date->format('l d F \à H\hi')));
-                $mail->setBody($view->render($viewModel));
-                try {
-                    // $mail->send();
-                } catch (\Exception $e) {
-                }
-            }
+            $notifService = $this->get(NotificationService::class);
+            $notifService->send(NotificationService::TYPE_EVENT, [
+                'event'     => $event,
+                'group'     => $group,
+                'date'      => $date,
+            ]);
 
             $this->flashMessenger()->addSuccessMessage('Votre évènement a bien été créé. Les notifications ont été envoyés aux membres du groupe.');
             $this->redirect()->toRoute('home');

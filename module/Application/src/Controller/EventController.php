@@ -62,35 +62,11 @@ class EventController extends AbstractController
 
             $hasStats = $this->statsTable->fetchOne(['eventId' => $eventId]);
 
-            // User submit commment
-            // $form = new Form\Comment();
-            // $request = $this->getRequest();
-            // if ($request->isPost()) {
-            //     $form->setData($request->getPost());
-            //     if ($form->isValid()) {
-            //         $data = $form->getData();
-            //         // $eventDate   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
-            //         $comment = $this->commentTable->save([
-            //             'date'    => date('Y-m-d H:i:s'),
-            //             'eventId' => $eventId,
-            //             'userId'  => $this->getUser()->id,
-            //             'comment' => $data['comment'],
-            //         ]);
-
-            //         $config = $this->get('config');
-
-
-            //         $this->flashMessenger()->addSuccessMessage('Commentaire enregistré');
-            //         $this->redirect()->toUrl('/event/detail/' . $event->id);
-            //     }
-            // }
-
             $view = new ViewModel([
                 'hasStats'        => $hasStats,
                 'counters'        => $counters,
                 'comments'        => $result,
                 'event'           => $event,
-                // 'form'            => $form,
                 'group'           => $group,
                 'users'           => $users,
                 'availabilities'  => $availabilities,

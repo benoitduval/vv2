@@ -220,19 +220,16 @@ class EventController extends AbstractController
             $commentDate = \DateTime::createFromFormat('U', time());
             $eventDate   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
 
-            $data = [
+            $notifService = $this->get(NotificationService::class);
+            $notifService->send(NotificationService::TYPE_COMMENT, [
                 'event'       => $event,
                 'group'       => $group,
                 'date'        => $eventDate,
                 'user'        => $this->getUser(),
                 'comment'     => $comment,
                 'commentDate' => $commentDate,
-            ];
-
-            $notifService = $this->get(NotificationService::class);
-            $notifService->send(NotificationService::TYPE_COMMENT, $this->getUser()->id, $data);
+            ]);
         }
-
 
         $view = new ViewModel(['result' => true]);
         $view->setTerminal(true);
