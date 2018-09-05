@@ -61,9 +61,7 @@ class NotificationService
             $viewModel->setTemplate('event')->setVariables($data);
 
             $mail = $this->_container->get(MailService::class);
-            // $mail->addBcc($bcc);
-            // TODO : Change This !
-            $mail->addBcc('benoit.duval.pro@gmail.com');
+            $mail->addBcc($bcc);
             $mail->setSubject('[' . $data['group']->name . '] ' . $data['event']->name . ' - ' . \Application\Service\Date::toFr($data['date']->format('l d F \à H\hi')));
             $mail->setBody($view->render($viewModel));
             try {
