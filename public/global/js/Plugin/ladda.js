@@ -62,7 +62,7 @@
       value: function getDefaults() {
         return {
           type: 'normal',
-          timeout: 2000
+          timeout: 10000
         };
       }
     }]);
