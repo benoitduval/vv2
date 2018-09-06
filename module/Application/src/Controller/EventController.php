@@ -15,7 +15,6 @@ class EventController extends AbstractController
     {
         $eventId = $this->params('id');
         if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
-
             $users = $this->userTable->getAllByGroupId($event->groupId);
 
             $comments  = $this->commentTable->fetchAll(['eventId' => $event->id]);
@@ -82,7 +81,10 @@ class EventController extends AbstractController
             
             return $view;
         } else {
-            $this->redirect()->toRoute('home');
+            $view = new ViewModel([]);
+            $view->setTemplate('application/event/not-found.phtml');
+            $view->setTerminal(true);
+            return $view;
         }
     }
 

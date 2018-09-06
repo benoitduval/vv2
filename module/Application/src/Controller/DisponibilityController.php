@@ -46,10 +46,7 @@ class DisponibilityController extends AbstractController
                 $this->flashMessenger()->addErrorMessage('Impossible de modifier un événement passé');
             }
 
-            $this->redirect()->toRoute('event', ['id' => $this->_id]);
-        } else {
-            $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
-            $this->redirect()->toRoute('home');
         }
+        $this->redirect()->toUrl('/?eventId=' . $this->_id);
     }
 }

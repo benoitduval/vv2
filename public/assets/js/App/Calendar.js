@@ -115,7 +115,7 @@
             
             var calendarModal = $('#editNewEvent');
             $("#editNewEvent").off('show.bs.modal').on("show.bs.modal", function(e) {
-                var modalBody = $(this).find(".modal-body");
+                var modalBody = $(this).find(".body-event");
 
                 modalBody.html('<div class="col-12"><div class="example-wrap mt-50px"><div class="example-loading vertical-align text-center pt-100"><div class="loader vertical-align-middle loader-tadpole"></div></div></div></div>')
                 
@@ -212,13 +212,15 @@
     }, {
       key: 'handleEventShow',
       value: function handleEventShow() {
-        var eventId = 687;
+        var eventId = exports.getUrlParameter;
         if(eventId) {
           var calendarModal = $('#editNewEvent');
-          var modalBody = $(".modal-body");
+          var modalBody = $(".body-event");
+          modalBody.html('<div class="col-12"><div class="example-wrap mt-50px"><div class="example-loading vertical-align text-center pt-100"><div class="loader vertical-align-middle loader-tadpole"></div></div></div></div>')
+
           var url = '/api/guest/response/' + eventId ;
           modalBody.load('/event/detail/' + eventId, function() {
-          $('.event-response').off('click').on('click', function(e, state) {
+            $('.event-response').off('click').on('click', function(e, state) {
               var response  = $(this).attr('data-response');
               url = url + '/' + response;
               var request = $.ajax({
@@ -228,7 +230,7 @@
                   $('#calendar').fullCalendar('refetchEvents');
                   $('#editNewEvent').modal('hide');
               });
-          });
+            });
           });
           calendarModal.modal('show');
         }
@@ -251,8 +253,24 @@
     app.run();
   }
 
+  function getUrlParameter(sParam) {
+      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+          sURLVariables = sPageURL.split('&'),
+          sParameterName,
+          i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+          sParameterName = sURLVariables[i].split('=');
+
+          if (sParameterName[0] === sParam) {
+              return sParameterName[1] === undefined ? true : sParameterName[1];
+          }
+      }
+  };
+
   exports.default = AppCalendar;
   exports.AppCalendar = AppCalendar;
+  exports.getUrlParameter = getUrlParameter('eventId');
   exports.run = run;
   exports.getInstance = getInstance;
 });
