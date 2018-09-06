@@ -7,6 +7,7 @@ config/autoload/*.local.php
 
 #avatars
 public/img/avatars/users/*
+public/img/avatars/groups/*
 
 # Binary gettext files
 *.mo
