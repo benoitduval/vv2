@@ -28,8 +28,6 @@ class UserController extends AbstractController
                     throw new RuntimeException('Invalid parameters.');
                 }
 
-                error_log($_FILES['croppedImage']['size']);
-
                 // Check $_FILES['croppedImage']['error'] value.
                 switch ($_FILES['croppedImage']['error']) {
                     case UPLOAD_ERR_OK:
@@ -47,7 +45,7 @@ class UserController extends AbstractController
                 }
 
                 // You should also check filesize here.
-                if ($_FILES['croppedImage']['size'] > 5000000) {
+                if ($_FILES['croppedImage']['size'] > 20000000) {
                     error_log('Exceeded filesize limit.');
                     throw new RuntimeException('Exceeded filesize limit.');
                 }
