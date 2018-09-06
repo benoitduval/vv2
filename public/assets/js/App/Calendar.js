@@ -214,6 +214,8 @@
       value: function handleEventShow() {
         var eventId = exports.getUrlParameter;
         if(eventId) {
+          $('#calendar-loading').hide();
+
           var calendarModal = $('#editNewEvent');
           var modalBody = $(".body-event");
           modalBody.html('<div class="col-12"><div class="example-wrap mt-50px"><div class="example-loading vertical-align text-center pt-100"><div class="loader vertical-align-middle loader-tadpole"></div></div></div></div>')
