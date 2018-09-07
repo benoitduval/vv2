@@ -1,4 +1,7 @@
-<?php $eventDate   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date); ?>
+<?php
+ $eventDate   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
+ $now = new \DateTime();
+?>
 <?php $me = $user ?>
 <!-- Default bootstrap modal example -->
 <div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -47,33 +50,35 @@
         <div class="row">
 
           <!-- TOP -->
-          <div class="col-12 mt-20">
-            <div class="card card-shadow">
-              <div class="btn-group btn-group-justified mt-0 mb-0">
-                <div class="btn-group" role="group">
-                  <a href="javascript:void(0)" class="event-response btn btn-present" data-response="<?= Application\Model\Disponibility::RESP_OK ?>">
-                    <i class="icon wb-check-circle" aria-hidden="true"></i>
-                    <br>
-                    <span class="text-uppercase">In</span>
-                  </a>
-                </div>
-                <div class="btn-group" role="group">
-                  <a href="javascript:void(0)" data-response="<?= Application\Model\Disponibility::RESP_NO ?>" class="btn btn-absent event-response">
-                    <i class="icon wb-minus-circle" aria-hidden="true"></i>
-                    <br>
-                    <span class="text-uppercase">Out</span>
-                  </a>
-                </div>
-                <div class="btn-group mt-40" role="group">
-                  <a href="javascript:void(0)" data-response="<?= Application\Model\Disponibility::RESP_UNCERTAIN ?>" class="btn btn-uncertain event-response">
-                    <i class="icon wb-help-circle" aria-hidden="true"></i>
-                    <br>
-                    <span class="text-uppercase">Uncertain</span>
-                  </a>
+          <?php if ($now <= $eventDate): ?>
+            <div class="col-12 mt-20">
+              <div class="card card-shadow">
+                <div class="btn-group btn-group-justified mt-0 mb-0">
+                  <div class="btn-group" role="group">
+                    <a href="javascript:void(0)" class="event-response btn btn-present" data-response="<?= Application\Model\Disponibility::RESP_OK ?>">
+                      <i class="icon wb-check-circle" aria-hidden="true"></i>
+                      <br>
+                      <span class="text-uppercase">In</span>
+                    </a>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <a href="javascript:void(0)" data-response="<?= Application\Model\Disponibility::RESP_NO ?>" class="btn btn-absent event-response">
+                      <i class="icon wb-minus-circle" aria-hidden="true"></i>
+                      <br>
+                      <span class="text-uppercase">Out</span>
+                    </a>
+                  </div>
+                  <div class="btn-group mt-40" role="group">
+                    <a href="javascript:void(0)" data-response="<?= Application\Model\Disponibility::RESP_UNCERTAIN ?>" class="btn btn-uncertain event-response">
+                      <i class="icon wb-help-circle" aria-hidden="true"></i>
+                      <br>
+                      <span class="text-uppercase">Uncertain</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          <?php endif ?>
 
             <!-- Left Side -->
             <div class="col-sm-6">

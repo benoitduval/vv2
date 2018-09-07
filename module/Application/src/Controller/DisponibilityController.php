@@ -26,8 +26,7 @@ class DisponibilityController extends AbstractController
 
     public function responseAction()
     {
-        $responseId     = $this->params('response');
-
+        $responseId = $this->params('response');
         if ($this->_event && $this->_isMember) {
             $disponibility = $this->disponibilityTable->fetchOne([
                 'eventId' => $this->_id,
@@ -41,11 +40,7 @@ class DisponibilityController extends AbstractController
                     $disponibility->response = $responseId;
                     $this->disponibilityTable->save($disponibility);
                 }
-                $this->flashMessenger()->addSuccessMessage('Votre réponse a été prise en compte.');
-            } else {    
-                $this->flashMessenger()->addErrorMessage('Impossible de modifier un événement passé');
             }
-
         }
         $this->redirect()->toUrl('/?eventId=' . $this->_id);
     }
