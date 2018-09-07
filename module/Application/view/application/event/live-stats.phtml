@@ -11,9 +11,9 @@
           <h3 class="panel-title text-uppercase"><?= $serviceShow ? 'Service' : 'Reception'; ?></h3>
           <div class="panel-actions panel-actions-keep">
             <a id="warning-confirm" data-url="<?= $deleteLink ?>" class="btn btn-danger btn-outline btn-sm" href="#" role="button">
-              <i class="icon wb-trash"></i> <span class="hidden-sm-down">Last Point</span>
+              <i class="icon wb-trash"></i> <span class="hidden-sm-down">Previous Point</span>
             </a>
-            <a id="reset" class="btn btn-default btn-outline btn-sm" role="button">
+            <a id="reset" data-url="<?= $cancelLink ?>" class="btn btn-default btn-outline btn-sm" role="button">
               <i class="icon wb-refresh" aria-hidden="true"></i> <span class="hidden-sm-down">Cancel</span>
             </a>
             <a class="btn btn-primary btn-outline btn-sm" href="#" role="button"  data-toggle="modal" data-target="#positions">

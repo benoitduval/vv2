@@ -257,14 +257,31 @@ class EventController extends AbstractController
     public function deleteStatsAction()
     {
         $statsId = $this->params('id', null);
-        $stats = $this->statsTable->find($this->params('id'));
+        $stats   = $this->statsTable->find($statsId);
         if ($stats && ($event = $this->eventTable->find($stats->eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
+
             $eventId = $stats->eventId;
+            $numero  = $stats->numero;
+
             $this->statsTable->delete(['id' => $statsId]);
             $key = 'position.' . $eventId . '.numero.' . $stats->numero;
             $this->get('memcached')->removeItem($key);
 
-            $this->flashMessenger()->addSuccessMessage('Point supprimé.');
+            $this->gameTable->delete(['eventId' => $eventId, 'numero >= ?' => $numero]);
+        }
+        $this->redirect()->toUrl('/event/live-stats/' . $eventId);
+    }
+
+    public function cancelStatsAction()
+    {
+        $eventId = $this->params('id', null);
+        $numero = $this->params()->fromQuery('numero', null);
+        $event = $this->eventTable->find($eventId);
+        $gameStats = $this->gameTable->fetchAll(['eventId' => $eventId, 'numero' => $numero]);
+        if ($event && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
+            foreach ($gameStats as $gameStat) {
+                $this->gameTable->delete(['id' => $gameStat->id]);
+            }
         }
         $this->redirect()->toUrl('/event/live-stats/' . $eventId);
     }
@@ -277,7 +294,8 @@ class EventController extends AbstractController
             $users      = $this->userTable->getAllByEventId($event->id);
             $config     = $this->get('config');
             $deleteLink = null;
-            $data       = [            
+            $cancelLink = null;
+            $data       = [
                 'scoreUs'    => 0,
                 'scoreThem'  => 0,
                 'set'        => 1,
@@ -294,6 +312,9 @@ class EventController extends AbstractController
             // Check for a new position
             $key = 'position.' . $eventId . '.numero.' . $data['numero'];
             if ($newPos = $this->get('memcached')->getItem($key)) $data['positions'] = $newPos;
+
+            $cancelNumero = $data['numero'] + 1;
+            $cancelLink = $config['baseUrl'] . '/event/cancel-stats/' . $event->id . '?numero=' . $cancelNumero;
 
             $request = $this->getRequest();
             if ($request->isPost()) {
@@ -313,12 +334,12 @@ class EventController extends AbstractController
                         $post['scoreThem']++;
                     }
 
-                    $post['eventId']   = $eventId;
-                    $post['groupId']   = $event->groupId;
-                    $post['userId']    = $post['userId'] ? $post['userId'] : null;
-                    $post['set']       = $data['set'];
-                    $post['numero']    = (!$stats) ? $data['numero'] : $stats->numero + 1;
-                    $stats             = $this->statsTable->save($post);
+                    $post['eventId'] = $eventId;
+                    $post['groupId'] = $event->groupId;
+                    $post['userId']  = $post['userId'] ? $post['userId'] : null;
+                    $post['set']     = $data['set'];
+                    $post['numero']  = (!$stats) ? $data['numero'] : $stats->numero + 1;
+                    $stats           = $this->statsTable->save($post);
                 }
 
                 $this->redirect()->toRoute('event', ['action' => 'live-stats', 'id' => $eventId]);
@@ -334,6 +355,7 @@ class EventController extends AbstractController
 
             return new ViewModel([
                 'deleteLink'     => $deleteLink,
+                'cancelLink'     => $cancelLink,
                 'data'           => $data,
                 'event'          => $event,
                 'user'           => $this->getUser(),

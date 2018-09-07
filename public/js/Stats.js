@@ -341,16 +341,29 @@
           });
         });
 
-        $("#reset").on('click', function (event) {
-          window.location.reload();
+        var cancelLink = $("#reset").attr('data-url');
+        $('#reset').on("click", function () {
+          var elem = $(this);
+          swal({
+            title: "Are you sure?",
+            text: "All your record for this point will be deleted",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-warning",
+            confirmButtonText: 'Yes, cancel it!',
+            closeOnConfirm: false
+            //closeOnCancel: false
+          }, function () {
+            window.location.href = cancelLink;
+          });
         });
 
-        var deleteLink = $("table").attr('data-delete-link');
+        var deleteLink = $("#warning-confirm").attr('data-url');
         $('#warning-confirm').on("click", function () {
           var elem = $(this);
           swal({
             title: "Are you sure?",
-            text: "You last point will be delete",
+            text: "You last point will be deleted",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-warning",
@@ -367,7 +380,6 @@
   }(_Site3.default);
 
   var instance = null;
-
   function getInstance() {
     if (!instance) {
       instance = new AppStats();

@@ -96,6 +96,20 @@ return [
                     ],
                 ],
             ],
+            'event' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/event[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-z][a-z_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller'    => Controller\EventController::class,
+                        'action'        => 'detail',
+                    ],
+                ],
+            ],
             'live-event' => [
                 'type'    => Segment::class,
                 'options' => [
