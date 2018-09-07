@@ -29,6 +29,7 @@ class StatsController extends AbstractController
 
 	    	foreach ($quality as $type => $values) {
 	    		$average[$type] = array_sum($values) / count($values);
+	    		$average[$type] = sprintf('%0.1f', $average[$type]);
 	    	}
 
 		    $view = new ViewModel([
