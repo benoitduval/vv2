@@ -228,16 +228,14 @@
           $('.btn-avatar').on('click', function() {
               $('#userId').val($(this).attr('data-user-id'));
 
-              var input = $(this).find('input');
-
-              $('.attack.front').each(function () {
+              $('.attack').each(function () {
                 $(this).removeClass('inactive');
                 $(this).addClass('active');
               });
 
-              $('.attack.front.active').on('click', function () {
-                $('#fromZone').val($(this).attr('data-target'));
-                $('.attack.front.active').removeClass('selected');
+              $('.attack.active').on('click', function () {
+                $('#fromZone').val($(this).attr('data-attack'));
+                $('.attack.active').removeClass('selected');
                 $(this).addClass('selected');
                 $('#submit-point').removeClass('disabled');
                 $('#submit-point').on('click', function() {
@@ -251,16 +249,14 @@
           $('#table-title').html('Blocked From ?');
           $('.btn-avatar').on('click', function() {
               $('#userId').val($(this).attr('data-user-id'));
-              var input = $(this).find('input');
-
-              $('.attack.front').each(function () {
+              $('.attack').each(function () {
                 $(this).removeClass('inactive');
                 $(this).addClass('active');
               });
 
-              $('.attack.front.active').on('click', function () {
-                $('#fromZone').val($(this).attr('data-target'));
-                $('.attack.front.active').removeClass('selected-error');
+              $('.attack.active').on('click', function () {
+                $('#fromZone').val($(this).attr('data-attack'));
+                $('.attack.active').removeClass('selected-error');
                 $(this).addClass('selected-error');
                 $('#submit-point').removeClass('disabled');
                 $('#submit-point').on('click', function() {
@@ -294,7 +290,6 @@
         $('#service-us-point-us').on('click', function() {
           $('#pointFor').val($(this).attr('data-value'));
           $('#reason').val(1); // point service
-
 
           $('#userId').val($(this).attr('data-user-id'));
           var input = $(this).find('input');

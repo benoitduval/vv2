@@ -43,12 +43,12 @@
               <h4 class="col-12 text-center">OR</h4>
                 <div class="btn-group btn-group-justified">
                   <div class="btn-group" role="group">
-                    <button id="service-us-fault-us" data-user-id="<?= isset($p1) ? $p1 : ''; ?>" type="button" class="btn btn-danger btn-toggle btn-next" data-next-title="Service Fault" data-value="<?= \Application\Model\Stats::POINT_THEM ?>" data-hide="#service" data-show="#end-point" data-hide-users="true">
+                    <button id="service-us-fault-us" data-user-id="<?= $server ? $server->id : ''; ?>" type="button" class="btn btn-danger btn-toggle btn-next" data-next-title="Service Fault" data-value="<?= \Application\Model\Stats::POINT_THEM ?>" data-hide="#service" data-show="#end-point" data-hide-users="true">
                       <span class="text-uppercase">Fault</span>
                     </button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button id="service-us-point-us" type="button" data-user-id="<?= isset($p1) ? $p1 : ''; ?>" class="btn btn-success btn-toggle btn-next" data-next-title="Service Ace" data-value="<?= \Application\Model\Stats::POINT_US ?>" data-hide="#service" data-show="#end-point" data-hide-users="true">
+                    <button id="service-us-point-us" type="button" data-user-id="<?= $server ? $server->id : ''; ?>" class="btn btn-success btn-toggle btn-next" data-next-title="Service Ace" data-value="<?= \Application\Model\Stats::POINT_US ?>" data-hide="#service" data-show="#end-point" data-hide-users="true">
                       <span class="text-uppercase">Ace</span>
                     </button>
                   </div>
@@ -360,7 +360,7 @@
 
     <input type="hidden" id="pointFor" name="pointFor" value=""/>
     <input type="hidden" id="reason" name="reason" value=""/>
-    <input type="hidden" id="userId" name="userId" value=""/>
+    <input type="hidden" id="userId" name="userId" value="<?= $server ? $server->id : '' ?>"/>
     <input type="hidden" id="fromZone" name="fromZone" value=""/>
     <input type="hidden" id="toZone" name="toZone" value=""/>
     <input type="hidden" id="scoreUs" name="scoreUs" value="<?= $scoreUs ?>"/>

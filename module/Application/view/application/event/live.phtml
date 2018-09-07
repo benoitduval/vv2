@@ -8,18 +8,21 @@
           <li class="timeline-item <?= ($i % 2) ? '' : 'timeline-reverse'; ?>">
             <div class="timeline-dot <?= ($stat->pointFor == \Application\Model\Stats::POINT_US) ? 'bg-green-300' : 'bg-red-600'; ?>">
             </div>
-            <div class="timeline-info mb-0">
-              <time><b>(us) <?= $stat->scoreUs ?></b> / <?= $stat->scoreThem ?> (them)</time>
+            <div class="timeline-info mb-0 <?= ($stat->pointFor == \Application\Model\Stats::POINT_US) ? 'bg-green-400' : 'bg-red-400'; ?>">
+              <time style="color:#FFF;"><b><?= $stat->scoreUs ?> / <?= $stat->scoreThem ?></time>
             </div>
             <div class="timeline-content">
               <div class="card card-shadow">
                 <div class="card-block pt-10">
                   <h3 class="card-title mb-10">
+                    <?php if ($stat->userId): ?>
+                      <img class="avatar avatar-sm" src="<?= $users[$stat->userId]->getAvatarPath() ?>">
+                    <?php endif ?>
                     <?= \Application\Model\Stats::$literalReason[$stat->reason] ?>
                   </h3>
-                  <p class="card-text">
+<!--                   <p class="card-text">
                     <small>Setter position : P1</small>
-                  </p>
+                  </p> -->
                   <div class="row">
                   <?php if ($stat->fromZone || $stat->toZone): ?>
                     <table class="table">
@@ -33,7 +36,7 @@
                       </tr>
                       <tr class="col-12">
                         <!-- attack P5 -->
-                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P5) ? 'active selected' : '' ?> court-border-top court-border-left court-border-right attack text-center" data-attack="5">
+                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P5) ? 'active' : '' ?> court-border-top court-border-left court-border-right attack text-center" data-attack="5">
                           <?php if ($stat->fromZone == \Application\Model\Stats::FROM_P5 && $stat->userId): ?>
                             <img class="avatar avatar-sm" src="<?= $users[$stat->userId]->getAvatarPath() ?>">
                           <?php else: ?>
@@ -41,7 +44,7 @@
                           <?php endif ?>
                         </td>
                         <!-- attack P4 -->
-                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P4) ? 'active selected' : '' ?> court-border-top front attack text-center" data-attack="4">
+                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P4) ? 'active' : '' ?> court-border-top front attack text-center" data-attack="4">
                           <?php if ($stat->fromZone == \Application\Model\Stats::FROM_P4 && $stat->userId): ?>
                             <img class="avatar avatar-sm" src="<?= $users[$stat->userId]->getAvatarPath() ?>">
                           <?php else: ?>
@@ -55,7 +58,7 @@
                       </tr>
                       <tr class="col-12">
                         <!-- attack P6 -->
-                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P6) ? 'active selected' : '' ?> court-border-left court-border-right attack text-center" data-attack="6">
+                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P6) ? 'active' : '' ?> court-border-left court-border-right attack text-center" data-attack="6">
                           <?php if ($stat->fromZone == \Application\Model\Stats::FROM_P6 && $stat->userId): ?>
                             <img class="avatar avatar-sm" src="<?= $users[$stat->userId]->getAvatarPath() ?>">
                           <?php else: ?>
@@ -63,7 +66,7 @@
                           <?php endif ?>
                         </td>
                         <!-- attack P3 -->
-                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P3) ? 'active selected' : '' ?> front attack text-center" data-attack="3">
+                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P3) ? 'active' : '' ?> front attack text-center" data-attack="3">
                           <?php if ($stat->fromZone == \Application\Model\Stats::FROM_P3 && $stat->userId): ?>
                             <img class="avatar avatar-sm" src="<?= $users[$stat->userId]->getAvatarPath() ?>">
                           <?php else: ?>
@@ -77,7 +80,7 @@
                       </tr>
                       <tr class="col-12">
                         <!-- attack P1 -->
-                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P1) ? 'active selected' : '' ?> court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">
+                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P1) ? 'active' : '' ?> court-border-bottom court-border-left court-border-right attack text-center" data-attack="1">
                           <?php if ($stat->fromZone == \Application\Model\Stats::FROM_P1 && $stat->userId): ?>
                             <img class="avatar avatar-sm" src="<?= $users[$stat->userId]->getAvatarPath() ?>">
                           <?php else: ?>
@@ -85,7 +88,7 @@
                           <?php endif ?>
                         </td>
                         <!-- attack P2 -->
-                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P2) ? 'active selected' : '' ?> court-border-bottom front attack text-center" data-attack="2">
+                        <td height="40px" class="court-inside <?= ($stat->fromZone == \Application\Model\Stats::FROM_P2) ? 'active' : '' ?> court-border-bottom front attack text-center" data-attack="2">
                           <?php if ($stat->fromZone == \Application\Model\Stats::FROM_P2 && $stat->userId): ?>
                             <img class="avatar avatar-sm" src="<?= $users[$stat->userId]->getAvatarPath() ?>">
                           <?php else: ?>
@@ -122,11 +125,11 @@
                   <?php endif ?>
                   </div>
                 </div>
-                <div class="card-block">
+                <!-- <div class="card-block">
                   <a class="btn btn-primary btn-outline card-link" href="javascript:void(0)">
                     See Positions
                   </a>
-                </div>
+                </div> -->
               </div>
             </div>
           </li>
