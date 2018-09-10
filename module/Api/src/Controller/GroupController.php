@@ -61,7 +61,7 @@ class GroupController extends AbstractController
         $name = $this->params('name', null);
         $name    = \Application\Service\Strings::toSlug($name);
         $groupExist = is_null($this->groupTable->fetchOne(['brand' => $name]));
-        $data = ['result' => ['success' => $groupExist]];
+        $data = ['result' => ['valid' => $groupExist]];
         $view = new ViewModel($data);
 
         $view->setTerminal(true);

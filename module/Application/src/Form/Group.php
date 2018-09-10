@@ -39,13 +39,13 @@ class Group extends Form
             'options' => [
                 'value_options' => [
                     '-'          => '-',
-                    'Monday'    => 'Lundi',
-                    'Tuesday'   => 'Mardi',
-                    'Wednesday' => 'Mercredi',
-                    'Thursday'  => 'Jeudi',
-                    'Friday'    => 'Vendredi',
-                    'Saturday'  => 'Samedi',
-                    'Sunday'    => 'Dimanche',
+                    'Monday'    => 'Monday',
+                    'Tuesday'   => 'Tuesday',
+                    'Wednesday' => 'Wednesday',
+                    'Thursday'  => 'Thursday',
+                    'Friday'    => 'Friday',
+                    'Saturday'  => 'Saturday',
+                    'Sunday'    => 'Sunday',
                 ],
             ]
         ]);
@@ -111,7 +111,7 @@ class Group extends Form
             ],
             'attributes' => [
                 'class' => 'form-control',
-                'placeholder' => 'liste d\'emails où envoyer les invitations (séparé par une virgule).'
+                'placeholder' => 'Emails (coma separated)'
             ],
         ]);
 

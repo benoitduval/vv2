@@ -43,11 +43,15 @@ class GroupController extends AbstractController
             $groupForm = new Form\Group;
             $config    = $this->get('config');
 
+            $groupNames = [];
+            foreach ($this->groupTable->fetchAll() as $group) {
+                $groupNames[] = $group->brand;
+            }
+
             // bypass validation on fields
             $groupForm->getInputFilter()->get('eventDay[]')->setRequired(false);
             $request = $this->getRequest();
             if ($request->isPost()) {
-
                 $data = $request->getPost();
                 $groupForm->setData($data);
                 if ($groupForm->isValid()) {
@@ -134,6 +138,7 @@ class GroupController extends AbstractController
 
             return new ViewModel(array(
                 'form'    => $groupForm,
+                'groupNames' => json_encode($groupNames),
                 'user'    => $this->getUser(),
                 'group'   => isset($group) ? $group : '',
                 'baseUrl' => $baseUrl,

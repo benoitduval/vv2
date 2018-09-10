@@ -19,38 +19,88 @@
     (0, _Site.run)();
   });
 
-  // Example Wizard Accordion
-  // ------------------------
+  // Example Wizard Form Container
+  // -----------------------------
+  // http://formvalidation.io/api/#is-valid-container
   (function () {
     var defaults = Plugin.getDefaults("wizard");
-    var options = _jquery2.default.extend(true, {}, defaults, {
-      step: '.panel-title[data-toggle="collapse"]',
-      classes: {
-        step: {
-          //done: 'color-done',
-          error: 'color-error'
-        }
-      },
-      templates: {
-        buttons: function buttons() {
-          return '<div class="panel-footer">' + defaults.templates.buttons.call(this) + '</div>';
-        }
-      },
-      onBeforeShow: function onBeforeShow(step) {
-        step.$pane.collapse('show');
-      },
 
-      onBeforeHide: function onBeforeHide(step) {
-        step.$pane.collapse('hide');
-      },
-
-      onFinish: function onFinish() {
-        alert('finish');
-      },
-
-      buttonsAppendTo: '.panel-collapse'
+    var cloneIndex = $(".clonedInput").length;
+    $("button.clone").on("click", function clone() {
+        $("#toClone").clone().appendTo($('#cloneTarget')).on('click', 'button.clone', clone)
     });
 
-    (0, _jquery2.default)("#exampleWizardAccordion").wizard(options);
+    var options = _jquery2.default.extend(true, {}, defaults, {
+      onInit: function onInit() {
+        (0, _jquery2.default)('#exampleFormContainer').formValidation({
+          framework: 'bootstrap',
+          fields: {
+            groupName: {
+                validators: {
+                    groupName: {
+                        message: 'The value is not a valid email address'
+                    },
+                    callback: {
+                        callback: function(input) {
+                            var groupNameInput = $('#inputGroupName');
+                            var groupNames = JSON.parse(groupNameInput.attr('data-groups'));
+                            var val = groupNameInput.val()
+                                    .trim()
+                                    .toLowerCase()
+                                    .replace(/ /g,'-')
+                                    .replace(/[^\w-]+/g,'');
+
+                            if (jQuery.inArray(val, groupNames) !== -1) {
+                              return {
+                                valid: false,
+                                message : 'Name already taken'
+                              };
+                            } else {
+                              return {
+                                valid: true,
+                              };
+                            }
+                        }
+                    },
+                }
+            }
+          },
+          err: {
+            clazz: 'invalid-feedback'
+          },
+          control: {
+            // The CSS class for valid control
+            valid: 'is-valid',
+
+            // The CSS class for invalid control
+            invalid: 'is-invalid'
+          },
+          row: {
+            invalid: 'has-danger'
+          }
+        });
+      },
+      validator: function validator() {
+        var fv = (0, _jquery2.default)('#exampleFormContainer').data('formValidation');
+
+        var $this = (0, _jquery2.default)(this);
+
+        // Validate the container
+        fv.validateContainer($this);
+
+        var isValidStep = fv.isValidContainer($this);
+        if (isValidStep === false || isValidStep === null) {
+          return false;
+        }
+
+        return true;
+      },
+      onFinish: function onFinish() {
+        $('#exampleFormContainer').submit();
+      },
+      buttonsAppendTo: '.panel-body'
+    });
+
+    (0, _jquery2.default)("#exampleWizardFormContainer").wizard(options);
   })();
 });
