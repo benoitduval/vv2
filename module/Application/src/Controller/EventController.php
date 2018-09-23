@@ -307,12 +307,11 @@ class EventController extends AbstractController
             if ($stats = $this->statsTable->fetchOne(['eventId' => $eventId], 'id DESC')) {
                 $data = $stats->getMatchData();
                 $deleteLink = $config['baseUrl'] . '/event/delete-stats/' . $stats->id;
-            } 
+            }
 
             // Check for a new position
             $key = 'position.' . $eventId . '.numero.' . $data['numero'];
-            if ($newPos = $this->get('memcached')->getItem($key)) $data['positions'] = $newPos;
-
+            if (!$stats && $newPos = $this->get('memcached')->getItem($key)) $data['positions'] = $newPos;
             $cancelNumero = $data['numero'] + 1;
             $cancelLink = $config['baseUrl'] . '/event/cancel-stats/' . $event->id . '?numero=' . $cancelNumero;
 
@@ -339,6 +338,7 @@ class EventController extends AbstractController
                     $post['userId']  = $post['userId'] ? $post['userId'] : null;
                     $post['set']     = $data['set'];
                     $post['numero']  = (!$stats) ? $data['numero'] : $stats->numero + 1;
+                    if (!$post['start'] && $data['positions']['start']) $post['start'] = (int) $data['positions']['start'];
                     $stats           = $this->statsTable->save($post);
                 }
 

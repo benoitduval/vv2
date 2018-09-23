@@ -96,7 +96,10 @@
         return true;
       },
       onFinish: function onFinish() {
-        $('#exampleFormContainer').submit();
+        $('form').submit(function( event ) {
+          alert( "Handler for .submit() called." );
+          event.preventDefault();
+        });
       },
       buttonsAppendTo: '.panel-body'
     });

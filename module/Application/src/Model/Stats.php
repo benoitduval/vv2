@@ -102,7 +102,6 @@ class Stats extends AbstractModel
             $scoreThem = $this->scoreThem;
             $start     = $this->start;
         }
-        
         if ($this->pointFor == self::POINT_US) {
             if ($this->start == \Application\Model\Game::RECEPTION) {
                 $positions = $this->rotate();
