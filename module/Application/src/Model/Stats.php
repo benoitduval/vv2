@@ -62,6 +62,26 @@ class Stats extends AbstractModel
     protected $_libero    = null;
     protected $_start     = null;
 
+
+    public function rotateWhile($setterId, $position) {
+        if ($this->$position == $setterId) {
+            return $this->mark;
+        } else {
+            for ($i = 0; $i < 5; $i++) { 
+                $result = $this->rotate();
+                if ($result[$position] == $setterId) return $result;
+                $this->p1 = $result['p1'];
+                $this->p2 = $result['p2'];
+                $this->p3 = $result['p3'];
+                $this->p4 = $result['p4'];
+                $this->p5 = $result['p5'];
+                $this->p6 = $result['p6'];
+                $this->libero = $result['libero'];
+            }
+        }
+        return [];
+    }
+
     public function rotate() {
         $tmp = $this->p1;
         $result['p1'] = $this->p2;
@@ -95,23 +115,27 @@ class Stats extends AbstractModel
             $set = ($this->set) ? $this->set + 1 : 1;
             $scoreUs   = 0;
             $scoreThem = 0;
-            $start     = null;
+            // get First Point
+            $key = 'position.' . $eventId . '.numero.' . $data['numero'];
+            if (!$startPos = $this->get('memcached')->getItem($key)) {
+
+            }
         } else {
             $set       = $this->set;
             $scoreUs   = $this->scoreUs;
             $scoreThem = $this->scoreThem;
             $start     = $this->start;
-        }
-        if ($this->pointFor == self::POINT_US) {
-            if ($this->start == \Application\Model\Game::RECEPTION) {
-                $positions = $this->rotate();
+            if ($this->pointFor == self::POINT_US) {
+                if ($this->start == \Application\Model\Game::RECEPTION) {
+                    $positions = $this->rotate();
+                } else {
+                    $positions = $this->mark();
+                }
+                $start = \Application\Model\Game::SERVICE;
             } else {
                 $positions = $this->mark();
+                $start     = \Application\Model\Game::RECEPTION;
             }
-            $start = \Application\Model\Game::SERVICE;
-        } else {
-            $positions = $this->mark();
-            $start     = \Application\Model\Game::RECEPTION;
         }
 
         $numero = $this->numero;

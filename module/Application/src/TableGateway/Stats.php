@@ -33,6 +33,81 @@ class Stats extends AbstractTableGateway
         return $result;
     }
 
+    public function getMatchData($stat)
+    {
+        $positions = [];
+        if (($stat->scoreUs >= 25 || $stat->scoreThem >= 25) && (abs(
+        $stat->scoreThem - $stat->scoreUs) >= 2)) {
+            $set = ($stat->set) ? $stat->set + 1 : 1;
+            $scoreUs   = 0;
+            $scoreThem = 0;
+            // get First Point
+            if ($set != 5) {            
+                $memcached = $this->getContainer()->get('memcached');
+                $key = 'position.' . $stat->eventId . '.numero.1';
+                if ($startPos = $memcached->getItem($key)) {
+                    $startWith = $startPos['start'];
+                } else {
+                    $data = $this->fetchOne(['eventId' => $stat->eventId, 'numero' => 1], 'id DESC');
+                    $startWith = $data->start;
+                }
+
+                if ($set % 2) {
+                    $start = $startWith;
+                } else {
+                    $start = ($startWith == \Application\Model\Game::RECEPTION) ? \Application\Model\Game::SERVICE : \Application\Model\Game::RECEPTION;
+                }
+                $startPos  = ($start == \Application\Model\Game::SERVICE) ? 'p1' : 'p2';
+                $userIds = [
+                    $stat->p1,
+                    $stat->p2,
+                    $stat->p3,
+                    $stat->p4,
+                    $stat->p5,
+                    $stat->p6,
+                ];
+                $userTable = $this->getContainer()->get(TableGateway\User::class);
+                $users  = $userTable->fetchAll(['id' => $userIds]);
+                $setter = null;
+                foreach ($users as $user) {
+                    if ($user->position != \Application\Model\User::POSITION_SETTER) continue;
+                    $setter = $user->id;
+                    break;
+                }
+
+                if ($setter) $positions = $stat->rotateWhile($setter, $startPos);
+            }
+        } else {
+            $set       = $stat->set;
+            $scoreUs   = $stat->scoreUs;
+            $scoreThem = $stat->scoreThem;
+            $start     = $stat->start;
+            if ($stat->pointFor == Statistics::POINT_US) {
+                if ($stat->start == \Application\Model\Game::RECEPTION) {
+                    $positions = $stat->rotate();
+                } else {
+                    $positions = $stat->mark();
+                }
+                $start = \Application\Model\Game::SERVICE;
+            } else {
+                $positions = $stat->mark();
+                $start     = \Application\Model\Game::RECEPTION;
+            }
+        }
+
+        $numero = $stat->numero;
+        asort($positions);
+
+        return [
+            'scoreUs'   => $scoreUs,
+            'scoreThem' => $scoreThem,
+            'set'       => $set,
+            'positions' => $positions,
+            'numero'    => $numero,
+            'start'     => $start,
+        ];
+    }
+
     public function getZonePercent($options)
     {
         $stats = $this->fetchAll($options);
