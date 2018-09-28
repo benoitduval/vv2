@@ -64,53 +64,53 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <th>Points</th>
+                <!-- <th>Points</th>
                 <th>Faults</th>
                 <th>Blocks</th>
-                <th>Aces</th>
+                <th>Aces</th> -->
               </tr>
             </thead>
-            <?php foreach ($attackScorer as $userId): ?>
+            <?php foreach ($users as $user): ?>
               <tr>
                 <td>
                   <div class="avatar avatar-md">
-                    <img class="img-fluid" src="<?= $users[$userId]->getAvatarPath() ?>">
+                    <img class="img-fluid" src="<?= $user->getAvatarPath() ?>">
                   </div>
                 </td>
-                <td><?= $users[$userId]->getFullname() ?></td>
+                <td><?= $user->getFullname() ?></td>
                 <td>
-                  <a href="/stats/event/<?= $event->id ?>/user/<?= $users[$userId]->id ?>" data-remote="false" data-toggle="modal" data-target="#userStats" class="btn btn-sm btn-outline btn-primary">
+                  <a href="/stats/event/<?= $event->id ?>/user/<?= $user->id ?>" data-remote="false" data-toggle="modal" data-target="#userStats" class="btn btn-sm btn-outline btn-primary">
                     <span class="text-uppercase"><i class="icon wb-stats-bars"></i></span>
                   </a>
                 </td>
-                <td width="50px" height="50px" class="p-10">
+<!--                 <td width="50px" height="50px" class="p-10">
                   <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                     data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="3"
-                    data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP1'] ?>" role="progressbar">
+                    data-goal="0" aria-valuenow="" role="progressbar">
                     <span class="pie-progress-number">15</span>
                   </div>
                 </td>
                 <td width="50px" height="50px" class="p-10">
                   <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                     data-valuemin="0" data-barcolor="#F00" data-size="60" data-barsize="3"
-                    data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP1'] ?>" role="progressbar">
+                    data-goal="0" aria-valuenow="" role="progressbar">
                     <span class="pie-progress-number">5</span>
                   </div>
                 </td>
                 <td width="50px" height="50px" class="p-10">
                   <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                     data-valuemin="0" data-barcolor="#0F0" data-size="60" data-barsize="3"
-                    data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP1'] ?>" role="progressbar">
+                    data-goal="0" aria-valuenow="" role="progressbar">
                     <span class="pie-progress-number">2</span>
                   </div>
                 </td>
                 <td width="50px" height="50px">
                   <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
                     data-valuemin="0" data-barcolor="#00F" data-size="60" data-barsize="3"
-                    data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP1'] ?>" role="progressbar">
+                    data-goal="0" aria-valuenow="" role="progressbar">
                     <span class="pie-progress-number">2</span>
                   </div>
-                </td>
+                </td> -->
               </tr>
             <?php endforeach ?>
           </table>
