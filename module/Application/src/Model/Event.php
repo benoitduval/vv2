@@ -30,6 +30,7 @@ class Event extends AbstractModel
     protected $_victory  = null;
     protected $_debrief  = null;
     protected $_reminder = null;
+    protected $_video    = null;
 
     public function getFullAddress()
     {
@@ -51,5 +52,13 @@ class Event extends AbstractModel
             }
         }
         return $result;
+    }
+
+    public function getVideoEmbeding()
+    {
+        if ($this->video) {
+            return '<iframe width="100%" height="400" src="https://www.youtube.com/embed/' . $this->video . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+        }
+        return null;  
     }
 }

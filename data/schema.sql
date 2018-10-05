@@ -29,6 +29,7 @@ CREATE TABLE `event` (
   `scores` varchar(8) DEFAULT NULL,
   `sets` varchar(60) DEFAULT NULL,
   `stats` varchar(100) DEFAULT NULL,
+  `video` varchar(30) DEFAULT NULL,
   `reminder` tinyint(1) DEFAULT NULL,
   `debrief` text,
   `lat` double DEFAULT NULL,
