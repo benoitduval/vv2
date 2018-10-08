@@ -313,6 +313,7 @@ class EventController extends AbstractController
             $key = 'position.' . $eventId . '.numero.' . $data['numero'];
             if ((!$stats || ($stats && $stats->numero != 1)) && $newPos = $this->get('memcached')->getItem($key)) {
                 $data['positions'] = $newPos;
+                $data['start'] = (int) $data['positions']['start'];
             }
             $cancelNumero = $data['numero'] + 1;
             $cancelLink = $config['baseUrl'] . '/event/cancel-stats/' . $event->id . '?numero=' . $cancelNumero;
