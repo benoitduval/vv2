@@ -476,11 +476,11 @@ class Stats extends AbstractTableGateway
         $totalFaults = $defenceFault + $attackFault + $serveFault;
 
         $result['us'] = [
-            $servePoint,
             $attackPoint,
-            $blockPoint,
-            $serveFault,
             $attackFault,
+            $servePoint,
+            $serveFault,
+            $blockPoint,
             $defenceFault,
             $totalFaults,
         ];
@@ -530,11 +530,11 @@ class Stats extends AbstractTableGateway
         $totalFaults = $defenceFault + $attackFault + $serveFault;
 
         $result['them'] = [
-            $servePoint,
             $attackPoint,
-            $blockPoint,
-            $serveFault,
             $attackFault,
+            $servePoint,
+            $serveFault,
+            $blockPoint,
             $defenceFault,
             $totalFaults,
         ];
