@@ -83,7 +83,7 @@
       var set4Them = $('#match-comparaison').attr('data-set4-them');
       var set5Us = $('#match-comparaison').attr('data-set5-us');
       var set5Them = $('#match-comparaison').attr('data-set5-them');
-      Highcharts.chart('match-comparaison', {
+      var chart = Highcharts.chart('match-comparaison', {
 
           chart: {
               type: 'column'
@@ -123,6 +123,7 @@
               name: 'Set 5 - Us',
               data: JSON.parse(set5Us),
               stack: 'Us',
+              color: '#80FF15',
               dataLabels: {
                   enabled: true,
                   color: '#FFFFFF',
@@ -136,6 +137,7 @@
               name: 'Set 4 - Us',
               data: JSON.parse(set4Us),
               stack: 'Us',
+              color: '#21E827',
               dataLabels: {
                   enabled: true,
                   color: '#FFFFFF',
@@ -149,6 +151,7 @@
               name: 'Set 3 - Us',
               data: JSON.parse(set3Us),
               stack: 'Us',
+              color: '#31FF8A',
               dataLabels: {
                   enabled: true,
                   color: '#FFFFFF',
@@ -162,6 +165,7 @@
               name: 'Set 2 - Us',
               data: JSON.parse(set2Us),
               stack: 'Us',
+              color: '#21E8C7',
               dataLabels: {
                   enabled: true,
                   color: '#FFFFFF',
@@ -175,6 +179,7 @@
               name: 'Set 1 - Us',
               data: JSON.parse(set1Us),
               stack: 'Us',
+              color: '#19CDFF',
               dataLabels: {
                   enabled: true,
                   color: '#FFFFFF',
@@ -187,7 +192,8 @@
           },{
               name: 'Set 5 - Them',
               data: JSON.parse(set5Them),
-              stack: 'Us',
+              stack: 'Them',
+              color: '#FF129E',
               dataLabels: {
                   enabled: true,
                   color: '#FFFFFF',
@@ -200,7 +206,8 @@
           }, {
               name: 'Set 4 - Them',
               data: JSON.parse(set4Them),
-              stack: 'Us',
+              stack: 'Them',
+              color: '#E8261F',
               dataLabels: {
                   enabled: true,
                   color: '#FFFFFF',
@@ -214,6 +221,7 @@
               name: 'Set 3 - Them',
               data: JSON.parse(set3Them),
               stack: 'Them',
+              color: '#FF612E',
               dataLabels: {
                   enabled: true,
                   color: '#FFFFFF',
@@ -227,6 +235,7 @@
               name: 'Set 2 - Them',
               data: JSON.parse(set2Them),
               stack: 'Them',
+              color: '#E8791F',
               dataLabels: {
                   enabled: true,
                   color: '#FFFFFF',
@@ -240,6 +249,7 @@
               name: 'Set 1 - Them',
               data: JSON.parse(set1Them),
               stack: 'Them',
+              color: '#FFA916',
               dataLabels: {
                   enabled: true,
                   color: '#FFFFFF',
@@ -251,6 +261,30 @@
               }
           }]
       });
+
+      // var button = $('#button');
+      // button.click(function () {
+      //     var seriesSet5Us = chart.series[0];
+      //     var seriesSet4Us = chart.series[1];
+      //     var seriesSet3Us = chart.series[2];
+      //     var seriesSet2Us = chart.series[3];
+      //     var seriesSet1Us = chart.series[4];
+      //     var seriesSet5Them = chart.series[5];
+      //     var seriesSet4Them = chart.series[6];
+      //     var seriesSet3Them = chart.series[7];
+      //     var seriesSet2Them = chart.series[8];
+      //     var seriesSet1Them = chart.series[9];
+          
+      //     if (seriesSet5Them.visible) {
+      //         seriesSet5Them.hide();
+      //         seriesSet5Us.hide();
+      //         button.html('Show series');
+      //     } else {
+      //         seriesSet5Them.show();
+      //         seriesSet5Us.show();
+      //         button.html('Hide series');
+      //     }
+      // });
 
       $("#historyModal, #userStats").on("show.bs.modal", function(e) {
           var link = $(e.relatedTarget);
