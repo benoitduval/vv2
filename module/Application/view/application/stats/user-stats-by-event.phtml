@@ -5,9 +5,6 @@
     </a>
     <h4 class="user-name"><?= $user->getFullname(); ?></h4>
   </div>
-  <div class="card-block">
-    
-  </div>  
   <div class="card-block"> 	
   	<table class="table">
   	  <?php foreach ($average as $type => $avg): ?>
@@ -29,4 +26,14 @@
   	  <?php endforeach ?>
   	</table>
   </div>
+  <?php if (isset($quality[\Application\Model\Game::RECEPTION])): ?>
+    <div class="card-block">
+      <div id="chart-reception" data-score="<?= json_encode($quality[\Application\Model\Game::RECEPTION]) ?>"></div>
+    </div>
+  <?php endif ?>
+  <?php if (isset($quality[\Application\Model\Game::SERVICE])): ?>
+    <div class="card-block">
+      <div id="service-reception" data-score="<?= json_encode($quality[\Application\Model\Game::SERVICE]) ?>"></div>
+    </div>
+  <?php endif ?>
 </div>

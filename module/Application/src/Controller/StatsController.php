@@ -24,7 +24,7 @@ class StatsController extends AbstractController
 		    $user  = $this->userTable->fetchOne(['id' => $userId]);
 
 	        foreach ($games as $key => $game) {
-	            $quality[$game->type][] = $game->quality; 
+	            $quality[$game->type][] = (int) $game->quality; 
 	        }
 
 	    	foreach ($quality as $type => $values) {
@@ -33,6 +33,7 @@ class StatsController extends AbstractController
 	    	}
 
 		    $view = new ViewModel([
+		    	'quality' => $quality,
 		    	'average' => $average,
 		    	'user' => $user,
 		    ]);

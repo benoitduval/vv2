@@ -383,6 +383,97 @@
       $("#historyModal, #userStats").on("show.bs.modal", function(e) {
           var link = $(e.relatedTarget);
           $(this).find(".modal-body").load(link.attr("href"), function() {
+
+            var recepData = $('#chart-reception').attr('data-score');
+            Highcharts.chart('chart-reception', {
+
+                title: {
+                    text: 'Receptions Quality'
+                },
+
+                yAxis: {
+                    title: {
+                        text: ''
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+
+                labels: {
+                   enabled:false
+                },
+
+                credits: {
+                  enabled: false
+                },
+
+                series: [{
+                    data: JSON.parse(recepData)
+                }],
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
+
+            });
+
+            var serviceData = $('#service-reception').attr('data-score');
+            Highcharts.chart('service-reception', {
+
+                title: {
+                    text: 'Service Quality'
+                },
+
+                yAxis: {
+                    title: {
+                        text: ''
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+
+                labels: {
+                   enabled:false
+                },
+
+                credits: {
+                  enabled: false
+                },
+
+                series: [{
+                    data: JSON.parse(serviceData)
+                }],
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
+
+            });
+
             $('.rating').each(function() {
               $(this).raty({
                 targetKeep: true,
