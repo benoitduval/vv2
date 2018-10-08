@@ -58,6 +58,13 @@
   <div class="col-12">
     <div class="card card-shadow">
       <div class="card-block">
+        <div class="col-12 text-center">
+          <button id="set1Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set1</button>
+          <button id="set2Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set2</button>
+          <button id="set3Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set3</button>
+          <button id="set4Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set4</button>
+          <button id="set5Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set5</button>
+        </div>
         <div id="match-comparaison" 
           data-set1-us='<?= isset($compare[1]) ? json_encode($compare[1]['us']) : "[0,0,0,0,0,0,0]"; ?>'
           data-set1-them='<?= isset($compare[1]) ? json_encode($compare[1]['them']) : "[0,0,0,0,0,0,0]"; ?>'
@@ -70,11 +77,6 @@
           data-set5-us='<?= isset($compare[5]) ? json_encode($compare[5]['us']) : "[0,0,0,0,0,0,0]"; ?>'
           data-set5-them='<?= isset($compare[5]) ? json_encode($compare[5]['them']) : "[0,0,0,0,0,0,0]"; ?>'
         ></div>
-        <button id="set1Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set1</button>
-        <button id="set2Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set2</button>
-        <button id="set3Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set3</button>
-        <button id="set4Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set4</button>
-        <button id="set5Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set5</button>
       </div>
     </div>
   </div>
