@@ -120,8 +120,8 @@
           },
 
           series: [{
-              name: 'Set 3 - US',
-              data: JSON.parse(set3Them),
+              name: 'Set 5 - Us',
+              data: JSON.parse(set5Us),
               stack: 'Us',
               dataLabels: {
                   enabled: true,
@@ -133,8 +133,8 @@
                   }
               }
           }, {
-              name: 'Set 2 - US',
-              data: JSON.parse(set2Them),
+              name: 'Set 4 - Us',
+              data: JSON.parse(set4Us),
               stack: 'Us',
               dataLabels: {
                   enabled: true,
@@ -146,8 +146,60 @@
                   }
               }
           }, {
-              name: 'Set 1 - US',
-              data: JSON.parse(set1Them),
+              name: 'Set 3 - Us',
+              data: JSON.parse(set3Us),
+              stack: 'Us',
+              dataLabels: {
+                  enabled: true,
+                  color: '#FFFFFF',
+                  align: 'center',
+                  style: {
+                      fontSize: '13px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              }
+          }, {
+              name: 'Set 2 - Us',
+              data: JSON.parse(set2Us),
+              stack: 'Us',
+              dataLabels: {
+                  enabled: true,
+                  color: '#FFFFFF',
+                  align: 'center',
+                  style: {
+                      fontSize: '13px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              }
+          }, {
+              name: 'Set 1 - Us',
+              data: JSON.parse(set1Us),
+              stack: 'Us',
+              dataLabels: {
+                  enabled: true,
+                  color: '#FFFFFF',
+                  align: 'center',
+                  style: {
+                      fontSize: '13px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              }
+          },{
+              name: 'Set 5 - Them',
+              data: JSON.parse(set5Them),
+              stack: 'Us',
+              dataLabels: {
+                  enabled: true,
+                  color: '#FFFFFF',
+                  align: 'center',
+                  style: {
+                      fontSize: '13px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              }
+          }, {
+              name: 'Set 4 - Them',
+              data: JSON.parse(set4Them),
               stack: 'Us',
               dataLabels: {
                   enabled: true,
@@ -160,7 +212,7 @@
               }
           }, {
               name: 'Set 3 - Them',
-              data: JSON.parse(set3Us),
+              data: JSON.parse(set3Them),
               stack: 'Them',
               dataLabels: {
                   enabled: true,
@@ -173,7 +225,7 @@
               }
           }, {
               name: 'Set 2 - Them',
-              data: JSON.parse(set2Us),
+              data: JSON.parse(set2Them),
               stack: 'Them',
               dataLabels: {
                   enabled: true,
@@ -186,7 +238,7 @@
               }
           }, {
               name: 'Set 1 - Them',
-              data: JSON.parse(set1Us),
+              data: JSON.parse(set1Them),
               stack: 'Them',
               dataLabels: {
                   enabled: true,
