@@ -62,7 +62,6 @@ class Stats extends AbstractModel
     protected $_libero    = null;
     protected $_start     = null;
 
-
     public function rotateWhile($setterId, $position) {
         if ($this->$position == $setterId) {
             return $this->mark;

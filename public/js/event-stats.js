@@ -73,6 +73,133 @@
    // --------------------------
    (function () {
 
+      var set1Us = $('#match-comparaison').attr('data-set1-us');
+      var set1Them = $('#match-comparaison').attr('data-set1-them');
+      var set2Us = $('#match-comparaison').attr('data-set2-us');
+      var set2Them = $('#match-comparaison').attr('data-set2-them');
+      var set3Us = $('#match-comparaison').attr('data-set3-us');
+      var set3Them = $('#match-comparaison').attr('data-set3-them');
+      var set4Us = $('#match-comparaison').attr('data-set4-us');
+      var set4Them = $('#match-comparaison').attr('data-set4-them');
+      var set5Us = $('#match-comparaison').attr('data-set5-us');
+      var set5Them = $('#match-comparaison').attr('data-set5-them');
+      Highcharts.chart('match-comparaison', {
+
+          chart: {
+              type: 'column'
+          },
+
+          title: {
+              text: ''
+          },
+
+          xAxis: {
+              categories: ['Kills', 'Attack Fault', 'Aces', 'Service Fault', 'Blocks', 'Defence Fault', 'Faults']
+          },
+
+          yAxis: {
+              allowDecimals: false,
+              min: 0,
+              title: {
+                  text: ''
+              }
+          },
+
+          tooltip: {
+              formatter: function () {
+                  return '<b>' + this.x + '</b><br/>' +
+                      this.series.name + ': ' + this.y + '<br/>' +
+                      'Total: ' + this.point.stackTotal;
+              }
+          },
+
+          plotOptions: {
+              column: {
+                  stacking: 'normal'
+              }
+          },
+
+          series: [{
+              name: 'Set 3 - US',
+              data: JSON.parse(set3Them),
+              stack: 'Us',
+              dataLabels: {
+                  enabled: true,
+                  color: '#FFFFFF',
+                  align: 'center',
+                  style: {
+                      fontSize: '13px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              }
+          }, {
+              name: 'Set 2 - US',
+              data: JSON.parse(set2Them),
+              stack: 'Us',
+              dataLabels: {
+                  enabled: true,
+                  color: '#FFFFFF',
+                  align: 'center',
+                  style: {
+                      fontSize: '13px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              }
+          }, {
+              name: 'Set 1 - US',
+              data: JSON.parse(set1Them),
+              stack: 'Us',
+              dataLabels: {
+                  enabled: true,
+                  color: '#FFFFFF',
+                  align: 'center',
+                  style: {
+                      fontSize: '13px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              }
+          }, {
+              name: 'Set 3 - Them',
+              data: JSON.parse(set3Us),
+              stack: 'Them',
+              dataLabels: {
+                  enabled: true,
+                  color: '#FFFFFF',
+                  align: 'center',
+                  style: {
+                      fontSize: '13px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              }
+          }, {
+              name: 'Set 2 - Them',
+              data: JSON.parse(set2Us),
+              stack: 'Them',
+              dataLabels: {
+                  enabled: true,
+                  color: '#FFFFFF',
+                  align: 'center',
+                  style: {
+                      fontSize: '13px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              }
+          }, {
+              name: 'Set 1 - Them',
+              data: JSON.parse(set1Us),
+              stack: 'Them',
+              dataLabels: {
+                  enabled: true,
+                  color: '#FFFFFF',
+                  align: 'center',
+                  style: {
+                      fontSize: '13px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              }
+          }]
+      });
+
       $("#historyModal, #userStats").on("show.bs.modal", function(e) {
           var link = $(e.relatedTarget);
           $(this).find(".modal-body").load(link.attr("href"), function() {

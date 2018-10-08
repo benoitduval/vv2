@@ -109,11 +109,14 @@ class EventController extends AbstractController
                 'reason' => [Model\Stats::POINT_ATTACK, Model\Stats::FAULT_ATTACK]
             ]);
 
+            $compare = $this->statsTable->getCompare($event->id);
+
             return new ViewModel([
                 'event'        => $event,
                 'users'        => $users,
                 'stats'        => $stats,
                 'percents'     => $percents,
+                'compare'      => $compare,
                 'attackScorer' => $attackScorer,
             ]);
         } else {

@@ -55,6 +55,27 @@
 </div>
 
 <div class="row" data-plugin="matchHeight" data-by-row="true">
+  <div class="col-12">
+    <div class="card card-shadow">
+      <div class="card-block">
+        <div id="match-comparaison" 
+          data-set1-us='<?= isset($compare[1]) ? json_encode($compare[1]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set1-them='<?= isset($compare[1]) ? json_encode($compare[1]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set2-us='<?= isset($compare[2]) ? json_encode($compare[2]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set2-them='<?= isset($compare[2]) ? json_encode($compare[2]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set3-us='<?= isset($compare[3]) ? json_encode($compare[3]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set3-them='<?= isset($compare[3]) ? json_encode($compare[3]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set4-us='<?= isset($compare[4]) ? json_encode($compare[4]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set4-them='<?= isset($compare[4]) ? json_encode($compare[4]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set5-us='<?= isset($compare[5]) ? json_encode($compare[5]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set5-them='<?= isset($compare[5]) ? json_encode($compare[5]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" data-plugin="matchHeight" data-by-row="true">
   <div class="col-md-6">
     <div class="card card-shadow example-responsive">
       <div class="card-block">

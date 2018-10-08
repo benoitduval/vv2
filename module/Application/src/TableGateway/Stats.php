@@ -449,14 +449,14 @@ class Stats extends AbstractTableGateway
             'eventId' => $eventId,
             'set' => $set,
             'pointFor' => Statistics::POINT_THEM,
-            'reason' => Statistics::$faultUs
+            'reason' => Statistics::FAULT_ATTACK
         ]);
 
         $attackPoint = $this->count([
             'eventId' => $eventId,
             'set' => $set,
             'pointFor' => Statistics::POINT_US,
-            'reason' => Statistics::$attackUs,
+            'reason' => Statistics::POINT_ATTACK,
         ]);
 
         $serveFault = $this->count([
@@ -473,18 +473,6 @@ class Stats extends AbstractTableGateway
             'reason' => Statistics::POINT_SERVE,
         ]);
 
-        $blockUs = $this->sum('blockUs', [
-            'eventId'  => $eventId,
-            'set'      => $set,
-            'blockUs > ?' => 0,
-        ]);
-
-        $defenceUs = $this->sum('defenceUs', [
-            'eventId'  => $eventId,
-            'set'      => $set,
-            'defenceUs > ?' => 0,
-        ]);
-
         $totalFaults = $defenceFault + $attackFault + $serveFault;
 
         $result['us'] = [
@@ -494,8 +482,6 @@ class Stats extends AbstractTableGateway
             $serveFault,
             $attackFault,
             $defenceFault,
-            $blockUs,
-            $defenceUs,
             $totalFaults,
         ];
 
@@ -541,18 +527,6 @@ class Stats extends AbstractTableGateway
             'reason' => Statistics::POINT_SERVE,
         ]);
 
-        $blockThem = $this->sum('blockThem', [
-            'eventId'  => $eventId,
-            'set'      => $set,
-            'blockThem > ?' => 0,
-        ]);
-
-        $defenceThem = $this->sum('defenceThem', [
-            'eventId'  => $eventId,
-            'set'      => $set,
-            'defenceThem > ?' => 0,
-        ]);
-
         $totalFaults = $defenceFault + $attackFault + $serveFault;
 
         $result['them'] = [
@@ -562,8 +536,6 @@ class Stats extends AbstractTableGateway
             $serveFault,
             $attackFault,
             $defenceFault,
-            $blockThem,
-            $defenceThem,
             $totalFaults,
         ];
 
