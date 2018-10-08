@@ -138,6 +138,7 @@ class Stats extends AbstractTableGateway
             switch ($stat->fromZone) {
                 case Statistics::FROM_P1:
                     $labelFrom = 'fromP1';
+                    break;
                 case Statistics::FROM_P2:
                     $labelFrom = 'fromP2';
                     break;
