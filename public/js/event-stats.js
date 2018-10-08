@@ -118,6 +118,9 @@
                   stacking: 'normal'
               }
           },
+          credit: {
+            enabled: false
+          },
 
           series: [{
               name: 'Set 5 - Us',
@@ -131,6 +134,10 @@
                   style: {
                       fontSize: '13px',
                       fontFamily: 'Verdana, sans-serif'
+                  },
+                  formatter:function(){
+                      if(this.y > 0)
+                          return this.y;
                   }
               }
           }, {
@@ -145,6 +152,10 @@
                   style: {
                       fontSize: '13px',
                       fontFamily: 'Verdana, sans-serif'
+                  },
+                  formatter:function(){
+                      if(this.y > 0)
+                          return this.y;
                   }
               }
           }, {
@@ -159,6 +170,10 @@
                   style: {
                       fontSize: '13px',
                       fontFamily: 'Verdana, sans-serif'
+                  },
+                  formatter:function(){
+                      if(this.y > 0)
+                          return this.y;
                   }
               }
           }, {
@@ -173,6 +188,10 @@
                   style: {
                       fontSize: '13px',
                       fontFamily: 'Verdana, sans-serif'
+                  },
+                  formatter:function(){
+                      if(this.y > 0)
+                          return this.y;
                   }
               }
           }, {
@@ -187,6 +206,10 @@
                   style: {
                       fontSize: '13px',
                       fontFamily: 'Verdana, sans-serif'
+                  },
+                  formatter:function(){
+                      if(this.y > 0)
+                          return this.y;
                   }
               }
           },{
@@ -201,6 +224,10 @@
                   style: {
                       fontSize: '13px',
                       fontFamily: 'Verdana, sans-serif'
+                  },
+                  formatter:function(){
+                      if(this.y > 0)
+                          return this.y;
                   }
               }
           }, {
@@ -215,6 +242,10 @@
                   style: {
                       fontSize: '13px',
                       fontFamily: 'Verdana, sans-serif'
+                  },
+                  formatter:function(){
+                      if(this.y > 0)
+                          return this.y;
                   }
               }
           }, {
@@ -229,6 +260,10 @@
                   style: {
                       fontSize: '13px',
                       fontFamily: 'Verdana, sans-serif'
+                  },
+                  formatter:function(){
+                      if(this.y > 0)
+                          return this.y;
                   }
               }
           }, {
@@ -243,6 +278,10 @@
                   style: {
                       fontSize: '13px',
                       fontFamily: 'Verdana, sans-serif'
+                  },
+                  formatter:function(){
+                      if(this.y > 0)
+                          return this.y;
                   }
               }
           }, {
@@ -257,34 +296,89 @@
                   style: {
                       fontSize: '13px',
                       fontFamily: 'Verdana, sans-serif'
+                  },
+                  formatter:function(){
+                      if(this.y > 0)
+                          return this.y;
                   }
               }
           }]
       });
 
-      // var button = $('#button');
-      // button.click(function () {
-      //     var seriesSet5Us = chart.series[0];
-      //     var seriesSet4Us = chart.series[1];
-      //     var seriesSet3Us = chart.series[2];
-      //     var seriesSet2Us = chart.series[3];
-      //     var seriesSet1Us = chart.series[4];
-      //     var seriesSet5Them = chart.series[5];
-      //     var seriesSet4Them = chart.series[6];
-      //     var seriesSet3Them = chart.series[7];
-      //     var seriesSet2Them = chart.series[8];
-      //     var seriesSet1Them = chart.series[9];
-          
-      //     if (seriesSet5Them.visible) {
-      //         seriesSet5Them.hide();
-      //         seriesSet5Us.hide();
-      //         button.html('Show series');
-      //     } else {
-      //         seriesSet5Them.show();
-      //         seriesSet5Us.show();
-      //         button.html('Hide series');
-      //     }
-      // });
+      var set1Button = $('#set1Button');
+      var set2Button = $('#set2Button');
+      var set3Button = $('#set3Button');
+      var set4Button = $('#set4Button');
+      var set5Button = $('#set5Button');
+      var seriesSet5Us = chart.series[0];
+      var seriesSet4Us = chart.series[1];
+      var seriesSet3Us = chart.series[2];
+      var seriesSet2Us = chart.series[3];
+      var seriesSet1Us = chart.series[4];
+      var seriesSet5Them = chart.series[5];
+      var seriesSet4Them = chart.series[6];
+      var seriesSet3Them = chart.series[7];
+      var seriesSet2Them = chart.series[8];
+      var seriesSet1Them = chart.series[9];
+      set1Button.click(function () {
+          if (seriesSet1Them.visible) {
+              seriesSet1Them.hide();
+              seriesSet1Us.hide();
+              set1Button.html('<i class="icon wb-eye-close"></i> Set1');
+          } else {
+              seriesSet1Them.show();
+              seriesSet1Us.show();
+              set1Button.html('<i class="icon wb-eye"></i> Set1');
+          }
+      });
+
+      set2Button.click(function () {
+          if (seriesSet2Them.visible) {
+              seriesSet2Them.hide();
+              seriesSet2Us.hide();
+              set2Button.html('<i class="icon wb-eye-close"></i> Set2');
+          } else {
+              seriesSet2Them.show();
+              seriesSet2Us.show();
+              set2Button.html('<i class="icon wb-eye"></i> Set2');
+          }
+      });
+
+      set3Button.click(function () {
+          if (seriesSet3Them.visible) {
+              seriesSet3Them.hide();
+              seriesSet3Us.hide();
+              set3Button.html('<i class="icon wb-eye-close"></i> Set3');
+          } else {
+              seriesSet3Them.show();
+              seriesSet3Us.show();
+              set3Button.html('<i class="icon wb-eye"></i> Set3');
+          }
+      });
+
+      set4Button.click(function () {
+          if (seriesSet4Them.visible) {
+              seriesSet4Them.hide();
+              seriesSet4Us.hide();
+              set4Button.html('<i class="icon wb-eye-close"></i> Set4');
+          } else {
+              seriesSet4Them.show();
+              seriesSet4Us.show();
+              set4Button.html('<i class="icon wb-eye"></i> Set4');
+          }
+      });
+
+      set5Button.click(function () {
+          if (seriesSet5Them.visible) {
+              seriesSet5Them.hide();
+              seriesSet5Us.hide();
+              set5Button.html('<i class="icon wb-eye-close"></i> Set5');
+          } else {
+              seriesSet5Them.show();
+              seriesSet5Us.show();
+              set5Button.html('<i class="icon wb-eye"></i> Set5');
+          }
+      });
 
       $("#historyModal, #userStats").on("show.bs.modal", function(e) {
           var link = $(e.relatedTarget);
