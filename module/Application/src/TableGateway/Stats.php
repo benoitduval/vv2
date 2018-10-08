@@ -226,17 +226,6 @@ class Stats extends AbstractTableGateway
         for ($i = 1; $i <= 5; $i++) {
             $result[$i] = $this->_getCompare($eventId, $i);
         }
-        $result = array_filter($result);
-
-        $result['all']['us'] = [];
-        $result['all']['them'] = [];
-        foreach ($result as $set => $data) {
-            foreach (['us', 'them'] as $target) {
-                $result['all'][$target] = array_map(function ($test) {
-                    return array_sum(func_get_args());
-                }, $result['all'][$target], $data[$target]);
-            }
-        }
         return $result;
     }
 
