@@ -118,7 +118,7 @@
                   stacking: 'normal'
               }
           },
-          credit: {
+          credits: {
             enabled: false
           },
 
