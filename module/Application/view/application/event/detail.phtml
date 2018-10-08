@@ -44,6 +44,20 @@
           </span>
         </a>
       </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" data-toggle="tab" href="#debriefEvent" aria-controls="debriefEvent" role="tab" aria-selected="false">
+          <span>
+            <i class="icon wb-eye"></i> Debriefing
+          </span>
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" data-toggle="tab" href="#editEvent" aria-controls="editEvent" role="tab" aria-selected="false">
+          <span>
+            <i class="icon wb-eye"></i> Edit Event
+          </span>
+        </a>
+      </li>
     </ul>
     <div class="tab-content">
       <div class="tab-pane active show" id="eventDetails" role="tabpanel">
@@ -121,7 +135,7 @@
                               <span class="text-uppercase">go to map</span>
                             </a>
                           </div>
-                          <?php if ($hasStats): ?>                          
+                          <?php if ($hasStats || $event->getVideoEmbeding()): ?>                          
                             <div class="btn-group" role="group">
                               <a href="/event/stats/<?= $event->id ?>" class="btn btn-outline btn-default">
                                 <i class="icon wb-camera" aria-hidden="true"></i>
@@ -130,7 +144,24 @@
                               </a>
                             </div>
                           <?php endif ?>
-                          <?php if ($isAdmin): ?>                      
+                        </div>
+
+                        <?php if ($isAdmin): ?>
+                          <div class="btn-group btn-group-justified mt-20 mb-20">
+                            <div class="btn-group" role="group">
+                              <a href="#" class="btn btn-outline btn-default">
+                                <i class="icon wb-map" aria-hidden="true"></i>
+                                <br>
+                                <span class="text-uppercase">Edit Event</span>
+                              </a>
+                            </div>
+                            <div class="btn-group" role="group">
+                              <a href="#" class="btn btn-outline btn-default">
+                                <i class="icon wb-map" aria-hidden="true"></i>
+                                <br>
+                                <span class="text-uppercase">Debrief</span>
+                              </a>
+                            </div>
                             <div class="btn-group" role="group">
                               <a href="/event/live-stats/<?= $event->id ?>" class="btn btn-outline btn-primary">
                                 <i class="icon wb-stats-bars" aria-hidden="true"></i>
@@ -138,8 +169,8 @@
                                 <span class="text-uppercase">Take Stats</span>
                               </a>
                             </div>
-                          <?php endif ?>
-                        </div>
+                          </div>
+                        <?php endif ?>
                     </div>
                   </div>
                 </div>
@@ -321,41 +352,71 @@
       <div class="tab-pane" id="eventComments" role="tabpanel">
         <div class="row">
           <div class="col-12 mt-30">
-              <!-- Last comments -->
-              <div class="panel">
-                <div class="panel-header">
-                  <form id="form-comment">
-                    <div class="input-group">
-                      <textarea  type="text" id="comment-text" class="form-control" placeholder="Say something" data-avatar="<?= $me->getAvatarPath() ?>"></textarea>
-                      <span class="input-group-btn">
-                        <button id="submit-comment" class="btn btn-primary" type="button">Send</button>
-                      </span>
-                    </div>
-                  </form>
-                </div>
-                <div class="panel-body pr-0 pl-10">
-                  <ul id="comments-list" class="list-group list-group-full">
-                    <?php foreach ($comments as $comment): ?>
-                    <li class="list-group-item">
-                      <div class="row">
-                        <div class="col-2">
-                          <span class="avatar">
-                            <img alt="" src="<?= $comment['author']->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                          </span>
-                        </div>
-                        <div class="media-body col-10">
-                          <h5 class="list-group-item-heading mt-0 mb-5">
-                            <small class="float-right"><?= \Application\Service\Date::getInterval($comment['date']) ?> ago</small>
-                            <?= isset($comment['author']) ? $comment['author']->getFullName() : 'Deleted User'; ?>
-                          </h5>
-                          <p class="list-group-item-text"><?= nl2br($comment['comment']); ?></p>
-                        </div>
-                      </div>
-                    </li>
-                    <?php endforeach ?>
-                  </ul>
-                </div>
+            <!-- Last comments -->
+            <div class="panel">
+              <div class="panel-header">
+                <form id="form-comment">
+                  <div class="input-group">
+                    <textarea  type="text" id="comment-text" class="form-control" placeholder="Say something" data-avatar="<?= $me->getAvatarPath() ?>"></textarea>
+                    <span class="input-group-btn">
+                      <button id="submit-comment" class="btn btn-primary" type="button">Send</button>
+                    </span>
+                  </div>
+                </form>
               </div>
+              <div class="panel-body pr-0 pl-10">
+                <ul id="comments-list" class="list-group list-group-full">
+                  <?php foreach ($comments as $comment): ?>
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-2">
+                        <span class="avatar">
+                          <img alt="" src="<?= $comment['author']->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                        </span>
+                      </div>
+                      <div class="media-body col-10">
+                        <h5 class="list-group-item-heading mt-0 mb-5">
+                          <small class="float-right"><?= \Application\Service\Date::getInterval($comment['date']) ?> ago</small>
+                          <?= isset($comment['author']) ? $comment['author']->getFullName() : 'Deleted User'; ?>
+                        </h5>
+                        <p class="list-group-item-text"><?= nl2br($comment['comment']); ?></p>
+                      </div>
+                    </div>
+                  </li>
+                  <?php endforeach ?>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="debriefEvent" role="tabpanel">
+        <div class="row">
+          <div class="col-12 mt-30">
+            <!-- Last comments -->
+            <div class="panel">
+              <div class="panel-header">
+                
+              </div>
+              <div class="panel-body pr-0 pl-10">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="editEvent" role="tabpanel">
+        <div class="row">
+          <div class="col-12 mt-30">
+            <!-- Last comments -->
+            <div class="panel">
+              <div class="panel-header">
+                
+              </div>
+              <div class="panel-body pr-0 pl-10">
+
+              </div>
+            </div>
           </div>
         </div>
       </div>
