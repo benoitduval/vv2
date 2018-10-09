@@ -204,3 +204,9 @@
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
 }
+
+.card-inverse .counter {
+  text-align: center; }
+  .counter > .counter-number, .counter .counter-number-group {
+    font-size: 20px;
+    color: #FFF; }

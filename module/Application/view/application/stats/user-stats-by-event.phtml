@@ -5,6 +5,50 @@
     </a>
     <h4 class="user-name"><?= $user->getFullname(); ?></h4>
   </div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-4">
+        <div class="card card-inverse bg-success p-25">
+          <div class="counter counter-lg">
+            <span class="counter-number"><?= $counters[\Application\Model\Stats::POINT_ATTACK] ?></span>
+            <div class="counter-label text-uppercase">Kills</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card p-25 card-inverse bg-primary">
+          <div class="counter counter-lg">
+            <span class="counter-number"><?= $counters[\Application\Model\Stats::POINT_SERVE] ?></span>
+            <div class="counter-label text-uppercase">Aces</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card card-inverse bg-info p-25">
+          <div class="counter counter-lg">
+            <span class="counter-number"><?= $counters[\Application\Model\Stats::POINT_BLOCK] ?></span>
+            <div class="counter-label text-uppercase">Blocks</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card card-inverse bg-warning p-25">
+          <div class="counter counter-lg">
+            <span class="counter-number"><?= $counters[\Application\Model\Stats::FAULT_SERVE] ?></span>
+            <div class="counter-label text-uppercase">Service Faults</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card card-inverse bg-danger p-25">
+          <div class="counter counter-lg">
+            <span class="counter-number"><?= $counters[\Application\Model\Stats::FAULT_ATTACK] ?></span>
+            <div class="counter-label text-uppercase">Attack Faults</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="card-block"> 	
   	<table class="table">
   	  <?php foreach ($average as $type => $avg): ?>

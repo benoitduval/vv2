@@ -5226,7 +5226,7 @@ body.site-navbar-small {
   text-align: center; }
   .counter > .counter-number, .counter .counter-number-group {
     font-size: 20px;
-    color: #37474f; }
+     }
 
 .counter-label {
   display: block; }
