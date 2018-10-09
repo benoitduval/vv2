@@ -270,6 +270,8 @@
             $(this).on('click', function() {
               $('#reason').val($(this).attr('value'));
               if (jQuery.inArray($(this).prop('id'), ['defensive-fault', 'service-point-them', 'service-fault-them', 'attack-them', 'attack-fault-them']) !== -1) {
+                // clear userId value
+                $('#userId').val('');
                 $('#game-stats').submit();
               }
             });
