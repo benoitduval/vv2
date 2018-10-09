@@ -23,22 +23,14 @@
   	          </div>
   	       </td>
   	     </tr>
-  	  <?php endforeach ?>
-  	</table>
+         <?php if (isset($quality[$type]) && count($quality[$type]) > 4): ?>
+          <tr>
+            <td>     
+                <div class="chart-evolution" data-score="<?= json_encode($quality[$type]) ?>"></div>
+            </td>
+          </tr>
+        <?php endif ?>
+      <?php endforeach ?>
+    </table>
   </div>
-  <?php if (isset($quality[\Application\Model\Game::RECEPTION])): ?>
-    <div class="card-block">
-      <div id="chart-reception" data-score="<?= json_encode($quality[\Application\Model\Game::RECEPTION]) ?>"></div>
-    </div>
-  <?php endif ?>
-  <?php if (isset($quality[\Application\Model\Game::SERVICE])): ?>
-    <div class="card-block">
-      <div id="chart-service" data-score="<?= json_encode($quality[\Application\Model\Game::SERVICE]) ?>"></div>
-    </div>
-  <?php endif ?>
-  <?php if (isset($quality[\Application\Model\Game::SET]) && count($quality[\Application\Model\Game::SET]) > 4): ?>
-    <div class="card-block">
-      <div id="chart-set" data-score="<?= json_encode($quality[\Application\Model\Game::SET]) ?>"></div>
-    </div>
-  <?php endif ?>
 </div>

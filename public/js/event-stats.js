@@ -384,13 +384,13 @@
           var link = $(e.relatedTarget);
           $(this).find(".modal-body").load(link.attr("href"), function() {
 
-            var recepContainer = $('#chart-reception');
-            if (recepContainer.length !=  0) {
-              var recepData = recepContainer.attr('data-score');
-              Highcharts.chart('chart-reception', {
+            $('.chart-evolution').each(function() {
+              alert('test');
+              var data = $(this).attr('data-score');
+              Highcharts.chart(this, {
 
                   title: {
-                      text: 'Receptions Quality'
+                      text: ''
                   },
                   chart: {
                       height: 200,
@@ -415,7 +415,7 @@
                   },
 
                   series: [{
-                      data: JSON.parse(recepData)
+                      data: JSON.parse(data)
                   }],
 
                   responsive: {
@@ -434,111 +434,8 @@
                   }
 
               });
-            }
-
-            var serviceContainer = $('#chart-service');
-            if (serviceContainer.length !=  0) {
-              var serviceData = serviceContainer.attr('data-score');
-              Highcharts.chart('chart-service', {
-
-                  title: {
-                      text: 'Service Quality'
-                  },
-                  chart: {
-                      height: 200,
-                      type: 'line'
-                  },
-                  yAxis: {
-                      allowDecimals: false,
-                      title: {
-                          text: ''
-                      }
-                  },
-                  legend: {
-                      enabled: false
-                  },
-
-                  labels: {
-                     enabled:false
-                  },
-
-                  credits: {
-                    enabled: false
-                  },
-
-                  series: [{
-                      data: JSON.parse(serviceData)
-                  }],
-
-                  responsive: {
-                      rules: [{
-                          condition: {
-                              maxWidth: 500
-                          },
-                          chartOptions: {
-                              legend: {
-                                  layout: 'horizontal',
-                                  align: 'center',
-                                  verticalAlign: 'bottom'
-                              }
-                          }
-                      }]
-                  }
-
-              });
-            }
-
-            var setContener = $('#chart-set');
-            if (setContener.length !=  0) {
-              var setData = setContener.attr('data-score');
-              Highcharts.chart('chart-set', {
-
-                  title: {
-                      text: 'Set Quality'
-                  },
-                  chart: {
-                      height: 200,
-                      type: 'line'
-                  },
-                  yAxis: {
-                      allowDecimals: false,
-                      title: {
-                          text: ''
-                      }
-                  },
-                  legend: {
-                      enabled: false
-                  },
-
-                  labels: {
-                     enabled:false
-                  },
-
-                  credits: {
-                    enabled: false
-                  },
-
-                  series: [{
-                      data: JSON.parse(setData)
-                  }],
-
-                  responsive: {
-                      rules: [{
-                          condition: {
-                              maxWidth: 500
-                          },
-                          chartOptions: {
-                              legend: {
-                                  layout: 'horizontal',
-                                  align: 'center',
-                                  verticalAlign: 'bottom'
-                              }
-                          }
-                      }]
-                  }
-
-              });
-            }
+            });
+            
 
             $('.rating').each(function() {
               $(this).raty({
