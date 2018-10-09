@@ -33,7 +33,12 @@
   <?php endif ?>
   <?php if (isset($quality[\Application\Model\Game::SERVICE])): ?>
     <div class="card-block">
-      <div id="service-reception" data-score="<?= json_encode($quality[\Application\Model\Game::SERVICE]) ?>"></div>
+      <div id="chart-service" data-score="<?= json_encode($quality[\Application\Model\Game::SERVICE]) ?>"></div>
+    </div>
+  <?php endif ?>
+  <?php if (isset($quality[\Application\Model\Game::SET]) && count($quality[\Application\Model\Game::SET]) > 4): ?>
+    <div class="card-block">
+      <div id="chart-set" data-score="<?= json_encode($quality[\Application\Model\Game::SET]) ?>"></div>
     </div>
   <?php endif ?>
 </div>

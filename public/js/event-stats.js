@@ -384,95 +384,161 @@
           var link = $(e.relatedTarget);
           $(this).find(".modal-body").load(link.attr("href"), function() {
 
-            var recepData = $('#chart-reception').attr('data-score');
-            Highcharts.chart('chart-reception', {
+            var recepContainer = $('#chart-reception');
+            if (recepContainer.length !=  0) {
+              var recepData = recepContainer.attr('data-score');
+              Highcharts.chart('chart-reception', {
 
-                title: {
-                    text: 'Receptions Quality'
-                },
+                  title: {
+                      text: 'Receptions Quality'
+                  },
+                  chart: {
+                      height: 200,
+                      type: 'line'
+                  },
+                  yAxis: {
+                      allowDecimals: false,
+                      title: {
+                          text: ''
+                      }
+                  },
+                  legend: {
+                      enabled: false
+                  },
 
-                yAxis: {
-                    title: {
-                        text: ''
-                    }
-                },
-                legend: {
+                  labels: {
+                     enabled:false
+                  },
+
+                  credits: {
                     enabled: false
-                },
+                  },
 
-                labels: {
-                   enabled:false
-                },
+                  series: [{
+                      data: JSON.parse(recepData)
+                  }],
 
-                credits: {
-                  enabled: false
-                },
+                  responsive: {
+                      rules: [{
+                          condition: {
+                              maxWidth: 500
+                          },
+                          chartOptions: {
+                              legend: {
+                                  layout: 'horizontal',
+                                  align: 'center',
+                                  verticalAlign: 'bottom'
+                              }
+                          }
+                      }]
+                  }
 
-                series: [{
-                    data: JSON.parse(recepData)
-                }],
+              });
+            }
 
-                responsive: {
-                    rules: [{
-                        condition: {
-                            maxWidth: 500
-                        },
-                        chartOptions: {
-                            legend: {
-                                layout: 'horizontal',
-                                align: 'center',
-                                verticalAlign: 'bottom'
-                            }
-                        }
-                    }]
-                }
+            var serviceContainer = $('#chart-service');
+            if (serviceContainer.length !=  0) {
+              var serviceData = serviceContainer.attr('data-score');
+              Highcharts.chart('chart-service', {
 
-            });
+                  title: {
+                      text: 'Service Quality'
+                  },
+                  chart: {
+                      height: 200,
+                      type: 'line'
+                  },
+                  yAxis: {
+                      allowDecimals: false,
+                      title: {
+                          text: ''
+                      }
+                  },
+                  legend: {
+                      enabled: false
+                  },
 
-            var serviceData = $('#service-reception').attr('data-score');
-            Highcharts.chart('service-reception', {
+                  labels: {
+                     enabled:false
+                  },
 
-                title: {
-                    text: 'Service Quality'
-                },
-
-                yAxis: {
-                    title: {
-                        text: ''
-                    }
-                },
-                legend: {
+                  credits: {
                     enabled: false
-                },
+                  },
 
-                labels: {
-                   enabled:false
-                },
+                  series: [{
+                      data: JSON.parse(serviceData)
+                  }],
 
-                credits: {
-                  enabled: false
-                },
+                  responsive: {
+                      rules: [{
+                          condition: {
+                              maxWidth: 500
+                          },
+                          chartOptions: {
+                              legend: {
+                                  layout: 'horizontal',
+                                  align: 'center',
+                                  verticalAlign: 'bottom'
+                              }
+                          }
+                      }]
+                  }
 
-                series: [{
-                    data: JSON.parse(serviceData)
-                }],
+              });
+            }
 
-                responsive: {
-                    rules: [{
-                        condition: {
-                            maxWidth: 500
-                        },
-                        chartOptions: {
-                            legend: {
-                                layout: 'horizontal',
-                                align: 'center',
-                                verticalAlign: 'bottom'
-                            }
-                        }
-                    }]
-                }
+            var setContener = $('#chart-set');
+            if (setContener.length !=  0) {
+              var setData = setContener.attr('data-score');
+              Highcharts.chart('chart-set', {
 
-            });
+                  title: {
+                      text: 'Set Quality'
+                  },
+                  chart: {
+                      height: 200,
+                      type: 'line'
+                  },
+                  yAxis: {
+                      allowDecimals: false,
+                      title: {
+                          text: ''
+                      }
+                  },
+                  legend: {
+                      enabled: false
+                  },
+
+                  labels: {
+                     enabled:false
+                  },
+
+                  credits: {
+                    enabled: false
+                  },
+
+                  series: [{
+                      data: JSON.parse(setData)
+                  }],
+
+                  responsive: {
+                      rules: [{
+                          condition: {
+                              maxWidth: 500
+                          },
+                          chartOptions: {
+                              legend: {
+                                  layout: 'horizontal',
+                                  align: 'center',
+                                  verticalAlign: 'bottom'
+                              }
+                          }
+                      }]
+                  }
+
+              });
+            }
 
             $('.rating').each(function() {
               $(this).raty({
