@@ -385,7 +385,6 @@
           $(this).find(".modal-body").load(link.attr("href"), function() {
 
             $('.chart-evolution').each(function() {
-              alert('test');
               var data = $(this).attr('data-score');
               Highcharts.chart(this, {
 
