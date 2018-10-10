@@ -33,8 +33,6 @@ class ConsoleController extends AbstractController
             'userId <> ?' => 'NULL',
         ]);
 
-        \Zend\Debug\Debug::dump($stat);die;
-
         foreach ($stats as $stat) {
             $stat->userId = null;
             $this->statsTable->save($stat);
@@ -48,7 +46,6 @@ class ConsoleController extends AbstractController
             ],
             'userId <> ?' => 'NULL',
         ]);
-        \Zend\Debug\Debug::dump($stats);die;
 
         foreach ($stats as $stat) {
             $stat->userId = null;
