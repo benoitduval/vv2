@@ -39,24 +39,14 @@ class StatsController extends AbstractController
 	        }
 
 	        foreach ($stats as $key => $stat) {
-	        	if ($stat->pointFor == Statistiques::POINT_US && $stat->reason = Statistiques::POINT_SERVE) {
+	        	if ($stat->pointFor == Statistiques::POINT_US && $stat->reason == Statistiques::POINT_SERVE) {
 	        		$quality[GameStats::SERVICE][$stat->numero] = 6;
 	        	}
 
-	        	if ($stat->pointFor == Statistiques::POINT_THEM && $stat->reason = Statistiques::FAULT_SERVE) {
+	        	if ($stat->pointFor == Statistiques::POINT_THEM && $stat->reason == Statistiques::FAULT_SERVE) {
 	        		$quality[GameStats::SERVICE][$stat->numero] = 0;
 	        	}
-
-	        	if ($stat->pointFor == Statistiques::POINT_US ||
-	        		($stat->pointFor == Statistiques::POINT_THEM &&
-	        		 in_array($stat->reason, [
-	        		 	Statistiques::FAULT_SERVE ,
-	        		 	Statistiques::FAULT_ATTACK,
-	        	     ]) 
-	        		)
-	        	) {
-	        		$counters[$stat->reason] ++;
-	        	}
+	        	$counters[$stat->reason]++;
 	        }
 
 	    	foreach ($quality as $type => $values) {
@@ -67,9 +57,9 @@ class StatsController extends AbstractController
 	    	}
 
 		    $view = new ViewModel([
-		    	'quality' => $quality,
-		    	'average' => $average,
-		    	'user' => $user,
+		    	'quality'  => $quality,
+		    	'average'  => $average,
+		    	'user'     => $user,
 		    	'counters' => $counters,
 		    ]);
 		    $view->setTerminal(true);
