@@ -30,10 +30,13 @@ class ConsoleController extends AbstractController
                 \Application\Model\Stats::FAULT_DEFENCE,
                 \Application\Model\Stats::FAULT_SERVE,
             ],
-            'userId <> ?' => null,
+            'userId <> ?' => 'NULL',
         ]);
 
-        \Zend\Debug\Debug::dump($stats->toArray());die;
+        foreach ($stats as $stat) {
+            $stat->userId = null;
+            $this->statsTable->save($stat);
+        }
 
     }
 
