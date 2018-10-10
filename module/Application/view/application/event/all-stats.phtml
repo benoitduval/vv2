@@ -1,0 +1,545 @@
+<div class="modal fade" id="userStats" tabindex="-1" role="dialog" aria-labelledby="userStats%odal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="userStats%odal">User Stats</h4>
+      </div>
+      <div class="modal-body">
+        <div class="col-12">
+          <div class="example-wrap mt-50px">
+            <div class="example-loading vertical-align text-center pt-100">
+              <div class="loader vertical-align-middle loader-tadpole"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="history" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="history">Game History</h4>
+      </div>
+      <div class="modal-body">
+        <div class="col-12">
+          <div class="example-wrap mt-50px">
+            <div class="example-loading vertical-align text-center pt-100">
+              <div class="loader vertical-align-middle loader-tadpole"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="btn-group btn-group-justified mt-20 mb-20">
+  <div class="btn-group" role="group">
+    <a href="/live/<?= $event->id ?>/test" data-remote="false" data-toggle="modal" data-target="#historyModal" class="btn btn-outline btn-default">
+      <i class="icon wb-camera" aria-hidden="true"></i>
+      <br>
+      <span class="text-uppercase">Live Score</span>
+    </a>
+  </div>
+</div>
+
+<div class="row" data-plugin="matchHeight" data-by-row="true">
+  <div class="col-12">
+    <div class="card card-shadow">
+      <div class="card-block">
+        <div class="col-12 text-center">
+          <button id="set1Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set1</button>
+          <button id="set2Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set2</button>
+          <button id="set3Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set3</button>
+          <button id="set4Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set4</button>
+          <button id="set5Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set5</button>
+        </div>
+        <div id="match-comparaison" 
+          data-set1-us='<?= isset($compare[1]) ? json_encode($compare[1]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set1-them='<?= isset($compare[1]) ? json_encode($compare[1]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set2-us='<?= isset($compare[2]) ? json_encode($compare[2]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set2-them='<?= isset($compare[2]) ? json_encode($compare[2]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set3-us='<?= isset($compare[3]) ? json_encode($compare[3]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set3-them='<?= isset($compare[3]) ? json_encode($compare[3]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set4-us='<?= isset($compare[4]) ? json_encode($compare[4]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set4-them='<?= isset($compare[4]) ? json_encode($compare[4]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set5-us='<?= isset($compare[5]) ? json_encode($compare[5]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set5-them='<?= isset($compare[5]) ? json_encode($compare[5]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxl-4 col-lg-6 col-md-12">
+    <!-- Panel Line Pie -->
+    <div class="card card-shadow" id="chartLinePie">
+      <div class="card-block p-0">
+        <div class="bg-blue-600 white p-30">
+          <div class="font-size-20 clearfix">
+            Receptions
+            <span class="float-right">
+              260
+            </span>
+          </div>
+          <div class="font-size-14 blue-200 clearfix">
+            Quality over match
+            <span class="float-right">Avg: 2.8</span>
+          </div>
+          <div class="ct-chart chart-line h-100" data-stats="<?= json_encode([[9, 5, 3, 6, 7, 5.5, 5.8, 4.6]]) ?>"></div>
+        </div>
+        <div class="p-30">
+          <div class="row no-space">
+            <div class="col-7">
+              <p class="mb-10">
+                <span class="icon wb-medium-point cyan-600 mr-5"></span>Bad: 1
+              </p>
+              <p class="mb-10">
+                <span class="icon wb-medium-point red-600 mr-5"></span>Poor: 4
+              </p>
+              <p class="mb-10">
+                <span class="icon wb-medium-point pink-600 mr-5"></span>Medium: 4
+              </p>
+              <p class="mb-10">
+                <span class="icon wb-medium-point purple-600 mr-5"></span>Good: 4
+              </p>
+              <p class="mb-10">
+                <span class="icon wb-medium-point yellow-600 mr-5"></span>Excellent: 4
+              </p>
+            </div>
+            <div class="col-5">
+              <div class="ct-chart chart-pie" style="height: 129px;">
+                <div class="vertical-align text-center" style="height:100%; width:100%; position:absolute; left:0; top:0;">
+                  <div class="font-size-20  vertical-align-middle" style="line-height:1.1 ">
+                    <div>2.8</div>
+                    <div>AVG</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Panel Line Pie -->
+  </div>
+
+  <div class="col-xxl-4 col-lg-6 col-md-12">
+    <!-- Panel Line Pie -->
+    <div class="card card-shadow chartLinePie" id="chartLinePie">
+      <div class="card-block p-0">
+        <div class="bg-red-600 white p-30">
+          <div class="font-size-20 clearfix">
+            Service
+            <span class="float-right">
+              260
+            </span>
+          </div>
+          <div class="font-size-14 red-200 clearfix">
+            Quality over match
+            <span class="float-right">Avg: 3.8</span>
+          </div>
+          <div class="ct-chart chart-line h-100"data-stats="<?= json_encode([[4, 0, 5, 3]]) ?>"></div>
+        </div>
+        <div class="p-30">
+          <div class="row no-space">
+           <div class="col-7">
+             <p class="mb-10">
+               <span class="icon wb-medium-point cyan-600 mr-5"></span>Bad: 1
+             </p>
+             <p class="mb-10">
+               <span class="icon wb-medium-point red-600 mr-5"></span>Poor: 4
+             </p>
+             <p class="mb-10">
+               <span class="icon wb-medium-point pink-600 mr-5"></span>Medium: 4
+             </p>
+             <p class="mb-10">
+               <span class="icon wb-medium-point purple-600 mr-5"></span>Good: 4
+             </p>
+             <p class="mb-10">
+               <span class="icon wb-medium-point yellow-600 mr-5"></span>Excellent: 4
+             </p>
+           </div>
+            <div class="col-5">
+              <div class="ct-chart chart-pie" style="height: 129px;">
+                <div class="vertical-align text-center" style="height:100%; width:100%; position:absolute; left:0; top:0;">
+                  <div class="font-size-20  vertical-align-middle" style="line-height:1.1 ">
+                    <div>3.6</div>
+                    <div>AVG</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Panel Line Pie -->
+  </div>
+</div>
+
+<div class="row" data-plugin="matchHeight" data-by-row="true">
+  <div class="col-md-6">
+    <div class="card card-shadow example-responsive">
+      <div class="card-block">
+        <h4 class="card-title">Users</h4>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <!-- <th>Points</th>
+                  <th>Faults</th>
+                  <th>Blocks</th>
+                  <th>Aces</th> -->
+                </tr>
+              </thead>
+              <?php foreach ($users as $user): ?>
+                <tr>
+                  <td>
+                    <div class="avatar avatar-md">
+                      <img class="img-fluid" src="<?= $user->getAvatarPath() ?>">
+                    </div>
+                  </td>
+                  <td><?= $user->getFullname() ?></td>
+                  <td>
+                    <a href="/stats/event/<?= $event->id ?>/user/<?= $user->id ?>" data-remote="false" data-toggle="modal" data-target="#userStats" class="btn btn-sm btn-outline btn-primary">
+                      <span class="text-uppercase"><i class="icon wb-stats-bars"></i></span>
+                    </a>
+                  </td>
+  <!--                 <td width="50px" height="50px" class="p-10">
+                    <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
+                      data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="3"
+                      data-goal="0" aria-valuenow="" role="progressbar">
+                      <span class="pie-progress-number">15</span>
+                    </div>
+                  </td>
+                  <td width="50px" height="50px" class="p-10">
+                    <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
+                      data-valuemin="0" data-barcolor="#F00" data-size="60" data-barsize="3"
+                      data-goal="0" aria-valuenow="" role="progressbar">
+                      <span class="pie-progress-number">5</span>
+                    </div>
+                  </td>
+                  <td width="50px" height="50px" class="p-10">
+                    <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
+                      data-valuemin="0" data-barcolor="#0F0" data-size="60" data-barsize="3"
+                      data-goal="0" aria-valuenow="" role="progressbar">
+                      <span class="pie-progress-number">2</span>
+                    </div>
+                  </td>
+                  <td width="50px" height="50px">
+                    <div class="pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
+                      data-valuemin="0" data-barcolor="#00F" data-size="60" data-barsize="3"
+                      data-goal="0" aria-valuenow="" role="progressbar">
+                      <span class="pie-progress-number">2</span>
+                    </div>
+                  </td> -->
+                </tr>
+              <?php endforeach ?>
+            </table>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <?php if ($event->getVideoEmbeding()): ?>
+      <div class="card card-shadow ">
+        <div class="card-block">
+          <h4 class="card-title">Video</h4>
+          <div class="col-12 text-center">
+            <?= $event->getVideoEmbeding() ?>
+          </div>
+        </div>
+      </div>
+    <?php endif ?>
+
+    <div class="row" data-plugin="matchHeight" data-by-row="true">
+      <div class="col-md-12">
+        <div class="card card-shadow example-responsive">
+          <div class="card-block">
+            <h4 class="card-title">Filter</h4>
+            <form id="user-selection" data-event-id="<?= $event->id ?>">
+                <div class="row">
+                  <div class="col-12 col-lg-5">
+                    <h5 class="card-title mb-5">Select Setter Position</h5>
+                    <select class="form-control setter-position">
+                      <option value="all" selected="">All</option>
+                      <option value="p1">P1</option>
+                      <option value="p2">P2</option>
+                      <option value="p3">P3</option>
+                      <option value="p4">P4</option>
+                      <option value="p5">P5</option>
+                      <option value="p6">P6</option>
+                    </select>
+
+                    <h5 class="card-title mb-5">Select Attack Type</h5>
+                    <table class="table is-indent mt-20"  data-plugin="selectable" data-row-selectable="true">
+                      <tr>
+                        <td>
+                          <span class="checkbox-custom checkbox-primary checkbox-lg text-left">
+                            <input class="selectable-item type" type="checkbox" name='type[]' checked="checked" id="kills" value="<?= \Application\Model\Stats::POINT_ATTACK?>"/>
+                            <label for="kills"></label>
+                          </span>
+                        </td>
+                        <td class="w-300 text-left">
+                          Kills
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="checkbox-custom checkbox-primary checkbox-lg text-left">
+                            <input class="selectable-item type" type="checkbox" name='type[]' checked="checked" id="fault" value="<?= \Application\Model\Stats::FAULT_ATTACK?>"/>
+                            <label for="fault"> </label>
+                          </span>
+                        </td>
+                        <td class="w-20 text-left">
+                          Faults
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                
+                  <div class="col-12 col-lg-7">
+                    <h5 class="card-title mb-5">Select Player Post</h5>
+                    <select class="form-control post-selection">
+                      <option value="all" selected>All</option>
+                      <option value="none">None</option>
+                      <option value="outside-hitter">Outside Hitter</option>
+                      <option value="opposite">Opposite</option>
+                      <option value="middle-blocker">Middle Blocker</option>
+                      <option value="setter">Setter</option>
+                      <option value="libero">Libero</option>
+                    </select>
+                      
+                    <table class="table is-indent"  data-plugin="selectable" data-row-selectable="true">
+                      <?php foreach ($attackScorer as $userId): ?>
+                        <tr>
+                          <td class="w-20">
+                            <span class="checkbox-custom checkbox-primary checkbox-lg">
+                              <input class="selectable-item user-checkbox <?= \Application\Service\Strings::toSlug(\Application\Model\User::$position[$users[$userId]->position]) ?>" type="checkbox" name='users[]' checked="checked" id="<?= $users[$userId]->id ?>" value="<?= $users[$userId]->id ?>"/>
+                              <label for="<?= $users[$userId]->id ?>"></label>
+                            </span>
+                          </td>
+                          <td class="w-20">
+                            <div class="avatar avatar-md">
+                              <img class="img-fluid" src="<?= $users[$userId]->getAvatarPath() ?>">
+                            </div>
+                          </td>
+                          <td class="text-left"><?= $users[$userId]->getFullname() ?></td>
+                        </tr>
+                      <?php endforeach ?>
+                    </table>
+                    <button type="button" id="stats-filter-submit" class="pull-right btn btn-success btn-outline"><i class="icon wb-check"></i>Filter</button>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card card-shadow ">
+          <div class="card-block">
+            <h4 class="card-title">Select Attack or Target zone</h4>
+            <table class="table" id="stats-repartition" data-stats='<?= json_encode($percents) ?>'>
+              <tr>
+                <td class="court-outside" width="2%" rowspan="5"></td>
+                <td class="court-outside text-center" height="40px" colspan="2"></td>
+                <!-- NET -->
+                <td rowspan="5" width="9%" class="court-net out" data-target="<?= \Application\Model\Stats::TO_OUT_NET ?>">
+                  <div id="toOutNet" class="hidden-md-down zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="50" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toOutNet'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allTo']['toOutNet'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="court-outside out text-center" height="20px" colspan="2" data-target="<?= \Application\Model\Stats::TO_OUT_LEFT ?>">
+                  <div id="toOutLeft" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toOutLeft'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allTo']['toOutLeft'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="court-outside out" width="9%" rowspan="5" data-target="<?= \Application\Model\Stats::TO_OUT_LONG ?>">
+                  <div id="toOutLong" class="hidden-md-down zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="50" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toOutLong'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allTo']['toOutLong'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="col-12">
+                <!-- attack P5 -->
+                <td height="70px" width="20%" class="court-inside court-border-top court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P5 ?>">
+                  <div id="fromP5" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP5'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allFrom']['fromP5'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+                <!-- attack P4 -->
+                <td height="70px" width="20%" class="court-inside court-border-top front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P4 ?>">
+                  <div id="fromP4" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP4'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allFrom']['fromP4'] ?>%</div>
+                    </div>
+                </td>
+                <!-- target P2 -->
+                <td height="70px" width="20%" class="court-inside court-border-top front target text-center" data-target="<?= \Application\Model\Stats::TO_P2 ?>">
+                  <div id="toP2" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toP2'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allTo']['toP2'] ?>%</div>
+                    </div>
+                </td>
+                <!-- target P1 -->
+                <td height="70px" width="20%" class="court-inside court-border-top court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P1 ?>">
+                  <div id="toP1" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toP1'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allTo']['toP1'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="col-12">
+                <!-- attack P6 -->
+                <td height="70px" width="20%" class="court-inside court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P6 ?>">
+                  <div id="fromP6" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP6'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allFrom']['fromP6'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+                <!-- attack P3 -->
+                <td height="70px" width="20%" class="court-inside front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P3 ?>">
+                  <div id="fromP3" height="33%" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-valuemax="100"
+                    data-valuemin="0" data-barcolor="#28c0de" data-size="60" data-barsize="3"
+                    data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP3'] ?>" role="progressbar">
+                    <span class="pie-progress-number"><?= $percents['allFrom']['fromP3'] ?>%</span>
+                  </div>
+                </td>
+                <!-- target P3 -->
+                <td height="70px" width="20%" class="court-inside front target text-center" data-target="<?= \Application\Model\Stats::TO_P3 ?>">
+                  <div id="toP3" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toP3'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allTo']['toP3'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+                <!-- target P6 -->
+                <td height="70px" width="20%" class="court-inside court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P6 ?>">
+                  <div id="toP6" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toP6'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allTo']['toP6'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="col-12">
+                <!-- attack P1 -->
+                <td height="70px" width="20%" class="court-inside court-border-bottom court-border-left court-border-right attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P1 ?>">
+                  <div id="fromP1" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP1'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allFrom']['fromP1'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+                <!-- attack P2 -->
+                <td height="70px" width="20%" class="court-inside court-border-bottom front attack text-center" data-attack="<?= \Application\Model\Stats::FROM_P2 ?>">
+                  <div id="fromP2" class="zone-court zone-attack pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allFrom']['fromP2'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allFrom']['fromP2'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+                <!-- target P4 -->
+                <td height="70px" width="20%" class="court-inside court-border-bottom front target text-center" data-target="<?= \Application\Model\Stats::TO_P4 ?>">
+                  <div id="toP4" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toP4'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allTo']['toP4'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+                <!-- target P5 -->
+                <td height="70px" width="20%" class="court-inside court-border-bottom court-border-left court-border-right target text-center" data-target="<?= \Application\Model\Stats::TO_P5 ?>">
+                  <div id="toP5" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toP5'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allTo']['toP5'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="court-outside" height="20px" colspan="2"></td>
+                <td class="court-outside out text-center" height="20px" colspan="2" data-target="<?= \Application\Model\Stats::TO_OUT_RIGHT ?>">
+                  <div id="toOutRight" class="zone-court zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toOutRight'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allTo']['toOutRight'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hidden-sm-up">
+                <td colspan="5" class="">
+                  Attack Fault : Too Long 
+                </td>
+                <td colspan="1">
+                  <div id="toOutLong" class="zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="50" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toOutLong'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allTo']['toOutLong'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+                <td></td>
+              </tr>
+              <tr class="hidden-sm-up">
+                <td colspan="5" class="">
+                  Attack Fault : Net
+                </td>
+                <td colspan="1">
+                  <div id="toOutNet" class="zone-to pie-progress pie-progress-xs" data-plugin="pieProgress" data-barcolor="#589ffc"
+                      data-size="60" data-barsize="3" data-goal="0" aria-valuenow="<?= $percents['allTo']['toOutNet'] ?>"
+                      role="progressbar">
+                      <div class="pie-progress-number"><?= $percents['allTo']['toOutNet'] ?>%</div>
+                    </div>
+                  </div>
+                </td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

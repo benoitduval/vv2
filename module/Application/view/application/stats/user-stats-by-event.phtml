@@ -7,7 +7,15 @@
   </div>
   <div class="card-block">
     <div class="row">
-      <div class="col-4">
+      <div class="col-6">
+        <div class="card card-inverse bg-success p-25">
+          <div class="counter counter-lg">
+            <span class="counter-number"><?= $counters[\Application\Model\Stats::POINT_ATTACK] + $counters[\Application\Model\Stats::POINT_SERVE] + $counters[\Application\Model\Stats::POINT_BLOCK] ?></span>
+            <div class="counter-label text-uppercase">Points</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
         <div class="card card-inverse bg-success p-25">
           <div class="counter counter-lg">
             <span class="counter-number"><?= $counters[\Application\Model\Stats::POINT_ATTACK] ?></span>
@@ -15,7 +23,23 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-6">
+        <div class="card card-inverse bg-info p-25">
+          <div class="counter counter-lg">
+            <span class="counter-number"><?= $attackAttemptCount ?></span>
+            <div class="counter-label text-uppercase">Attack Attempts</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card card-inverse bg-danger p-25">
+          <div class="counter counter-lg">
+            <span class="counter-number"><?= $counters[\Application\Model\Stats::FAULT_ATTACK] ?></span>
+            <div class="counter-label text-uppercase">Attack Faults</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
         <div class="card p-25 card-inverse bg-primary">
           <div class="counter counter-lg">
             <span class="counter-number"><?= $counters[\Application\Model\Stats::POINT_SERVE] ?></span>
@@ -23,7 +47,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-6">
         <div class="card card-inverse bg-info p-25">
           <div class="counter counter-lg">
             <span class="counter-number"><?= $counters[\Application\Model\Stats::POINT_BLOCK] ?></span>
@@ -40,16 +64,16 @@
         </div>
       </div>
       <div class="col-6">
-        <div class="card card-inverse bg-danger p-25">
+        <div class="card card-inverse bg-warning p-25">
           <div class="counter counter-lg">
-            <span class="counter-number"><?= $counters[\Application\Model\Stats::FAULT_ATTACK] ?></span>
-            <div class="counter-label text-uppercase">Attack Faults</div>
+            <span class="counter-number"><?= $digCount ?></span>
+            <div class="counter-label text-uppercase">Digs</div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="card-block"> 	
+  <div class="card-block">
   	<table class="table">
   	  <?php foreach ($average as $type => $avg): ?>
   	     <tr>
@@ -67,7 +91,7 @@
   	          </div>
   	       </td>
   	     </tr>
-         <?php if (isset($quality[$type]) && count($quality[$type]) > 4): ?>
+         <?php if (isset($quality[$type]) && count($quality[$type]) > 1): ?>
           <tr>
             <td>     
                 <div class="chart-evolution" data-score="<?= json_encode($quality[$type]) ?>"></div>

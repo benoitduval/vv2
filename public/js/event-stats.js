@@ -399,7 +399,30 @@
                       allowDecimals: false,
                       title: {
                           text: ''
-                      }
+                      },
+                      plotLines: [{
+                          value: 6,
+                          color: 'green',
+                          width: 1,
+                          zIndex:100,
+                            label: {
+                                text: "Aces",
+                                style: { 
+                                    "color": "green"
+                                }
+                            }
+                      }, {
+                          value: 0,
+                          color: 'red',
+                          width: 1,
+                          zIndex:100,
+                            label: {
+                                text: "Faults",
+                                style: { 
+                                    "color": "red"
+                                }
+                            }
+                      }],
                   },
                   xAxis: {
                     labels:

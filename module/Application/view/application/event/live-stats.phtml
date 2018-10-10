@@ -122,15 +122,8 @@
               </div>
             </div>
 
-            <div class="btn-group btn-group-justified" id="dig-button">
-              <div class="btn-group" role="group">
-                <button name="reason" class="btn btn-default btn-outline btn-next" data-show="#dig-selection" data-hide="#dig-button" data-next-title="Define The Dig">
-                  <span class="counter font-size-24">Dig</span>
-                </button>
-              </div>
-            </div>
-
-            <div id="dig-selection" style="display: none;">            
+            <h4>Ball still in play ?</h4>
+            <div id="dig-selection">            
               <span id="confirm-dig" class="badge badge-success" style="display: none;">Saved</span>
               <div class="col-12 text-center mb-10">
                 <div class="row text-center mb-10">
@@ -152,10 +145,19 @@
                   <?php endforeach ?>
                 </div>
               </div>
-              <div class="col-12 mb-10">
-                <div class="col-12 mb-10 text-center">
-                  <div class="rating rating-stats slide-up slide-down-rating btn-next" data-number="5" data-plugin="rating" data-next-title="Who Scores ?" data-show="#dig-button" data-hide="#dig-selection" data-type="<?= \Application\Model\Game::DIG ?>"  style="display: none;"></div>
-                </div>  
+              <div class="col-12 mb-10" id="inplay-buttons" style="display:none">
+                <div class="btn-group btn-group-justified" id="inplay-buttons">
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default btn-outline" data-type="<?= \Application\Model\Game::DIG ?>">
+                      <span class="text-uppercase">Dig</span>
+                    </button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default btn-outline" data-type="<?= \Application\Model\Game::ATTEMPT ?>">
+                      <span class="text-uppercase">Attack Attempt</span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

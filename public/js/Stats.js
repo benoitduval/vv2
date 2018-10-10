@@ -43,6 +43,7 @@
         this.handleSelect();
         this.handleRating();
         this.handleNavigation();
+        this.handleStillInPlay();
       }
     }, {
         key: 'handleNavigation',
@@ -59,9 +60,34 @@
           });
         }      
     }, {
+        key: 'handleStillInPlay',
+        value: function handleStillInPlay() {
+          $('.avatar-dig').on('click', function() {
+            var userId = $('#game-userId').val($(this).attr('data-user-id'));
+            var target = $(this).attr('data-target');
+            $('#inplay-buttons').slideDown();
+            $('#inplay-buttons button').each(function () {
+              $(this).on('click', function() {
+                  $('#game-type').val($(this).attr('data-type'));
+                  $('#game-quality').val(1);
+                  $("#game").ajaxSubmit({
+                    url: '/api/game/add',
+                    type: 'post',
+                    success: function () {  
+                        $('#confirm-dig').show();
+                        $('#confirm-dig').delay(300).fadeToggle()
+                        $('.btn-avatar').removeClass('avatar-checked');
+                        $('#inplay-buttons').slideUp();
+                    }
+                  });
+                });
+            });
+          });
+        }
+    }, {
         key: 'handleRating',
         value: function handleRating() {
-          $('.avatar-dig, .avatar-reception, .avatar-set').on('click', function() {
+          $('.avatar-reception, .avatar-set').on('click', function() {
             var userId = $('#game-userId').val($(this).attr('data-user-id'));
             var target = $(this).attr('data-target');
             $('.slide-down-rating[data-type="' + target + '"]').slideDown();

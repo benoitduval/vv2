@@ -4,6 +4,8 @@ namespace Application\Controller;
 use Zend\View\Model\ViewModel;
 use Application\Form;
 use Application\Model;
+use Application\Model\Stats as Statistics;
+use Application\Model\Game as GameStats;
 use Application\Service;
 use Application\TableGateway;
 use Application\Service\MailService;
@@ -97,21 +99,92 @@ class EventController extends AbstractController
 
             $stats = $this->statsTable->fetchAll([
                 'eventId'  => $eventId,
+                'userId'   => $this->getUser()->id,
                 'pointFor' => Model\Stats::POINT_US,
                 'reason'   => Model\Stats::POINT_ATTACK,
             ]);
+
             $attackScorer = [];
             foreach ($stats as $stat) {
                 if (!in_array($stat->userId, $attackScorer) && $stat->userId) $attackScorer[] = $stat->userId;
             }
             $percents = $this->statsTable->getZonePercent([
+                'userId'   => $this->getUser()->id,
                 'eventId'  => $eventId,
                 'reason' => [Model\Stats::POINT_ATTACK, Model\Stats::FAULT_ATTACK]
             ]);
 
             $compare = $this->statsTable->getCompare($event->id);
 
+            // ------------------------------------
+            $quality   = [];
+            $average   = [];
+
+            $config     = $this->get('config');
+            $baseUrl    = $config['baseUrl'];
+
+            $games = $this->gameTable->fetchAll([
+                'eventId' => $eventId,
+                'userId'  => $this->getUser()->id,
+                'type'    => [GameStats::SERVICE, GameStats::RECEPTION]
+            ]);
+            $stats = $this->statsTable->fetchAll(['eventId' => $eventId, 'userId' => $this->getUser()->id]);
+            $user  = $this->userTable->fetchOne(['id' => $this->getUser()->id]);
+
+            $counters = [
+                Statistics::POINT_SERVE  => 0,
+                Statistics::FAULT_SERVE  => 0,
+                Statistics::POINT_ATTACK => 0,
+                Statistics::FAULT_ATTACK => 0,
+                Statistics::POINT_BLOCK  => 0,
+            ];
+
+            $qualityCount[GameStats::SERVICE] = ['1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0];
+            $qualityCount[GameStats::RECEPTION] = ['1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0];
+
+            foreach ($games as $key => $game) {
+                $qualityCount[$game->type][$game->quality] ++;
+                $quality[$game->type][$game->numero] = (int) $game->quality;
+            }
+
+            foreach ($stats as $key => $stat) {
+                if ($stat->pointFor == Statistics::POINT_US && $stat->reason == Statistics::POINT_SERVE) {
+                    $quality[GameStats::SERVICE][$stat->numero] = 6;
+                }
+
+                if ($stat->pointFor == Statistics::POINT_THEM && $stat->reason == Statistics::FAULT_SERVE) {
+                    $quality[GameStats::SERVICE][$stat->numero] = 0;
+                }
+                $counters[$stat->reason]++;
+            }
+            $digCount = $this->gameTable->count([
+                'eventId' => $eventId,
+                'userId'  => $this->getUser()->id,
+                'type'    => GameStats::DIG
+            ]);
+
+            $attackAttemptCount = $this->gameTable->count([
+                'eventId' => $eventId,
+                'userId'  => $this->getUser()->id,
+                'type'    => GameStats::ATTEMPT
+             ]);
+
+            foreach ($quality as $type => $values) {
+                $average[$type] = array_sum($values) / count($values);
+                $average[$type] = sprintf('%0.1f', $average[$type]);
+                ksort($quality[$type]);
+                $quality[$type] = array_values($quality[$type]);
+            }
+
+            // ------------------------------------
+
             return new ViewModel([
+                'quality'  => $quality,
+                'qualityCount'  => $qualityCount,
+                'average'  => $average,
+                'counters' => $counters,
+                'digCount' => $digCount,
+                'attackAttemptCount' => $attackAttemptCount,
                 'event'        => $event,
                 'users'        => $users,
                 'stats'        => $stats,
@@ -123,6 +196,42 @@ class EventController extends AbstractController
             $this->redirect()->toRoute('home');
         }
     }
+
+    // public function statsAction()
+    // {
+    //     $eventId = $this->params('id');
+    //     if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
+            
+    //         $users = $this->userTable->getAllByGroupId($event->groupId);
+
+    //         $stats = $this->statsTable->fetchAll([
+    //             'eventId'  => $eventId,
+    //             'pointFor' => Model\Stats::POINT_US,
+    //             'reason'   => Model\Stats::POINT_ATTACK,
+    //         ]);
+    //         $attackScorer = [];
+    //         foreach ($stats as $stat) {
+    //             if (!in_array($stat->userId, $attackScorer) && $stat->userId) $attackScorer[] = $stat->userId;
+    //         }
+    //         $percents = $this->statsTable->getZonePercent([
+    //             'eventId'  => $eventId,
+    //             'reason' => [Model\Stats::POINT_ATTACK, Model\Stats::FAULT_ATTACK]
+    //         ]);
+
+    //         $compare = $this->statsTable->getCompare($event->id);
+
+    //         return new ViewModel([
+    //             'event'        => $event,
+    //             'users'        => $users,
+    //             'stats'        => $stats,
+    //             'percents'     => $percents,
+    //             'compare'      => $compare,
+    //             'attackScorer' => $attackScorer,
+    //         ]);
+    //     } else {
+    //         $this->redirect()->toRoute('home');
+    //     }
+    // }
 
     public function editAction()
     {

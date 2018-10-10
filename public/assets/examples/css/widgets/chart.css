@@ -5,10 +5,10 @@
   vertical-align: middle;
   border-radius: 50%; }
 
-.card {
+/*.card {
   margin-bottom: 30px;
   height: calc(100% - 30px); }
-
+*/
 .ct-chart .ct-label.ct-vertical, .ct-chart .ct-label.ct-horizontal {
   font-size: 14px;
   color: #a3afb7; }
