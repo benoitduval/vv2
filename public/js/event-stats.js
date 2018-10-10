@@ -401,6 +401,12 @@
                           text: ''
                       }
                   },
+                  xAxis: {
+                    labels:
+                    {
+                      enabled: false
+                    }
+                  },
                   legend: {
                       enabled: false
                   },

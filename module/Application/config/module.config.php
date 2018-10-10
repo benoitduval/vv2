@@ -259,6 +259,15 @@ return [
                         ],
                     ],
                 ],
+                'clean-stats' => [
+                    'options' => [
+                        'route'    => 'clean-stats [--verbose|-v]',
+                        'defaults' => [
+                            'controller' => Controller\ConsoleController::class,
+                            'action'     => 'clean-stats',
+                        ],
+                    ],
+                ],
                 'recurent' => [
                     'options' => [
                         'route'    => 'recurent [--verbose|-v]',

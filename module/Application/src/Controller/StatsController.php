@@ -4,6 +4,8 @@ namespace Application\Controller;
 use Zend\View\Model\ViewModel;
 use Application\Form;
 use Application\Model;
+use Application\Model\Stats as Statistiques;
+use Application\Model\Game as GameStats;
 
 class StatsController extends AbstractController
 {
@@ -25,32 +27,43 @@ class StatsController extends AbstractController
 		    $user  = $this->userTable->fetchOne(['id' => $userId]);
 
 		    $counters = [
-		    	\Application\Model\Stats::POINT_SERVE  => 0,
-		    	\Application\Model\Stats::FAULT_SERVE  => 0,
-		    	\Application\Model\Stats::POINT_ATTACK => 0,
-		    	\Application\Model\Stats::FAULT_ATTACK => 0,
-		    	\Application\Model\Stats::POINT_BLOCK  => 0,
+		    	Statistiques::POINT_SERVE  => 0,
+		    	Statistiques::FAULT_SERVE  => 0,
+		    	Statistiques::POINT_ATTACK => 0,
+		    	Statistiques::FAULT_ATTACK => 0,
+		    	Statistiques::POINT_BLOCK  => 0,
 		    ];
-		    foreach ($stats as $key => $stat) {
-		    	if ($stat->pointFor == \Application\Model\Stats::POINT_US ||
-		    		($stat->pointFor == \Application\Model\Stats::POINT_THEM &&
-		    		 in_array($stat->reason, [
-		    		 	\Application\Model\Stats::FAULT_SERVE ,
-		    		 	\Application\Model\Stats::FAULT_ATTACK,
-		    	     ]) 
-		    		)
-		    	) {
-		    		$counters[$stat->reason] ++;
-		    	}
-		    }
 
 	        foreach ($games as $key => $game) {
-	            $quality[$game->type][] = (int) $game->quality; 
+	            $quality[$game->type][$game->numero] = (int) $game->quality; 
+	        }
+
+	        foreach ($stats as $key => $stat) {
+	        	if ($stat->pointFor == Statistiques::POINT_US && $stat->reason = Statistiques::POINT_SERVE) {
+	        		$quality[GameStats::SERVICE][$stat->numero] = 6;
+	        	}
+
+	        	if ($stat->pointFor == Statistiques::POINT_THEM && $stat->reason = Statistiques::FAULT_SERVE) {
+	        		$quality[GameStats::SERVICE][$stat->numero] = 0;
+	        	}
+
+	        	if ($stat->pointFor == Statistiques::POINT_US ||
+	        		($stat->pointFor == Statistiques::POINT_THEM &&
+	        		 in_array($stat->reason, [
+	        		 	Statistiques::FAULT_SERVE ,
+	        		 	Statistiques::FAULT_ATTACK,
+	        	     ]) 
+	        		)
+	        	) {
+	        		$counters[$stat->reason] ++;
+	        	}
 	        }
 
 	    	foreach ($quality as $type => $values) {
 	    		$average[$type] = array_sum($values) / count($values);
 	    		$average[$type] = sprintf('%0.1f', $average[$type]);
+		    	ksort($quality[$type]);
+		    	$quality[$type] = array_values($quality[$type]);
 	    	}
 
 		    $view = new ViewModel([

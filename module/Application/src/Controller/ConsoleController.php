@@ -21,6 +21,22 @@ class ConsoleController extends AbstractController
 {
     protected $_users = [];
 
+    public function cleanStatsAction()
+    {
+        $stats = $this->statsTable->fetchAll([
+            'pointFor' => \Application\Model\Stats::POINT_US,
+            'reason' => [
+                \Application\Model\Stats::FAULT_ATTACK,
+                \Application\Model\Stats::FAULT_DEFENCE,
+                \Application\Model\Stats::FAULT_SERVE,
+            ],
+            'userId <> ?' => null,
+        ]);
+
+        \Zend\Debug\Debug::dump($stats->toArray());die;
+
+    }
+
     public function init()
     {
         $config = $this->get('config');
