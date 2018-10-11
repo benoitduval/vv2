@@ -143,6 +143,7 @@
                             Attack Attempt
                           </td>
                           <td colspan="2">
+                            <?php \Zend\Debug\Debug::dump($attemptUserIds);die; ?>
                             <?php foreach ($attemptUserIds as $userId): ?>
                               <img class="avatar avatar-sm" src="<?= $users[$userId]->getAvatarPath() ?>">
                             <?php endforeach ?>
