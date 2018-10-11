@@ -67,7 +67,7 @@
             var target = $(this).attr('data-target');
             $('#inplay-buttons').slideDown();
             $('#inplay-buttons button').each(function () {
-              $(this).on('click', function() {
+              $(this).off('click').on('click', function() {
                   $('#game-type').val($(this).attr('data-type'));
                   $('#game-quality').val(1);
                   $("#game").ajaxSubmit({
@@ -109,7 +109,6 @@
                       return $(this).data('score');
                   },
                   click: function (quality, evt) {
-                      
                       var slideUp = thisRating.attr('data-hide');
                       if (slideUp) $(slideUp).slideUp();
                       var slideDown = thisRating.attr('data-show');
