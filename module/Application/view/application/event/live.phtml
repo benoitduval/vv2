@@ -124,7 +124,7 @@
                         </tr> 
                       <?php endforeach ?>
                   <?php endif ?>
-                  <?php if ($data[\Application\Model\Game::DIG] || $data[\Application\Model\Game::ATTEMPT]): ?>
+                  <?php if (isset($data[\Application\Model\Game::DIG])): ?>
                       <?php if ($digUserIds = $data[\Application\Model\Game::DIG]): ?>
                         <tr>
                           <td>
@@ -137,6 +137,8 @@
                           </td>
                         </tr> 
                       <?php endif ?>
+                    <?php endif ?>
+                    <?php if (isset($data[\Application\Model\Game::ATTEMPT])): ?>
                       <?php if ($attemptUserIds = $data[\Application\Model\Game::ATTEMPT]): ?>
                         <tr>
                           <td>
