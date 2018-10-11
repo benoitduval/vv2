@@ -178,20 +178,23 @@
         <div class="p-30">
           <div class="row no-space">
             <div class="col-7">
-              <p class="mb-10">
-                <span class="icon wb-medium-point cyan-600 mr-5"></span>Bad: <?= $qualityCount[\Application\Model\Game::RECEPTION]['1']?>
+              <p class="mb-0">
+                <span class="icon wb-medium-point red-600 mr-5"></span>Zip: <?= $qualityCount[\Application\Model\Game::RECEPTION]['0']?>
               </p>
-              <p class="mb-10">
-                <span class="icon wb-medium-point red-600 mr-5"></span>Poor: <?= $qualityCount[\Application\Model\Game::RECEPTION]['2']?>
+              <p class="mb-0">
+                <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $qualityCount[\Application\Model\Game::RECEPTION]['1']?>
               </p>
-              <p class="mb-10">
-                <span class="icon wb-medium-point green-600 mr-5"></span>Medium: <?= $qualityCount[\Application\Model\Game::RECEPTION]['3']?>
+              <p class="mb-0">
+                <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $qualityCount[\Application\Model\Game::RECEPTION]['2']?>
               </p>
-              <p class="mb-10">
-                <span class="icon wb-medium-point purple-600 mr-5"></span>Good: <?= $qualityCount[\Application\Model\Game::RECEPTION]['4']?>
+              <p class="mb-0">
+                <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $qualityCount[\Application\Model\Game::RECEPTION]['3']?>
               </p>
-              <p class="mb-10">
-                <span class="icon wb-medium-point yellow-600 mr-5"></span>Excellent: <?= $qualityCount[\Application\Model\Game::RECEPTION]['5']?>
+              <p class="mb-0">
+                <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $qualityCount[\Application\Model\Game::RECEPTION]['4']?>
+              </p>
+              <p class="mb-0">
+                <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $qualityCount[\Application\Model\Game::RECEPTION]['5']?>
               </p>
             </div>
             <div class="col-5">
@@ -245,21 +248,27 @@
         <div class="p-30">
           <div class="row no-space">
            <div class="col-7">
-             <p class="mb-10">
-               <span class="icon wb-medium-point cyan-600 mr-5"></span>Bad: <?= $qualityCount[\Application\Model\Game::SERVICE]['1']?>
-             </p>
-             <p class="mb-10">
-               <span class="icon wb-medium-point red-600 mr-5"></span>Poor: <?= $qualityCount[\Application\Model\Game::SERVICE]['2']?>
-             </p>
-             <p class="mb-10">
-               <span class="icon wb-medium-point green-600 mr-5"></span>Medium: <?= $qualityCount[\Application\Model\Game::SERVICE]['3']?>
-             </p>
-             <p class="mb-10">
-               <span class="icon wb-medium-point purple-600 mr-5"></span>Good: <?= $qualityCount[\Application\Model\Game::SERVICE]['4']?>
-             </p>
-             <p class="mb-10">
-               <span class="icon wb-medium-point yellow-600 mr-5"></span>Excellent: <?= $qualityCount[\Application\Model\Game::SERVICE]['5']?>
-             </p>
+            <p class="mb-0">
+              <span class="icon wb-medium-point red-600 mr-5"></span>Fault: <?= $counters[\Application\Model\Stats::FAULT_SERVE] ?>
+            </p>
+            <p class="mb-0">
+              <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $qualityCount[\Application\Model\Game::SERVICE]['1']?>
+            </p>
+            <p class="mb-0">
+              <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $qualityCount[\Application\Model\Game::SERVICE]['2']?>
+            </p>
+            <p class="mb-0">
+              <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $qualityCount[\Application\Model\Game::SERVICE]['3']?>
+            </p>
+            <p class="mb-0">
+              <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $qualityCount[\Application\Model\Game::SERVICE]['4']?>
+            </p>
+            <p class="mb-0">
+              <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $qualityCount[\Application\Model\Game::SERVICE]['5']?>
+            </p>
+            <p class="mb-0">
+              <span class="icon wb-medium-point green-600 mr-5"></span>Ace: <?= $counters[\Application\Model\Stats::POINT_SERVE] ?>
+            </p>
            </div>
             <div class="col-5">
               <div class="ct-chart chart-pie" data-stats="<?= json_encode(array_values($qualityCount[\Application\Model\Game::SERVICE])) ?>" style="height: 129px;">

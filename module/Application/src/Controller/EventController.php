@@ -158,8 +158,8 @@ class EventController extends AbstractController
                 Statistics::FAULT_DEFENCE => 0,
             ];
 
-            $qualityCount[GameStats::SERVICE] = ['1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0];
-            $qualityCount[GameStats::RECEPTION] = ['1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0];
+            $qualityCount[GameStats::SERVICE] = ['0' => 0, '1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0];
+            $qualityCount[GameStats::RECEPTION] = ['0' => 0, '1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0];
 
             foreach ($games as $key => $game) {
                 $qualityCount[$game->type][$game->quality] ++;
@@ -169,10 +169,12 @@ class EventController extends AbstractController
             foreach ($stats as $key => $stat) {
                 if ($stat->pointFor == Statistics::POINT_US && $stat->reason == Statistics::POINT_SERVE) {
                     $quality[GameStats::SERVICE][$stat->numero] = 6;
+                    $qualityCount[GameStats::SERVICE][6] ++;
                 }
 
                 if ($stat->pointFor == Statistics::POINT_THEM && $stat->reason == Statistics::FAULT_SERVE) {
                     $quality[GameStats::SERVICE][$stat->numero] = 0;
+                    $qualityCount[GameStats::SERVICE][0] ++;
                 }
                 switch ($stat->pointFor) {
                     case Statistics::POINT_US:
