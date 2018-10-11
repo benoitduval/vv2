@@ -510,8 +510,12 @@ class EventController extends AbstractController
                 $result[$stat->set][$stat->numero]['ending'] = $stat;
                 $result[$stat->set][$stat->numero]['during'] = [];
                 foreach ($games as $key => $game) {
-                    if ($game->numero != $stat->numero) continue;
-                    $result[$stat->set][$stat->numero]['during'][] = $game;
+                    if (in_array($game->type, [GameStats::DIG, GameStats::ATTEMPT])) {
+                        $result[$stat->set][$stat->numero][$game->type][] = $game->userId;
+                    } else {                    
+                        if ($game->numero != $stat->numero) continue;
+                        $result[$stat->set][$stat->numero]['during'][] = $game;
+                    }
                 }
             }
             $view = new ViewModel([

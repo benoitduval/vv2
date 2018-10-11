@@ -106,23 +106,51 @@
                       </tr>
                     </table>
                   <?php endif ?>
-                  <?php if ($games = $data['during']): ?>
                     <table class="table">
+                  <?php if ($games = $data['during']): ?>
                       <?php foreach ($games as $game): ?>
                          <tr>
-                           <td><img class="avatar avatar-sm" src="<?= $users[$game->userId]->getAvatarPath() ?>"></td>
-                           <td class="row">
-                              <div class="col-sm-6 col-12">
-                                <?= \Application\Model\Game::$literalReason[$game->type] ?>
-                              </div>
-                              <div class="col-sm-6 col-12">
+                          <td>                            
+                              <?= \Application\Model\Game::$literalReason[$game->type] ?>
+                          </td>
+                          <td>
+                            <img class="avatar avatar-sm" src="<?= $users[$game->userId]->getAvatarPath() ?>">
+                          </td>
+                          <td class="row">
+                              <div>
                                 <div class="rating" data-score="<?= $game->quality ?>" data-number="5"></div>
                               </div>
-                           </td>
-                         </tr> 
+                          </td>
+                        </tr> 
                       <?php endforeach ?>
-                    </table>
                   <?php endif ?>
+                  <?php if ($data[\Application\Model\Game::DIG] || $data[\Application\Model\Game::ATTEMPT]): ?>
+                      <?php if ($userIds = $data[\Application\Model\Game::DIG]): ?>
+                        <tr>
+                          <td>
+                            Digs
+                          </td>
+                          <td colspan="2">
+                            <?php foreach ($userIds as $userId): ?>
+                              <img class="avatar avatar-sm" src="<?= $users[$game->userId]->getAvatarPath() ?>">
+                            <?php endforeach ?>
+                          </td>
+                        </tr> 
+                      <?php endif ?>
+                      <?php if ($userIds = $data[\Application\Model\Game::ATTEMPT]): ?>
+                        <tr>
+                          <td>
+                            Attack Attempt
+                          </td>
+                          <td colspan="2">
+                            <?php foreach ($userIds as $userId): ?>
+                              <img class="avatar avatar-sm" src="<?= $users[$game->userId]->getAvatarPath() ?>">
+                            <?php endforeach ?>
+                          </td>
+                        </tr> 
+                      <?php endif ?>
+                    <?php endif ?>
+                  </table>
                   </div>
                 </div>
                 <!-- <div class="card-block">
