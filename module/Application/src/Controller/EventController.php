@@ -94,49 +94,68 @@ class EventController extends AbstractController
     {
         $eventId = $this->params('id');
         if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
-            
+
+            $askedUserId = $this->params()->fromQuery('userId', null);
+            $group = $this->groupTable->find($event->groupId);
+            if ($askedUserId) {
+                $selected = $this->userTable->find($askedUserId);
+                $name = $selected->getFullName();
+            } else {
+                $selected = $group;
+                $name = $group->name;
+            }
             $users = $this->userTable->getAllByGroupId($event->groupId);
 
-            $stats = $this->statsTable->fetchAll([
+            $userWithStats = [];
+            foreach ($users as $user) {
+                if ($this->statsTable->fetchOne(['eventId' => $event->id, 'userId' => $user->id])) {
+                    $userWithStats[] = $user->id;
+                } else if ($this->gameTable->fetchOne(['eventId' => $event->id, 'userId' => $user->id])) {
+                    $userWithStats[] = $user->id;
+                }
+            }
+
+            $params = [
                 'eventId'  => $eventId,
-                'userId'   => $this->getUser()->id,
                 'pointFor' => Model\Stats::POINT_US,
                 'reason'   => Model\Stats::POINT_ATTACK,
-            ]);
+            ];
+            if ($askedUserId) $params['userId'] = $askedUserId;
+            $stats = $this->statsTable->fetchAll($params);
 
             $attackScorer = [];
             foreach ($stats as $stat) {
                 if (!in_array($stat->userId, $attackScorer) && $stat->userId) $attackScorer[] = $stat->userId;
             }
+
             $percents = $this->statsTable->getZonePercent([
-                'userId'   => $this->getUser()->id,
                 'eventId'  => $eventId,
                 'reason' => [Model\Stats::POINT_ATTACK, Model\Stats::FAULT_ATTACK]
             ]);
-
             $compare = $this->statsTable->getCompare($event->id);
 
-            // ------------------------------------
             $quality   = [];
             $average   = [];
 
             $config     = $this->get('config');
             $baseUrl    = $config['baseUrl'];
 
-            $games = $this->gameTable->fetchAll([
+            $params = [
                 'eventId' => $eventId,
-                'userId'  => $this->getUser()->id,
                 'type'    => [GameStats::SERVICE, GameStats::RECEPTION]
-            ]);
-            $stats = $this->statsTable->fetchAll(['eventId' => $eventId, 'userId' => $this->getUser()->id]);
-            $user  = $this->userTable->fetchOne(['id' => $this->getUser()->id]);
+            ];
+            if ($askedUserId) $params['userId'] = $askedUserId;
+            $games = $this->gameTable->fetchAll($params);
+            unset($params['type']);
+            $stats = $this->statsTable->fetchAll($params);
 
             $counters = [
-                Statistics::POINT_SERVE  => 0,
-                Statistics::FAULT_SERVE  => 0,
-                Statistics::POINT_ATTACK => 0,
-                Statistics::FAULT_ATTACK => 0,
-                Statistics::POINT_BLOCK  => 0,
+                Statistics::POINT_SERVE   => 0,
+                Statistics::FAULT_SERVE   => 0,
+                Statistics::POINT_ATTACK  => 0,
+                Statistics::FAULT_ATTACK  => 0,
+                Statistics::POINT_BLOCK   => 0,
+                Statistics::FAULT_DEFENCE => 0,
             ];
 
             $qualityCount[GameStats::SERVICE] = ['1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0];
@@ -155,19 +174,29 @@ class EventController extends AbstractController
                 if ($stat->pointFor == Statistics::POINT_THEM && $stat->reason == Statistics::FAULT_SERVE) {
                     $quality[GameStats::SERVICE][$stat->numero] = 0;
                 }
-                $counters[$stat->reason]++;
+                switch ($stat->pointFor) {
+                    case Statistics::POINT_US:
+                        if (in_array($stat->reason, [Statistics::POINT_SERVE, Statistics::POINT_ATTACK, Statistics::POINT_BLOCK])) {
+                            $counters[$stat->reason]++;
+                            
+                        }
+                        break;
+                    case Statistics::POINT_THEM:
+                        if (in_array($stat->reason, [Statistics::FAULT_SERVE, Statistics::FAULT_ATTACK])) {
+                            $counters[$stat->reason]++;
+                        }
+                        break;
+                }
             }
-            $digCount = $this->gameTable->count([
-                'eventId' => $eventId,
-                'userId'  => $this->getUser()->id,
-                'type'    => GameStats::DIG
-            ]);
 
-            $attackAttemptCount = $this->gameTable->count([
+            $params = [
                 'eventId' => $eventId,
-                'userId'  => $this->getUser()->id,
-                'type'    => GameStats::ATTEMPT
-             ]);
+                'type'    => GameStats::DIG
+            ];
+            if ($askedUserId) $params['userId'] = $askedUserId;
+            $digCount = $this->gameTable->count($params);
+            $params['type'] = GameStats::ATTEMPT; 
+            $attackAttemptCount = $this->gameTable->count($params);
 
             foreach ($quality as $type => $values) {
                 $average[$type] = array_sum($values) / count($values);
@@ -176,10 +205,12 @@ class EventController extends AbstractController
                 $quality[$type] = array_values($quality[$type]);
             }
 
-            // ------------------------------------
 
             return new ViewModel([
                 'quality'  => $quality,
+                'userWithStats'  => $userWithStats,
+                'selected'  => $selected,
+                'name'  => $name,
                 'qualityCount'  => $qualityCount,
                 'average'  => $average,
                 'counters' => $counters,
@@ -191,6 +222,7 @@ class EventController extends AbstractController
                 'percents'     => $percents,
                 'compare'      => $compare,
                 'attackScorer' => $attackScorer,
+                'group' => $group,
             ]);
         } else {
             $this->redirect()->toRoute('home');

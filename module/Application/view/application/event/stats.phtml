@@ -83,45 +83,73 @@
 </div>
 
 <div class="row">
-  <div class="col-xxl-4 col-lg-6 col-md-12">
+  <div class="col-xxl-4 col-lg-6 col-md-12 user-info card card-shadow text-center pb-20">
     <div class="row">
-      <div class="col-12">
-        <div class="card card-inverse bg-blue-600 p-25">
-          <div class="counter counter-lg">
-            <span class="counter-number"><?= $counters[\Application\Model\Stats::POINT_ATTACK] + $counters[\Application\Model\Stats::POINT_SERVE] + $counters[\Application\Model\Stats::POINT_BLOCK] ?></span>
-            <div class="counter-label text-uppercase" style="color:#FFF;">Points</div>
+      <div class="user-base card-block bg-blue-600">
+        <a class="avatar avatar-100"  href="javascript:void(0)">
+          <img alt="" src="<?= $selected->getAvatarPath() ?>">
+        </a>
+        <h4 class="user-name" style="color: #FFF;"><?= $counters[\Application\Model\Stats::POINT_ATTACK] + $counters[\Application\Model\Stats::POINT_SERVE] + $counters[\Application\Model\Stats::POINT_BLOCK] ?> Points</h4>
+        <div class="row">
+          <div class="col-12 text-center">
+            <div class="avatar avatar-sm mr-5 ml-5">
+              <a href="/event/stats/<?= $event->id ?>">
+                <img class="img-fluid" src="<?= $group->getAvatarPath() ?>">
+              </a>
+            </div>
+            <?php foreach ($userWithStats as $userId): ?>
+              <div class="avatar avatar-sm mr-5 ml-5">
+                <a href="/event/stats/<?= $event->id ?>?userId=<?= $users[$userId]->id ?>">
+                  <img class="img-fluid" src="<?= $users[$userId]->getAvatarPath() ?>">
+                </a>
+              </div>
+            <?php endforeach ?>
           </div>
         </div>
       </div>
-      <div class="col-6">
-        <div class="card card-inverse bg-green-600 p-25">
-          <div class="counter counter-lg">
-            <span class="counter-number"><?= $counters[\Application\Model\Stats::POINT_ATTACK] ?></span>
-            <div class="counter-label text-uppercase" style="color:#FFF;">Kills</div>
+      <h4 class="text-center col-12">Attacks</h4>
+      <div class="card-group col-12">
+        <div class="card card-block p-0">
+          <div class="counter counter-lg counter-inverse bg-green-600 vertical-align h-120">
+            <div class="vertical-align-middle">
+              <div class="counter-icon mb-5"><?= $counters[\Application\Model\Stats::POINT_ATTACK] ?></div>
+              <span class="counter-number">Kills</span>
+            </div>
+          </div>
+        </div>
+        <div class="card card-block p-0">
+          <div class="counter counter-lg counter-inverse bg-red-600 vertical-align h-120">
+            <div class="vertical-align-middle">
+              <div class="counter-icon mb-5"><?= $counters[\Application\Model\Stats::FAULT_ATTACK] ?></i></div>
+              <span class="counter-number">Faults</span>
+            </div>
+          </div>
+        </div>
+        <div class="card card-block p-0">
+          <div class="counter counter-lg counter-inverse bg-purple-600 vertical-align h-120">
+            <div class="vertical-align-middle">
+              <div class="counter-icon mb-5"><?= $attackAttemptCount ?></i></div>
+              <span class="counter-number">Attempts</span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-6">
-        <div class="card card-inverse bg-red-600 p-25">
-          <div class="counter counter-lg">
-            <span class="counter-number"><?= $counters[\Application\Model\Stats::FAULT_ATTACK] ?></span>
-            <div class="counter-label text-uppercase" style="color:#FFF;">Attack Faults</div>
+      <h4 class="text-center col-12">Blocks</h4>
+      <div class="card-group col-12">
+        <div class="card card-block p-0">
+          <div class="counter counter-lg counter-inverse bg-green-600 vertical-align h-120">
+            <div class="vertical-align-middle">
+              <div class="counter-icon mb-5"><?= $counters[\Application\Model\Stats::POINT_BLOCK] ?></div>
+              <span class="counter-number">Blocks</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-6">
-        <div class="card card-inverse bg-info p-25">
-          <div class="counter counter-lg">
-            <span class="counter-number"><?= $attackAttemptCount ?></span>
-            <div class="counter-label text-uppercase">Attack Attempts</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="card card-inverse bg-info p-25">
-          <div class="counter counter-lg">
-            <span class="counter-number"><?= $counters[\Application\Model\Stats::POINT_BLOCK] ?></span>
-            <div class="counter-label text-uppercase">Blocks</div>
+        <div class="card card-block p-0">
+          <div class="counter counter-lg counter-inverse bg-red-600 vertical-align h-120">
+            <div class="vertical-align-middle">
+              <div class="counter-icon mb-5">0</i></div>
+              <span class="counter-number">Blocked</span>
+            </div>
           </div>
         </div>
       </div>
@@ -133,6 +161,9 @@
       <div class="card-block p-0">
         <div class="bg-blue-600 white p-30">
           <div class="font-size-20 clearfix">
+            <span class="avatar avatar-20"  >
+              <img alt="" src="<?= $selected->getAvatarPath() ?>">
+            </span>
             Receptions
             <span class="float-right">
               <?= array_sum($qualityCount[\Application\Model\Game::RECEPTION]) ?>
@@ -140,9 +171,9 @@
           </div>
           <div class="font-size-14 blue-200 clearfix">
             Quality over match
-            <span class="float-right">Avg: <?= $average[\Application\Model\Game::RECEPTION] ?></span>
+            <span class="float-right">Avg: <?= isset($average[\Application\Model\Game::RECEPTION]) ? $average[\Application\Model\Game::RECEPTION] : 'N/A' ?></span>
           </div>
-          <div class="ct-chart chart-line h-100" data-stats="<?= json_encode([$quality[\Application\Model\Game::RECEPTION]]) ?>"></div>
+          <div class="ct-chart chart-line h-100" data-stats="<?= isset($quality[\Application\Model\Game::RECEPTION]) ? json_encode([$quality[\Application\Model\Game::RECEPTION]]) : '[0]' ?>"></div>
         </div>
         <div class="p-30">
           <div class="row no-space">
@@ -164,10 +195,10 @@
               </p>
             </div>
             <div class="col-5">
-              <div class="ct-chart chart-pie" data-stats="<?= json_encode(array_values($qualityCount[\Application\Model\Game::RECEPTION])) ?>" style="height: 129px;">
+              <div class="ct-chart chart-pie" data-stats="<?= isset($qualityCount[\Application\Model\Game::RECEPTION]) ? json_encode(array_values($qualityCount[\Application\Model\Game::RECEPTION])) : '[0]' ?>" style="height: 129px;">
                 <div class="vertical-align text-center" style="height:100%; width:100%; position:absolute; left:0; top:0;">
                   <div class="font-size-20  vertical-align-middle" style="line-height:1.1 ">
-                    <div><?= $average[\Application\Model\Game::RECEPTION] ?></div>
+                    <div><?= isset($average[\Application\Model\Game::RECEPTION]) ? $average[\Application\Model\Game::RECEPTION] : 'N/A' ?></div>
                     <div>AVG</div>
                   </div>
                 </div>
@@ -197,6 +228,9 @@
       <div class="card-block p-0">
         <div class="bg-blue-600 white p-30">
           <div class="font-size-20 clearfix">
+            <span class="avatar avatar-20" >
+              <img alt="" src="<?= $selected->getAvatarPath() ?>">
+            </span>
             Service
             <span class="float-right">
               <?= array_sum($qualityCount[\Application\Model\Game::SERVICE]) + $counters[\Application\Model\Stats::POINT_SERVE] + $counters[\Application\Model\Stats::FAULT_SERVE]?>
@@ -265,16 +299,86 @@
 
 <div class="row" data-plugin="matchHeight" data-by-row="true">
   <div class="col-md-6">
-    <?php if ($event->getVideoEmbeding()): ?>
-      <div class="card card-shadow ">
-        <div class="card-block">
-          <h4 class="card-title">Video</h4>
-          <div class="col-12 text-center">
-            <?= $event->getVideoEmbeding() ?>
-          </div>
-        </div>
+    <div class="card card-shadow example-responsive">
+      <div class="card-block">
+        <h4 class="card-title">Filter</h4>
+        <form id="user-selection" data-event-id="<?= $event->id ?>">
+            <div class="row">
+              <div class="col-12 col-lg-5">
+                <h5 class="card-title mb-5">Select Setter Position</h5>
+                <select class="form-control setter-position">
+                  <option value="all" selected="">All</option>
+                  <option value="p1">P1</option>
+                  <option value="p2">P2</option>
+                  <option value="p3">P3</option>
+                  <option value="p4">P4</option>
+                  <option value="p5">P5</option>
+                  <option value="p6">P6</option>
+                </select>
+
+                <h5 class="card-title mb-5">Select Attack Type</h5>
+                <table class="table is-indent mt-20"  data-plugin="selectable" data-row-selectable="true">
+                  <tr>
+                    <td>
+                      <span class="checkbox-custom checkbox-primary checkbox-lg text-left">
+                        <input class="selectable-item type" type="checkbox" name='type[]' checked="checked" id="kills" value="<?= \Application\Model\Stats::POINT_ATTACK?>"/>
+                        <label for="kills"></label>
+                      </span>
+                    </td>
+                    <td class="w-300 text-left">
+                      Kills
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="checkbox-custom checkbox-primary checkbox-lg text-left">
+                        <input class="selectable-item type" type="checkbox" name='type[]' checked="checked" id="fault" value="<?= \Application\Model\Stats::FAULT_ATTACK?>"/>
+                        <label for="fault"> </label>
+                      </span>
+                    </td>
+                    <td class="w-20 text-left">
+                      Faults
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            
+              <div class="col-12 col-lg-7">
+                <h5 class="card-title mb-5">Select Player Post</h5>
+                <select class="form-control post-selection">
+                  <option value="all" selected>All</option>
+                  <option value="none">None</option>
+                  <option value="outside-hitter">Outside Hitter</option>
+                  <option value="opposite">Opposite</option>
+                  <option value="middle-blocker">Middle Blocker</option>
+                  <option value="setter">Setter</option>
+                  <option value="libero">Libero</option>
+                </select>
+                  
+                <table class="table is-indent"  data-plugin="selectable" data-row-selectable="true">
+                  <?php foreach ($attackScorer as $userId): ?>
+                    <tr>
+                      <td class="w-20">
+                        <span class="checkbox-custom checkbox-primary checkbox-lg">
+                          <input class="selectable-item user-checkbox <?= \Application\Service\Strings::toSlug(\Application\Model\User::$position[$users[$userId]->position]) ?>" type="checkbox" name='users[]' checked="checked" id="<?= $users[$userId]->id ?>" value="<?= $users[$userId]->id ?>"/>
+                          <label for="<?= $users[$userId]->id ?>"></label>
+                        </span>
+                      </td>
+                      <td class="w-20">
+                        <div class="avatar avatar-md">
+                          <img class="img-fluid" src="<?= $users[$userId]->getAvatarPath() ?>">
+                        </div>
+                      </td>
+                      <td class="text-left"><?= $users[$userId]->getFullname() ?></td>
+                    </tr>
+                  <?php endforeach ?>
+                </table>
+                <button type="button" id="stats-filter-submit" class="pull-right btn btn-success btn-outline"><i class="icon wb-check"></i>Filter</button>
+              </div>
+            </div>
+        </form>
       </div>
-    <?php endif ?>
+    </div>
   </div>
   <div class="col-md-6">
     <div class="card card-shadow ">
@@ -466,3 +570,17 @@
   </div>
 </div>
 
+<div class="row" data-plugin="matchHeight" data-by-row="true">
+  <div class="col-md-6">
+    <?php if ($event->getVideoEmbeding()): ?>
+      <div class="card card-shadow ">
+        <div class="card-block">
+          <h4 class="card-title">Video</h4>
+          <div class="col-12 text-center">
+            <?= $event->getVideoEmbeding() ?>
+          </div>
+        </div>
+      </div>
+    <?php endif ?>
+  </div>
+</div>

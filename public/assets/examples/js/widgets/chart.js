@@ -55,7 +55,6 @@
 
     $('.chart-pie').each(function() {
       var data = $(this).attr('data-stats');
-      console.log(data);
       new Chartist.Pie(this, {
         series: JSON.parse(data)
       }, {
