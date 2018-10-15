@@ -112,6 +112,7 @@ class Stats extends AbstractTableGateway
         $aces = $this->_getHistory($params);
 
         $params['pointFor'] = Statistics::POINT_THEM;
+        $params['reason'] = Statistics::FAULT_SERVE;
         $faults = $this->_getHistory($params);
 
         return $aces + $faults;

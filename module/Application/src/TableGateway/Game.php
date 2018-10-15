@@ -40,12 +40,12 @@ class Game extends AbstractTableGateway
 		$evolution     = $serviceList + $servicePoints;
 		ksort($evolution);
 		
-		$result['evolution'] = array_values($evolution);
-		$result['quality']   = $this->getServiceByQuality($evolution);
-		$result['aces'] 	 = $statsTable->getAces($eventId, $userId);
-		$result['faults'] 	 = $statsTable->getServiceFault($eventId, $userId);
-		$result['average']   = $this->getServiceAvg($eventId, $userId);
-		$result['count']     = count($result['evolution']);
+		$result['evolution']    = array_values($evolution);
+		$result['quality']      = $this->getServiceByQuality($evolution);
+		$result['aces'] 	    = $statsTable->getAces($eventId, $userId);
+		$result['faults'] 	    = $statsTable->getServiceFault($eventId, $userId);
+		$result['average']      = $this->getServiceAvg($eventId, $userId);
+		$result['count']        = count($result['evolution']) + $result['faults'];
 		$result['acePercent']   = ceil(($result['aces'] / $result['count']) * 100);
 		$result['faultPercent'] = ceil(($result['faults'] / $result['count']) * 100);
 
