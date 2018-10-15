@@ -45,7 +45,7 @@ class Game extends AbstractTableGateway
 		$result['aces'] 	    = $statsTable->getAces($eventId, $userId);
 		$result['faults'] 	    = $statsTable->getServiceFault($eventId, $userId);
 		$result['average']      = $this->getServiceAvg($eventId, $userId);
-		$result['count']        = count($result['evolution']) + $result['faults'];
+		$result['count']        = count($result['evolution']);
 		$result['acePercent']   = ceil(($result['aces'] / $result['count']) * 100);
 		$result['faultPercent'] = ceil(($result['faults'] / $result['count']) * 100);
 
