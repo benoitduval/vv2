@@ -9,31 +9,64 @@ use Application\Model\Game as GameStats;
 
 class Game extends AbstractTableGateway
 {
-	private function _getHistory($params)
+	public function getReceptionStats($eventId, $userId = null)
 	{
-	    $key = 'stats.' . md5(implode('.', $params));
-	    $memcached = $this->getContainer()->get('memcached');
-	    if ($result = $memcached->getItem($key)) return $result;
-	    $gameStats = $this->fetchAll($params);
-	    foreach ($gameStats as $stat) {
-	    	$result[] = (int) $stat->quality;
-	    }
+		$key = 'stats.reception.eventId.' . $eventId;
+		if ($userId) $key .= '.userId.' . $userId;
+		$memcached = $this->getContainer()->get('memcached');
+		if ($result = $memcached->getItem($key)) return $result;
+
+		$evolution = $this->getReceptionEvolution($eventId, $userId);
+		$result['evolution'] = array_values($evolution);
+		$result['quality'] 	 = $this->getRecepByQuality($eventId, $userId);
+		$result['average']   = $this->getReceptionAvg($eventId, $userId);
+		$result['count']     = count($result['evolution']);
+	    if ($result) $memcached->setItem($key, $result);
+
+		return $result;
+	}
+
+	public function getServiceStats($eventId, $userId = null)
+	{
+		$key = 'stats.service.eventId.' . $eventId;
+		if ($userId) $key .= '.userId.' . $userId;
+		$memcached = $this->getContainer()->get('memcached');
+		if ($result = $memcached->getItem($key)) return $result;
+
+		$statsTable = $this->getContainer()->get(TableGateway\Stats::class);
+
+		$servicePoints = $statsTable->getServiceEvolution($eventId, $userId);
+		$serviceList   = $this->getServiceEvolution($eventId, $userId);
+		$evolution     = $serviceList + $servicePoints;
+		ksort($evolution);
+		
+		$result['evolution'] = array_values($evolution);
+		$result['quality']   = $this->getServiceByQuality($evolution);
+		$result['aces'] 	 = $statsTable->getAces($eventId, $userId);
+		$result['faults'] 	 = $statsTable->getServiceFault($eventId, $userId);
+		$result['average']   = $this->getServiceAvg($eventId, $userId);
+		$result['count']     = count($result['evolution']);
+		$result['acePercent']   = ceil(($result['aces'] / $result['count']) * 100);
+		$result['faultPercent'] = ceil(($result['faults'] / $result['count']) * 100);
 
 	    if ($result) $memcached->setItem($key, $result);
 
+		return $result;
+	}
+
+	private function _getHistory($params)
+	{
+        $result = [];
+	    $gameStats = $this->fetchAll($params);
+	    foreach ($gameStats as $stat) {
+	    	$result[$stat->numero] = (int) $stat->quality;
+	    }
 	    return $result;
 	}
 
 	private function _getCounter($params)
 	{
-	    $key = 'stats.' . md5(implode('.', $params));
-	    $memcached = $this->getContainer()->get('memcached');
-	    if ($result = $memcached->getItem($key)) return $result;
-	    $result = $this->count($params);
-
-	    if ($result) $memcached->setItem($key, $result);
-
-	    return $result;
+	    return $this->count($params);
 	}
 
 	public function getReceptionEvolution($eventId, $userId = null)
@@ -44,19 +77,16 @@ class Game extends AbstractTableGateway
 	    ];
 	    if ($userId) $params['userId'] = $userId;
 	    $result = $this->_getHistory($params);
+	    ksort($result);
 	    return $result;
 	}
 
-	public function getReceptionCount($eventId, $userId = null)
+	public function getRecepByQuality($eventId, $userId = null)
 	{
-		$result = [];
+		for ($i = 0; $i < 6; $i++) $result[$i] = 0;
 		$receptions = $this->getReceptionEvolution($eventId, $userId);
 		foreach ($receptions as $reception) {
-		    if (isset($result[$reception])) {
-		        $result[(string) $reception] ++;
-		    } else {
-		        $result[(string) $reception] = 1;
-		    }
+		    $result[(string) $reception] ++;
 		}
 		ksort($result);
 		return $result;
@@ -82,19 +112,23 @@ class Game extends AbstractTableGateway
 	    return $this->_getHistory($params);
 	}
 
-	public function getServiceCount($eventId, $userId = null)
+	public function getServiceByQuality($services)
 	{
-		$result = [];
-		$services = $this->getServiceEvolution($eventId, $userId);
+		for ($i = 0; $i < 7; $i++) $result[$i] = 0;
 		foreach ($services as $service) {
-		    if (isset($result[$service])) {
-		        $result[(string) $service] ++;
-		    } else {
-		        $result[(string) $service] = 1;
-		    }
+		    $result[$service] ++;
 		}
-		ksort($result);
 		return $result;
+	}
+
+	public function getServiceAvg($eventId, $userId = null)
+	{
+		$services = $this->getServiceEvolution($eventId, $userId);
+		if(count($services)) {
+		    $services = array_filter($services);
+		    $average = array_sum($services) / count($services);
+		    return sprintf('%0.1f', $average);
+		}
 	}
 
 	public function getDigs($eventId, $userId = null)

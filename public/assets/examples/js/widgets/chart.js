@@ -59,10 +59,47 @@
         series: JSON.parse(data)
       }, {
         donut: true,
-        donutWidth: 10,
+        donutSolid: true,
+        donutWidth: 12,
         startAngle: 0,
         showLabel: false
       });
+    });
+  })();
+
+  // barChart
+  // ------------------------------
+  (function () {
+    var data = $('.barChart').attr('data-stats');
+    var barChart = new Chartist.Bar('.barChart', {
+      labels: ['ATTACKS', 'BLOCKS'],
+      series: JSON.parse(data)
+    }, {
+      axisX: {
+        showGrid: false
+      },
+      axisY: {
+        showGrid: true,
+        scaleMinSpace: 0,
+        onlyInteger: true
+      },
+      height: 220,
+      seriesBarDistance: 24
+    });
+
+    barChart.on('draw', function (data) {
+      if (data.type === 'bar') {
+
+        // $("#ecommerceRevenue .ct-labels").attr('transform', 'translate(0 15)');
+        var parent = new Chartist.Svg(data.element._node.parentNode);
+        parent.elem('line', {
+          x1: data.x1,
+          x2: data.x2,
+          y1: data.y2,
+          y2: 0,
+          "class": 'ct-bar-fill'
+        });
+      }
     });
   })();
 });

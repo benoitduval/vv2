@@ -44,111 +44,61 @@
   </div>
 </div>
 
-<div class="btn-group btn-group-justified mt-20 mb-20">
-  <div class="btn-group" role="group">
-    <a href="/live/<?= $event->id ?>/test" data-remote="false" data-toggle="modal" data-target="#historyModal" class="btn btn-outline btn-default">
-      <i class="icon wb-camera" aria-hidden="true"></i>
-      <br>
-      <span class="text-uppercase">Live Score</span>
-    </a>
-  </div>
-</div>
-
-<div class="row" data-plugin="matchHeight" data-by-row="true">
-  <div class="col-12">
-    <div class="card card-shadow">
-      <div class="card-block">
-        <div class="col-12 text-center">
-          <button id="set1Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set1</button>
-          <button id="set2Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set2</button>
-          <button id="set3Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set3</button>
-          <button id="set4Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set4</button>
-          <button id="set5Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set5</button>
-        </div>
-        <div id="match-comparaison" 
-          data-set1-us='<?= isset($compare[1]) ? json_encode($compare[1]['us']) : "[0,0,0,0,0,0,0]"; ?>'
-          data-set1-them='<?= isset($compare[1]) ? json_encode($compare[1]['them']) : "[0,0,0,0,0,0,0]"; ?>'
-          data-set2-us='<?= isset($compare[2]) ? json_encode($compare[2]['us']) : "[0,0,0,0,0,0,0]"; ?>'
-          data-set2-them='<?= isset($compare[2]) ? json_encode($compare[2]['them']) : "[0,0,0,0,0,0,0]"; ?>'
-          data-set3-us='<?= isset($compare[3]) ? json_encode($compare[3]['us']) : "[0,0,0,0,0,0,0]"; ?>'
-          data-set3-them='<?= isset($compare[3]) ? json_encode($compare[3]['them']) : "[0,0,0,0,0,0,0]"; ?>'
-          data-set4-us='<?= isset($compare[4]) ? json_encode($compare[4]['us']) : "[0,0,0,0,0,0,0]"; ?>'
-          data-set4-them='<?= isset($compare[4]) ? json_encode($compare[4]['them']) : "[0,0,0,0,0,0,0]"; ?>'
-          data-set5-us='<?= isset($compare[5]) ? json_encode($compare[5]['us']) : "[0,0,0,0,0,0,0]"; ?>'
-          data-set5-them='<?= isset($compare[5]) ? json_encode($compare[5]['them']) : "[0,0,0,0,0,0,0]"; ?>'
-        ></div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="row">
-  <div class="col-xxl-4 col-lg-6 col-md-12 user-info card card-shadow text-center pb-20">
-    <div class="row">
-      <div class="user-base card-block bg-blue-600">
+  <div class="col-xxl-4 col-lg-6 col-md-12 ecommerceRevenue">
+    <div class="card card-block text-center pt-10 user-info text-center">
+      <div class="col-12">
         <a class="avatar avatar-100"  href="javascript:void(0)">
           <img alt="" src="<?= $selected->getAvatarPath() ?>">
         </a>
-        <h4 class="user-name" style="color: #FFF;"><?= $counters[\Application\Model\Stats::POINT_ATTACK] + $counters[\Application\Model\Stats::POINT_SERVE] + $counters[\Application\Model\Stats::POINT_BLOCK] ?> Points</h4>
-        <div class="row">
-          <div class="col-12 text-center">
+      </div>
+      <h3 class="card-header card-header-transparent font-size-20 blue-grey-700mt-0"><?= $points ?> Points</h3>
+      <hr>
+      <div class="row">
+        <div class="col-12 text-center">
+          <div class="avatar avatar-sm mr-5 ml-5">
+            <a href="/event/stats/<?= $event->id ?>">
+              <img class="img-fluid" src="<?= $group->getAvatarPath() ?>">
+            </a>
+          </div>
+
+          <?php foreach ($userWithStats as $userId): ?>
             <div class="avatar avatar-sm mr-5 ml-5">
-              <a href="/event/stats/<?= $event->id ?>">
-                <img class="img-fluid" src="<?= $group->getAvatarPath() ?>">
+              <a href="/event/stats/<?= $event->id ?>?userId=<?= $users[$userId]->id ?>">
+                <img class="img-fluid" src="<?= $users[$userId]->getAvatarPath() ?>">
               </a>
             </div>
-            <?php foreach ($userWithStats as $userId): ?>
-              <div class="avatar avatar-sm mr-5 ml-5">
-                <a href="/event/stats/<?= $event->id ?>?userId=<?= $users[$userId]->id ?>">
-                  <img class="img-fluid" src="<?= $users[$userId]->getAvatarPath() ?>">
-                </a>
+          <?php endforeach ?>
+        </div>
+      </div>
+      <hr>
+      <div class="card-block bg-white">
+        <div class="ct-chart barChart" data-stats="<?= json_encode([[$attacks['kills'], $blocks], [$attacks['faults'], $attacks['blocked']]]) ?>"></div>
+        <div class="pie-view row">
+          <?php if ($attacks['attackPercent'] != 100): ?>
+            <div class="col-6 pie-left text-center">
+              <h5 class="blue-grey-500 font-size-14 font-weight-100">TOTAL ATTACK</h5>
+              <p class="font-size-20 blue-grey-700">
+                <?= $attacks['total'] ?> / <?= $attacks['groupTotal'] ?>
+              </p>
+              <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                data-valuemin="0" data-barcolor="#a57afa" data-size="100" data-barsize="4"
+                data-goal="<?= $attacks['attackPercent'] ?>" aria-valuenow="<?= $attacks['attackPercent'] ?>" role="progressbar">
+                <span class="pie-progress-number"><?= $attacks['attackPercent'] ?>%</span>
               </div>
-            <?php endforeach ?>
-          </div>
-        </div>
-      </div>
-      <h4 class="text-center col-12">Attacks</h4>
-      <div class="card-group col-12">
-        <div class="card card-block p-0">
-          <div class="counter counter-lg counter-inverse bg-green-600 vertical-align h-120">
-            <div class="vertical-align-middle">
-              <div class="counter-icon mb-5"><?= $counters[\Application\Model\Stats::POINT_ATTACK] ?></div>
-              <span class="counter-number">Kills</span>
             </div>
-          </div>
-        </div>
-        <div class="card card-block p-0">
-          <div class="counter counter-lg counter-inverse bg-red-600 vertical-align h-120">
-            <div class="vertical-align-middle">
-              <div class="counter-icon mb-5"><?= $counters[\Application\Model\Stats::FAULT_ATTACK] ?></i></div>
-              <span class="counter-number">Faults</span>
-            </div>
-          </div>
-        </div>
-        <div class="card card-block p-0">
-          <div class="counter counter-lg counter-inverse bg-purple-600 vertical-align h-120">
-            <div class="vertical-align-middle">
-              <div class="counter-icon mb-5"><?= $attackAttemptCount ?></i></div>
-              <span class="counter-number">Attempts</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <h4 class="text-center col-12">Blocks</h4>
-      <div class="card-group col-12">
-        <div class="card card-block p-0">
-          <div class="counter counter-lg counter-inverse bg-green-600 vertical-align h-120">
-            <div class="vertical-align-middle">
-              <div class="counter-icon mb-5"><?= $counters[\Application\Model\Stats::POINT_BLOCK] ?></div>
-              <span class="counter-number">Blocks</span>
-            </div>
-          </div>
-        </div>
-        <div class="card card-block p-0">
-          <div class="counter counter-lg counter-inverse bg-red-600 vertical-align h-120">
-            <div class="vertical-align-middle">
-              <div class="counter-icon mb-5">0</i></div>
-              <span class="counter-number">Blocked</span>
+          <?php else: ?>
+            <div class="col-3"></div>
+          <?php endif ?>
+          <div class="col-6 pie-right text-center">
+            <h5 class="blue-grey-500 font-size-14 font-weight-100">EFFICIENCY</h5>
+            <p class="font-size-20 blue-grey-700">
+              <?= $attacks['kills'] ?> / <?= $attacks['total'] ?>
+            </p>
+            <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+              data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
+              data-goal="<?= $attacks['efficiency'] ?>" aria-valuenow="<?= $attacks['efficiency'] ?>" role="progressbar">
+              <span class="pie-progress-number"><?= $attacks['efficiency'] ?>%</span>
             </div>
           </div>
         </div>
@@ -166,42 +116,42 @@
             </span>
             Receptions
             <span class="float-right">
-              <?= array_sum($qualityCount[\Application\Model\Game::RECEPTION]) ?>
+              <?= $receptions['count'] ?>
             </span>
           </div>
           <div class="font-size-14 blue-200 clearfix">
             Quality over match
-            <span class="float-right">Avg: <?= isset($average[\Application\Model\Game::RECEPTION]) ? $average[\Application\Model\Game::RECEPTION] : 'N/A' ?></span>
+            <span class="float-right">Avg: <?= $receptions['average'] ?></span>
           </div>
-          <div class="ct-chart chart-line h-100" data-stats="<?= isset($quality[\Application\Model\Game::RECEPTION]) ? json_encode([$quality[\Application\Model\Game::RECEPTION]]) : '[0]' ?>"></div>
+          <div class="ct-chart chart-line h-100" data-stats="<?= json_encode([$receptions['evolution']]) ?>"></div>
         </div>
         <div class="p-30">
           <div class="row no-space">
             <div class="col-7">
               <p class="mb-0">
-                <span class="icon wb-medium-point red-600 mr-5"></span>Zip: <?= $qualityCount[\Application\Model\Game::RECEPTION]['0']?>
+                <span class="icon wb-medium-point red-600 mr-5"></span>Zip: <?= $receptions['quality']['0']?>
               </p>
               <p class="mb-0">
-                <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $qualityCount[\Application\Model\Game::RECEPTION]['1']?>
+                <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $receptions['quality']['1']?>
               </p>
               <p class="mb-0">
-                <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $qualityCount[\Application\Model\Game::RECEPTION]['2']?>
+                <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $receptions['quality']['2']?>
               </p>
               <p class="mb-0">
-                <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $qualityCount[\Application\Model\Game::RECEPTION]['3']?>
+                <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $receptions['quality']['3']?>
               </p>
               <p class="mb-0">
-                <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $qualityCount[\Application\Model\Game::RECEPTION]['4']?>
+                <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $receptions['quality']['4']?>
               </p>
               <p class="mb-0">
-                <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $qualityCount[\Application\Model\Game::RECEPTION]['5']?>
+                <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $receptions['quality']['5']?>
               </p>
             </div>
             <div class="col-5">
-              <div class="ct-chart chart-pie" data-stats="<?= isset($qualityCount[\Application\Model\Game::RECEPTION]) ? json_encode(array_values($qualityCount[\Application\Model\Game::RECEPTION])) : '[0]' ?>" style="height: 129px;">
+              <div class="ct-chart chart-pie" data-stats="<?= json_encode($receptions['quality']) ?>" style="height: 129px;">
                 <div class="vertical-align text-center" style="height:100%; width:100%; position:absolute; left:0; top:0;">
                   <div class="font-size-20  vertical-align-middle" style="line-height:1.1 ">
-                    <div><?= isset($average[\Application\Model\Game::RECEPTION]) ? $average[\Application\Model\Game::RECEPTION] : 'N/A' ?></div>
+                    <div><?= $receptions['average'] ?></div>
                     <div>AVG</div>
                   </div>
                 </div>
@@ -210,13 +160,34 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-3"></div>
-        <div class="col-6">
-          <div class="card card-inverse bg-green-600 p-25">
-            <div class="counter counter-lg">
-              <span class="counter-number"><?= $digCount ?></span>
-              <div class="counter-label text-uppercase" style="color:#FFF;">Digs</div>
+      <div class="ecommerceRevenue">
+        <div class="card-block bg-white">
+          <div class="pie-view row">
+            <?php if ($digPercent != 100): ?>
+              <div class="col-6 pie-right text-center">
+                <h5 class="blue-grey-500 font-size-14 font-weight-100">DIGS</h5>
+                <p class="font-size-20 blue-grey-700">
+                  <?= $digs ?> / <?= $totalDigs ?>
+                </p>
+                <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                  data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
+                  data-goal="<?= $digPercent ?>" aria-valuenow="<?= $digPercent ?>" role="progressbar">
+                  <span class="pie-progress-number"><?= $digPercent ?>%</span>
+                </div>
+              </div>
+            <?php else: ?>
+              <div class="col-3"></div>
+            <?php endif ?>
+            <div class="col-6 pie-right text-center">
+              <h5 class="blue-grey-500 font-size-14 font-weight-100">ZIPS</h5>
+              <p class="font-size-20 blue-grey-700">
+                0 / <?= $receptions['count'] ?>
+              </p>
+              <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
+                data-goal="0" aria-valuenow="0" role="progressbar">
+                <span class="pie-progress-number">0%</span>
+              </div>
             </div>
           </div>
         </div>
@@ -236,45 +207,45 @@
             </span>
             Service
             <span class="float-right">
-              <?= array_sum($qualityCount[\Application\Model\Game::SERVICE]) + $counters[\Application\Model\Stats::POINT_SERVE] + $counters[\Application\Model\Stats::FAULT_SERVE]?>
+              <?= $services['count'] ?>
             </span>
           </div>
           <div class="font-size-14 blue-200 clearfix">
             Quality over match
-            <span class="float-right">Avg: <?= $average[\Application\Model\Game::SERVICE] ?></span>
+            <span class="float-right">Avg: <?= $services['average'] ?></span>
           </div>
-          <div class="ct-chart chart-line h-100" data-stats="<?= json_encode([$quality[\Application\Model\Game::SERVICE]]) ?>"></div>
+          <div class="ct-chart chart-line h-100" data-stats="<?= json_encode([$services['evolution']]) ?>"></div>
         </div>
         <div class="p-30">
           <div class="row no-space">
            <div class="col-7">
             <p class="mb-0">
-              <span class="icon wb-medium-point red-600 mr-5"></span>Fault: <?= $counters[\Application\Model\Stats::FAULT_SERVE] ?>
+              <span class="icon wb-medium-point red-600 mr-5"></span>Fault: <?= $services['faults'] ?>
             </p>
             <p class="mb-0">
-              <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $qualityCount[\Application\Model\Game::SERVICE]['1']?>
+              <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $services['quality']['1']?>
             </p>
             <p class="mb-0">
-              <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $qualityCount[\Application\Model\Game::SERVICE]['2']?>
+              <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $services['quality']['2']?>
             </p>
             <p class="mb-0">
-              <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $qualityCount[\Application\Model\Game::SERVICE]['3']?>
+              <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $services['quality']['3']?>
             </p>
             <p class="mb-0">
-              <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $qualityCount[\Application\Model\Game::SERVICE]['4']?>
+              <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $services['quality']['4']?>
             </p>
             <p class="mb-0">
-              <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $qualityCount[\Application\Model\Game::SERVICE]['5']?>
+              <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $services['quality']['5']?>
             </p>
             <p class="mb-0">
-              <span class="icon wb-medium-point green-600 mr-5"></span>Ace: <?= $counters[\Application\Model\Stats::POINT_SERVE] ?>
+              <span class="icon wb-medium-point green-600 mr-5"></span>Ace: <?= $services['aces'] ?>
             </p>
            </div>
             <div class="col-5">
-              <div class="ct-chart chart-pie" data-stats="<?= json_encode(array_values($qualityCount[\Application\Model\Game::SERVICE])) ?>" style="height: 129px;">
+              <div class="ct-chart chart-pie" data-stats="<?= json_encode($services['quality']) ?>" style="height: 129px;">
                 <div class="vertical-align text-center" style="height:100%; width:100%; position:absolute; left:0; top:0;">
                   <div class="font-size-20  vertical-align-middle" style="line-height:1.1 ">
-                    <div><?= $average[\Application\Model\Game::SERVICE] ?></div>
+                    <div><?= $services['average'] ?></div>
                     <div>AVG</div>
                   </div>
                 </div>
@@ -283,26 +254,65 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="card p-25 card-inverse bg-green-600">
-            <div class="counter counter-lg">
-              <span class="counter-number"><?= $counters[\Application\Model\Stats::POINT_SERVE] ?></span>
-              <div class="counter-label text-uppercase" style="color:#FFF;">Aces</div>
-            </div>
-          </div>
+      <div class="ecommerceRevenue">
+         <div class="card-block bg-white">
+           <div class="pie-view row">
+             <div class="col-6 pie-right text-center">
+               <h5 class="blue-grey-500 font-size-14 font-weight-100">ACES</h5>
+               <p class="font-size-20 blue-grey-700">
+                 <?= $services['aces'] ?> / <?= $services['count'] ?>
+               </p>
+               <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                 data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
+                 data-goal="<?= $services['acePercent'] ?>" aria-valuenow="<?= $services['acePercent'] ?>" role="progressbar">
+                 <span class="pie-progress-number"><?= $services['acePercent'] ?>%</span>
+               </div>
+             </div>
+             <div class="col-6 pie-right text-center">
+               <h5 class="blue-grey-500 font-size-14 font-weight-100">FAULTS</h5>
+               <p class="font-size-20 blue-grey-700">
+                 <?= $services['faults'] ?> / <?= $services['count'] ?>
+               </p>
+               <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                 data-valuemin="0" data-barcolor="#28c0de" data-size="100" data-barsize="4"
+                 data-goal="<?= $services['faultPercent'] ?>" aria-valuenow="<?= $services['faultPercent'] ?>" role="progressbar">
+                 <span class="pie-progress-number"><?= $services['faultPercent'] ?>%</span>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+    <!-- End Panel Line Pie -->
+  </div>
+</div>
+
+<div class="row" data-plugin="matchHeight" data-by-row="true">
+  <div class="col-12">
+    <div class="card card-shadow">
+      <div class="card-block">
+        <div class="col-12 text-center">
+          <button id="set1Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set1</button>
+          <button id="set2Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set2</button>
+          <button id="set3Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set3</button>
+          <button id="set4Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set4</button>
+          <button id="set5Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set5</button>
+          <a  href="/live/<?= $event->id ?>/test" data-remote="false" data-toggle="modal" data-target="#historyModal" class="btn btn-primary btn-outline"><i class="icon wb-camera"></i> History</a>
         </div>
-        <div class="col-6">
-          <div class="card card-inverse bg-red-600 p-25">
-            <div class="counter counter-lg">
-              <span class="counter-number"><?= $counters[\Application\Model\Stats::FAULT_SERVE] ?></span>
-              <div class="counter-label text-uppercase" style="color:#FFF;">Service Faults</div>
-            </div>
-          </div>
-        </div>
+        <div id="match-comparaison" 
+          data-set1-us='<?= isset($compare[1]) ? json_encode($compare[1]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set1-them='<?= isset($compare[1]) ? json_encode($compare[1]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set2-us='<?= isset($compare[2]) ? json_encode($compare[2]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set2-them='<?= isset($compare[2]) ? json_encode($compare[2]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set3-us='<?= isset($compare[3]) ? json_encode($compare[3]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set3-them='<?= isset($compare[3]) ? json_encode($compare[3]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set4-us='<?= isset($compare[4]) ? json_encode($compare[4]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set4-them='<?= isset($compare[4]) ? json_encode($compare[4]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set5-us='<?= isset($compare[5]) ? json_encode($compare[5]['us']) : "[0,0,0,0,0,0,0]"; ?>'
+          data-set5-them='<?= isset($compare[5]) ? json_encode($compare[5]['them']) : "[0,0,0,0,0,0,0]"; ?>'
+        ></div>
       </div>
     </div>
-    <!-- End Panel Line Pie -->
   </div>
 </div>
 

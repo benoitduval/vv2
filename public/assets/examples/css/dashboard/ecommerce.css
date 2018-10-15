@@ -77,35 +77,35 @@
         border-radius: 4px;
         padding: 5px 15px; }
 
-#ecommerceRevenue .card-block {
+.ecommerceRevenue .card-block {
   padding: 20px 10px 35px; }
-  #ecommerceRevenue .card-block .ct-label.ct-horizontal.ct-end {
+  .ecommerceRevenue .card-block .ct-label.ct-horizontal.ct-end {
     font-size: 14px;
     font-weight: 400; }
-  #ecommerceRevenue .card-block .ct-series-a line.ct-bar {
-    stroke: #926dde; }
-  #ecommerceRevenue .card-block .ct-series-b line.ct-bar {
-    stroke: #57c7d4; }
+  .ecommerceRevenue .card-block .ct-series-a line.ct-bar {
+    stroke: #11C26D; }
+  .ecommerceRevenue .card-block .ct-series-b line.ct-bar {
+    stroke: #FF4C52; }
 
-#ecommerceRevenue .ct-series .ct-bar-fill {
+.ecommerceRevenue .ct-series .ct-bar-fill {
   stroke: #f3f7f9;
   stroke-width: 20px; }
 
-#ecommerceRevenue .pie-view {
-  margin-top: 52px; }
-  #ecommerceRevenue .pie-view::after {
+.ecommerceRevenue .pie-view {
+  margin-top: 20px; }
+  .ecommerceRevenue .pie-view::after {
     display: block;
     clear: both;
     content: ""; }
-  #ecommerceRevenue .pie-view .pie-left .pie-progress.pie-progress-sm,
-  #ecommerceRevenue .pie-view .pie-right .pie-progress.pie-progress-sm {
+  .ecommerceRevenue .pie-view .pie-left .pie-progress.pie-progress-sm,
+  .ecommerceRevenue .pie-view .pie-right .pie-progress.pie-progress-sm {
     min-width: 120px;
     max-width: 120px; }
-  #ecommerceRevenue .pie-view .pie-left h5,
-  #ecommerceRevenue .pie-view .pie-right h5 {
+  .ecommerceRevenue .pie-view .pie-left h5,
+  .ecommerceRevenue .pie-view .pie-right h5 {
     white-space: nowrap; }
-    #ecommerceRevenue .pie-view .pie-left h5 + p,
-    #ecommerceRevenue .pie-view .pie-right h5 + p {
+    .ecommerceRevenue .pie-view .pie-left h5 + p,
+    .ecommerceRevenue .pie-view .pie-right h5 + p {
       margin-bottom: 15px; }
 
 @media (max-width: 991.98px) {
@@ -117,38 +117,37 @@
   .pie-view .pie-progress.pie-progress-sm {
     min-width: 100px !important;
     max-width: 100px !important; }
-  #ecommerceRevenue .pie-view {
-    margin-top: 72px; } }
+   }
 
 @media (min-width: 1489px) {
-  #ecommerceRevenue .barChart .ct-series .ct-bar {
+  .ecommerceRevenue .barChart .ct-series .ct-bar {
     stroke-width: 20px; } }
 
 @media (min-width: 992px) and (max-width: 1489px) {
-  #ecommerceRevenue .barChart .ct-series .ct-bar-fill {
+  .ecommerceRevenue .barChart .ct-series .ct-bar-fill {
     stroke-width: 15px; }
-  #ecommerceRevenue .barChart .ct-series .ct-bar {
+  .ecommerceRevenue .barChart .ct-series .ct-bar {
     stroke-width: 15px; }
-  #ecommerceRevenue .ct-series-a {
+  .ecommerceRevenue .ct-series-a {
     -webkit-transform: translateX(3px);
             transform: translateX(3px); }
-  #ecommerceRevenue .ct-series-b {
+  .ecommerceRevenue .ct-series-b {
     -webkit-transform: translateX(-3px);
             transform: translateX(-3px); } }
 
 @media (min-width: 429px) and (max-width: 992px) {
-  #ecommerceRevenue .barChart .ct-series .ct-bar {
+  .ecommerceRevenue .barChart .ct-series .ct-bar {
     stroke-width: 20px; } }
 
 @media (max-width: 429px) {
-  #ecommerceRevenue .barChart .ct-series .ct-bar-fill {
+  .ecommerceRevenue .barChart .ct-series .ct-bar-fill {
     stroke-width: 15px; }
-  #ecommerceRevenue .barChart .ct-series .ct-bar {
+  .ecommerceRevenue .barChart .ct-series .ct-bar {
     stroke-width: 15px; }
-  #ecommerceRevenue .ct-series-a {
+  .ecommerceRevenue .ct-series-a {
     -webkit-transform: translateX(3px);
             transform: translateX(3px); }
-  #ecommerceRevenue .ct-series-b {
+  .ecommerceRevenue .ct-series-b {
     -webkit-transform: translateX(-3px);
             transform: translateX(-3px); } }
 

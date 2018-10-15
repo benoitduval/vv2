@@ -10,20 +10,51 @@ use Application\Model\Stats as Statistics;
 class Stats extends AbstractTableGateway
 {
 
+    public function getAttackStats($eventId, $userId = null)
+    {
+        $key = 'stats.attacks.eventId.' . $eventId;
+        if ($userId) $key .= '.userId.' . $userId;
+        $memcached = $this->getContainer()->get('memcached');
+
+        if ($result = $memcached->getItem($key)) return $result;
+        $gameTable = $this->getContainer()->get(TableGateway\Game::class);
+
+        $result['kills']        = $this->getKills($eventId, $userId);
+        $result['faults'] = $this->getAttackFaults($eventId, $userId);
+        $result['blocked']      = $this->getBlocked($eventId, $userId);
+        $result['attempts']     = $gameTable->getAttempts($eventId, $userId);
+        $result['total']        = $result['kills'] + $result['faults'] + $result['attempts'] + $result['blocked'];
+        $result['efficiency']   = ceil(($result['kills'] / $result['total']) * 100);
+
+        $totalKills = $this->getKills($eventId);
+        $totalBlocked = $this->getBlocked($eventId);
+        $totalFaults = $this->getAttackFaults($eventId);
+        $totalAttempts = $gameTable->getAttempts($eventId);
+        $result['groupTotal'] = $totalAttempts + $totalKills + $totalBlocked + $totalFaults;
+        $result['attackPercent']  = ceil(($result['total'] / $result['groupTotal']) * 100);
+        if ($result) $memcached->setItem($key, $result);
+
+        return $result;
+    }
+
     public function getCounter($eventId, $userId)
     {
         $result = ($userId) ? $this->_getUserCounters($eventId, $userId): $this->_getCounters($eventId);
     }
 
+    private function _getHistory($params)
+    {
+        $result = [];
+        $stats = $this->fetchAll($params);
+        foreach ($stats as $stat) {
+            $result[$stat->numero] = ($params['pointFor'] == Statistics::POINT_US) ? 6 : 0;
+        }
+        return $result;
+    }
+
     private function _getCounter($params)
     {
-        $key = 'stats.' . md5(implode('.', $params));
-        $memcached = $this->getContainer()->get('memcached');
-        if ($result = $memcached->getItem($key)) return $result;
-        $result = $this->count($params);
-        if ($result) $memcached->setItem($key, $result);
-
-        return $result;
+        return $this->count($params);
     }
 
     public function getKills($eventId, $userId = null)
@@ -68,6 +99,22 @@ class Stats extends AbstractTableGateway
         ];
         if ($userId) $params['userId'] = $userId;
         return $this->_getCounter($params);
+    }
+
+    public function getServiceEvolution($eventId, $userId = null)
+    {   
+        $params = [
+            'eventId'  => $eventId,
+            'pointFor' => Statistics::POINT_US,
+            'reason'   => Statistics::POINT_SERVE,
+        ];
+        if ($userId) $params['userId'] = $userId;
+        $aces = $this->_getHistory($params);
+
+        $params['pointFor'] = Statistics::POINT_THEM;
+        $faults = $this->_getHistory($params);
+
+        return $aces + $faults;
     }
 
     public function getAces($eventId, $userId = null)

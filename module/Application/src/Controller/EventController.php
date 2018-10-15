@@ -95,27 +95,21 @@ class EventController extends AbstractController
         $eventId = $this->params('id');
         if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
 
-            $userId      = $this->params()->fromQuery('userId', null);
-            $kills       = $this->statsTable->getKills($eventId, $userId);
-            $attackFault = $this->statsTable->getAttackFaults($eventId, $userId);
+            $userId = $this->params()->fromQuery('userId', null);
+            $group  = $this->groupTable->find($event->groupId);
+
+            // From Stat
+            $attacks     = $this->statsTable->getAttackStats($eventId, $userId);
             $blocks      = $this->statsTable->getBlocks($eventId, $userId);
-            $blocked     = $this->statsTable->getBlocked($eventId, $userId);
-            $aces        = $this->statsTable->getAces($eventId, $userId);
+            $digs        = $this->gameTable->getDigs($eventId, $userId);
 
-            $receptionList  = $this->gameTable->getReceptionEvolution($eventId, $userId);
-            $receptionCount = $this->gameTable->getReceptionCount($eventId, $userId);
-            $receptionAvg   = $this->gameTable->getReceptionAvg($eventId, $userId);
-            $receptionSum   = array_sum($receptionCount);
-            $serviceList    = $this->gameTable->getServiceEvolution($eventId, $userId);
-            $digs           = $this->gameTable->getDigs($eventId, $userId);
-            $attempts       = $this->gameTable->getDigs($eventId, $userId);
+            $receptions  = $this->gameTable->getReceptionStats($eventId, $userId);
+            $totalDigs   = $this->gameTable->getDigs($eventId);
+            $digPercent  = ceil(($digs / $totalDigs) * 100);
+            $services    = $this->gameTable->getServiceStats($eventId);
 
+            $pointCount  = $attacks['kills'] + $blocks + $services['aces'];
 
-
-            // \Zend\Debug\Debug::dump([$receptionAvg, $receptionCount]);die;
-
-
-            $group = $this->groupTable->find($event->groupId);
             if ($userId) {
                 $selected = $this->userTable->find($userId);
                 $name = $selected->getFullName();
@@ -123,6 +117,7 @@ class EventController extends AbstractController
                 $selected = $group;
                 $name = $group->name;
             }
+
             $users = $this->userTable->getAllByGroupId($event->groupId);
 
             $userWithStats = [];
@@ -139,7 +134,6 @@ class EventController extends AbstractController
                 'pointFor' => Model\Stats::POINT_US,
                 'reason'   => Model\Stats::POINT_ATTACK,
             ];
-            if ($userId) $params['userId'] = $userId;
             $stats = $this->statsTable->fetchAll($params);
 
             $attackScorer = [];
@@ -152,139 +146,29 @@ class EventController extends AbstractController
                 'reason' => [Model\Stats::POINT_ATTACK, Model\Stats::FAULT_ATTACK]
             ]);
             $compare = $this->statsTable->getCompare($event->id);
-
-            $quality   = [];
-            $average   = [];
-
-            $config     = $this->get('config');
-            $baseUrl    = $config['baseUrl'];
-
-            $params = [
-                'eventId' => $eventId,
-                'type'    => [GameStats::SERVICE, GameStats::RECEPTION]
-            ];
-            if ($userId) $params['userId'] = $userId;
-            $games = $this->gameTable->fetchAll($params);
-            unset($params['type']);
-            $stats = $this->statsTable->fetchAll($params);
-
-            $counters = [
-                Statistics::POINT_SERVE   => 0,
-                Statistics::FAULT_SERVE   => 0,
-                Statistics::POINT_ATTACK  => 0,
-                Statistics::FAULT_ATTACK  => 0,
-                Statistics::POINT_BLOCK   => 0,
-                Statistics::FAULT_DEFENCE => 0,
-            ];
-
-            $qualityCount[GameStats::SERVICE] = ['0' => 0, '1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0];
-            $qualityCount[GameStats::RECEPTION] = ['0' => 0, '1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0];
-
-            foreach ($games as $key => $game) {
-                $qualityCount[$game->type][$game->quality] ++;
-                $quality[$game->type][$game->numero] = (int) $game->quality;
-            }
-
-            foreach ($stats as $key => $stat) {
-                if ($stat->pointFor == Statistics::POINT_US && $stat->reason == Statistics::POINT_SERVE) {
-                    $quality[GameStats::SERVICE][$stat->numero] = 6;
-                    $qualityCount[GameStats::SERVICE][6] ++;
-                }
-
-                if ($stat->pointFor == Statistics::POINT_THEM && $stat->reason == Statistics::FAULT_SERVE) {
-                    $quality[GameStats::SERVICE][$stat->numero] = 0;
-                    $qualityCount[GameStats::SERVICE][0] ++;
-                }
-                switch ($stat->pointFor) {
-                    case Statistics::POINT_US:
-                        if (in_array($stat->reason, [Statistics::POINT_SERVE, Statistics::POINT_ATTACK, Statistics::POINT_BLOCK])) {
-                            $counters[$stat->reason]++;
-                            
-                        }
-                        break;
-                    case Statistics::POINT_THEM:
-                        if (in_array($stat->reason, [Statistics::FAULT_SERVE, Statistics::FAULT_ATTACK])) {
-                            $counters[$stat->reason]++;
-                        }
-                        break;
-                }
-            }
-
-            $params = [
-                'eventId' => $eventId,
-                'type'    => GameStats::DIG
-            ];
-            if ($userId) $params['userId'] = $userId;
-            $digCount = $this->gameTable->count($params);
-            $params['type'] = GameStats::ATTEMPT; 
-            $attackAttemptCount = $this->gameTable->count($params);
-
-            foreach ($quality as $type => $values) {
-                $average[$type] = array_sum($values) / count($values);
-                $average[$type] = sprintf('%0.1f', $average[$type]);
-                ksort($quality[$type]);
-                $quality[$type] = array_values($quality[$type]);
-            }
-
-
             return new ViewModel([
-                'quality'  => $quality,
-                'userWithStats'  => $userWithStats,
-                'selected'  => $selected,
-                'name'  => $name,
-                'qualityCount'  => $qualityCount,
-                'average'  => $average,
-                'counters' => $counters,
-                'digCount' => $digCount,
-                'attackAttemptCount' => $attackAttemptCount,
-                'event'        => $event,
-                'users'        => $users,
-                'stats'        => $stats,
-                'percents'     => $percents,
-                'compare'      => $compare,
-                'attackScorer' => $attackScorer,
-                'group' => $group,
+                'receptions'    => $receptions,
+                'services'      => $services,
+                'selected'      => $selected,
+                'digs'          => $digs,
+                'totalDigs'     => $totalDigs,
+                'digPercent'    => $digPercent,
+                'blocks'        => $blocks,
+                'attacks'       => $attacks,
+                'points'        => $pointCount,
+                'userWithStats' => $userWithStats,
+                'event'         => $event,
+                'users'         => $users,
+                'stats'         => $stats,
+                'percents'      => $percents,
+                'compare'       => $compare,
+                'attackScorer'  => $attackScorer,
+                'group'         => $group,
             ]);
         } else {
             $this->redirect()->toRoute('home');
         }
     }
-
-    // public function statsAction()
-    // {
-    //     $eventId = $this->params('id');
-    //     if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
-            
-    //         $users = $this->userTable->getAllByGroupId($event->groupId);
-
-    //         $stats = $this->statsTable->fetchAll([
-    //             'eventId'  => $eventId,
-    //             'pointFor' => Model\Stats::POINT_US,
-    //             'reason'   => Model\Stats::POINT_ATTACK,
-    //         ]);
-    //         $attackScorer = [];
-    //         foreach ($stats as $stat) {
-    //             if (!in_array($stat->userId, $attackScorer) && $stat->userId) $attackScorer[] = $stat->userId;
-    //         }
-    //         $percents = $this->statsTable->getZonePercent([
-    //             'eventId'  => $eventId,
-    //             'reason' => [Model\Stats::POINT_ATTACK, Model\Stats::FAULT_ATTACK]
-    //         ]);
-
-    //         $compare = $this->statsTable->getCompare($event->id);
-
-    //         return new ViewModel([
-    //             'event'        => $event,
-    //             'users'        => $users,
-    //             'stats'        => $stats,
-    //             'percents'     => $percents,
-    //             'compare'      => $compare,
-    //             'attackScorer' => $attackScorer,
-    //         ]);
-    //     } else {
-    //         $this->redirect()->toRoute('home');
-    //     }
-    // }
 
     public function editAction()
     {
