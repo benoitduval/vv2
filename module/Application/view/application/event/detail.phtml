@@ -44,20 +44,15 @@
           </span>
         </a>
       </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" data-toggle="tab" href="#debriefEvent" aria-controls="debriefEvent" role="tab" aria-selected="false">
-          <span>
-            <i class="icon wb-eye"></i> Debriefing
-          </span>
-        </a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" data-toggle="tab" href="#editEvent" aria-controls="editEvent" role="tab" aria-selected="false">
-          <span>
-            <i class="icon wb-eye"></i> Edit Event
-          </span>
-        </a>
-      </li>
+      <?php if ($event->debrief): ?>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" data-toggle="tab" href="#debriefEvent" aria-controls="debriefEvent" role="tab" aria-selected="false">
+            <span>
+              <i class="icon wb-list-bulleted"></i> Debrief
+            </span>
+          </a>
+        </li>
+      <?php endif ?>
     </ul>
     <div class="tab-content">
       <div class="tab-pane active show" id="eventDetails" role="tabpanel">
@@ -153,13 +148,6 @@
                                 <i class="icon wb-map" aria-hidden="true"></i>
                                 <br>
                                 <span class="text-uppercase">Edit Event</span>
-                              </a>
-                            </div>
-                            <div class="btn-group" role="group">
-                              <a href="#" class="btn btn-outline btn-default">
-                                <i class="icon wb-map" aria-hidden="true"></i>
-                                <br>
-                                <span class="text-uppercase">Debrief</span>
                               </a>
                             </div>
                             <div class="btn-group" role="group">
@@ -399,7 +387,7 @@
                 
               </div>
               <div class="panel-body pr-0 pl-10">
-
+                <?= nl2br($event->debrief); ?>
               </div>
             </div>
           </div>
