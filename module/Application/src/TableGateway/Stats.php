@@ -10,6 +10,88 @@ use Application\Model\Stats as Statistics;
 class Stats extends AbstractTableGateway
 {
 
+    public function getCounter($eventId, $userId)
+    {
+        $result = ($userId) ? $this->_getUserCounters($eventId, $userId): $this->_getCounters($eventId);
+    }
+
+    private function _getCounter($params)
+    {
+        $key = 'stats.' . md5(implode('.', $params));
+        $memcached = $this->getContainer()->get('memcached');
+        if ($result = $memcached->getItem($key)) return $result;
+        $result = $this->count($params);
+        if ($result) $memcached->setItem($key, $result);
+
+        return $result;
+    }
+
+    public function getKills($eventId, $userId = null)
+    {   
+        $params = [
+            'eventId'  => $eventId,
+            'pointFor' => Statistics::POINT_US,
+            'reason'   => Statistics::POINT_ATTACK            
+        ];
+        if ($userId) $params['userId'] = $userId;
+        return $this->_getCounter($params);
+    }
+
+    public function getAttackFaults($eventId, $userId = null)
+    {   
+        $params = [
+            'eventId'  => $eventId,
+            'pointFor' => Statistics::POINT_THEM,
+            'reason'   => Statistics::FAULT_ATTACK            
+        ];
+        if ($userId) $params['userId'] = $userId;
+        return $this->_getCounter($params);
+    }
+
+    public function getBlocks($eventId, $userId = null)
+    {   
+        $params = [
+            'eventId'  => $eventId,
+            'pointFor' => Statistics::POINT_US,
+            'reason'   => Statistics::POINT_BLOCK            
+        ];
+        if ($userId) $params['userId'] = $userId;
+        return $this->_getCounter($params);
+    }
+
+    public function getBlocked($eventId, $userId = null)
+    {   
+        $params = [
+            'eventId'  => $eventId,
+            'pointFor' => Statistics::POINT_THEM,
+            'reason'   => Statistics::POINT_BLOCK            
+        ];
+        if ($userId) $params['userId'] = $userId;
+        return $this->_getCounter($params);
+    }
+
+    public function getAces($eventId, $userId = null)
+    {   
+        $params = [
+            'eventId'  => $eventId,
+            'pointFor' => Statistics::POINT_US,
+            'reason'   => Statistics::POINT_SERVE            
+        ];
+        if ($userId) $params['userId'] = $userId;
+        return $this->_getCounter($params);
+    }
+
+    public function getServiceFault($eventId, $userId = null)
+    {   
+        $params = [
+            'eventId'  => $eventId,
+            'pointFor' => Statistics::POINT_THEM,
+            'reason'   => Statistics::POINT_SERVE            
+        ];
+        if ($userId) $params['userId'] = $userId;
+        return $this->_getCounter($params);
+    }
+
     public function getAllByEventId($eventId)
     {
         $key = 'event.stats.' . $eventId;

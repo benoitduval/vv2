@@ -36,7 +36,7 @@ CREATE TABLE `event` (
   `long` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `groupId` (`groupId`, `date`),
-  KEY `score` (`score`)
+  KEY `scores` (`scores`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

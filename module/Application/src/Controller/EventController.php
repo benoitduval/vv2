@@ -95,10 +95,29 @@ class EventController extends AbstractController
         $eventId = $this->params('id');
         if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
 
-            $askedUserId = $this->params()->fromQuery('userId', null);
+            $userId      = $this->params()->fromQuery('userId', null);
+            $kills       = $this->statsTable->getKills($eventId, $userId);
+            $attackFault = $this->statsTable->getAttackFaults($eventId, $userId);
+            $blocks      = $this->statsTable->getBlocks($eventId, $userId);
+            $blocked     = $this->statsTable->getBlocked($eventId, $userId);
+            $aces        = $this->statsTable->getAces($eventId, $userId);
+
+            $receptionList  = $this->gameTable->getReceptionEvolution($eventId, $userId);
+            $receptionCount = $this->gameTable->getReceptionCount($eventId, $userId);
+            $receptionAvg   = $this->gameTable->getReceptionAvg($eventId, $userId);
+            $receptionSum   = array_sum($receptionCount);
+            $serviceList    = $this->gameTable->getServiceEvolution($eventId, $userId);
+            $digs           = $this->gameTable->getDigs($eventId, $userId);
+            $attempts       = $this->gameTable->getDigs($eventId, $userId);
+
+
+
+            // \Zend\Debug\Debug::dump([$receptionAvg, $receptionCount]);die;
+
+
             $group = $this->groupTable->find($event->groupId);
-            if ($askedUserId) {
-                $selected = $this->userTable->find($askedUserId);
+            if ($userId) {
+                $selected = $this->userTable->find($userId);
                 $name = $selected->getFullName();
             } else {
                 $selected = $group;
@@ -120,7 +139,7 @@ class EventController extends AbstractController
                 'pointFor' => Model\Stats::POINT_US,
                 'reason'   => Model\Stats::POINT_ATTACK,
             ];
-            if ($askedUserId) $params['userId'] = $askedUserId;
+            if ($userId) $params['userId'] = $userId;
             $stats = $this->statsTable->fetchAll($params);
 
             $attackScorer = [];
@@ -144,7 +163,7 @@ class EventController extends AbstractController
                 'eventId' => $eventId,
                 'type'    => [GameStats::SERVICE, GameStats::RECEPTION]
             ];
-            if ($askedUserId) $params['userId'] = $askedUserId;
+            if ($userId) $params['userId'] = $userId;
             $games = $this->gameTable->fetchAll($params);
             unset($params['type']);
             $stats = $this->statsTable->fetchAll($params);
@@ -195,7 +214,7 @@ class EventController extends AbstractController
                 'eventId' => $eventId,
                 'type'    => GameStats::DIG
             ];
-            if ($askedUserId) $params['userId'] = $askedUserId;
+            if ($userId) $params['userId'] = $userId;
             $digCount = $this->gameTable->count($params);
             $params['type'] = GameStats::ATTEMPT; 
             $attackAttemptCount = $this->gameTable->count($params);
