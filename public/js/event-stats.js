@@ -60,12 +60,7 @@
     var color = 'green';
     $.each($('div[data-plugin="pieProgress"]'), function() {
       var value = $(this).attr('aria-valuenow');
-      if ($.inArray( $(this).attr('id'), ['toOutNet', 'toOutRight', 'toOutLeft', 'toOutLong'] ) !== -1) {
-        color = 'red';
-      } else {
-        color = 'green';
-      }
-
+      var color = $(this).attr('data-barcolor');
       $(this).find('path').attr('stroke', getColorForPercentage(value / 100, color));
     });
   });
@@ -94,7 +89,7 @@
           },
 
           xAxis: {
-              categories: ['Kills', 'Attack Fault', 'Aces', 'Service Fault', 'Blocks', 'Defence Fault', 'Faults']
+              categories: ['Kills', 'Attack Fault', 'Aces', 'Service Fault', 'Blocks', 'Errors', 'Faults']
           },
 
           yAxis: {
