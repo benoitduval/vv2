@@ -106,7 +106,7 @@ class EventController extends AbstractController
             $receptions  = $this->gameTable->getReceptionStats($eventId, $userId);
             $totalDigs   = $this->gameTable->getDigs($eventId);
             $digPercent  = ceil(($digs / $totalDigs) * 100);
-            $services    = $this->gameTable->getServiceStats($eventId);
+            $services    = $this->gameTable->getServiceStats($eventId, $userId);
 
             $pointCount  = $attacks['kills'] + $blocks + $services['aces'];
 

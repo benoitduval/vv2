@@ -133,7 +133,7 @@ class Stats extends AbstractTableGateway
         $params = [
             'eventId'  => $eventId,
             'pointFor' => Statistics::POINT_THEM,
-            'reason'   => Statistics::POINT_SERVE            
+            'reason'   => Statistics::FAULT_SERVE            
         ];
         if ($userId) $params['userId'] = $userId;
         return $this->_getCounter($params);
