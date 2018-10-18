@@ -82,7 +82,7 @@
                                   <img class="img-fluid" src="<?= $user->getAvatarPath() ?>">
                                 </div>
                               </td>
-                              <td><?= $user->getFullname() ?></td>
+                              <td>#<?= $user->numero ?> - <?= $user->getFullname() ?></td>
                               <td class="hidden-md-down">
                                 <?php if ($user->position): ?>
                                   <span class="badge badge-outline badge-<?= \Application\Model\User::$colors[$user->position] ?> float-right">

@@ -216,7 +216,6 @@ class GroupController extends AbstractController
             $game->victory ? $winCount++ : $loseCount++;
         }
 
-
         $matchCount = $winCount + $loseCount;
         $winPercent = $losePercent = 0;
         if ($matchCount) {

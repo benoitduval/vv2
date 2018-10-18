@@ -50,7 +50,7 @@
         });
       });
 
-      $('#editUser').on('show.bs.modal', function (event) {
+      $('#editUser').off('show.bs.modal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var id = button.data('id');
         var firstname = button.data('firstname');
@@ -71,7 +71,7 @@
         modal.find('.modal-body input[name="numero"]').val(numero);
         modal.find('.modal-body img').attr('src', avatar);
         modal.find('#position' + position).attr("selected","selected");
-        $('#update-user').on('click', function() {
+        $('#update-user').off('click').on('click', function() {
           $('#form-update-user').ajaxSubmit({
             url: '/api/user/update',
             type: 'post',
