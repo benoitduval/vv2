@@ -68,312 +68,315 @@
    // --------------------------
    (function () {
 
-      var set1Us = $('#match-comparaison').attr('data-set1-us');
-      var set1Them = $('#match-comparaison').attr('data-set1-them');
-      var set2Us = $('#match-comparaison').attr('data-set2-us');
-      var set2Them = $('#match-comparaison').attr('data-set2-them');
-      var set3Us = $('#match-comparaison').attr('data-set3-us');
-      var set3Them = $('#match-comparaison').attr('data-set3-them');
-      var set4Us = $('#match-comparaison').attr('data-set4-us');
-      var set4Them = $('#match-comparaison').attr('data-set4-them');
-      var set5Us = $('#match-comparaison').attr('data-set5-us');
-      var set5Them = $('#match-comparaison').attr('data-set5-them');
-      var chart = Highcharts.chart('match-comparaison', {
+      if ($('.match-comparaison').length > 0) {
+        
+        var set1Us = $('#match-comparaison').attr('data-set1-us');
+        var set1Them = $('#match-comparaison').attr('data-set1-them');
+        var set2Us = $('#match-comparaison').attr('data-set2-us');
+        var set2Them = $('#match-comparaison').attr('data-set2-them');
+        var set3Us = $('#match-comparaison').attr('data-set3-us');
+        var set3Them = $('#match-comparaison').attr('data-set3-them');
+        var set4Us = $('#match-comparaison').attr('data-set4-us');
+        var set4Them = $('#match-comparaison').attr('data-set4-them');
+        var set5Us = $('#match-comparaison').attr('data-set5-us');
+        var set5Them = $('#match-comparaison').attr('data-set5-them');
+        var chart = Highcharts.chart('match-comparaison', {
 
-          chart: {
-              type: 'column'
-          },
+            chart: {
+                type: 'column'
+            },
 
-          title: {
-              text: ''
-          },
+            title: {
+                text: ''
+            },
 
-          xAxis: {
-              categories: ['Kills', 'Attack Fault', 'Aces', 'Service Fault', 'Blocks', 'Errors', 'Faults']
-          },
+            xAxis: {
+                categories: ['Kills', 'Attack Fault', 'Aces', 'Service Fault', 'Blocks', 'Errors', 'Faults']
+            },
 
-          yAxis: {
-              allowDecimals: false,
-              min: 0,
-              title: {
-                  text: ''
-              }
-          },
+            yAxis: {
+                allowDecimals: false,
+                min: 0,
+                title: {
+                    text: ''
+                }
+            },
 
-          tooltip: {
-              formatter: function () {
-                  return '<b>' + this.x + '</b><br/>' +
-                      this.series.name + ': ' + this.y + '<br/>' +
-                      'Total: ' + this.point.stackTotal;
-              }
-          },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' +
+                        'Total: ' + this.point.stackTotal;
+                }
+            },
 
-          plotOptions: {
-              column: {
-                  stacking: 'normal'
-              }
-          },
-          credits: {
-            enabled: false
-          },
+            plotOptions: {
+                column: {
+                    stacking: 'normal'
+                }
+            },
+            credits: {
+              enabled: false
+            },
 
-          series: [{
-              name: 'Set 5 - Us',
-              data: JSON.parse(set5Us),
-              stack: 'Us',
-              color: '#80FF15',
-              dataLabels: {
-                  enabled: true,
-                  color: '#FFFFFF',
-                  align: 'center',
-                  style: {
-                      fontSize: '13px',
-                      fontFamily: 'Verdana, sans-serif'
-                  },
-                  formatter:function(){
-                      if(this.y > 0)
-                          return this.y;
-                  }
-              }
-          }, {
-              name: 'Set 4 - Us',
-              data: JSON.parse(set4Us),
-              stack: 'Us',
-              color: '#21E827',
-              dataLabels: {
-                  enabled: true,
-                  color: '#FFFFFF',
-                  align: 'center',
-                  style: {
-                      fontSize: '13px',
-                      fontFamily: 'Verdana, sans-serif'
-                  },
-                  formatter:function(){
-                      if(this.y > 0)
-                          return this.y;
-                  }
-              }
-          }, {
-              name: 'Set 3 - Us',
-              data: JSON.parse(set3Us),
-              stack: 'Us',
-              color: '#31FF8A',
-              dataLabels: {
-                  enabled: true,
-                  color: '#FFFFFF',
-                  align: 'center',
-                  style: {
-                      fontSize: '13px',
-                      fontFamily: 'Verdana, sans-serif'
-                  },
-                  formatter:function(){
-                      if(this.y > 0)
-                          return this.y;
-                  }
-              }
-          }, {
-              name: 'Set 2 - Us',
-              data: JSON.parse(set2Us),
-              stack: 'Us',
-              color: '#21E8C7',
-              dataLabels: {
-                  enabled: true,
-                  color: '#FFFFFF',
-                  align: 'center',
-                  style: {
-                      fontSize: '13px',
-                      fontFamily: 'Verdana, sans-serif'
-                  },
-                  formatter:function(){
-                      if(this.y > 0)
-                          return this.y;
-                  }
-              }
-          }, {
-              name: 'Set 1 - Us',
-              data: JSON.parse(set1Us),
-              stack: 'Us',
-              color: '#19CDFF',
-              dataLabels: {
-                  enabled: true,
-                  color: '#FFFFFF',
-                  align: 'center',
-                  style: {
-                      fontSize: '13px',
-                      fontFamily: 'Verdana, sans-serif'
-                  },
-                  formatter:function(){
-                      if(this.y > 0)
-                          return this.y;
-                  }
-              }
-          },{
-              name: 'Set 5 - Them',
-              data: JSON.parse(set5Them),
-              stack: 'Them',
-              color: '#FF129E',
-              dataLabels: {
-                  enabled: true,
-                  color: '#FFFFFF',
-                  align: 'center',
-                  style: {
-                      fontSize: '13px',
-                      fontFamily: 'Verdana, sans-serif'
-                  },
-                  formatter:function(){
-                      if(this.y > 0)
-                          return this.y;
-                  }
-              }
-          }, {
-              name: 'Set 4 - Them',
-              data: JSON.parse(set4Them),
-              stack: 'Them',
-              color: '#E8261F',
-              dataLabels: {
-                  enabled: true,
-                  color: '#FFFFFF',
-                  align: 'center',
-                  style: {
-                      fontSize: '13px',
-                      fontFamily: 'Verdana, sans-serif'
-                  },
-                  formatter:function(){
-                      if(this.y > 0)
-                          return this.y;
-                  }
-              }
-          }, {
-              name: 'Set 3 - Them',
-              data: JSON.parse(set3Them),
-              stack: 'Them',
-              color: '#FF612E',
-              dataLabels: {
-                  enabled: true,
-                  color: '#FFFFFF',
-                  align: 'center',
-                  style: {
-                      fontSize: '13px',
-                      fontFamily: 'Verdana, sans-serif'
-                  },
-                  formatter:function(){
-                      if(this.y > 0)
-                          return this.y;
-                  }
-              }
-          }, {
-              name: 'Set 2 - Them',
-              data: JSON.parse(set2Them),
-              stack: 'Them',
-              color: '#E8791F',
-              dataLabels: {
-                  enabled: true,
-                  color: '#FFFFFF',
-                  align: 'center',
-                  style: {
-                      fontSize: '13px',
-                      fontFamily: 'Verdana, sans-serif'
-                  },
-                  formatter:function(){
-                      if(this.y > 0)
-                          return this.y;
-                  }
-              }
-          }, {
-              name: 'Set 1 - Them',
-              data: JSON.parse(set1Them),
-              stack: 'Them',
-              color: '#FFA916',
-              dataLabels: {
-                  enabled: true,
-                  color: '#FFFFFF',
-                  align: 'center',
-                  style: {
-                      fontSize: '13px',
-                      fontFamily: 'Verdana, sans-serif'
-                  },
-                  formatter:function(){
-                      if(this.y > 0)
-                          return this.y;
-                  }
-              }
-          }]
-      });
+            series: [{
+                name: 'Set 5 - Us',
+                data: JSON.parse(set5Us),
+                stack: 'Us',
+                color: '#80FF15',
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    },
+                    formatter:function(){
+                        if(this.y > 0)
+                            return this.y;
+                    }
+                }
+            }, {
+                name: 'Set 4 - Us',
+                data: JSON.parse(set4Us),
+                stack: 'Us',
+                color: '#21E827',
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    },
+                    formatter:function(){
+                        if(this.y > 0)
+                            return this.y;
+                    }
+                }
+            }, {
+                name: 'Set 3 - Us',
+                data: JSON.parse(set3Us),
+                stack: 'Us',
+                color: '#31FF8A',
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    },
+                    formatter:function(){
+                        if(this.y > 0)
+                            return this.y;
+                    }
+                }
+            }, {
+                name: 'Set 2 - Us',
+                data: JSON.parse(set2Us),
+                stack: 'Us',
+                color: '#21E8C7',
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    },
+                    formatter:function(){
+                        if(this.y > 0)
+                            return this.y;
+                    }
+                }
+            }, {
+                name: 'Set 1 - Us',
+                data: JSON.parse(set1Us),
+                stack: 'Us',
+                color: '#19CDFF',
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    },
+                    formatter:function(){
+                        if(this.y > 0)
+                            return this.y;
+                    }
+                }
+            },{
+                name: 'Set 5 - Them',
+                data: JSON.parse(set5Them),
+                stack: 'Them',
+                color: '#FF129E',
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    },
+                    formatter:function(){
+                        if(this.y > 0)
+                            return this.y;
+                    }
+                }
+            }, {
+                name: 'Set 4 - Them',
+                data: JSON.parse(set4Them),
+                stack: 'Them',
+                color: '#E8261F',
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    },
+                    formatter:function(){
+                        if(this.y > 0)
+                            return this.y;
+                    }
+                }
+            }, {
+                name: 'Set 3 - Them',
+                data: JSON.parse(set3Them),
+                stack: 'Them',
+                color: '#FF612E',
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    },
+                    formatter:function(){
+                        if(this.y > 0)
+                            return this.y;
+                    }
+                }
+            }, {
+                name: 'Set 2 - Them',
+                data: JSON.parse(set2Them),
+                stack: 'Them',
+                color: '#E8791F',
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    },
+                    formatter:function(){
+                        if(this.y > 0)
+                            return this.y;
+                    }
+                }
+            }, {
+                name: 'Set 1 - Them',
+                data: JSON.parse(set1Them),
+                stack: 'Them',
+                color: '#FFA916',
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    align: 'center',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    },
+                    formatter:function(){
+                        if(this.y > 0)
+                            return this.y;
+                    }
+                }
+            }]
+        });
 
-      var set1Button = $('#set1Button');
-      var set2Button = $('#set2Button');
-      var set3Button = $('#set3Button');
-      var set4Button = $('#set4Button');
-      var set5Button = $('#set5Button');
-      var seriesSet5Us = chart.series[0];
-      var seriesSet4Us = chart.series[1];
-      var seriesSet3Us = chart.series[2];
-      var seriesSet2Us = chart.series[3];
-      var seriesSet1Us = chart.series[4];
-      var seriesSet5Them = chart.series[5];
-      var seriesSet4Them = chart.series[6];
-      var seriesSet3Them = chart.series[7];
-      var seriesSet2Them = chart.series[8];
-      var seriesSet1Them = chart.series[9];
-      set1Button.click(function () {
-          if (seriesSet1Them.visible) {
-              seriesSet1Them.hide();
-              seriesSet1Us.hide();
-              set1Button.html('<i class="icon wb-eye-close"></i> Set1');
-          } else {
-              seriesSet1Them.show();
-              seriesSet1Us.show();
-              set1Button.html('<i class="icon wb-eye"></i> Set1');
-          }
-      });
+        var set1Button = $('#set1Button');
+        var set2Button = $('#set2Button');
+        var set3Button = $('#set3Button');
+        var set4Button = $('#set4Button');
+        var set5Button = $('#set5Button');
+        var seriesSet5Us = chart.series[0];
+        var seriesSet4Us = chart.series[1];
+        var seriesSet3Us = chart.series[2];
+        var seriesSet2Us = chart.series[3];
+        var seriesSet1Us = chart.series[4];
+        var seriesSet5Them = chart.series[5];
+        var seriesSet4Them = chart.series[6];
+        var seriesSet3Them = chart.series[7];
+        var seriesSet2Them = chart.series[8];
+        var seriesSet1Them = chart.series[9];
+        set1Button.click(function () {
+            if (seriesSet1Them.visible) {
+                seriesSet1Them.hide();
+                seriesSet1Us.hide();
+                set1Button.html('<i class="icon wb-eye-close"></i> Set1');
+            } else {
+                seriesSet1Them.show();
+                seriesSet1Us.show();
+                set1Button.html('<i class="icon wb-eye"></i> Set1');
+            }
+        });
 
-      set2Button.click(function () {
-          if (seriesSet2Them.visible) {
-              seriesSet2Them.hide();
-              seriesSet2Us.hide();
-              set2Button.html('<i class="icon wb-eye-close"></i> Set2');
-          } else {
-              seriesSet2Them.show();
-              seriesSet2Us.show();
-              set2Button.html('<i class="icon wb-eye"></i> Set2');
-          }
-      });
+        set2Button.click(function () {
+            if (seriesSet2Them.visible) {
+                seriesSet2Them.hide();
+                seriesSet2Us.hide();
+                set2Button.html('<i class="icon wb-eye-close"></i> Set2');
+            } else {
+                seriesSet2Them.show();
+                seriesSet2Us.show();
+                set2Button.html('<i class="icon wb-eye"></i> Set2');
+            }
+        });
 
-      set3Button.click(function () {
-          if (seriesSet3Them.visible) {
-              seriesSet3Them.hide();
-              seriesSet3Us.hide();
-              set3Button.html('<i class="icon wb-eye-close"></i> Set3');
-          } else {
-              seriesSet3Them.show();
-              seriesSet3Us.show();
-              set3Button.html('<i class="icon wb-eye"></i> Set3');
-          }
-      });
+        set3Button.click(function () {
+            if (seriesSet3Them.visible) {
+                seriesSet3Them.hide();
+                seriesSet3Us.hide();
+                set3Button.html('<i class="icon wb-eye-close"></i> Set3');
+            } else {
+                seriesSet3Them.show();
+                seriesSet3Us.show();
+                set3Button.html('<i class="icon wb-eye"></i> Set3');
+            }
+        });
 
-      set4Button.click(function () {
-          if (seriesSet4Them.visible) {
-              seriesSet4Them.hide();
-              seriesSet4Us.hide();
-              set4Button.html('<i class="icon wb-eye-close"></i> Set4');
-          } else {
-              seriesSet4Them.show();
-              seriesSet4Us.show();
-              set4Button.html('<i class="icon wb-eye"></i> Set4');
-          }
-      });
+        set4Button.click(function () {
+            if (seriesSet4Them.visible) {
+                seriesSet4Them.hide();
+                seriesSet4Us.hide();
+                set4Button.html('<i class="icon wb-eye-close"></i> Set4');
+            } else {
+                seriesSet4Them.show();
+                seriesSet4Us.show();
+                set4Button.html('<i class="icon wb-eye"></i> Set4');
+            }
+        });
 
-      set5Button.click(function () {
-          if (seriesSet5Them.visible) {
-              seriesSet5Them.hide();
-              seriesSet5Us.hide();
-              set5Button.html('<i class="icon wb-eye-close"></i> Set5');
-          } else {
-              seriesSet5Them.show();
-              seriesSet5Us.show();
-              set5Button.html('<i class="icon wb-eye"></i> Set5');
-          }
-      });
+        set5Button.click(function () {
+            if (seriesSet5Them.visible) {
+                seriesSet5Them.hide();
+                seriesSet5Us.hide();
+                set5Button.html('<i class="icon wb-eye-close"></i> Set5');
+            } else {
+                seriesSet5Them.show();
+                seriesSet5Us.show();
+                set5Button.html('<i class="icon wb-eye"></i> Set5');
+            }
+        });
+      }
 
       $("#historyModal, #userStats").on("show.bs.modal", function(e) {
           var link = $(e.relatedTarget);

@@ -96,7 +96,8 @@
         return true;
       },
       onFinish: function onFinish() {
-        $('form').submit(function( event ) {
+        console.log($(this));
+        $(this).submit(function( event ) {
           alert( "Handler for .submit() called." );
           event.preventDefault();
         });

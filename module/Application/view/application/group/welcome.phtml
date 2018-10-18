@@ -91,10 +91,21 @@
                               </td>
                               <?php if ($isAdmin): ?>
                                 <td>
-                                  <a href="#" class='btn btn-danger btn-xs btn-outline float-right'>  <i class="icon wb-trash"></i>
+                                  <a href="#" class="btn btn-danger btn-xs btn-outline float-right delete-confirm" data-link="/group/delete-user/<?= $group->id ?>/<?= $user->id ?>">  <i class="icon wb-trash"></i>
                                   </a>
-                                  <a href="#" class='btn btn-info btn-xs btn-outline float-right mr-5'>
-                                    <i class="icon wb-pencil"></i></a>
+                                  <a href="javascrip:void(0);"  data-toggle="modal" data-target="#editUser" 
+                                  data-id="<?= $user->id ?>"
+                                  data-firstname="<?= $user->firstname ?>"
+                                  data-lastname="<?= $user->lastname ?>"
+                                  data-email="<?= $user->email ?>"
+                                  data-licence="<?= $user->licence ?>"
+                                  data-numero="<?= $user->numero ?>"
+                                  data-position="<?= $user->position ?>"
+                                  data-phone="<?= $user->phone ?>"
+                                  data-avatar="<?= $user->getAvatarPath() ?>"
+                                  class='btn btn-info btn-xs btn-outline float-right mr-5'>
+                                    <i class="icon wb-pencil"></i>
+                                  </a>
                                 </td>
                               <?php endif ?>
                           </tr>
@@ -111,143 +122,257 @@
 
     <div class="col-md-6 col-12">
       <div class="row">
-        <div class="col-12 col-md-6">
-          <div class="card card-shadow card-completed-options">
-            <div class="card-block p-30">
-              <div class="row">
-                <div class="col-6">
-                  <div class="counter text-left blue-grey-700">
-                    <div class="counter-label mt-10">Victory
-                    </div>
-                    <div class="counter-number font-size-40 mt-10">
-                      <?= $winCount ?>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                    data-barcolor="#57c7d4" data-size="100" data-barsize="10"
-                    data-goal="<?= $winPercent ?>" aria-valuenow="<?= $winPercent ?>" role="progressbar">
-                    <span class="pie-progress-number blue-grey-700 font-size-20">
-                      <?= $winPercent ?>%
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6">
-          <div class="card card-shadow card-completed-options">
-            <div class="card-block p-30">
-              <div class="row">
-                <div class="col-6">
-                  <div class="counter text-left blue-grey-700">
-                    <div class="counter-label mt-10">Defeat
-                    </div>
-                    <div class="counter-number font-size-40 mt-10">
-                      <?= $loseCount ?>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                    data-barcolor="#f96868" data-size="100" data-barsize="10"
-                    data-goal="<?= $losePercent ?>" aria-valuenow="<?= $losePercent ?>" role="progressbar">
-                    <span class="pie-progress-number blue-grey-700 font-size-20">
-                      <?= $losePercent ?>%
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="col-12">
-          <div id="recentActivityWidget" class="card card-shadow card-lg pb-20">
-            <div class="card-header card-header-transparent pb-10">
-              <h5 class="card-title">
-                LAST GAMES
-              </h5>
-            </div>
-            <ul class="timeline timeline-icon">
-              <?php foreach ($games as $game): ?>
-                <li class="timeline-reverse timeline-item">
-                  <div class="timeline-content-wrap">
-                    <div class="timeline-dot <?= $game->victory ? 'bg-green-600' : 'bg-red-600' ?>">
-                      <i class="icon <?= $game->victory ? 'wb-check' : 'wb-close' ?>" aria-hidden="true"></i>
-                    </div>
-                    <div class="timeline-content">
-                      <div class="title">
-                        <span class="authors"><a href="/event/stats/<?= $game->id ?>"><?= $game->name ?></a></span> <span class="float-right font-size-30 <?= $game->victory ? 'text-success' : 'text-danger' ?>"><?= $game->score ?></span>
-                      </div>
-                      <div class="metas">
-                        <?php if ($game->sets): ?>
-                              <?= implode(' | ', $game->sets) ?>
-                        <?php endif ?>
-                      </div>
-                      <ul class="members">
-                        <?php if (isset($present[$game->id])): ?>
-                        <?php foreach ($present[$game->id] as $userId): ?>
-                          <li>
-                            <img class="avatar avatar-sm" src="<?= $users[$userId]->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
-                          </li>
-                        <?php endforeach ?>
-                        <?php endif ?>
-                      </ul>
-                    </div>
+          <div class="card card-shadow card-completed-options">
+            <div class="card-block p-30">
+              <h4 class="card-title">Trainings</h4>
+              <div class="row">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <th>Name</th>
+                      <th>Address</th>
+                      <th>Day</th>
+                      <th>Active</th>
+                      <th>Delete</th>
+                    </thead>
+                    <?php foreach ($trainings as $training): ?>
+                        <tr>
+                          <td>
+                            <?= $training->name ?>
+                          </td>
+                          <td>
+                            <?= $training->address ?>
+                          </td>
+                          <td>
+                            <?= $training->eventDay ?>
+                          </td>
+                          <td>
+                            <div class="checkbox-custom checkbox-primary">
+                              <input type="checkbox" name="training" data-id="<?= $training->id ?>" id="training<?= $training->id ?>" <?= ($training->status == 1) ? 'checked' : '';?> value="<?= ($training->status == 1) ? 2 : 1; ?>">
+                              <label for="training<?= $training->id ?>"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <button class="btn btn-outline btn-danger btn-xs delete-confirm" data-link="/training/delete/<?= $group->id ?>/<?= $training->id ?>"><i class="icon wb-trash"></i></button>
+                          </td>
+                        </tr>
+                    <?php endforeach ?>
+                  </table>
+                </div>
+                <?php if ($isAdmin): ?>
+                  <div class="col-12">
+                    <button type="button" class="btn btn-primary btn-outline float-right collapsed" data-toggle="collapse" data-target="#add-training" aria-expanded="false" aria-controls="add-training">
+                      <i class="icon wb-plus"></i>Add
+                    </button>
                   </div>
-                </li>
-              <?php endforeach ?>
-            </ul>
+                  <div class="col-12 collapse mt-20" id="add-training">
+                     <div id="toClone" class="clonedInput mt-20">
+                         <div class="row">
+                             <div class="col-md-12">
+                                 <div class="form-group">
+                                     <label class="control-label">
+                                         Place Name
+                                     </label>
+                                     <input type="text" class="form-control" name="place[]" placeholder="Gymnasium Dunois">
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-12">
+                                 <div class="form-group">
+                                     <label class="control-label">
+                                         Full Address
+                                     </label>
+                                     <input type="text" class="form-control" name="address[]" placeholder="70 rue de Dunois, 75013 Paris">
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-8">
+                                 <div class="form-group">
+                                     <label class="control-label">
+                                         Training Day
+                                     </label>
+                                     <select class="form-control" name="eventDay[]">
+                                       <option value="0" selected disabled>Select Day</option>
+                                       <option value="monday">Monday</option>
+                                       <option value="tuesday">Tuesday</option>
+                                       <option value="wednesday">Wednesday</option>
+                                       <option value="thursday">Thursday</option>
+                                       <option value="friday">Friday</option>
+                                       <option value="saturday">Saturday</option>
+                                       <option value="sunday">Sunday</option>
+                                     </select>
+                                 </div>
+                             </div>
+                             <div class="col-md-4">
+                                 <div class="form-group">
+                                     <label class="control-label">
+                                         Start Time
+                                     </label>
+                                     <input type="text" name="time[]" class="form-control" id="inputTime" data-plugin="formatter" data-pattern="[[99]]:[[99]]" placeholder="20:00">
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <button type="submit" class="btn btn-success float-right">Submit</button>
+                  </div>
+                <?php endif ?>
+              </div>
+            </div>
           </div>
         </div>
+
+        <?php if ($matchCount): ?>        
+          <div class="col-12 col-md-6">
+            <div class="card card-shadow card-completed-options">
+              <div class="card-block p-30">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="counter text-left blue-grey-700">
+                      <div class="counter-label mt-10">Victory
+                      </div>
+                      <div class="counter-number font-size-40 mt-10">
+                        <?= $winCount ?>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                      data-barcolor="#57c7d4" data-size="100" data-barsize="10"
+                      data-goal="<?= $winPercent ?>" aria-valuenow="<?= $winPercent ?>" role="progressbar">
+                      <span class="pie-progress-number blue-grey-700 font-size-20">
+                        <?= $winPercent ?>%
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="card card-shadow card-completed-options">
+              <div class="card-block p-30">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="counter text-left blue-grey-700">
+                      <div class="counter-label mt-10">Defeat
+                      </div>
+                      <div class="counter-number font-size-40 mt-10">
+                        <?= $loseCount ?>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                      data-barcolor="#f96868" data-size="100" data-barsize="10"
+                      data-goal="<?= $losePercent ?>" aria-valuenow="<?= $losePercent ?>" role="progressbar">
+                      <span class="pie-progress-number blue-grey-700 font-size-20">
+                        <?= $losePercent ?>%
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div id="recentActivityWidget" class="card card-shadow card-lg pb-20">
+              <div class="card-header card-header-transparent pb-10">
+                <h5 class="card-title">
+                  LAST GAMES
+                </h5>
+              </div>
+              <ul class="timeline timeline-icon">
+                <?php foreach ($games as $game): ?>
+                  <li class="timeline-reverse timeline-item">
+                    <div class="timeline-content-wrap">
+                      <div class="timeline-dot <?= $game->victory ? 'bg-green-600' : 'bg-red-600' ?>">
+                        <i class="icon <?= $game->victory ? 'wb-check' : 'wb-close' ?>" aria-hidden="true"></i>
+                      </div>
+                      <div class="timeline-content">
+                        <div class="title">
+                          <span class="authors"><a href="/event/stats/<?= $game->id ?>"><?= $game->name ?></a></span> <span class="float-right font-size-30 <?= $game->victory ? 'text-success' : 'text-danger' ?>"><?= $game->score ?></span>
+                        </div>
+                        <div class="metas">
+                          <?php if ($game->sets): ?>
+                                <?= implode(' | ', $game->sets) ?>
+                          <?php endif ?>
+                        </div>
+                        <ul class="members">
+                          <?php if (isset($present[$game->id])): ?>
+                          <?php foreach ($present[$game->id] as $userId): ?>
+                            <li>
+                              <img class="avatar avatar-sm" src="<?= $users[$userId]->getAvatarPath() ?>" onerror="if (this.src != '/img/default-avatar.png') this.src = '/img/default-avatar.png';">
+                            </li>
+                          <?php endforeach ?>
+                          <?php endif ?>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                <?php endforeach ?>
+              </ul>
+            </div>
+          </div>
+        <?php endif ?>
       </div>
     </div>
     <!-- End Personal -->
   </div>
 
-  <div class="modal fade" id="editGroup" aria-hidden="true" aria-labelledby="editGroup"
+  <div class="modal fade" id="editUser" aria-hidden="true" aria-labelledby="editUser"
   role="dialog" tabindex="-1" data-show="false">
     <div class="modal-dialog modal-simple">
       <div class="modal-content">
         <div class="modal-body">
           <div class="col-12 text-center mb-20">
             <span class="avatar img-bordered avatar-100" href="javascript:void(0)">
-              <img alt="" src="<?= $group->getAvatarPath() ?>">
+              <img alt="" src="">
             </span>
           </div>
-          <?php $form->prepare(); // The correct enctype is set here ?>
-          <?= $this->form()->openTag($form); ?>
+          <form id="form-update-user" action="/api/user/update" method="POST">
+            <input type="hidden" name="id">
             <div class="form-group">
-              <input type="text" class="form-control" name="name" placeholder="Group Name"
-                autocomplete="off" value="<?= $group->name ?>" />
+              <input type="text" class="form-control" name="email" placeholder="email" value="" />
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="place" autocomplete="off" <?= $group->id ? 'value="' . $group->id . '"' : 'placeholder="Place"' ?>value="<?= $group->id ?>"/>
+              <input type="text" class="form-control" name="lastname" placeholder="lastname" value="" />
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="address" autocomplete="off" <?= $group->id ? 'value="' . $group->id . '"' : 'placeholder="Address"' ?>value="<?= $group->id ?>"/>
+              <input type="text" class="form-control" name="firstname" placeholder="firstname" value="" />
             </div>
             <div class="row">
-              <div class="form-group col-md-6">
-                <input type="text" class="form-control" name="zipcode" autocomplete="off" <?= $group->id ? 'value="' . $group->id . '"' : 'placeholder="Zipcode"' ?>value="<?= $group->id ?>"/>
+              <div class="col-6">
+                <input type="text" class="form-control" name="phone" placeholder="phone" value="" />
               </div>
-              <div class="form-group col-md-6">
-                <input type="text" class="form-control" name="city" autocomplete="off" <?= $group->id ? 'value="' . $group->id . '"' : 'placeholder="City"' ?>value="<?= $group->id ?>"/>
+              <div class="col-6">
+                <input type="text" class="form-control" name="licence" placeholder="licence" value="" />
               </div>
             </div>
-            <div class="form-element">
-                <label>Change Thumbnail</label>
-                <?php $fileElement = $form->get('image-file'); ?>
-                <?= $this->formFile($fileElement); ?>
+            <div class="row mt-20">
+              <div class="form-group col-md-6">
+                <input type="number" class="form-control" name="numero" placeholder="numero" value="">
+              </div>
+              <div class="form-group col-md-6">
+                <select name="position" class="col-12 form-control">
+                  <option disabled="disabled">Role</option>
+                  <option id="position4" value="4">Outside Hitter</option>
+                  <option id="position2" value="2">Opposite</option>
+                  <option id="position3" value="3">Middle Blocker</option>
+                  <option id="position1" value="1">Setter</option>
+                  <option id="position5" value="5">Libero</option>
+                  <option id="position6" value="6">Coach</option>
+                </select>
+              </div>
             </div>
             <div class="form-group mt-10 float-right">
-              <input type="submit" class="btn btn-primary" name="submit" value="Submit">
+              <input type="button" id="update-user" class="btn btn-primary" name="submit" value="Submit">
             </div>
-          <?= $this->form()->closeTag(); ?>
+          </form>
         </div>
       </div>
     </div>

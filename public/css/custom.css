@@ -210,3 +210,11 @@
   .counter > .counter-number, .counter .counter-number-group {
     font-size: 20px;
     color: #FFF; }
+
+.form-control-danger {
+  border-color: #FF0000;
+}
+
+.form-control-success {
+  border-color: #5cb85c;
+}

@@ -45,6 +45,16 @@ return [
                     ],
                 ],
             ],
+            'update-user' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/api/user/update',
+                    'defaults' => [
+                        'controller'    => Controller\UserController::class,
+                        'action'        => 'update',
+                    ],
+                ],
+            ],
             'delete-holiday' => [
                 'type'    => Segment::class,
                 'options' => [

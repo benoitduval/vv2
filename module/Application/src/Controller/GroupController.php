@@ -40,7 +40,6 @@ class GroupController extends AbstractController
     public function createAction()
     {
         if ($this->getUser()) {
-            $groupForm = new Form\Group;
             $config    = $this->get('config');
 
             $groupNames = [];
@@ -48,96 +47,87 @@ class GroupController extends AbstractController
                 $groupNames[] = $group->brand;
             }
 
-            // bypass validation on fields
-            $groupForm->getInputFilter()->get('eventDay[]')->setRequired(false);
             $request = $this->getRequest();
             if ($request->isPost()) {
                 $data = $request->getPost();
-                $groupForm->setData($data);
-                if ($groupForm->isValid()) {
-                    $data               = $groupForm->getData();
-                    $data['name']       = ucfirst($data['name']);
-                    $data['brand']      = Service\Strings::toSlug($data['name']);
+                $data['name']  = ucfirst($data['groupName']);
+                $data['brand'] = Service\Strings::toSlug($data['groupName']);
 
-                    $group = $this->groupTable->save($data);
+                $group = $this->groupTable->save($data);
 
-                    $userGroup = $this->userGroupTable->save([
-                        'userId'  => $this->getUser()->id,
-                        'groupId' => $group->id,
-                        'admin'   => 1,
-                    ]);
+                $userGroup = $this->userGroupTable->save([
+                    'userId'  => $this->getUser()->id,
+                    'groupId' => $group->id,
+                    'admin'   => 1,
+                ]);
 
-                    $data = $request->getPost();
-                    foreach ($data['place'] as $key => $value) {
-                        if (!($data['address'][$key])
-                            || !($data['address'][$key])
-                            || !($data['zipCode'][$key])
-                            || !($data['city'][$key])
-                            || !($data['eventDay'][$key])
-                            || !($data['time'][$key])) {
-                                continue;
-                        }
-                        $training = [
-                            'groupId' => $group->id,
-                            'status'  => Model\Training::ACTIVE,
-                            'address' => $data['place'][$key],
-                            'zipCode' => $data['zipCode'][$key],
-                            'city' => $data['city'][$key],
-                            'eventDay' => $data['eventDay'][$key],
-                            'emailDay' => $data['eventDay'][$key],
-                            'time' => $data['time'][$key],
-                            'name' => 'Entrainement ' . Service\Date::toFr($data['eventDay'][$key]),
-                        ];
-                        $this->trainingTable->save($training);
+                $data = $request->getPost();
+                foreach ($data['place'] as $key => $value) {
+                    if (!($data['address'][$key])
+                        || !($data['address'][$key])
+                        || !($data['zipCode'][$key])
+                        || !($data['city'][$key])
+                        || !($data['eventDay'][$key])
+                        || !($data['time'][$key])) {
+                            continue;
                     }
-
-                    // send emails
-                    if ($config['mail']['allowed']) {
-                        if ($data['emails']) {
-                            $bcc = [];
-                            $emails = explode(',', $data['emails']);
-                            foreach ($emails as $email) {
-                                $email = trim($email);
-                                $validator = new \Zend\Validator\EmailAddress();
-                                if ($validator->isValid($email)) {
-                                    $bcc[] = $email;
-                                }
-                            }
-
-                            $view       = new \Zend\View\Renderer\PhpRenderer();
-                            $resolver   = new \Zend\View\Resolver\TemplateMapResolver();
-                            $resolver->setMap([
-                                'invitation' => __DIR__ . '/../../view/mail/invitation.phtml'
-                            ]);
-                            $view->setResolver($resolver);
-
-                            $viewModel  = new ViewModel();
-                            $viewModel->setTemplate('invitation')->setVariables([
-                                'group'     => $group,
-                                'user'      => $this->getUser(),
-                                'shareUrl'  => $config['baseUrl'] . '/group/join/' . $group->brand,
-                                'baseUrl'   => $config['baseUrl']
-                            ]);
-
-                            $mail = $this->get(MailService::class);
-                            $mail->addBcc($emails);
-                            $mail->setSubject('[' . $group->name . '] Rejoignez le groupe !');
-                            $mail->setBody($view->render($viewModel));
-                            try {
-                                $mail->send();
-                            } catch (\Exception $e) {
-                            }
-                        }
-                    }
-
-                    return $this->redirect()->toRoute('group-welcome', ['brand' => $group->brand]);
+                    $training = [
+                        'groupId'  => $group->id,
+                        'status'   => Model\Training::ACTIVE,
+                        'address'  => $data['place'][$key],
+                        'eventDay' => $data['eventDay'][$key],
+                        'emailDay' => $data['eventDay'][$key],
+                        'time'     => $data['time'][$key],
+                        'name'     => 'Training ' . ucfirst($data['eventDay'][$key]),
+                    ];
+                    $this->trainingTable->save($training);
                 }
+
+                // send emails
+                if ($config['mail']['allowed']) {
+                    if ($data['emails']) {
+                        $bcc = [];
+                        $emails = explode(',', $data['emails']);
+                        foreach ($emails as $email) {
+                            $email = trim($email);
+                            $validator = new \Zend\Validator\EmailAddress();
+                            if ($validator->isValid($email)) {
+                                $bcc[] = $email;
+                            }
+                        }
+
+                        $view       = new \Zend\View\Renderer\PhpRenderer();
+                        $resolver   = new \Zend\View\Resolver\TemplateMapResolver();
+                        $resolver->setMap([
+                            'invitation' => __DIR__ . '/../../view/mail/invitation.phtml'
+                        ]);
+                        $view->setResolver($resolver);
+
+                        $viewModel  = new ViewModel();
+                        $viewModel->setTemplate('invitation')->setVariables([
+                            'group'     => $group,
+                            'user'      => $this->getUser(),
+                            'shareUrl'  => $config['baseUrl'] . '/group/join/' . $group->brand,
+                            'baseUrl'   => $config['baseUrl']
+                        ]);
+
+                        $mail = $this->get(MailService::class);
+                        $mail->addBcc($emails);
+                        $mail->setSubject('[' . $group->name . '] Rejoignez le groupe !');
+                        $mail->setBody($view->render($viewModel));
+                        try {
+                            $mail->send();
+                        } catch (\Exception $e) {
+                        }
+                    }
+                }
+
+                return $this->redirect()->toRoute('group-welcome', ['brand' => $group->brand]);
             }
 
             $baseUrl = $config['baseUrl'];
 
             return new ViewModel(array(
-                'form'    => $groupForm,
                 'groupNames' => json_encode($groupNames),
                 'user'    => $this->getUser(),
                 'group'   => isset($group) ? $group : '',
@@ -325,12 +315,8 @@ class GroupController extends AbstractController
                 $this->disponibilityTable->delete($disponibility);
             }
             $this->userGroupTable->delete($userGroup);
-
-            $this->flashMessenger()->addSuccessMessage('Utilisateur supprimé.');
-        } else {
-            $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
         }
-        $this->redirect()->toRoute('group', ['action' => 'users', 'id' => $this->_group->id]);
+        $this->redirect()->toRoute('group-welcome', ['brand' => $this->_group->brand]);
     }
 
     public function addUserAction()

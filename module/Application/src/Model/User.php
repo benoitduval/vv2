@@ -28,6 +28,8 @@ class User extends AbstractModel
     protected $_status      = null;
     protected $_position    = null;
     protected $_numero      = null;
+    protected $_licence     = null;
+    protected $_phone       = null;
 
     public static $position = [
         self::POSITION_SETTER         => 'Setter',

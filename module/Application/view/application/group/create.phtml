@@ -1,120 +1,102 @@
 <div class="col-lg-6">
 <!-- Panel Wizard Form Container -->
-<div class="panel" id="exampleWizardFormContainer">
+<div class="panel">
   <div class="panel-heading">
-    <h3 class="panel-title">Create your Group</h3>
   </div>
   <div class="panel-body">
-    <!-- Steps -->
-    <div class="pearls row">
-      <div class="pearl current col-4">
-        <div class="pearl-icon"><i class="icon wb-map" aria-hidden="true"></i></div>
-        <span class="pearl-title">Group Info</span>
-      </div>
-      <div class="pearl col-4">
-        <div class="pearl-icon"><i class="icon wb-calendar" aria-hidden="true"></i></div>
-        <span class="pearl-title">Trainings</span>
-      </div>
-      <div class="pearl col-4">
-        <div class="pearl-icon"><i class="icon wb-user-add" aria-hidden="true"></i></div>
-        <span class="pearl-title">Invitations</span>
-      </div>
-    </div>
-    <!-- End Steps -->
-
     <!-- Wizard Content -->
     <form id="exampleFormContainer" method="POST" action="/group/create">
       <div class="wizard-content">
-        <div class="wizard-pane active" id="exampleAccountOne" role="tabpanel">
+        <h4 class="panel-title">Create your Group</h4>
+        <div>
           <div class="form-group">
             <label class="form-control-label" for="inputGroupName">Name</label>
             <input type="text" class="form-control" id="inputGroupName" name="groupName" required="required" placeholder="ASC Dunois" data-groups='<?= $groupNames ?>'>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label" for="inputGroupPlace">Place</label>
-            <input type="text" class="form-control" id="inputGroupPlace" name="groupPlace" placeholder="Gymnasium Dunois">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label" for="inputGroupAddress">Address</label>
-            <input type="text" class="form-control" id="inputGroupAddress" name="groupAddress" placeholder="70 rue de Dunois 75013 Paris">
+            <div class="error hidden">
+                <div class="alert alert-alt alert-danger alert-dismissible mt-20" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                  Name already taken
+                </div>
+            </div>
           </div>
         </div>
-        <div class="wizard-pane" id="exampleBillingOne" role="tabpanel">
-            <div id="toClone" class="clonedInput">
+        <hr>
+        <h4 class="panel-title">Set Up Trainnings (optional)</h4>
+        <div>
+            <div id="toClone" class="clonedInput mt-20">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">
                                 Place Name
                             </label>
-                            <?= $this->formElement($form->get('place[]')); ?>
+                            <input type="text" class="form-control" name="place[]" placeholder="Gymnasium Dunois">
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">
-                                Address
+                                Full Address
                             </label>
-                            <?= $this->formElement($form->get('address[]')); ?>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">
-                                Zipcode
-                            </label>
-                            <?= $this->formElement($form->get('zipCode[]')); ?>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">
-                                City
-                            </label>
-                            <?= $this->formElement($form->get('city[]')); ?>
+                            <input type="text" class="form-control" name="address[]" placeholder="70 rue de Dunois, 75013 Paris">
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="form-group">
                             <label class="control-label">
                                 Training Day
                             </label>
-                            <?= $this->formElement($form->get('eventDay[]')); ?>
+                            <select class="form-control" name="eventDay[]">
+                              <option value="0" selected disabled>Select Day</option>
+                              <option value="monday">Monday</option>
+                              <option value="tuesday">Tuesday</option>
+                              <option value="wednesday">Wednesday</option>
+                              <option value="thursday">Thursday</option>
+                              <option value="friday">Friday</option>
+                              <option value="saturday">Saturday</option>
+                              <option value="sunday">Sunday</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">
                                 Start Time
                             </label>
-                            <?= $this->formElement($form->get('time[]')); ?>
+                            <input type="text" name="time[]" class="form-control" id="inputTime" data-plugin="formatter" data-pattern="[[99]]:[[99]]" placeholder="20:00">
                         </div>
                     </div>
                 </div>
-                <hr>
             </div>
             <div id="cloneTarget"></div>
             <div class="row">
                 <div class="col-12 text-center">
-                    <button type="button" class="btn btn-primary clone">Add more</a>
+                    <button type="button" class="btn btn-primary btn-outline clone float-right">Add more</a>
                 </div>
             </div>
         </div>
-        <div class="wizard-pane" id="exampleGettingOne" role="tabpanel">
-            <div class="row text-center">
-                <div class="col-12">
-                    <div class="form-group">
-                        <label class="control-label">
-                            Invitez des joueurs
-                        </label>
-                        <?= $this->formElement($form->get('emails')); ?>
-                    </div>
-                </div>
-            </div>
+        <hr>
+        <h4 class="panel-title">Invite People (optional)</h4>
+        <div>
+            <label class="control-label">
+                Add Emails
+            </label>
+            <input type="text" class="form-control" id="inputTokenfieldEvents" data-tokens=""
+        />
+        </div>
+        <hr>
+        <div>
+            <button type="submit" class="btn btn-success ladda-button float-right" data-timeout="15000" id="submit-form" data-style="zoom-in" data-plugin="ladda">
+                <span class="ladda-label">Submit</span>
+                <span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 0px;"></div>
+            </button>
         </div>
       </div>
     </form>

@@ -12,6 +12,25 @@ use \Gumlet\ImageResize;
 class UserController extends AbstractController
 {
 
+    public function updateAction()
+    {
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $post = $request->getPost()->toArray();
+            $user = $this->userTable->save($post);
+        }
+
+       $view = new ViewModel(array(
+            'result'   => [
+                'success'  => true
+            ]
+        ));
+
+        $view->setTerminal(true);
+        $view->setTemplate('api/default/json.phtml');
+        return $view;
+    }
+
     public function uploadAction()
     {
         if($_FILES) { 
