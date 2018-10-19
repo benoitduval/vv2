@@ -68,8 +68,8 @@ class ConsoleController extends AbstractController
         $console->writeLine('Fixing ' . count($stats) . ' Ace services', Color::BLUE);
         foreach ($stats as $stat) {
             $stat->userId = null;
-            $stat->reason = \Application\Model\Stats::FAULT_SERVE;
-            $console->writeLine('Saving stat with id ' . $stat->id, Color::green);
+            $stat->reason = \Application\Model\Stats::POINT_SERVE;
+            $console->writeLine('Saving stat with id ' . $stat->id, Color::GREEN);
             $this->statsTable->save($stat);
         }
 
