@@ -80,7 +80,9 @@
           <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)"
             aria-expanded="false" data-animation="scale-up" role="button">
             <i class="icon wb-bell" aria-hidden="true"></i>
-            <span class="badge badge-pill badge-danger up"><?= count($notifications) ?></span>
+            <?php if (count($notifications)): ?>
+              <span class="badge badge-pill badge-danger up"><?= count($notifications) ?></span>
+            <?php endif ?>
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-media" role="menu">
             <div class="dropdown-menu-header">
