@@ -51,7 +51,7 @@
 </ol>
 
 <div class="row">
-  <div class="col-xxl-4 col-lg-6 col-md-12 ecommerceRevenue">
+  <div class="col-xxl-3 col-lg-6 col-md-12 ecommerceRevenue">
     <div class="card card-block text-center pt-10 user-info text-center">
       <div class="col-12">
         <a class="avatar avatar-100"  href="javascript:void(0)">
@@ -111,54 +111,53 @@
       </div>
     </div>
   </div>
-  <div class="col-xxl-4 col-lg-6 col-md-12">
-    <!-- Panel Line Pie -->
-    <div class="card card-shadow" id="chartLinePie">
-      <div class="card-block p-0">
-        <div class="bg-blue-600 white p-30">
-          <div class="font-size-20 clearfix">
-            <span class="avatar avatar-20"  >
-              <img alt="" src="<?= $selected->getAvatarPath() ?>">
-            </span>
-            Receptions
-            <span class="float-right">
-              <?= $receptions['count'] ?>
-            </span>
-          </div>
-          <div class="font-size-14 blue-200 clearfix">
-            Quality over match
-            <span class="float-right">Avg: <?= $receptions['average'] ?></span>
-          </div>
-          <div class="ct-chart chart-line h-100" data-stats="<?= json_encode([$receptions['evolution']]) ?>"></div>
-        </div>
-        <div class="p-30">
-          <div class="row no-space">
-            <div class="col-7">
-              <p class="mb-0">
-                <span class="icon wb-medium-point red-600 mr-5"></span>Zip: <?= $receptions['quality']['0']?>
-              </p>
-              <p class="mb-0">
-                <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $receptions['quality']['1']?>
-              </p>
-              <p class="mb-0">
-                <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $receptions['quality']['2']?>
-              </p>
-              <p class="mb-0">
-                <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $receptions['quality']['3']?>
-              </p>
-              <p class="mb-0">
-                <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $receptions['quality']['4']?>
-              </p>
-              <p class="mb-0">
-                <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $receptions['quality']['5']?>
-              </p>
+
+    <div class="col-xxl-3 col-lg-6 col-md-12">
+      <!-- Panel Line Pie -->
+      <div class="card card-shadow" id="chartLinePie">
+        <div class="card-block p-0">
+          <div class="bg-blue-600 white p-30">
+            <div class="font-size-20 clearfix">
+              <span class="avatar avatar-20"  >
+                <img alt="" src="<?= $selected->getAvatarPath() ?>">
+              </span>
+              Sets
+              <span class="float-right">
+                <?= $sets['count'] ?>
+              </span>
             </div>
-            <div class="col-5">
-              <div class="ct-chart chart-pie" data-stats="<?= json_encode($receptions['quality']) ?>" style="height: 129px;">
-                <div class="vertical-align text-center" style="height:100%; width:100%; position:absolute; left:0; top:0;">
-                  <div class="font-size-20  vertical-align-middle" style="line-height:1.1 ">
-                    <div><?= $receptions['average'] ?></div>
-                    <div>AVG</div>
+            <div class="font-size-14 blue-200 clearfix">
+              Quality over match
+              <span class="float-right">Avg: <?= $sets['average'] ?></span>
+            </div>
+            <div class="ct-chart chart-line h-100" data-stats="<?= json_encode([$sets['evolution']]) ?>"></div>
+          </div>
+          <div class="p-30">
+            <div class="row no-space">
+              <div class="col-7">
+                <p class="mb-0">
+                  <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $sets['quality']['1']?>
+                </p>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $sets['quality']['2']?>
+                </p>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $sets['quality']['3']?>
+                </p>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $sets['quality']['4']?>
+                </p>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $sets['quality']['5']?>
+                </p>
+              </div>
+              <div class="col-5">
+                <div class="ct-chart chart-pie" data-stats="<?= json_encode($sets['quality']) ?>" style="height: 129px;">
+                  <div class="vertical-align text-center" style="height:100%; width:100%; position:absolute; left:0; top:0;">
+                    <div class="font-size-20  vertical-align-middle" style="line-height:1.1 ">
+                      <div><?= $sets['average'] ?></div>
+                      <div>AVG</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -166,137 +165,192 @@
           </div>
         </div>
       </div>
-      <div class="ecommerceRevenue">
-        <div class="card-block bg-white pt-0">
-          <div class="pie-view row mt-0">
-            <?php if ($digPercent != 100): ?>
-              <div class="col-6 pie-right text-center">
-                <h5 class="blue-grey-500 font-size-14 font-weight-100">DIGS</h5>
-                <p class="font-size-20 blue-grey-700">
-                  <?= $digs ?> / <?= $totalDigs ?>
+      <!-- End Panel Line Pie -->
+    </div>
+
+  <!-- Receptions -->
+    <div class="col-xxl-3 col-lg-6 col-md-12">
+      <!-- Panel Line Pie -->
+      <div class="card card-shadow" id="chartLinePie">
+        <div class="card-block p-0">
+          <div class="bg-blue-600 white p-30">
+            <div class="font-size-20 clearfix">
+              <span class="avatar avatar-20"  >
+                <img alt="" src="<?= $selected->getAvatarPath() ?>">
+              </span>
+              Receptions
+              <span class="float-right">
+                <?= $receptions['count'] ?>
+              </span>
+            </div>
+            <div class="font-size-14 blue-200 clearfix">
+              Quality over match
+              <span class="float-right">Avg: <?= $receptions['average'] ?></span>
+            </div>
+            <div class="ct-chart chart-line h-100" data-stats="<?= json_encode([$receptions['evolution']]) ?>"></div>
+          </div>
+          <div class="p-30">
+            <div class="row no-space">
+              <div class="col-7">
+                <p class="mb-0">
+                  <span class="icon wb-medium-point red-600 mr-5"></span>Zip: <?= $receptions['quality']['0']?>
                 </p>
-                <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                  data-valuemin="0" data-barcolor="green" data-size="100" data-barsize="4"
-                  data-goal="<?= $digPercent ?>" aria-valuenow="<?= $digPercent ?>" role="progressbar">
-                  <span class="pie-progress-number"><?= $digPercent ?>%</span>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $receptions['quality']['1']?>
+                </p>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $receptions['quality']['2']?>
+                </p>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $receptions['quality']['3']?>
+                </p>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $receptions['quality']['4']?>
+                </p>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $receptions['quality']['5']?>
+                </p>
+              </div>
+              <div class="col-5">
+                <div class="ct-chart chart-pie" data-stats="<?= json_encode($receptions['quality']) ?>" style="height: 129px;">
+                  <div class="vertical-align text-center" style="height:100%; width:100%; position:absolute; left:0; top:0;">
+                    <div class="font-size-20  vertical-align-middle" style="line-height:1.1 ">
+                      <div><?= $receptions['average'] ?></div>
+                      <div>AVG</div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            <?php else: ?>
-              <div class="col-3"></div>
-            <?php endif ?>
-            <div class="col-6 pie-right text-center">
-              <h5 class="blue-grey-500 font-size-14 font-weight-100">RECEPTIONS</h5>
-              <?php if ($receptions['count'] != $receptions['totalReception']): ?>
-                <p class="font-size-20 blue-grey-700">
-                    <?= $receptions['count'] ?> / <?= $receptions['totalReception'] ?>
-                </p>
-                <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                  data-valuemin="0" data-barcolor="green" data-size="100" data-barsize="4"
-                  data-goal="<?= $receptions['percent'] ?>" aria-valuenow="<?= $receptions['percent'] ?>" role="progressbar">
-                  <span class="pie-progress-number"><?= $receptions['percent'] ?>%</span>
+            </div>
+          </div>
+        </div>
+        <div class="ecommerceRevenue">
+          <div class="card-block bg-white pt-0">
+            <div class="pie-view row mt-0">
+              <?php if ($digPercent != 100): ?>
+                <div class="col-6 pie-right text-center">
+                  <h5 class="blue-grey-500 font-size-14 font-weight-100">DIGS</h5>
+                  <p class="font-size-20 blue-grey-700">
+                    <?= $digs ?> / <?= $totalDigs ?>
+                  </p>
+                  <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                    data-valuemin="0" data-barcolor="green" data-size="100" data-barsize="4"
+                    data-goal="<?= $digPercent ?>" aria-valuenow="<?= $digPercent ?>" role="progressbar">
+                    <span class="pie-progress-number"><?= $digPercent ?>%</span>
+                  </div>
                 </div>
               <?php else: ?>
-                <p class="font-size-20 blue-grey-700">
-                    <?= $receptions['totalReception'] ?>
-                </p>
+                <div class="col-3"></div>
               <?php endif ?>
+              <div class="col-6 pie-right text-center">
+                <?php if ($receptions['count'] != $receptions['totalReception']): ?>
+                  <h5 class="blue-grey-500 font-size-14 font-weight-100">RECEPTIONS</h5>
+                  <p class="font-size-20 blue-grey-700">
+                      <?= $receptions['count'] ?> / <?= $receptions['totalReception'] ?>
+                  </p>
+                  <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                    data-valuemin="0" data-barcolor="green" data-size="100" data-barsize="4"
+                    data-goal="<?= $receptions['percent'] ?>" aria-valuenow="<?= $receptions['percent'] ?>" role="progressbar">
+                    <span class="pie-progress-number"><?= $receptions['percent'] ?>%</span>
+                  </div>
+                <?php endif ?>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <!-- End Panel Line Pie -->
     </div>
-    <!-- End Panel Line Pie -->
-  </div>
 
-  <div class="col-xxl-4 col-lg-6 col-md-12">
-    <!-- Panel Line Pie -->
-    <div class="card card-shadow chartLinePie" id="chartLinePie">
-      <div class="card-block p-0">
-        <div class="bg-blue-600 white p-30">
-          <div class="font-size-20 clearfix">
-            <span class="avatar avatar-20" >
-              <img alt="" src="<?= $selected->getAvatarPath() ?>">
-            </span>
-            Service
-            <span class="float-right">
-              <?= $services['count'] ?>
-            </span>
+    <div class="col-xxl-3 col-lg-6 col-md-12">
+      <!-- Panel Line Pie -->
+      <div class="card card-shadow chartLinePie" id="chartLinePie">
+        <div class="card-block p-0">
+          <div class="bg-blue-600 white p-30">
+            <div class="font-size-20 clearfix">
+              <span class="avatar avatar-20" >
+                <img alt="" src="<?= $selected->getAvatarPath() ?>">
+              </span>
+              Service
+              <span class="float-right">
+                <?= $services['count'] ?>
+              </span>
+            </div>
+            <div class="font-size-14 blue-200 clearfix">
+              Quality over match
+              <span class="float-right">Avg: <?= $services['average'] ?></span>
+            </div>
+            <div class="ct-chart chart-line h-100" data-stats="<?= json_encode([$services['evolution']]) ?>"></div>
           </div>
-          <div class="font-size-14 blue-200 clearfix">
-            Quality over match
-            <span class="float-right">Avg: <?= $services['average'] ?></span>
-          </div>
-          <div class="ct-chart chart-line h-100" data-stats="<?= json_encode([$services['evolution']]) ?>"></div>
-        </div>
-        <div class="p-30">
-          <div class="row no-space">
-           <div class="col-7">
-            <p class="mb-0">
-              <span class="icon wb-medium-point red-600 mr-5"></span>Fault: <?= $services['faults'] ?>
-            </p>
-            <p class="mb-0">
-              <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $services['quality']['1']?>
-            </p>
-            <p class="mb-0">
-              <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $services['quality']['2']?>
-            </p>
-            <p class="mb-0">
-              <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $services['quality']['3']?>
-            </p>
-            <p class="mb-0">
-              <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $services['quality']['4']?>
-            </p>
-            <p class="mb-0">
-              <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $services['quality']['5']?>
-            </p>
-            <p class="mb-0">
-              <span class="icon wb-medium-point green-600 mr-5"></span>Ace: <?= $services['aces'] ?>
-            </p>
-           </div>
-            <div class="col-5">
-              <div class="ct-chart chart-pie" data-stats="<?= json_encode($services['quality']) ?>" style="height: 129px;">
-                <div class="vertical-align text-center" style="height:100%; width:100%; position:absolute; left:0; top:0;">
-                  <div class="font-size-20  vertical-align-middle" style="line-height:1.1 ">
-                    <div><?= $services['average'] ?></div>
-                    <div>AVG</div>
+          <div class="p-30">
+            <div class="row no-space">
+             <div class="col-7">
+              <p class="mb-0">
+                <span class="icon wb-medium-point red-600 mr-5"></span>Fault: <?= $services['faults'] ?>
+              </p>
+              <p class="mb-0">
+                <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $services['quality']['1']?>
+              </p>
+              <p class="mb-0">
+                <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $services['quality']['2']?>
+              </p>
+              <p class="mb-0">
+                <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $services['quality']['3']?>
+              </p>
+              <p class="mb-0">
+                <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $services['quality']['4']?>
+              </p>
+              <p class="mb-0">
+                <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $services['quality']['5']?>
+              </p>
+              <p class="mb-0">
+                <span class="icon wb-medium-point green-600 mr-5"></span>Ace: <?= $services['aces'] ?>
+              </p>
+             </div>
+              <div class="col-5">
+                <div class="ct-chart chart-pie" data-stats="<?= json_encode($services['quality']) ?>" style="height: 129px;">
+                  <div class="vertical-align text-center" style="height:100%; width:100%; position:absolute; left:0; top:0;">
+                    <div class="font-size-20  vertical-align-middle" style="line-height:1.1 ">
+                      <div><?= $services['average'] ?></div>
+                      <div>AVG</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="ecommerceRevenue">
-         <div class="card-block bg-white pt-0">
-           <div class="pie-view row mt-0">
-             <div class="col-6 pie-right text-center">
-               <h5 class="blue-grey-500 font-size-14 font-weight-100">ACES</h5>
-               <p class="font-size-20 blue-grey-700">
-                 <?= $services['aces'] ?> / <?= $services['count'] ?>
-               </p>
-               <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                 data-valuemin="0" data-barcolor="green" data-size="100" data-barsize="4"
-                 data-goal="<?= $services['acePercent'] ?>" aria-valuenow="<?= $services['acePercent'] ?>" role="progressbar">
-                 <span class="pie-progress-number"><?= $services['acePercent'] ?>%</span>
+        <div class="ecommerceRevenue">
+           <div class="card-block bg-white pt-0">
+             <div class="pie-view row mt-0">
+               <div class="col-6 pie-right text-center">
+                 <h5 class="blue-grey-500 font-size-14 font-weight-100">ACES</h5>
+                 <p class="font-size-20 blue-grey-700">
+                   <?= $services['aces'] ?> / <?= $services['count'] ?>
+                 </p>
+                 <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                   data-valuemin="0" data-barcolor="green" data-size="100" data-barsize="4"
+                   data-goal="<?= $services['acePercent'] ?>" aria-valuenow="<?= $services['acePercent'] ?>" role="progressbar">
+                   <span class="pie-progress-number"><?= $services['acePercent'] ?>%</span>
+                 </div>
                </div>
-             </div>
-             <div class="col-6 pie-right text-center">
-               <h5 class="blue-grey-500 font-size-14 font-weight-100">FAULTS</h5>
-               <p class="font-size-20 blue-grey-700">
-                 <?= $services['faults'] ?> / <?= $services['count'] ?>
-               </p>
-               <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                 data-valuemin="0" data-barcolor="red" data-size="100" data-barsize="4"
-                 data-goal="<?= $services['faultPercent'] ?>" aria-valuenow="<?= $services['faultPercent'] ?>" role="progressbar">
-                 <span class="pie-progress-number"><?= $services['faultPercent'] ?>%</span>
+               <div class="col-6 pie-right text-center">
+                 <h5 class="blue-grey-500 font-size-14 font-weight-100">FAULTS</h5>
+                 <p class="font-size-20 blue-grey-700">
+                   <?= $services['faults'] ?> / <?= $services['count'] ?>
+                 </p>
+                 <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                   data-valuemin="0" data-barcolor="red" data-size="100" data-barsize="4"
+                   data-goal="<?= $services['faultPercent'] ?>" aria-valuenow="<?= $services['faultPercent'] ?>" role="progressbar">
+                   <span class="pie-progress-number"><?= $services['faultPercent'] ?>%</span>
+                 </div>
                </div>
              </div>
            </div>
          </div>
        </div>
-     </div>
-    <!-- End Panel Line Pie -->
-  </div>
+      <!-- End Panel Line Pie -->
+    </div>
 </div>
 
 <div class="row" data-plugin="matchHeight" data-by-row="true">

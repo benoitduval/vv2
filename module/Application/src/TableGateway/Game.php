@@ -29,6 +29,24 @@ class Game extends AbstractTableGateway
 		return $result;
 	}
 
+	public function getSetStats($eventId, $userId = null)
+	{
+		$key = 'stats.set.eventId.' . $eventId;
+		if ($userId) $key .= '.userId.' . $userId;
+		$memcached = $this->getContainer()->get('memcached');
+		if ($result = $memcached->getItem($key)) return $result;
+
+		$evolution = $this->getSetEvolution($eventId, $userId);
+		$result['evolution'] = array_values($evolution);
+		$result['quality'] 	 = $this->getSetByQuality($eventId, $userId);
+		$result['average']   = $this->getSetAvg($eventId, $userId);
+		$result['count']     = count($result['evolution']);
+
+	    if ($result) $memcached->setItem($key, $result);
+
+		return $result;
+	}
+
 	public function getServiceStats($eventId, $userId = null)
 	{
 		$key = 'stats.service.eventId.' . $eventId;
@@ -49,8 +67,8 @@ class Game extends AbstractTableGateway
 		$result['faults'] 	    = $statsTable->getServiceFault($eventId, $userId);
 		$result['average']      = $this->getServiceAvg($eventId, $userId);
 		$result['count']        = count($result['evolution']);
-		$result['acePercent']   = ceil(($result['aces'] / $result['count']) * 100);
-		$result['faultPercent'] = ceil(($result['faults'] / $result['count']) * 100);
+		$result['acePercent']   = $result['count'] ? ceil(($result['aces'] / $result['count']) * 100) : 0;
+		$result['faultPercent'] = $result['count'] ? ceil(($result['faults'] / $result['count']) * 100) : 0;
 
 	    if ($result) $memcached->setItem($key, $result);
 
@@ -101,6 +119,39 @@ class Game extends AbstractTableGateway
 		if(count($receptions)) {
 		    $receptions = array_filter($receptions);
 		    $average = array_sum($receptions) / count($receptions);
+		    return sprintf('%0.1f', $average);
+		}
+	}
+
+	public function getSetEvolution($eventId, $userId = null)
+	{   
+	    $params = [
+	        'eventId' => $eventId,
+	        'type' 	  => GameStats::SET,
+	    ];
+	    if ($userId) $params['userId'] = $userId;
+	    $result = $this->_getHistory($params);
+	    ksort($result);
+	    return $result;
+	}
+
+	public function getSetByQuality($eventId, $userId = null)
+	{
+		for ($i = 0; $i < 6; $i++) $result[$i] = 0;
+		$sets = $this->getSetEvolution($eventId, $userId);
+		foreach ($sets as $set) {
+		    $result[(string) $set] ++;
+		}
+		ksort($result);
+		return $result;
+	}
+
+	public function getSetAvg($eventId, $userId = null)
+	{
+		$sets = $this->getSetEvolution($eventId, $userId);
+		if(count($sets)) {
+		    $sets = array_filter($sets);
+		    $average = array_sum($sets) / count($sets);
 		    return sprintf('%0.1f', $average);
 		}
 	}

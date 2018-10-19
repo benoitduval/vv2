@@ -1,81 +1,170 @@
-<div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <div class="card">
-            <?= $this->form()->openTag($form); ?>
-                <div class="card-header text-center">
-                    <h4 class="card-title"><?= $group->name ?></h4>
-                    <p class="category">Créer un évènement pour ce groupe.</p>
-                </div>
-                <div class="card-content">
-                    <div class="tab-content">
-                        <div>
-                            <div class="row">
-                                <div class="col-md-10 col-md-offset-1">
-                                    <div class="form-group">
-                                        <label class="control-label">
-                                            Nom de l'évènement<star>*</star>
-                                        </label>
-                                        <?= $this->formElement($form->get('name')); ?>
-                                    </div>
-                                </div>
-                                <div class="col-md-10 col-md-offset-1">
-                                    <div class="form-group">
-                                        <label class="control-label">
-                                            Date<star>*</star>
-                                        </label>
-                                        <?= $this->formElement($form->get('date')); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-10 col-md-offset-1">
-                                    <div class="form-group">
-                                        <label class="control-label">Nom du gymnase<star>*</star></label>
-                                        <?= $this->formElement($form->get('place')); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-10 col-md-offset-1">
-                                    <div class="form-group">
-                                        <label class="control-label">Adresse de l'évènement<star>*</star></label>
-                                        <?= $this->formElement($form->get('address')); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5 col-md-offset-1">
-                                    <div class="form-group">
-                                        <label class="control-label">Code Postal<star>*</star></label>
-                                        <?= $this->formElement($form->get('zipCode')); ?>
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label class="control-label">Ville<star>*</star></label>
-                                        <?= $this->formElement($form->get('city')); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <hr class="col-md-10 col-md-offset-1">
-                            </div>
-                            <div class="row">
-                                <div class="col-md-10 col-md-offset-1">
-                                    <div class="form-group checkbox">
-                                        <?= $this->formElement($form->get('reminder')); ?>
-                                        <?= $this->formLabel($form->get('reminder')); ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!--AddEvent Dialog -->
+<?php if ($adminGroups): ?>
+    <div class="row">
+        <div class="col-12 col-sm-6">
+          <form id="event-edit" class="card form-horizontal" action="/event/edit/<?= $event->id ?>" method="post" role="form">
+            <div class="card-block">
+              <h4 class="modal-title">Edit Event</h4>
+              <div class="row row-lg">
+                <div class="col-xl-12">
+                  <div class="form-group row">
+                    <label class="col-3 form-control-label" for="name">Name</label>
+                    <div class="col-9">
+                      <input type="text" class="form-control" id="name" name="name" required="required" value="<?= $event->name ?>">
                     </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-3 form-control-label" for="starts">Date</label>
+                    <div class="col-5 col-lg-6">
+                      <div class="input-group">
+                        <input type="text" class="form-control" data-date-format="yyyy-mm-dd" data-start-date="2018-10-15" value="2018-10-15" name="date" id="" 
+                        data-plugin="datepicker" required="required">
+                        <div class="input-group-append">
+                          <span class="input-group-text">
+                            <i class="icon wb-calendar" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4 col-lg-3">
+                      <div class="input-group">
+                        <input type="text" pattern="\d{2}:\d{2}" name="time" class="form-control" id="inputTime" data-plugin="formatter" data-pattern="[[99]]:[[99]]" required="required" value="2000">
+                        <div class="hidden-xs input-group-append">
+                          <span class="input-group-text">
+                            <i class="icon wb-time" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-3 form-control-label" for="place">Place</label>
+                    <div class="col-9">
+                      <input type="text" class="form-control" id="place" name="place" value="<?= $event->place ?>" required="required">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-3 form-control-label" for="address">Address</label>
+                    <div class="col-9">
+                      <input type="text" class="form-control" id="address" name="address" value="<?= $event->address ?>" required="required">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-3 form-control-label" for="zipCode">Zipcode</label>
+                    <div class="col-9">
+                      <input type="text" class="form-control" id="zipCode" name="zipCode" value="<?= $event->zipCode ?>" required="required">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-3 form-control-label" for="city">City</label>
+                    <div class="col-9">
+                      <input type="text" class="form-control" id="city" name="city" value="<?= $event->city ?>" required="required">
+                    </div>
+                  </div>
                 </div>
-                <div class="card-footer">
-                    <?= $this->formElement($form->get('submit')); ?>
-                    <div class="clearfix"></div>
-                </div>
-            </form>
+              </div>
+              <input type="hidden" class="form-control" id="eventId" name="eventId" value="<?= $event->id ?>" required="required">
+              <input type="hidden" class="form-control" name="form-name" value="edit-information">
+            </div>
+            <div class="modal-footer">
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary ladda-button" data-style="zoom-in" data-timeout="15000" data-plugin="ladda">
+                  <span class="ladda-label">
+                    Edit event
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
+
+        <div class="col-12 col-sm-6">
+          <form id="event-edit" class="card form-horizontal" action="/event/edit/<?= $event->id ?>" method="post" role="form">
+          <div class="card-block">
+            <h4 class="modal-title">Score</h4>
+            <div class="row row-lg">
+              <div class="col-xl-12">
+                <div class="form-group row">
+                  <label class="col-2 form-control-label" for="set1Team1">Set 1</label>
+                  <div class="col-5">
+                    <input type="input" pattern="\d{1,2}" name="set1Team1" class="form-control" required="required" value="<?= isset($eventData['set1Team1']) ?  $eventData['set1Team1'] : null ?>">
+                  </div>
+                  <div class="col-5">
+                    <input type="input" pattern="\d{1,2}" name="set1Team2" class="form-control" required="required" value="<?= isset($eventData['set1Team2']) ?  $eventData['set1Team2'] : null ?>">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-12">
+                <div class="form-group row">
+                  <label class="col-2 form-control-label" for="set2Team1">Set 2</label>
+                  <div class="col-5">
+                    <input type="input" pattern="\d{1,2}" name="set2Team1" class="form-control" required="required" value="<?= isset($eventData['set2Team1']) ?  $eventData['set2Team1'] : null ?>">
+                  </div>
+                  <div class="col-5">
+                    <input type="input" pattern="\d{1,2}" name="set2Team2" class="form-control" required="required" value="<?= isset($eventData['set2Team2']) ?  $eventData['set2Team2'] : null ?>">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-12">
+                <div class="form-group row">
+                  <label class="col-2 form-control-label" for="set3Team1">Set 3</label>
+                  <div class="col-5">
+                    <input type="input" pattern="\d{1,2}" name="set3Team1" class="form-control" required="required" value="<?= isset($eventData['set3Team1']) ?  $eventData['set3Team1'] : null ?>">
+                  </div>
+                  <div class="col-5">
+                    <input type="input" pattern="\d{1,2}" name="set3Team2" class="form-control" required="required" value="<?= isset($eventData['set3Team2']) ?  $eventData['set3Team2'] : null ?>">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-12">
+                <div class="form-group row">
+                  <label class="col-2 form-control-label" for="set4Team1">Set 4</label>
+                  <div class="col-5">
+                    <input type="input" pattern="\d{1,2}" name="set4Team1" class="form-control" value="<?= isset($eventData['set4Team1']) ?  $eventData['set4Team1'] : null ?>">
+                  </div>
+                  <div class="col-5">
+                    <input type="input" pattern="\d{1,2}" name="set4Team2" class="form-control" value="<?= isset($eventData['set4Team2']) ?  $eventData['set4Team2'] : null ?>">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-12">
+                <div class="form-group row">
+                  <label class="col-2 form-control-label" for="set5Team1">Set 5</label>
+                  <div class="col-5">
+                    <input type="input" pattern="\d{1,2}" name="set5Team1" class="form-control" value="<?= isset($eventData['set5Team1']) ?  $eventData['set5Team1'] : null ?>">
+                  </div>
+                  <div class="col-5">
+                    <input type="input" pattern="\d{1,2}" name="set5Team2" class="form-control" value="<?= isset($eventData['set5Team2']) ?  $eventData['set5Team2'] : null ?>">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-12">
+                <h4 class="modal-title">Debrief</h4>
+                <textarea  type="text" id="debrief" class="form-control" placeholder="Say something" rows="10"><?= $event->debrief ?></textarea>
+              </div>
+              <div class="col-xl-12">
+                <h4 class="modal-title">Video</h4>
+                <input type="text" class="form-control" id="youtube" name="youtube" required="required" value="<?= $event->video ?>">
+              </div>
+
+            </div>
+            <input type="hidden" class="form-control" id="eventId" name="eventId" value="<?= $event->id ?>" required="required">
+            <input type="hidden" class="form-control" name="form-name" value="score-debrief">
+          </div>
+          <div class="modal-footer">
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary ladda-button" data-style="zoom-in" data-timeout="15000" data-plugin="ladda">
+                <span class="ladda-label">
+                  Save
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
     </div>
-</div>
+<?php endif ?>

@@ -108,6 +108,7 @@ class EventController extends AbstractController
             $totalDigs   = $this->gameTable->getDigs($eventId);
             $digPercent  = ceil(($digs / $totalDigs) * 100);
             $services    = $this->gameTable->getServiceStats($eventId, $userId);
+            $sets        = $this->gameTable->getSetStats($eventId, $userId);
 
             $pointCount  = $attacks['kills'] + $blocks + $services['aces'];
 
@@ -149,6 +150,7 @@ class EventController extends AbstractController
             $compare = $this->statsTable->getCompare($event->id);
             return new ViewModel([
                 'receptions'    => $receptions,
+                'sets'          => $sets,
                 'services'      => $services,
                 'selected'      => $selected,
                 'digs'          => $digs,
@@ -175,58 +177,77 @@ class EventController extends AbstractController
     {
         $eventId    = $this->params()->fromRoute('id');
         if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isAdmin($this->getUser()->id, $event->groupId)) {
+            $groups      = $this->getUserGroups();
+            $adminGroups = [];
+            if ($groups) {
+                foreach ($groups as $group) {
+                    if ($this->userGroupTable->isAdmin($this->getUser()->id, $group->id)) {
+                        $adminGroups[] = $group;
+                    }
+                    $count[$group->id] = $this->eventTable->count(['groupId' => $group->id]);
+                }
+            }
 
             $event = $this->eventTable->find($eventId);
             $group = $this->groupTable->find($event->groupId);
 
-            $form = new Form\Event();
+            $eventData = [];
+            if ($event->sets) {
+                foreach ($event->sets as $key => $score) {
+                    $i = $key + 1;
+                    $set = explode('-', $score);
+                    $eventData['set' . $i . 'Team1'] = $set[0];
+                    $eventData['set' . $i . 'Team2'] = $set[1];
+                }
+            } else {
+                for ($i = 1; $i <= 5; $i++) {
+                    if ($stats = $this->statsTable->fetchOne(['eventId' => $eventId, 'set' => $i], 'id DESC')) {
+                        $eventData['set' . $i . 'Team1'] = $stats->scoreUs;
+                        $eventData['set' . $i . 'Team2'] = $stats->scoreThem;
+                    }
+                }
+            }
+            $eventData['debrief'] = $event->debrief;
+
             $date = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
-            $formData = $event->toArray();
-            $formData['date'] = $date->format('d/m/Y H:i');
-            $form->setData($formData);
             $request = $this->getRequest();
             if ($request->isPost()) {
-                $post    = $request->getPost()->toArray();
+                $post = $request->getPost()->toArray();
 
-                $form->setData($request->getPost());
-                if ($form->isValid()) {
-
-                    $data = $form->getData();
-                    $date = \DateTime::createFromFormat('d/m/Y H:i', $data['date']);
-
-                    $data['date']    = $date->format('Y-m-d H:i:s');
-
-                    $event->exchangeArray($data);
+                    \Zend\Debug\Debug::dump($post);die;
+                if ($post['form-name'] == 'edit-information') {
+                    $date = \DateTime::createFromFormat('Y-m-d H:i', $post['date'] . ' ' . $post['time']);
+                    $post['date'] = $date->format('Y-m-d H:i:s');
+                    $event->exchangeArray($post);
                     $this->eventTable->save($event);
-
-                    // send emails
-                    $config = $this->get('config');
-                    $oneSignal = $this->get(OneSignalService::class);
-                    $oneSignal->setData([
-                        'header'   => 'Événement modifié',
-                        'content'  => $event->name,
-                        'subtitle' => \Application\Service\Date::toFr($date->format('l d F \à H\hi')),
-                        'url'      => $config['baseUrl'] . '/event/detail/' . $event->id,
-                    ]);
-                    $users = $this->userTable->getAllByGroupId($group->id);
-                    foreach ($users as $user) {
-                        $oneSignal->sendTo($user->email);
-                    }
-                    $this->flashMessenger()->addSuccessMessage('Votre évènement a bien été modifié.');
-                    $this->redirect()->toRoute('event', ['action' => 'detail', 'id' => $eventId]);
+                } else  {
+                    $this->_saveDebrief($post);
                 }
             }
 
             $this->layout()->user = $this->getUser();
             return new ViewModel([
-                'group'  => $group,
-                'form'   => $form,
-                'user'   => $this->getUser(),
+                'eventData'    => $eventData,
+                'group'        => $group,
+                'adminGroups'  => $adminGroups,
+                'event'        => $event,
+                'user'         => $this->getUser(),
             ]);
         } else {
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
             $this->redirect()->toRoute('home');
         }
+    }
+
+    private function _editEvent($data)
+    {
+
+        
+    }
+
+    private function _saveDebrief($post)
+    {
+        
     }
 
     public function deleteAction()
@@ -294,6 +315,7 @@ class EventController extends AbstractController
                 }
             }
             return new ViewModel([
+                'eventData' => $eventData,
                 'event'  => $event,
                 'form'   => $form,
                 'user'   => $this->getUser(),

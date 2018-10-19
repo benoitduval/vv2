@@ -24,7 +24,7 @@ class Stats extends AbstractTableGateway
         $result['blocked']      = $this->getBlocked($eventId, $userId);
         $result['attempts']     = $gameTable->getAttempts($eventId, $userId);
         $result['total']        = $result['kills'] + $result['faults'] + $result['attempts'] + $result['blocked'];
-        $result['efficiency']   = ceil(($result['kills'] / $result['total']) * 100);
+        $result['efficiency']   = $result['total'] ? ceil(($result['kills'] / $result['total']) * 100) : 0;
 
         $totalKills = $this->getKills($eventId);
         $totalBlocked = $this->getBlocked($eventId);
