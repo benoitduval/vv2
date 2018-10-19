@@ -167,8 +167,8 @@
         </div>
       </div>
       <div class="ecommerceRevenue">
-        <div class="card-block bg-white">
-          <div class="pie-view row">
+        <div class="card-block bg-white pt-0">
+          <div class="pie-view row mt-0">
             <?php if ($digPercent != 100): ?>
               <div class="col-6 pie-right text-center">
                 <h5 class="blue-grey-500 font-size-14 font-weight-100">DIGS</h5>
@@ -185,15 +185,21 @@
               <div class="col-3"></div>
             <?php endif ?>
             <div class="col-6 pie-right text-center">
-              <h5 class="blue-grey-500 font-size-14 font-weight-100">ZIPS</h5>
-              <p class="font-size-20 blue-grey-700">
-                0 / <?= $receptions['count'] ?>
-              </p>
-              <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
-                data-valuemin="0" data-barcolor="red" data-size="100" data-barsize="4"
-                data-goal="0" aria-valuenow="0" role="progressbar">
-                <span class="pie-progress-number">0%</span>
-              </div>
+              <h5 class="blue-grey-500 font-size-14 font-weight-100">RECEPTIONS</h5>
+              <?php if ($receptions['count'] != $receptions['totalReception']): ?>
+                <p class="font-size-20 blue-grey-700">
+                    <?= $receptions['count'] ?> / <?= $receptions['totalReception'] ?>
+                </p>
+                <div class="pie-progress pie-progress-sm" data-plugin="pieProgress" data-valuemax="100"
+                  data-valuemin="0" data-barcolor="green" data-size="100" data-barsize="4"
+                  data-goal="<?= $receptions['percent'] ?>" aria-valuenow="<?= $receptions['percent'] ?>" role="progressbar">
+                  <span class="pie-progress-number"><?= $receptions['percent'] ?>%</span>
+                </div>
+              <?php else: ?>
+                <p class="font-size-20 blue-grey-700">
+                    <?= $receptions['totalReception'] ?>
+                </p>
+              <?php endif ?>
             </div>
           </div>
         </div>
@@ -261,8 +267,8 @@
         </div>
       </div>
       <div class="ecommerceRevenue">
-         <div class="card-block bg-white">
-           <div class="pie-view row">
+         <div class="card-block bg-white pt-0">
+           <div class="pie-view row mt-0">
              <div class="col-6 pie-right text-center">
                <h5 class="blue-grey-500 font-size-14 font-weight-100">ACES</h5>
                <p class="font-size-20 blue-grey-700">

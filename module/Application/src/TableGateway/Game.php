@@ -21,6 +21,9 @@ class Game extends AbstractTableGateway
 		$result['quality'] 	 = $this->getRecepByQuality($eventId, $userId);
 		$result['average']   = $this->getReceptionAvg($eventId, $userId);
 		$result['count']     = count($result['evolution']);
+
+		$result['totalReception'] = count($this->getReceptionEvolution($eventId));
+		$result['percent'] = ceil(($result['count'] / $result['totalReception']) * 100);
 	    if ($result) $memcached->setItem($key, $result);
 
 		return $result;
