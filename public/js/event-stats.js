@@ -68,7 +68,7 @@
    // --------------------------
    (function () {
 
-      if ($('.match-comparaison').length > 0) {
+      if ($('#match-comparaison').length > 0) {
         
         var set1Us = $('#match-comparaison').attr('data-set1-us');
         var set1Them = $('#match-comparaison').attr('data-set1-them');
