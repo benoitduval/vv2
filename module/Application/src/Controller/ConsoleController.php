@@ -23,6 +23,9 @@ class ConsoleController extends AbstractController
 
     public function cleanStatsAction()
     {
+
+        $console = Console::getInstance();
+
         $stats = $this->statsTable->fetchAll([
             'pointFor' => \Application\Model\Stats::POINT_US,
             'reason' => [
@@ -33,6 +36,7 @@ class ConsoleController extends AbstractController
             'userId <> ?' => 'NULL',
         ]);
 
+
         foreach ($stats as $stat) {
             $stat->userId = null;
             $this->statsTable->save($stat);
@@ -42,6 +46,7 @@ class ConsoleController extends AbstractController
             'pointFor' => \Application\Model\Stats::POINT_THEM,
             'reason' => [
                 \Application\Model\Stats::POINT_ATTACK,
+                \Application\Model\Stats::POINT_SERVE,
                 \Application\Model\Stats::FAULT_DEFENCE,
             ],
             'userId <> ?' => 'NULL',
@@ -49,6 +54,22 @@ class ConsoleController extends AbstractController
 
         foreach ($stats as $stat) {
             $stat->userId = null;
+            $this->statsTable->save($stat);
+        }
+
+        // clean service
+        $stats = $this->statsTable->fetchAll([
+            'pointFor' => \Application\Model\Stats::POINT_THEM,
+            'reason'   => \Application\Model\Stats::FAULT_SERVE,
+            'start'    => \Application\Model\Game::RECEPTION,
+            'userId <> ?' => 'NULL',
+        ]);
+
+        $console->writeLine('Fixing ' . count($stats) . ' Ace services', Color::BLUE);
+        foreach ($stats as $stat) {
+            $stat->userId = null;
+            $stat->reason = \Application\Model\Stats::FAULT_SERVE;
+            $console->writeLine('Saving stat with id ' . $stat->id, Color::green);
             $this->statsTable->save($stat);
         }
 

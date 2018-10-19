@@ -310,7 +310,6 @@
         $('#service-them-point-us, #service-them-point-them').on('click', function() {
           $('#pointFor').val($(this).attr('data-value'));
           $('#reason').val($(this).attr('data-reason'));
-          $('#reason').val(4); // fault service
           $('#game-stats').submit();
         });     
 
