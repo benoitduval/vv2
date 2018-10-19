@@ -297,7 +297,7 @@
           <button id="set3Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set3</button>
           <button id="set4Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set4</button>
           <button id="set5Button" class="btn btn-default btn-outline"><i class="icon wb-eye"></i> Set5</button>
-          <a  href="/live/<?= $event->id ?>/test" data-remote="false" data-toggle="modal" data-target="#historyModal" class="btn btn-primary btn-outline"><i class="icon wb-camera"></i> History</a>
+          <a href="/live/<?= $event->id ?>/test" data-remote="false" data-toggle="modal" data-target="#historyModal" class="btn btn-primary btn-outline"><i class="icon wb-camera"></i> History</a>
         </div>
         <div id="match-comparaison" 
           data-set1-us='<?= isset($compare[1]) ? json_encode($compare[1]['us']) : "[0,0,0,0,0,0,0]"; ?>'

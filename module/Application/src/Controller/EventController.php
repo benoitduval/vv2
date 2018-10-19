@@ -27,7 +27,7 @@ class EventController extends AbstractController
                 $isAdmin = $this->userGroupTable->isAdmin($this->getUser()->id, $group->id);
             }
 
-            $disponibilities    = $this->disponibilityTable->fetchAll(['eventId' => $eventId]);
+            $disponibilities = $this->disponibilityTable->fetchAll(['eventId' => $eventId]);
             $myGuest   = $this->disponibilityTable->fetchOne(['eventId' => $eventId, 'userId' => $this->getUser()->id]);
             $eventDate = \DateTime::createFromFormat('Y-m-d H:i:s', $event->date);
 
@@ -39,6 +39,7 @@ class EventController extends AbstractController
             ];
 
             foreach ($disponibilities as $disponibility) {
+                if (!isset($users[$disponibility->userId])) continue;
                 $availabilities[$disponibility->response][] = $users[$disponibility->userId];
             }
 

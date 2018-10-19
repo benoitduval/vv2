@@ -95,10 +95,9 @@ class Date
         return $dates;
     }
 
-    public static function getInterval(\Datetime $date)
+    public static function getInterval(\Datetime $date1, \Datetime $date2)
     {
-        $datetime2 = new \DateTime();
-        $interval  = $datetime2->diff($date);
+        $interval  = $date2->diff($date1);
         if ($interval->y) {
             $elapsed = $interval->format('%y years, %m months');
         } else if ($interval->m) {
@@ -112,7 +111,7 @@ class Date
         } else if ($interval->s) {
             $elapsed = $interval->format('%S seconds');
         }
-        // $elapsed   = $interval->format('%y years, %m months, %d days, %h hours, %i minutes, %S seconds');
+
         $elapsed   = str_replace(array('0 years,', ' 0 months,', ' 0 days,',  ' 0 hours,', ' 0 minutes,'), '', $elapsed);
         $elapsed   = str_replace(array('1 years, ', ' 1 months, ', ' 1 days, ',  ' 1 hours, ', ' 1 minutes'), array('1 year, ', '1 month, ', ' 1 day, ', ' 1 hour, ', ' 1 minute'), $elapsed);
         return $elapsed;

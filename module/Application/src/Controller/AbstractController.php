@@ -6,6 +6,7 @@ use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Application\Model;
+use Application\Model\Disponibility as Response;
 use Application\TableGateway;
 
 
@@ -25,6 +26,24 @@ class AbstractController extends AbstractActionController
             $name .= 'Table';
             $this->$name = $obj;
         }
+    }
+
+    protected function _getNotifications()
+    {
+        $notifications = [];
+        foreach ($this->_userGroups as $group) {
+            $events = $this->eventTable->getAllByGroupId($group->id, date('Y-m-d H:i:s'));
+            foreach ($events as $event) {
+                if ($this->disponibilityTable->fetchOne(['eventId' => $event->id, 'userId' => $this->_user->id, 'response' => [Response::RESP_NO_ANSWER, Response::RESP_UNCERTAIN]])) {
+
+                    $notifications[] = [
+                        'event' => $event,
+                        'group' => $group,
+                    ];
+                }
+            }
+        }
+        return $notifications;
     }
 
     public function get($name, $options = [])
@@ -67,6 +86,8 @@ class AbstractController extends AbstractActionController
         $this->layout()->vJs    = $config['version']['js'];
         $this->layout()->user   = $this->getUser();
         $this->layout()->groups = $this->getUserGroups();
+        $this->layout()->notifications = $this->_getNotifications();
+
         return parent::onDispatch($e);
     }
 }
