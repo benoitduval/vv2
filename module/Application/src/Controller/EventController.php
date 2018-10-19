@@ -342,6 +342,8 @@ class EventController extends AbstractController
         if (($event = $this->eventTable->find($eventId)) && $this->userGroupTable->isMember($this->getUser()->id, $event->groupId)) {
 
             $users      = $this->userTable->getAllByEventId($event->id);
+            $group      = $this->groupTable->find($event->groupId);
+
             $config     = $this->get('config');
             $deleteLink = null;
             $cancelLink = null;
@@ -411,6 +413,7 @@ class EventController extends AbstractController
                 'cancelLink'     => $cancelLink,
                 'data'           => $data,
                 'event'          => $event,
+                'group'          => $group,
                 'user'           => $this->getUser(),
                 'users'          => $users,
                 'server'         => ($data['positions']) ? $users[$data['positions']['p1']] : null,
@@ -424,46 +427,6 @@ class EventController extends AbstractController
             ]);     
         } else {
             $this->flashMessenger()->addErrorMessage('Vous ne pouvez pas accéder à cette page, vous avez été redirigé sur votre page d\'accueil');
-            $this->redirect()->toRoute('home');
-        }
-    }
-
-    public function liveAction()
-    {
-        $eventId   = $this->params('id');
-        $eventName = $this->params('name');
-        $event     = $this->eventTable->find($eventId);
-        // if ($event && Service\Strings::toSlug($event->name) == $eventName) {
-        if ($event) {
-            $users      = $this->userTable->getAllByEventId($event->id);
-
-            $config     = $this->get('config');
-            $baseUrl    = $config['baseUrl'];
-
-            $stats = $this->statsTable->fetchAll(['eventId' => $eventId], 'id DESC');
-            $games = $this->gameTable->fetchAll(['eventId' => $eventId]);
-
-            $result = [];
-            foreach ($stats as $stat) {
-                $result[$stat->set][$stat->numero]['ending'] = $stat;
-                $result[$stat->set][$stat->numero]['during'] = [];
-                foreach ($games as $key => $game) {
-                    if ($game->numero != $stat->numero) continue;
-                    if (in_array($game->type, [GameStats::DIG, GameStats::ATTEMPT])) {
-                        $result[$stat->set][$stat->numero][$game->type][] = $game->userId;
-                    } else {
-                        $result[$stat->set][$stat->numero]['during'][] = $game;
-                    }
-                }
-            }
-            $view = new ViewModel([
-                'result' => $result,
-                'users' => $users, 
-            ]);
-            $view->setTerminal(true);
-            
-            return $view;
-        } else {
             $this->redirect()->toRoute('home');
         }
     }

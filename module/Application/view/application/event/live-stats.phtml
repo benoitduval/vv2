@@ -1,5 +1,12 @@
 <?php $serviceShow = (isset($start) && $start == \Application\Model\Game::SERVICE); ?>
 
+<ol class="breadcrumb breadcrumb-arrow">
+  <li class="breadcrumb-item"><a class="icon wb-calendar" href="/"></a></li>
+  <li class="breadcrumb-item"><a href="/group/welcome-to/<?= $group->brand ?>"><?= $group->name ?></a></li>
+  <li class="breadcrumb-item active"><?= $event->name ?></li>
+</ol>
+
+
 <div class="row" data-by-row="true">
     <?php if ($event->video): ?>
       <div class="col-12 col-lg-8">
