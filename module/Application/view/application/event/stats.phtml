@@ -112,62 +112,6 @@
     </div>
   </div>
 
-    <div class="col-xxl-3 col-lg-6 col-md-12">
-      <!-- Panel Line Pie -->
-      <div class="card card-shadow" id="chartLinePie">
-        <div class="card-block p-0">
-          <div class="bg-blue-600 white p-30">
-            <div class="font-size-20 clearfix">
-              <span class="avatar avatar-20"  >
-                <img alt="" src="<?= $selected->getAvatarPath() ?>">
-              </span>
-              Sets
-              <span class="float-right">
-                <?= $sets['count'] ?>
-              </span>
-            </div>
-            <div class="font-size-14 blue-200 clearfix">
-              Quality over match
-              <span class="float-right">Avg: <?= $sets['average'] ?></span>
-            </div>
-            <div class="ct-chart chart-line h-100" data-stats="<?= json_encode([$sets['evolution']]) ?>"></div>
-          </div>
-          <div class="p-30">
-            <div class="row no-space">
-              <div class="col-7">
-                <p class="mb-0">
-                  <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $sets['quality']['1']?>
-                </p>
-                <p class="mb-0">
-                  <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $sets['quality']['2']?>
-                </p>
-                <p class="mb-0">
-                  <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $sets['quality']['3']?>
-                </p>
-                <p class="mb-0">
-                  <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $sets['quality']['4']?>
-                </p>
-                <p class="mb-0">
-                  <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $sets['quality']['5']?>
-                </p>
-              </div>
-              <div class="col-5">
-                <div class="ct-chart chart-pie" data-stats="<?= json_encode($sets['quality']) ?>" style="height: 129px;">
-                  <div class="vertical-align text-center" style="height:100%; width:100%; position:absolute; left:0; top:0;">
-                    <div class="font-size-20  vertical-align-middle" style="line-height:1.1 ">
-                      <div><?= $sets['average'] ?></div>
-                      <div>AVG</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End Panel Line Pie -->
-    </div>
-
   <!-- Receptions -->
     <div class="col-xxl-3 col-lg-6 col-md-12">
       <!-- Panel Line Pie -->
@@ -349,6 +293,62 @@
            </div>
          </div>
        </div>
+      <!-- End Panel Line Pie -->
+    </div>
+
+    <div class="col-xxl-3 col-lg-6 col-md-12">
+      <!-- Panel Line Pie -->
+      <div class="card card-shadow" id="chartLinePie">
+        <div class="card-block p-0">
+          <div class="bg-blue-600 white p-30">
+            <div class="font-size-20 clearfix">
+              <span class="avatar avatar-20"  >
+                <img alt="" src="<?= $selected->getAvatarPath() ?>">
+              </span>
+              Sets
+              <span class="float-right">
+                <?= $sets['count'] ?>
+              </span>
+            </div>
+            <div class="font-size-14 blue-200 clearfix">
+              Quality over match
+              <span class="float-right">Avg: <?= $sets['average'] ?></span>
+            </div>
+            <div class="ct-chart chart-line h-100" data-stats="<?= json_encode([$sets['evolution']]) ?>"></div>
+          </div>
+          <div class="p-30">
+            <div class="row no-space">
+              <div class="col-7">
+                <p class="mb-0">
+                  <span class="icon wb-medium-point pink-600 mr-5"></span>Bad: <?= $sets['quality']['1']?>
+                </p>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point orange-600 mr-5"></span>Poor: <?= $sets['quality']['2']?>
+                </p>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point yellow-600 mr-5"></span>Medium: <?= $sets['quality']['3']?>
+                </p>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point cyan-600 mr-5"></span>Good: <?= $sets['quality']['4']?>
+                </p>
+                <p class="mb-0">
+                  <span class="icon wb-medium-point teal-600 mr-5"></span>Excellent: <?= $sets['quality']['5']?>
+                </p>
+              </div>
+              <div class="col-5">
+                <div class="ct-chart chart-pie" data-stats="<?= json_encode($sets['quality']) ?>" style="height: 129px;">
+                  <div class="vertical-align text-center" style="height:100%; width:100%; position:absolute; left:0; top:0;">
+                    <div class="font-size-20  vertical-align-middle" style="line-height:1.1 ">
+                      <div><?= $sets['average'] ?></div>
+                      <div>AVG</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- End Panel Line Pie -->
     </div>
 </div>
